@@ -1,0 +1,260 @@
+/* CSS Variables */
+/* متغيرات CSS */
+:root {
+    --primary-color: #FFD700;    /* Yellow | أصفر */
+    --secondary-color: #1a1a1a;  /* Light black | أسود فاتح */
+    --dark-bg: #111111;         /* Dark black | أسود داكن */
+    --text-light: #e0e0e0;      /* Light text | نص فاتح */
+    --text-gray: #999999;       /* Gray text | نص رمادي */
+    --success-color: #4CAF50;   /* Success green | أخضر النجاح */
+    --error-color: #f44336;     /* Error red | أحمر الخطأ */
+    --warning-color: #ff9800;   /* Warning orange | برتقالي التحذير */
+}
+
+/* Global Styles */
+/* الأنماط العامة */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+YY
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Table Styles */
+/* أنماط الجدول */
+.table-wrapper {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+th {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: rgba(255, 215, 0, 0.05);
+}
+
+/* Status Styles */
+/* أنماط الحالة */
+.status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-pending {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: var(--warning-color);
+    border: 1px solid var(--warning-color);
+}
+
+.status-accepted {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.status-rejected {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* Button Styles */
+/* أنماط الأزرار */
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn.accept {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn.reject {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Resume Link */
+/* رابط السيرة الذاتية */
+.resume-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.resume-link:hover {
+    text-decoration: underline;
+}
+
+.no-resume {
+    color: var(--text-gray);
+    font-style: italic;
+}
+
+/* Responsive Design */
+/* التصميم المتجاوب */
+@media (max-width: 1200px) {
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 1000px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-group strong {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.info-group span {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.info-group a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.info-group a:hover {
+    text-decoration: underline;
+}
+
+.team-preference {
+    background: rgba(255, 215, 0, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.expandable-content {
+    position: relative;
+    max-width: 200px;
+}
+
+.expandable-content .preview-text {
+    color: var(--text-gray);
+    font-size: 0.85rem;
+}
+
+.expandable-content .full-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--secondary-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    width: 300px;
+    color: var(--text-light);
+}
+
+.expandable-content.expanded .full-content {
+    display: block;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.expand-btn:hover {
+    text-decoration: underline;
+}
+
+.portfolio-link {
+    display: block;
+    margin-top: 5px;
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.portfolio-link:hover {
+    color: var(--primary-color);
+} 

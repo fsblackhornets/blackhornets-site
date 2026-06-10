@@ -1,0 +1,313 @@
+:root {
+    --primary-color: #FFD700;    /* ذهبي */
+    --secondary-color: #1a1a1a;  /* أسود فاتح */
+    --dark-bg: #111111;         /* أسود داكن */
+    --text-light: #e0e0e0;      /* نص فاتح */
+    --border-color: rgba(255, 215, 0, 0.2);
+}
+
+.project-details-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 2rem;
+    background: var(--dark-bg);
+    border-radius: 12px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.back-btn:hover {
+    background: var(--border-color);
+    transform: translateX(-5px);
+}
+
+.project-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.project-header h1 {
+    font-family: 'Michroma',sans-serif;
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--text-light);
+}
+
+.project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+}
+
+.project-gallery {
+    margin-bottom: 3rem;
+}
+
+.main-image {
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.thumbnail-grid img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.thumbnail-grid img:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.project-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.project-description h2 {
+    font-family: 'Michroma',sans-serif;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.project-description p,
+.project-description li {
+    color: var(--text-light);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.status-bar {
+    background: var(--secondary-color);
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.status-progress {
+    background: var(--primary-color);
+    height: 100%;
+    transition: width 1s ease;
+}
+
+.info-box {
+    background: var(--secondary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-tags span {
+    background: var(--dark-bg);
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+}
+
+.team-section {
+    margin-top: 3rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .project-details-container {
+        margin: 20px;
+        padding: 1.5rem;
+    }
+
+    .back-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .project-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .project-meta {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .project-meta span {
+        font-size: 0.9rem;
+    }
+
+    .main-image {
+        height: 300px;
+        margin-bottom: 0.8rem;
+    }
+
+    .thumbnail-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .thumbnail-grid img {
+        height: 100px;
+    }
+
+    .project-content {
+        gap: 1.5rem;
+    }
+
+    .project-description h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .project-description p,
+    .project-description li {
+        font-size: 0.95rem;
+    }
+
+    .info-box {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .tech-tags span {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .team-section {
+        margin-top: 2rem;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .team-member img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* تحسينات إضافية للشاشات الأصغر */
+@media (max-width: 480px) {
+    .project-details-container {
+        margin: 10px;
+        padding: 1rem;
+    }
+
+    .project-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .main-image {
+        height: 250px;
+    }
+
+    .thumbnail-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .thumbnail-grid img {
+        height: 80px;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-member img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .tech-tags {
+        justify-content: center;
+    }
+}
+
+/* تحسينات للأجهزة الصغيرة جداً */
+@media (max-width: 360px) {
+    .project-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .main-image {
+        height: 200px;
+    }
+
+    .thumbnail-grid img {
+        height: 70px;
+    }
+
+    .project-description h2 {
+        font-size: 1.3rem;
+    }
+} 

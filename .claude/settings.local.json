@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -v)",
+      "Read(//c//**)",
+      "Bash(\"C:/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe\" --version)",
+      "Bash(\"C:/xampp/mysql/bin/mysql.exe\" -u root -e \"SELECT VERSION\\(\\);\")",
+      "Bash(\"C:/xampp/mysql/bin/mysql.exe\" -u root -e \"CREATE DATABASE IF NOT EXISTS blackhornets CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; SHOW DATABASES LIKE ''blackhornets'';\")",
+      "Bash(\"C:/xampp/mysql/bin/mysql.exe\" -u root blackhornets -e \":*)",
+      "Bash(\"C:/xampp/php/php.exe\" -r \"echo password_hash\\(''admin123'', PASSWORD_DEFAULT\\);\")",
+      "Bash(cmd.exe /c mklink /D \"C:\\\\xampp\\\\htdocs\\\\blackhornets\" \"C:\\\\Users\\\\Dusan\\\\OneDrive\\\\Radna površina\\\\BMKZO_2\\\\FormulaTim\\\\fsproject-main\\\\fsproject-main\")",
+      "Bash(cmd.exe /c mklink /J \"C:\\\\xampp\\\\htdocs\\\\blackhornets\" \"C:\\\\Users\\\\Dusan\\\\OneDrive\\\\Radna površina\\\\BMKZO_2\\\\FormulaTim\\\\fsproject-main\\\\fsproject-main\")",
+      "Bash(powershell.exe -Command \"New-Item -ItemType Junction -Path ''C:\\\\xampp\\\\htdocs\\\\blackhornets'' -Target ''C:\\\\Users\\\\Dusan\\\\OneDrive\\\\Radna površina\\\\BMKZO_2\\\\FormulaTim\\\\fsproject-main\\\\fsproject-main''\")",
+      "Bash(\"C:/xampp/php/php.exe\" -r \":*)",
+      "Bash(\"C:/xampp/php/php.exe\" -r \"$conn = new mysqli\\(''localhost'', ''root'', '''', ''blackhornets''\\); if \\($conn->connect_error\\) { echo ''FAIL: '' . $conn->connect_error; } else { echo ''DB connection OK''; $r = $conn->query\\(''SHOW TABLES''\\); echo '' | Tables: '' . $r->num_rows; $conn->close\\(\\); }\")",
+      "Bash(\"C:/xampp/php/php.exe\" \"C:/xampp/htdocs/blackhornets/test_db.php\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/blackhornets/public/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/blackhornets/public/admin/login.php\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/blackhornets/public/api/sponsors/read.php\")",
+      "Bash(curl -s \"http://localhost/blackhornets/public/api/sponsors/read.php\")",
+      "Bash(for dir in \"public/uploads/blog\" \"public/uploads/blog-images\" \"public/uploads/gallery\" \"public/uploads/profiles\" \"public/uploads/projects\" \"public/uploads/reports\" \"public/uploads/resumes\" \"public/admin/uploads/gallery\" \"public/admin/uploads/projects\" \"public/admin/uploads/reports\" \"public/admin/uploads/sponsors\")",
+      "Bash(do)",
+      "Bash(full=\"C:/xampp/htdocs/blackhornets/$dir\")",
+      "Bash(if [ -d \"$full\" ])",
+      "Bash(then echo \"OK: $dir\")",
+      "Bash(else mkdir -p \"$full\")",
+      "Bash(echo \"CREATED: $dir\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(curl -s \"http://localhost/blackhornets/public/index.html\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://blackhornets.local/public/index.html\")",
+      "Bash(\"C:/xampp/apache/bin/httpd.exe\" -t)",
+      "Bash(\"C:/xampp/apache_stop.bat\")",
+      "Bash(\"C:/xampp/apache_start.bat\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://blackhornets.local/public/assets/css/style.css\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/blog.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/blog-post.html)",
+      "Bash(curl -s -o /dev/null -w \"HTTP Status: %{http_code}\\\\nSize: %{size_download} bytes\\\\n\" http://blackhornets.local/public/assets/css/login.css)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/gallery.html)"
+    ]
+  }
+}

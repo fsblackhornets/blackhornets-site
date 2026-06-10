@@ -1,0 +1,69 @@
+# Sensitive configuration files
+includes/db_connect.php
+config.php
+.env.php
+
+# Upload directories with user content
+uploads/*
+!uploads/.gitkeep
+uploads/blog-images/*
+!uploads/blog-images/.gitkeep
+uploads/cv/*
+!uploads/cv/.gitkeep
+uploads/gallery/*
+!uploads/gallery/.gitkeep
+uploads/profiles/*
+!uploads/profiles/.gitkeep
+uploads/projects/*
+!uploads/projects/.gitkeep
+uploads/reports/*
+!uploads/reports/.gitkeep
+uploads/resumes/*
+!uploads/resumes/.gitkeep
+uploads/sponsors/*
+!uploads/sponsors/.gitkeep
+
+# Error logs
+error_log
+*.log
+admin/error_log
+api/*/error_log
+includes/error_log
+includes/email_log.txt
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# PHP
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Node modules (if any)
+node_modules/
+
+# Composer
+vendor/
+composer.lock

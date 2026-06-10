@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/assets/images/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Galerija - Black Hornets Racing</title>
+    <meta name="description" content="Photo gallery of Black Hornets Racing - race cars, team moments, competitions, and workshop photos from our Formula Student journey.">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Black Hornets Racing">
+    <meta property="og:title" content="Gallery - Black Hornets Racing">
+    <meta property="og:description" content="Photo gallery of Black Hornets Racing - race cars, team moments, competitions, and workshop photos from our Formula Student journey.">
+    <meta property="og:url" content="https://fsblackhornets.org.rs/public/pages/gallery.html">
+    <meta property="og:image" content="https://fsblackhornets.org.rs/public/assets/images/favicon-512x512.png">
+    <link rel="canonical" href="https://fsblackhornets.org.rs/public/pages/gallery.html">
+    <link rel="stylesheet" href="/public/assets/css/header.css?v=1.2">
+    <link rel="stylesheet" href="/public/assets/css/style.css?v=1.2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/assets/css/gallery.css?v=1.2.1">
+    <link rel="stylesheet" href="/public/assets/css/footer.css?v=1.2.0">
+</head>
+<body>
+    
+    <!-- Header will be loaded dynamically -->
+    <header></header>
+
+    <!-- Hero Section -->
+    <section class="gallery-hero">
+        <div class="video-background">
+            <video autoplay muted loop playsinline id="galleryVideo">
+                <source src="/public/assets/videos/dd_compressed.webm" type="video/webm">
+                <source src="/public/assets/videos/dd_compressed.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="text-wrapper">
+                <h1 id="our-gallery">Naša Galerija</h1>
+                <p id="gallery-subtitle">Beležimo Naše Trkačko Putovanje</p>
+            </div>
+        </section>
+
+       <!-- Gallery Grid -->
+        <section class="gallery-container">
+            <!-- قسم سيارات السباق -->
+            <div class="gallery-section">
+                <h2 class="section-title">
+                    <i class="fas fa-car"></i>
+                    <span id="race-cars-title">Trkački Automobili</span>
+                </h2>
+                <p class="section-description" id="race-cars-desc">
+                    <span class="highlight">Black Hornets Racing</span> predstavlja naše najsavremenije Formula Student trkačke automobile. 
+                    Svako vozilo predstavlja bezbroj sati  <span class="highlight-secondary">inovacija</span>, 
+                    <span class="highlight-secondary">preciznog inženjeringa</span>, and 
+                    <span class="highlight-secondary">aerodinamičke izvrsnosti</span>.
+                </p>
+                <div class="grid" id="race-cars-grid">
+                    <!-- Images will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- قسم الفريق -->
+            <div class="gallery-section">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    <span id="team-section-title">Our Team</span>
+                </h2>
+                <p class="section-description" id="team-section-desc">
+                    Upoznajte <span class="highlight">strastvene umove</span> iza našeg uspeha. 
+                    Raznovrstan tim  <span class="highlight-secondary">inženjera</span>, 
+                    <span class="highlight-secondary">designers</span>, i 
+                    <span class="highlight-secondary">inovatora</span>  koji zajedno rade na postizanju izvrsnosti.
+                </p>
+                <div class="grid" id="team-grid">
+                    <!-- Images will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- قسم الفعاليات -->
+            <div class="gallery-section">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    <span id="events-title">Događaji i Takmičenja</span>
+                </h2>
+                <p class="section-description" id="events-desc">
+                 Svedočite našem <span class="highlight">competitive spirit</span> in action. 
+                    From <span class="highlight-secondary">Formula Student competitions</span> to 
+                    <span class="highlight-secondary">engineering showcases</span>, every event tells a story of determination.
+                </p>
+                <div class="grid" id="events-grid">
+                    <!-- Images will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- قسم ورشة العمل -->
+            <div class="gallery-section">
+                <h2 class="section-title">
+                    <i class="fas fa-tools"></i>
+                      <span id="workshop-title">Radionica</span>
+                </h2>
+                <p class="section-description" id="workshop-desc">
+                    Zakoračite u naše <span class="highlight">inženjersko utočište</span>. 
+                    Gde se <span class="highlight-secondary">ideje pretvaraju u stvarnost</span>, i 
+                    <span class="highlight-secondary">inovacije se susreću sa zanatstvom</span> u našem najsavremenijem objektu.
+                </p>
+                <div class="grid" id="workshop-grid">
+                    <!-- Images will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+    <!-- Gallery Detail Modal -->
+    <div id="galleryModal" class="gallery-modal">
+        <button class="modal-nav modal-prev" id="galleryModalPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="modal-nav modal-next" id="galleryModalNext"><i class="fas fa-chevron-right"></i></button>
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-body">
+                <div class="modal-image-section">
+                    <img id="galleryModalImage" src="" alt="">
+                </div>
+                <div class="modal-info-section">
+                    <h2 id="galleryModalTitle"></h2>
+                    <div class="modal-details">
+                        <p id="galleryModalCategory"><i class="fas fa-tag"></i> <span></span></p>
+                        <p id="galleryModalDate"><i class="fas fa-calendar-alt"></i> <span></span></p>
+                    </div>
+                    <div class="modal-description" id="galleryModalDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer will be loaded dynamically -->
+        <footer></footer>
+
+        <!-- Scripts -->
+        <script src="/public/assets/js/header-footer.js?v=1.4.0"></script>
+        <script src="/public/assets/js/gallery.js?v=1.2.1" defer></script>
+    </body>
+</html> 
