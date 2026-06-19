@@ -222,7 +222,7 @@
         
         // Function to load news
         function loadHomeNews() {
-        fetch('api/posts/read.php')
+        fetch('/backend/api/posts/read.php')
             .then(response => response.json())
             .then(data => {
                 const newsGrid = document.getElementById('newsGrid');
