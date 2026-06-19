@@ -42,7 +42,30 @@
       "Bash(cp -r \"/Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/commands/trello\" ~/.claude/commands/trello)",
       "Read(//Users/vukasinsavkovic/.claude/**)",
       "Read(//Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/workflows/**)",
-      "Read(//Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/agents/**)"
+      "Read(//Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/agents/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(k\\) for k in d.keys\\(\\)]\")",
+      "Read(//Users/vukasinsavkovic/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); mcp=d.get\\('mcpServers',{}\\); print\\(json.dumps\\(list\\(mcp.keys\\(\\)\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers',{}\\).get\\('trello',{}\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers',{}\\), indent=2\\)\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(mv /tmp/claude_updated.json /Users/vukasinsavkovic/.claude.json)",
+      "mcp__trello__getMyBoards",
+      "mcp__trello__addCard",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(k\\) for k in d.get\\('mcpServers',{}\\).keys\\(\\)]\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); mcp=d.get\\('mcpServers',{}\\); print\\(list\\(mcp.keys\\(\\)\\)\\)\")",
+      "Bash(python3 *)",
+      "Bash(curl -s \"https://api.trello.com/1/boards/6a354c84eeef6a889c52f93a/labels?key=35ec3aac1d048d7df19ef33bcc6f41ad&token=ATTA9ec9bf32a8e0d042af8cf8402e6daf91627c053d8821c611e219ab2520669fd2345E0658\")",
+      "Bash(curl -s -X POST 'https://api.trello.com/1/labels?key=35ec3aac1d048d7df19ef33bcc6f41ad&token=ATTA9ec9bf32a8e0d042af8cf8402e6daf91627c053d8821c611e219ab2520669fd2345E0658' -d 'name=Little+time&color=green&idBoard=6a354c84eeef6a889c52f93a')",
+      "mcp__trello__updateCard",
+      "Bash(curl -s -X POST 'https://api.trello.com/1/labels?key=35ec3aac1d048d7df19ef33bcc6f41ad&token=ATTA9ec9bf32a8e0d042af8cf8402e6daf91627c053d8821c611e219ab2520669fd2345E0658' -d 'name=Frontend&color=sky&idBoard=6a354c84eeef6a889c52f93a')",
+      "mcp__trello__getRecentActivity",
+      "mcp__trello__getLists",
+      "mcp__trello__getCardsByList",
+      "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" status)",
+      "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" diff --stat)",
+      "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" add .claude/settings.local.json .claude/snapshots/)",
+      "Bash(git -C '/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site' commit -m ' *)"
     ]
   }
 }
