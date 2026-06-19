@@ -2,7 +2,7 @@
 // Team update script based on Book1.xlsx data
 // Run via: http://localhost/blackhornets/update_team.php
 
-require_once __DIR__ . '/src/config/database.php';
+require_once __DIR__ . '/backend/config/database.php';
 $conn->set_charset('utf8mb4');
 
 // Helper to clean study field string
