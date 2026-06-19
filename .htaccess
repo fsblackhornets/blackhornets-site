@@ -8,8 +8,8 @@ Options -Indexes +FollowSymLinks
     # Block direct access to backend/ except api/
     RewriteRule ^backend/(?!api/) - [F,L]
 
-    # Root URL -> public/index.html
-    RewriteRule ^$ /frontend/index.html [L]
+    # Root URL -> pages/home.html
+    RewriteRule ^$ /frontend/pages/home/home.html [L]
 
     # Remove /fsbh/ from URL if present
     RewriteCond %{REQUEST_URI} ^/fsbh/(.*)$
@@ -37,9 +37,9 @@ Options -Indexes +FollowSymLinks
 Options -Indexes
 
 # Custom Error Pages
-ErrorDocument 404 /frontend/index.html
-ErrorDocument 403 /frontend/index.html
-ErrorDocument 500 /frontend/index.html
+ErrorDocument 404 /frontend/pages/home/home.html
+ErrorDocument 403 /frontend/pages/home/home.html
+ErrorDocument 500 /frontend/pages/home/home.html
 
 # Protect sensitive files (using FilesMatch instead of DirectoryMatch)
 <FilesMatch "^(database\.php|\.env|config\.php|\.gitignore|composer\.(json|lock)|package(-lock)?\.json)$">

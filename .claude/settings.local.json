@@ -69,7 +69,8 @@
       "Bash(git *)",
       "Bash(gh repo *)",
       "Bash(gh auth *)",
-      "Bash(mysql *)"
+      "Bash(mysql *)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

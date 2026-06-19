@@ -42,7 +42,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
             </button>
         </form>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="../index.html" id="backToHome" style="color: #ffd700; text-decoration: none;">
+            <a href="../pages/home/home.html" id="backToHome" style="color: #ffd700; text-decoration: none;">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </a>
         </div>

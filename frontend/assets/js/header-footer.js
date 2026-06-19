@@ -1321,7 +1321,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
 
-                        <a href="${getPagePath()}" class="nav-link">
+                        <a href="/frontend/pages/home/home.html" class="nav-link">
                             <i class="fas fa-home"></i>
                             <span>${translations[currentLanguage].home}</span>
                         </a>
@@ -1555,9 +1555,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
-            if (currentPath.includes(href) && href !== 'index.html') {
+            if (currentPath.includes(href) && href !== 'home.html') {
                 link.classList.add(CONFIG.classes.active);
-            } else if (currentPath.endsWith('/') && href === 'index.html') {
+            } else if (currentPath.endsWith('/') && href === 'home.html') {
                 link.classList.add(CONFIG.classes.active);
             }
         });

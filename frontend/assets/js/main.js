@@ -6,31 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const initAnimations = () => {
         gsap.registerPlugin(ScrollTrigger);
 
-        // تأثيرات أساسية فقط للموبايل
-        if (!isMobile) {
-            gsap.to('.global-racing-lines', {
-                backgroundPosition: '200% 200%',
-                ease: 'none',
-                duration: 20,
-                repeat: -1
-            });
-        }
-
-        // GSAP Animations
-        if (document.querySelector('.global-racing-lines')) {
-            gsap.to('.global-racing-lines', {
-                scrollTrigger: {
-                    trigger: '.global-racing-lines',
-                    start: 'top center',
-                    end: 'bottom center',
-                    toggleActions: 'play none none reverse'
-                },
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.out'
-            });
-        }
 
         // تحسين تأثيرات البطاقات
         const animateCards = () => {
