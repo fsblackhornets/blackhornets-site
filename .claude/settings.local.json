@@ -36,7 +36,13 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/blog.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/blog-post.html)",
       "Bash(curl -s -o /dev/null -w \"HTTP Status: %{http_code}\\\\nSize: %{size_download} bytes\\\\n\" http://blackhornets.local/public/assets/css/login.css)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/gallery.html)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{size_download}\" http://blackhornets.local/public/pages/gallery.html)",
+      "Bash(mkdir -p ~/.claude/commands)",
+      "Bash(cp -r \"/Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/commands/github\" ~/.claude/commands/github)",
+      "Bash(cp -r \"/Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/commands/trello\" ~/.claude/commands/trello)",
+      "Read(//Users/vukasinsavkovic/.claude/**)",
+      "Read(//Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/workflows/**)",
+      "Read(//Users/vukasinsavkovic/Documents/TRP/Rocket/.claude/agents/**)"
     ]
   }
 }
