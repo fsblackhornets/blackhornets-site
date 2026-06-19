@@ -1,4 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
+const HEADER_HOOKS = [
+    '/frontend/components/header/hooks/mobile-menu.js',
+    '/frontend/components/header/hooks/scroll.js',
+    '/frontend/components/header/hooks/navbar.js',
+];
+
+const loadHeaderHooks = () => Promise.all(
+    HEADER_HOOKS.map(src => new Promise(resolve => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = resolve;
+        document.head.appendChild(s);
+    }))
+);
+
+loadHeaderHooks().then(() => {
+document.addEventListener('DOMContentLoaded', () => {
     // Reading Progress Bar (global)
     if (!document.querySelector('.reading-progress')) {
         const progressBar = document.createElement('div');
@@ -1302,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="main-header">
                 <nav class="navbar">
                     <div class="nav-brand">
-                        <a href="${getPagePath()}">
+                        <a href="/frontend/pages/home/home.html">
                             <img src="${imagePath}W logo.png" alt="Black Hornets Logo" class="nav-logo">
                         </a>
                     </div>
@@ -1321,10 +1339,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
 
-                        <a href="/frontend/pages/home/home.html" class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span>${translations[currentLanguage].home}</span>
-                        </a>
                         <a href="${getPagePath()}pages/team.html" class="nav-link">
                             <i class="fas fa-users"></i>
                             <span>${translations[currentLanguage].team}</span>
@@ -1352,10 +1366,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     
                     <div class="nav-actions">
-                        <a href="${getPagePath()}admin/login.php" class="login-btn">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span>${translations[currentLanguage].login}</span>
-                        </a>
                         <a href="${getPagePath()}pages/apply.html" class="apply-btn">
                             <i class="fas fa-user-plus"></i>
                             <span>${translations[currentLanguage].applyNow}</span>
@@ -1386,9 +1396,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         header.innerHTML = headerContent;
-        setupMobileMenu();
-        setupHeaderScroll();
-        setActiveNavLink();
+        window.setupMobileMenu?.();
+        window.setupHeaderScroll?.();
+        window.setActiveNavLink?.();
     };
 
     const loadFooter = () => {
@@ -1512,56 +1522,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // تحسين التعامل مع القائمة المتنقلة
-    const setupMobileMenu = () => {
-        const mobileToggle = document.querySelector(CONFIG.selectors.mobileToggle);
-        const navLinks = document.querySelector(CONFIG.selectors.navLinks);
-        
-        if (mobileToggle && navLinks) {
-            mobileToggle.addEventListener('click', () => {
-                navLinks.classList.toggle(CONFIG.classes.active);
-                mobileToggle.classList.toggle(CONFIG.classes.active);
-            });
-
-            // إغلاق القائمة عند النقر على الروابط
-            const links = document.querySelectorAll(CONFIG.selectors.navLink);
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove(CONFIG.classes.active);
-                    mobileToggle.classList.remove(CONFIG.classes.active);
-                });
-            });
-        }
-    };
-
-    // تحسين سلوك الهيدر عند التمرير
-    const setupHeaderScroll = () => {
-        const header = document.querySelector('.main-header');
-        if (!header) return;
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add(CONFIG.classes.scrolled);
-            } else {
-                header.classList.remove(CONFIG.classes.scrolled);
-            }
-        }, { passive: true });
-    };
-
-    // تحديد الرابط النشط
-    const setActiveNavLink = () => {
-        const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll(CONFIG.selectors.navLink);
-
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (currentPath.includes(href) && href !== 'home.html') {
-                link.classList.add(CONFIG.classes.active);
-            } else if (currentPath.endsWith('/') && href === 'home.html') {
-                link.classList.add(CONFIG.classes.active);
-            }
-        });
-    };
 
     // بدء التحميل
     initComponents();
@@ -1574,9 +1534,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 10);
     
     // Ensure team page translations are applied after full page load
-    window.addEventListener('load', function() {
+    window.addEventListener('load', () => {
         if (window.updateTeamPageContent && document.querySelector('.department-box')) {
             window.updateTeamPageContent();
         }
     });
 });
+}); // end loadHeaderHooks
