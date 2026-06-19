@@ -65,7 +65,10 @@
       "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" status)",
       "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" diff --stat)",
       "Bash(git -C \"/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site\" add .claude/settings.local.json .claude/snapshots/)",
-      "Bash(git -C '/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site' commit -m ' *)"
+      "Bash(git -C '/Users/vukasinsavkovic/Documents/Formual Student/blackhornets-site' commit -m ' *)",
+      "Bash(git *)",
+      "Bash(gh repo *)",
+      "Bash(gh auth *)"
     ]
   }
 }
