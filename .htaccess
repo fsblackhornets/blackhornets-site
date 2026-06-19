@@ -5,24 +5,24 @@ Options -Indexes +FollowSymLinks
     RewriteEngine On
     RewriteBase /
 
-    # Block direct access to src/ directory
-    RewriteRule ^src(/|$) - [F,L]
+    # Block direct access to backend/ except api/
+    RewriteRule ^backend/(?!api/) - [F,L]
 
     # Root URL -> public/index.html
-    RewriteRule ^$ /public/index.html [L]
+    RewriteRule ^$ /frontend/index.html [L]
 
     # Remove /fsbh/ from URL if present
     RewriteCond %{REQUEST_URI} ^/fsbh/(.*)$
     RewriteRule ^fsbh/(.*)$ /$1 [R=301,L]
 
     # Redirect root to public folder
-    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_URI} !^/frontend/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /public/$1 [L]
+    RewriteRule ^(.*)$ /frontend/$1 [L]
 
-    # If accessing /public/ directly, keep it
-    RewriteCond %{REQUEST_URI} ^/public/
+    # If accessing /frontend/ directly, keep it
+    RewriteCond %{REQUEST_URI} ^/frontend/
     RewriteRule ^ - [L]
 </IfModule>
 
@@ -37,9 +37,9 @@ Options -Indexes +FollowSymLinks
 Options -Indexes
 
 # Custom Error Pages
-ErrorDocument 404 /public/index.html
-ErrorDocument 403 /public/index.html
-ErrorDocument 500 /public/index.html
+ErrorDocument 404 /frontend/index.html
+ErrorDocument 403 /frontend/index.html
+ErrorDocument 500 /frontend/index.html
 
 # Protect sensitive files (using FilesMatch instead of DirectoryMatch)
 <FilesMatch "^(database\.php|\.env|config\.php|\.gitignore|composer\.(json|lock)|package(-lock)?\.json)$">

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/frontend/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/frontend/assets/images/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Blog Post - Black Hornets Racing</title>
+    <link rel="stylesheet" href="../assets/css/style.css?v=1.2">
+    <link rel="stylesheet" href="../assets/css/header.css?v=1.2">
+    <link rel="stylesheet" href="../assets/css/add-post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Add New Blog Post</h1>
+        
+        <form id="addPostForm" class="post-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Events">Events</option>
+                    <option value="Competitions">Competitions</option>
+                    <option value="Team Updates">Team Updates</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="file-input-label">
+                    <i class="fas fa-upload"></i> Choose Featured Image
+                </label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <div id="imagePreview" class="image-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="10" required></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label>
+                    <input type="checkbox" name="featured" id="featured">
+                    Mark as Featured Post
+                </label>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-plus"></i> Add Post
+                </button>
+                <button type="button" class="btn-cancel" onclick="history.back()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../assets/js/header-footer.js"></script>
+    <script src="../assets/js/add-post.js"></script>
+    
+</body>
+</html> 

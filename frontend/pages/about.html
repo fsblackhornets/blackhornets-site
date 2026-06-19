@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/frontend/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/frontend/assets/images/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">About Us - Black Hornets Racing</title>
+    <meta name="description" content="Learn about Black Hornets Racing, a Formula Student team from Novi Sad. Our mission, history, and passion for motorsport engineering.">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Black Hornets Racing">
+    <meta property="og:title" content="About Us - Black Hornets Racing">
+    <meta property="og:description" content="Learn about Black Hornets Racing, a Formula Student team from Novi Sad. Our mission, history, and passion for motorsport engineering.">
+    <meta property="og:url" content="https://fsblackhornets.org.rs/frontend/pages/about.html">
+    <meta property="og:image" content="https://fsblackhornets.org.rs/frontend/assets/images/favicon-512x512.png">
+    <link rel="canonical" href="https://fsblackhornets.org.rs/frontend/pages/about.html">
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/frontend/assets/js/header-footer.js?v=1.4.0" as="script">
+    <link rel="preload" href="/frontend/assets/css/about.css?v=1.2" as="style">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/frontend/assets/css/header.css?v=1.2">
+    <link rel="stylesheet" href="/frontend/assets/css/style.css?v=1.2">
+    <link rel="stylesheet" href="/frontend/assets/css/about.css?v=1.2">
+    <link rel="stylesheet" href="/frontend/assets/css/footer.css?v=1.2.0">
+</head> 
+<body>
+    <!-- Header will be loaded dynamically -->
+    <header></header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="video-background">
+            <video autoplay muted loop playsinline id="myVideo">
+                <source src="/frontend/assets/videos/formula-red.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="text-wrapper">
+                <div class="title-container">
+                    <h1 class="glowing-text" id="about-heading">O Black Hornets</h1>
+                    <div class="underline"></div>
+                </div>
+                <p class="sliding-text" id="driving-innovation">Pokrećemo inovacije u studentskom trkanju.</p>
+                <div class="hero-badges">
+                    <div class="badge">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span id="speed-badge">Brzina</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-cog"></i>
+                        <span id="innovation-badge">Inovacija</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-star"></i>
+                        <span id="excellence-badge">Izvrsnost</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="container">
+            <div class="story-content">
+                <h2 id="our-story">Naša Priča</h2>
+                <p id="story-content">Black Hornets Racing je osnovan od strane grupe strastvenih studenata inženjerstva. Ono što je počelo kao mali projekat, danas je postalo jedan od najdinamičnijih timova Formula Student u regionu.</p>
+                <div class="story-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3 id="team-members-count">...</h3>
+                        <p id="team-members-label">Članovi Tima</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3 id="departments-count">...</h3>
+                        <p id="departments-label">Odeljenja</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-trophy"></i>
+                        <h3 id="awards-count">1+</h3>
+                        <p id="awards-label">Nagrade</p>
+                    </div>
+                </div>
+            </div>
+            <div class="story-image">
+                <img src="/frontend/assets/images/pexels-bertellifotografia-2467506.jpg" alt="Black Hornets Team">
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="mission-box">
+                <i class="fas fa-bullseye"></i>
+                <h2 id="our-mission"> Naša Misija</h2>
+                <p id="mission-content">Razvijati inovativna rešenja za trkanje, pružajući studentima strastvenim prema auto-moto sportu praktično inženjersko iskustvo.</p>
+            </div>
+            <div class="vision-box">
+                <i class="fas fa-eye"></i>
+                <h2 id="our-vision">Naša Vizija</h2>
+                <p id="vision-content">Postati vodeći Formula Student tim, poznat po tehničkim inovacijama i profesionalnom razvoju budućih inženjera.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Structure -->
+<section class="team-structure">
+    <div class="container">
+        <h2 id="our-departments">Naša Odeljenja</h2>
+        <div class="departments-grid">
+
+            <!-- Marketing -->
+            <div class="department-card">
+                <i class="fas fa-bullhorn" style="color: yellow;"></i>
+                <h3 id="marketing-title">Marketing</h3>
+                <p id="marketing-desc">Promocija tima, izrada sadržaja i vođenje društvenih mreža.</p>
+            </div>
+
+            <!-- Sponsorships -->
+            <div class="department-card">
+                <i class="fas fa-handshake" style="color: yellow;"></i>
+                <h3 id="sponsorships-title">Sponzorstva</h3>
+                <p id="sponsorships-desc">Komunikacija sa partnerima, pregovori i održavanje odnosa sa sponzorima.</p>
+            </div>
+
+            <!-- Management -->
+            <div class="department-card">
+                <i class="fas fa-users-cog" style="color: yellow;"></i>
+                <h3 id="management-title">Menadžment</h3>
+                <p id="management-desc">Organizacija tima, koordinacija projekata i upravljanje resursima.</p>
+            </div>
+
+            <!-- Chassis and Aerodynamics -->
+            <div class="department-card">
+                <i class="fas fa-car" style="color: yellow;"></i>
+                <h3 id="chassis-aero-title">Chassis and Aerodynamics</h3>
+                <p id="chassis-aero-desc">Chassis design, structural analysis, and aerodynamic optimization.</p>
+            </div>
+
+            <!-- Suspension and Steering -->
+            <div class="department-card">
+                <i class="fas fa-cog" style="color: yellow;"></i>
+                <h3 id="suspension-steering-title">Suspension and Steering</h3>
+                <p id="suspension-steering-desc">Suspension systems, steering geometry, and vehicle dynamics.</p>
+            </div>
+
+            <!-- Transmission and Braking -->
+            <div class="department-card">
+                <i class="fas fa-cogs" style="color: yellow;"></i>
+                <h3 id="transmission-braking-title">Transmission and Braking</h3>
+                <p id="transmission-braking-desc">Drivetrain components, braking systems, and power delivery.</p>
+            </div>
+
+            <!-- High Voltage -->
+            <div class="department-card">
+                <i class="fas fa-bolt" style="color: yellow;"></i>
+                <h3 id="high-voltage-title">High Voltage</h3>
+                <p id="high-voltage-desc">Battery systems, high voltage distribution, and energy management.</p>
+            </div>
+
+            <!-- Low Voltage -->
+            <div class="department-card">
+                <i class="fas fa-microchip" style="color: yellow;"></i>
+                <h3 id="low-voltage-title">Low Voltage</h3>
+                <p id="low-voltage-desc">Control electronics, sensors, CAN communication, and low voltage systems.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Join Us Section 
+    <section class="join-us">
+        <div class="container">
+            <h2 id="join-team">Join Our Team</h2>
+            <p id="join-team-desc">Are you passionate about racing and engineering? We're always looking for motivated students to join our team!</p>
+            <a href="apply.html" class="cta-button" id="get-involved">Get Involved</a>
+        </div>
+    </section>
+-->
+    <!-- Footer will be loaded dynamically -->
+    <footer></footer>
+
+    <!-- Scripts -->
+    <script src="/frontend/assets/js/header-footer.js?v=1.4.0"></script>
+    <script src="/frontend/assets/js/about.js" defer></script>
+</body>
+</html>     
