@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request: Add News Post</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+    <link rel="stylesheet" href="/frontend/manager/manager.css">
     <?php include __DIR__ . '/../_form-styles.php'; ?>
 </head>
 <body>
-<div class="dashboard-container">
+<div class="m-layout">
     <?php include __DIR__ . '/../_sidebar.php'; ?>
-    <main class="main-content">
+    <main class="m-main">
         <div class="page-header">
             <h1><i class="fas fa-newspaper"></i> Request: Add News Post</h1>
             <a href="../dashboard.php" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>

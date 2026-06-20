@@ -7,141 +7,134 @@ $manager_name = $_SESSION['full_name'] ?? 'Manager';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manager Dashboard - Black Hornets</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Manager Dashboard — Black Hornets</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
-    <style>
-        .manager-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .action-card {
-            background: var(--secondary-color);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            border-radius: 14px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-        .action-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
-            transform: translateY(-4px);
-        }
-        .action-card i {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-        }
-        .action-card h3 {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        .action-card p {
-            color: var(--text-gray);
-            font-size: 0.85rem;
-            margin: 0;
-        }
-        .requests-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        .requests-table th, .requests-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .requests-table th { color: var(--primary-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        .requests-table td { color: var(--text-light); font-size: 0.9rem; }
-        .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
-        .badge-pending  { background: rgba(255,179,0,0.15); color: #FFB300; }
-        .badge-approved { background: rgba(40,167,69,0.15); color: #5cb85c; }
-        .badge-declined { background: rgba(220,53,69,0.15); color: #e74c3c; }
-        .section-title { color: var(--primary-color); font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.5rem; }
-    </style>
+    <link rel="stylesheet" href="/frontend/manager/manager.css">
 </head>
 <body>
-<div class="dashboard-container">
-    <nav class="sidebar">
-        <div class="sidebar-brand">
-            <img src="/frontend/assets/images/W logo.png" alt="Logo" style="height:40px;">
-            <span>Manager</span>
+
+<!-- Topbar -->
+<header class="m-topbar">
+    <div class="m-topbar-brand">
+        <img src="/frontend/assets/images/W logo.png" alt="Black Hornets">
+        <span>Manager</span>
+    </div>
+    <div class="m-topbar-right">
+        <div class="m-topbar-user">
+            <i class="fas fa-user-circle"></i>
+            <?= htmlspecialchars($manager_name) ?>
         </div>
-        <ul class="sidebar-nav">
-            <li class="active"><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="pages/request-member.php"><i class="fas fa-user-plus"></i> Add Member</a></li>
-            <li><a href="pages/request-post.php"><i class="fas fa-newspaper"></i> Add News</a></li>
-            <li><a href="pages/request-project.php"><i class="fas fa-project-diagram"></i> Add Project</a></li>
-            <li><a href="pages/request-sponsor.php"><i class="fas fa-handshake"></i> Add Sponsor</a></li>
-            <li><a href="/frontend/admin/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
-    </nav>
+        <a href="/frontend/admin/logout.php" class="m-logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</header>
 
-    <main class="main-content">
-        <div class="page-header">
-            <h1>Welcome, <?= htmlspecialchars($manager_name) ?></h1>
-            <p style="color:var(--text-gray);margin-top:4px;">Submit content requests for admin approval</p>
-        </div>
+<div class="m-layout">
 
-        <div class="manager-grid">
-            <a href="pages/request-member.php" class="action-card">
-                <i class="fas fa-user-plus"></i>
-                <h3>Add Member</h3>
-                <p>Request adding a new team member to the database</p>
-            </a>
-            <a href="pages/request-post.php" class="action-card">
-                <i class="fas fa-newspaper"></i>
-                <h3>Add News Post</h3>
-                <p>Submit a news article for review and publication</p>
-            </a>
-            <a href="pages/request-project.php" class="action-card">
-                <i class="fas fa-project-diagram"></i>
-                <h3>Add Project</h3>
-                <p>Propose a new project to be listed on the site</p>
-            </a>
-            <a href="pages/request-sponsor.php" class="action-card">
-                <i class="fas fa-handshake"></i>
-                <h3>Add Sponsor</h3>
-                <p>Submit a new sponsor for admin approval</p>
-            </a>
-        </div>
-
-        <h2 class="section-title">My Requests</h2>
-
-        <div class="card">
-            <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
-                <select id="filterStatus" style="padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text-light);">
-                    <option value="all">All Statuses</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="declined">Declined</option>
-                </select>
-                <select id="filterType" style="padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text-light);">
-                    <option value="all">All Types</option>
-                    <option value="member">Member</option>
-                    <option value="post">Post</option>
-                    <option value="project">Project</option>
-                    <option value="sponsor">Sponsor</option>
-                </select>
+    <!-- Sidebar -->
+    <aside class="m-sidebar">
+        <div class="m-nav-section">
+            <span class="m-nav-label">Navigation</span>
+            <div class="m-nav-item active">
+                <a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a>
             </div>
-            <table class="requests-table">
+        </div>
+
+        <div class="m-nav-divider"></div>
+
+        <div class="m-nav-section">
+            <span class="m-nav-label">Submit Request</span>
+            <div class="m-nav-item">
+                <a href="pages/request-member.php"><i class="fas fa-user-plus"></i> Add Member</a>
+            </div>
+            <div class="m-nav-item">
+                <a href="pages/request-post.php"><i class="fas fa-newspaper"></i> Add News</a>
+            </div>
+            <div class="m-nav-item">
+                <a href="pages/request-project.php"><i class="fas fa-project-diagram"></i> Add Project</a>
+            </div>
+            <div class="m-nav-item">
+                <a href="pages/request-sponsor.php"><i class="fas fa-handshake"></i> Add Sponsor</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="m-main">
+
+        <!-- Hero -->
+        <div class="m-hero">
+            <img src="/frontend/assets/images/Tipografija_belo.png" alt="" class="m-hero-logo">
+            <div class="m-hero-eyebrow">Black Hornets Racing</div>
+            <h1>Welcome back, <span><?= htmlspecialchars($manager_name) ?></span></h1>
+            <p>Submit content requests — they go live after admin approval.</p>
+        </div>
+
+        <!-- Action cards -->
+        <div class="m-grid">
+            <a href="pages/request-member.php" class="m-card">
+                <div class="m-card-icon"><i class="fas fa-user-plus"></i></div>
+                <h3>Add Member</h3>
+                <p>Request a new team member</p>
+            </a>
+            <a href="pages/request-post.php" class="m-card">
+                <div class="m-card-icon"><i class="fas fa-newspaper"></i></div>
+                <h3>Add News</h3>
+                <p>Submit a news article</p>
+            </a>
+            <a href="pages/request-project.php" class="m-card">
+                <div class="m-card-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>Add Project</h3>
+                <p>Propose a new project</p>
+            </a>
+            <a href="pages/request-sponsor.php" class="m-card">
+                <div class="m-card-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Add Sponsor</h3>
+                <p>Submit a new sponsor</p>
+            </a>
+        </div>
+
+        <!-- Requests table -->
+        <div class="m-section-header">
+            <span class="m-section-title">My Requests</span>
+            <div class="m-section-line"></div>
+        </div>
+
+        <div class="m-filters">
+            <select id="filterStatus" class="m-select">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="declined">Declined</option>
+            </select>
+            <select id="filterType" class="m-select">
+                <option value="all">All Types</option>
+                <option value="member">Member</option>
+                <option value="post">Post</option>
+                <option value="project">Project</option>
+                <option value="sponsor">Sponsor</option>
+            </select>
+        </div>
+
+        <div class="m-table-wrap">
+            <table class="m-table">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Type</th>
                         <th>Summary</th>
                         <th>Status</th>
-                        <th>Submitted</th>
+                        <th>Date</th>
                         <th>Admin Notes</th>
                     </tr>
                 </thead>
                 <tbody id="requestsBody">
-                    <tr><td colspan="6" style="text-align:center;color:var(--text-gray);">Loading...</td></tr>
+                    <tr><td colspan="6" style="text-align:center;color:#555;padding:2rem;">Loading...</td></tr>
                 </tbody>
             </table>
         </div>
+
     </main>
 </div>
 
@@ -154,31 +147,23 @@ function loadRequests() {
         .then(data => {
             const tbody = document.getElementById('requestsBody');
             if (!data.success || !data.data.length) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-gray);">No requests found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#555;padding:2rem;">No requests yet</td></tr>';
                 return;
             }
+            const icons = { member:'user', post:'newspaper', project:'project-diagram', sponsor:'handshake' };
             tbody.innerHTML = data.data.map(req => {
                 const d = req.data;
-                const summary = req.type === 'member'  ? (d.full_name || '-')
-                              : req.type === 'post'    ? (d.title_sr || '-')
-                              : req.type === 'project' ? (d.name || '-')
-                              : req.type === 'sponsor' ? (d.name || '-') : '-';
-                const badge = `<span class="badge badge-${req.status}">${req.status}</span>`;
-                const date  = new Date(req.created_at).toLocaleDateString();
+                const summary = d.full_name || d.title_sr || d.name || '-';
                 return `<tr>
-                    <td>${req.id}</td>
-                    <td><i class="fas fa-${typeIcon(req.type)}"></i> ${req.type}</td>
+                    <td style="color:#555;">#${req.id}</td>
+                    <td><i class="fas fa-${icons[req.type]||'file'}" style="color:#FFD700;margin-right:6px;"></i>${req.type}</td>
                     <td>${summary}</td>
-                    <td>${badge}</td>
-                    <td>${date}</td>
-                    <td style="color:var(--text-gray);font-size:0.85rem;">${req.admin_notes || '-'}</td>
+                    <td><span class="badge badge-${req.status}">${req.status}</span></td>
+                    <td style="color:#555;">${new Date(req.created_at).toLocaleDateString()}</td>
+                    <td style="color:#555;font-size:0.85rem;">${req.admin_notes || '—'}</td>
                 </tr>`;
             }).join('');
         });
-}
-
-function typeIcon(t) {
-    return { member:'user', post:'newspaper', project:'project-diagram', sponsor:'handshake' }[t] || 'file';
 }
 
 document.getElementById('filterStatus').addEventListener('change', loadRequests);
