@@ -149,7 +149,7 @@ $manager_name = $_SESSION['full_name'] ?? 'Manager';
 function loadRequests() {
     const status = document.getElementById('filterStatus').value;
     const type   = document.getElementById('filterType').value;
-    fetch(`/backend/api/requests/read.php?status=${status}&type=${type}`)
+    fetch(`/backend/manager/read.php?status=${status}&type=${type}`)
         .then(r => r.json())
         .then(data => {
             const tbody = document.getElementById('requestsBody');

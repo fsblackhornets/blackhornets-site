@@ -9,7 +9,7 @@ require_once __DIR__ . '/../auth_check.php';
     <title>Content Requests - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <style>
         .filters { display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; }
         .filters select, .filters input { padding:8px 12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:var(--text-light); font-family:'Poppins',sans-serif; }
@@ -114,7 +114,7 @@ let currentRequestId = null;
 function loadRequests() {
     const status = document.getElementById('filterStatus').value;
     const type   = document.getElementById('filterType').value;
-    fetch(`/backend/api/requests/read.php?status=${status}&type=${type}`)
+    fetch(`/backend/manager/read.php?status=${status}&type=${type}`)
         .then(r => r.json())
         .then(data => {
             const pending = data.data?.filter(r => r.status === 'pending').length || 0;
@@ -180,7 +180,7 @@ async function submitReview(action) {
     if (!currentRequestId) return;
     const notes = document.getElementById('adminNotes').value.trim();
 
-    const res  = await fetch('/backend/api/requests/review.php', {
+    const res  = await fetch('/backend/manager/review.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: currentRequestId, action, notes })

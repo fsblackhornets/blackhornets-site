@@ -88,7 +88,7 @@ if ($postsResult && $postsResult->num_rows > 0) {
     <title><?= $editMode ? 'Edit Post' : 'Add New Post' ?> - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <style>
         .posts-page-container {
             background: rgba(30,30,30,0.95);

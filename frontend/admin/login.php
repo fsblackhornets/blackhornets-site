@@ -111,7 +111,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
         
         try {
             const formData = new FormData(this);
-            const response = await fetch('process_login.php', {
+            const response = await fetch('/backend/admin/process_login.php', {
                 method: 'POST',
                 body: formData
             });

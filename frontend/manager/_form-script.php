@@ -12,7 +12,7 @@ document.getElementById('requestForm').addEventListener('submit', async function
     const formData = new FormData(this);
 
     try {
-        const res  = await fetch('/backend/api/requests/create.php', { method: 'POST', body: formData });
+        const res  = await fetch('/backend/manager/create.php', { method: 'POST', body: formData });
         const data = await res.json();
 
         const alert = document.createElement('div');
