@@ -91,7 +91,7 @@ const loadHeader = () => {
                         <i class="fas fa-info-circle"></i>
                         <span>${t.about}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/projects.html" class="nav-link">
+                    <a href="${window.getPagePath()}pages/projects/projects.html" class="nav-link">
                         <i class="fas fa-project-diagram"></i>
                         <span>${t.projects}</span>
                     </a>

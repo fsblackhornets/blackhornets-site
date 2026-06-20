@@ -29,7 +29,7 @@ window.loadFooter = () => {
                 <h3>${t.quickLinks}</h3>
                 <div class="link-grid">
                     <a href="${basePath}pages/about.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.about}</a>
-                    <a href="${basePath}pages/projects.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.projects}</a>
+                    <a href="${basePath}pages/projects/projects.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.projects}</a>
                     <a href="${basePath}pages/team.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.team}</a>
                     <a href="${basePath}pages/gallery.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.gallery}</a>
                     <a href="${basePath}pages/sponsors.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.sponsors}</a>
