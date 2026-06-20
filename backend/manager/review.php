@@ -130,7 +130,7 @@ try {
             case 'project':
                 $progress = (int)($data['progress'] ?? 0);
                 $ins_proj = $conn->prepare("
-                    INSERT INTO projects (name, description, status, progress, due_date, duration, image_url, created_at)
+                    INSERT INTO projects (name, description, status, progress, due_date, duration, image, created_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
                 ");
                 $ins_proj->bind_param('sssisss',
@@ -143,14 +143,14 @@ try {
 
             case 'sponsor':
                 $ins_spon = $conn->prepare("
-                    INSERT INTO sponsors (name, tier, website, description, description_sr, description_en, logo, created_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+                    INSERT INTO sponsors (name, tier, website, description, description_en, logo, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, NOW())
                 ");
-                $desc = $data['description_sr'];
+                $desc = $data['description_sr'] ?? '';
                 $logo = $data['logo'] ?? '';
-                $ins_spon->bind_param('sssssss',
+                $ins_spon->bind_param('ssssss',
                     $data['name'], $data['tier'], $data['website'],
-                    $desc, $data['description_sr'], $data['description_en'], $logo
+                    $desc, $data['description_en'] ?? '', $logo
                 );
                 $ins_spon->execute();
                 $ins_spon->close();
