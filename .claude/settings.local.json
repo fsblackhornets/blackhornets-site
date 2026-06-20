@@ -71,7 +71,9 @@
       "Bash(gh auth *)",
       "Bash(mysql *)",
       "mcp__ide__getDiagnostics",
-      "Bash(xargs sed -i '' 's|assets/css/header\\\\.css?v=1\\\\.2|components/header/navbar.css|g; s|/frontend/assets/css/header\\\\.css?v=1\\\\.2|/frontend/components/header/navbar.css|g')"
+      "Bash(xargs sed -i '' 's|assets/css/header\\\\.css?v=1\\\\.2|components/header/navbar.css|g; s|/frontend/assets/css/header\\\\.css?v=1\\\\.2|/frontend/components/header/navbar.css|g')",
+      "Bash(xargs sed -i '' 's|/frontend/assets/css/footer\\\\.css[^\"]*|/frontend/components/footer/footer.css|g')",
+      "Bash(xargs -0 sed -i '' 's|/frontend/assets/css/footer\\\\.css[^\"]*|/frontend/components/footer/footer.css|g')"
     ]
   }
 }
