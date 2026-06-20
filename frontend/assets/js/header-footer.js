@@ -1,4 +1,5 @@
-// Created synchronously — always defined before any deferred/async script runs
+// Both created synchronously — always defined before any deferred/async script runs
+window.API = {};
 window.apiReady = new Promise(resolve => { window._resolveApiReady = resolve; });
 
 const GLOBAL_SCRIPTS = [
