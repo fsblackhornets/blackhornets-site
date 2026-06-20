@@ -4,6 +4,7 @@ window.loadProjects = async () => {
     if (!projectsContainer) return;
 
     try {
+        await window.apiReady;
         const data = await window.API.projects.getAll();
 
         if (data.success && data.data.length > 0) {
