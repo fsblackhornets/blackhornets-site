@@ -156,6 +156,7 @@
 
     async function fetchTeamMembers() {
         try {
+            await window.apiReady;
             const data = await window.API.team.getAll();
 
             if (data.success) {

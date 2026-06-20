@@ -111,6 +111,7 @@ function setupSearch() {
 // تحميل تصنيفات المدونة
 async function loadCategories() {
     try {
+        await window.apiReady;
         const data = await window.API.posts.getCategories();
         
         if (data.status === 'success') {
@@ -152,6 +153,7 @@ function setupNewsletter() {
         const email = this.querySelector('input').value.trim();
         
         try {
+            await window.apiReady;
             const data = await window.API.newsletter.subscribe({ email });
             alert(data.message);
             

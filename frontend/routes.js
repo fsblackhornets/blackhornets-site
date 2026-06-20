@@ -1,6 +1,6 @@
 window.ROUTES = {
     home:           '/frontend/pages/home/home.html',
-    team:           '/frontend/pages/team/team.html',
+    team:           '/frontend/pages/team.html',
     about:          '/frontend/pages/about.html',
     projects:       '/frontend/pages/projects/projects.html',
     gallery:        '/frontend/pages/gallery.html',

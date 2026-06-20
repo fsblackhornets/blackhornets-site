@@ -22,6 +22,7 @@ const ENDPOINTS = [
     '/frontend/api/endpoints/newsletter.js',
 ];
 
-window.apiReady = _load(AXIOS_CDN)
+_load(AXIOS_CDN)
     .then(() => _load('/frontend/api/client.js'))
-    .then(() => _loadAll(ENDPOINTS));
+    .then(() => _loadAll(ENDPOINTS))
+    .then(() => window._resolveApiReady?.());

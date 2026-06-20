@@ -1,3 +1,6 @@
+// Created synchronously — always defined before any deferred/async script runs
+window.apiReady = new Promise(resolve => { window._resolveApiReady = resolve; });
+
 const GLOBAL_SCRIPTS = [
     '/frontend/routes.js',
     '/frontend/api/router.js',
