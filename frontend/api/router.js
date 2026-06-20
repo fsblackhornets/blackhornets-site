@@ -20,4 +20,4 @@ const ENDPOINTS = [
     '/frontend/api/endpoints/newsletter.js',
 ];
 
-_load('/frontend/api/client.js').then(() => _loadAll(ENDPOINTS));
+window.apiReady = _load('/frontend/api/client.js').then(() => _loadAll(ENDPOINTS));

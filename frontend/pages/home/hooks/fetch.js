@@ -1,5 +1,5 @@
 window.loadHomeNews = () => {
-    window.API.posts.getAll()
+    (window.apiReady || Promise.resolve()).then(() => window.API.posts.getAll())
         .then(data => {
             const newsGrid = document.getElementById('newsGrid');
             newsGrid.innerHTML = '';

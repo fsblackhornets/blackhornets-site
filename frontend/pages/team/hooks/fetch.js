@@ -9,6 +9,7 @@ window.showApiError = (message) => {
 
 window.fetchTeamMembers = async () => {
     try {
+        await window.apiReady;
         const data = await window.API.team.getAll();
 
         if (data.success) {
