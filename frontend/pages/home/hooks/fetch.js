@@ -1,5 +1,6 @@
-window.loadHomeNews = () => {
-    (window.apiReady || Promise.resolve()).then(() => window.API.posts.getAll())
+window.loadHomeNews = async () => {
+    await window.apiReady;
+    window.API.posts.getAll()
         .then(data => {
             const newsGrid = document.getElementById('newsGrid');
             newsGrid.innerHTML = '';

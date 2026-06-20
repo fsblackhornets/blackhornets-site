@@ -134,6 +134,7 @@ async function loadSponsors() {
     };
     
     try {
+        await window.apiReady;
         const data = await window.API.sponsors.getAll();
         
         const sponsorsContainer = document.getElementById('sponsors-container');
@@ -340,6 +341,7 @@ async function loadBrochure() {
     const lang = getBrochureLang();
 
     try {
+        await window.apiReady;
         const data = await window.API.brochure.get(lang);
 
         if (!data.success || !data.data || !data.data.pdf_url) {
