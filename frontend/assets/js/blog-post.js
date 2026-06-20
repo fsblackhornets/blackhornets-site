@@ -122,8 +122,7 @@ function renderPost(post) {
 }
 
 function renderRelatedPosts(currentId) {
-    fetch('/backend/api/posts/read.php')
-        .then(res => res.json())
+    window.API.posts.getAll()
         .then(data => {
             if (data.status !== 'success' || !Array.isArray(data.data)) return;
             const posts = data.data.filter(p => String(p.id) !== String(currentId));

@@ -1,3 +1,8 @@
+const GLOBAL_SCRIPTS = [
+    '/frontend/routes.js',
+    '/frontend/api/router.js',
+];
+
 const HEADER_HELPERS = [
     '/frontend/components/header/helpers/mobile-menu.js',
     '/frontend/components/header/helpers/scroll.js',
@@ -64,7 +69,7 @@ const loadHeader = () => {
         <div class="main-header">
             <nav class="navbar">
                 <div class="nav-brand">
-                    <a href="/frontend/pages/home/home.html">
+                    <a href="${window.ROUTES.home}">
                         <img src="${imagePath}W logo.png" alt="Black Hornets Logo" class="nav-logo">
                     </a>
                 </div>
@@ -83,34 +88,34 @@ const loadHeader = () => {
                         </button>
                     </div>
 
-                    <a href="${window.getPagePath()}pages/team.html" class="nav-link">
+                    <a href="${window.ROUTES.team}" class="nav-link">
                         <i class="fas fa-users"></i>
                         <span>${t.team}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/about.html" class="nav-link">
+                    <a href="${window.ROUTES.about}" class="nav-link">
                         <i class="fas fa-info-circle"></i>
                         <span>${t.about}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/projects/projects.html" class="nav-link">
+                    <a href="${window.ROUTES.projects}" class="nav-link">
                         <i class="fas fa-project-diagram"></i>
                         <span>${t.projects}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/gallery.html" class="nav-link">
+                    <a href="${window.ROUTES.gallery}" class="nav-link">
                         <i class="fas fa-images"></i>
                         <span>${t.gallery}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/sponsors.html" class="nav-link">
+                    <a href="${window.ROUTES.sponsors}" class="nav-link">
                         <i class="fas fa-handshake"></i>
                         <span>${t.sponsors}</span>
                     </a>
-                    <a href="${window.getPagePath()}pages/contact.html" class="nav-link">
+                    <a href="${window.ROUTES.contact}" class="nav-link">
                         <i class="fas fa-envelope"></i>
                         <span>${t.contact}</span>
                     </a>
                 </div>
 
                 <div class="nav-actions">
-                    <a href="${window.getPagePath()}pages/apply.html" class="apply-btn">
+                    <a href="${window.ROUTES.apply}" class="apply-btn">
                         <i class="fas fa-user-plus"></i>
                         <span>${t.applyNow}</span>
                     </a>
@@ -146,7 +151,8 @@ const loadHeader = () => {
 window.loadHeader = loadHeader;
 
 document.addEventListener('DOMContentLoaded', () => {
-    Promise.all([loadScripts(HEADER_HELPERS), loadScripts(FOOTER_HELPERS), loadScripts(TRANSLATION_HELPERS)]).then(() => {
+    loadScripts(GLOBAL_SCRIPTS).then(() =>
+    Promise.all([loadScripts(HEADER_HELPERS), loadScripts(FOOTER_HELPERS), loadScripts(TRANSLATION_HELPERS)])).then(() => {
         // Reading Progress Bar (global)
         if (!document.querySelector('.reading-progress')) {
             const progressBar = document.createElement('div');

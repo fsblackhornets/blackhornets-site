@@ -5,8 +5,8 @@ window.loadFooter = () => {
     footer.classList.add('footer');
 
     const imagePath = window.getImagePath?.();
-    const basePath = window.getPagePath?.();
     const t = window.getTranslations?.();
+    const r = window.ROUTES;
 
     footer.innerHTML = `
         <div class="footer-waves">
@@ -28,12 +28,12 @@ window.loadFooter = () => {
             <div class="footer-section links">
                 <h3>${t.quickLinks}</h3>
                 <div class="link-grid">
-                    <a href="${basePath}pages/about.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.about}</a>
-                    <a href="${basePath}pages/projects/projects.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.projects}</a>
-                    <a href="${basePath}pages/team.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.team}</a>
-                    <a href="${basePath}pages/gallery.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.gallery}</a>
-                    <a href="${basePath}pages/sponsors.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.sponsors}</a>
-                    <a href="${basePath}pages/contact.html" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.contact}</a>
+                    <a href="${r.about}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.about}</a>
+                    <a href="${r.projects}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.projects}</a>
+                    <a href="${r.team}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.team}</a>
+                    <a href="${r.gallery}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.gallery}</a>
+                    <a href="${r.sponsors}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.sponsors}</a>
+                    <a href="${r.contact}" class="footer-link"><i class="fas fa-chevron-right"></i> ${t.contact}</a>
                 </div>
             </div>
 

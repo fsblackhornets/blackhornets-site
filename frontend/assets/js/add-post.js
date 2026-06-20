@@ -10,11 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // إذا كان هناك حقل id مخفي أرسله (وضع التعديل)
         const isEdit = !!form.querySelector('input[name="id"]');
 
-        fetch('/backend/api/posts/create.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
+        window.API.posts.create(formData)
         .then(data => {
             if (data.status === 'success') {
                 window.location.href = 'add-edit-post.php?msg=' + encodeURIComponent(isEdit ? 'Post updated successfully!' : 'Post added successfully!');

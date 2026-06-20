@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch team members count
     async function fetchTeamMembersCount() {
         try {
-            const response = await fetch('/backend/api/team/read.php');
-            const data = await response.json();
+            const data = await window.API.team.getAll();
             if (data.success && data.members) {
                 const totalMembers = data.members.length;
                 const teamMembersCountEl = document.getElementById('team-members-count');
