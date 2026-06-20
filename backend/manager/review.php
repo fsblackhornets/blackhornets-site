@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 if ($_SESSION['role'] !== 'admin') {
     http_response_code(403);
