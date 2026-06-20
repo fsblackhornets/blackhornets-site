@@ -130,11 +130,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
 }
+
 
 .project-leaders-container {
     display: flex;
@@ -145,11 +147,6 @@
     flex-wrap: wrap;
 }
 
-.project-leaders-container .leader-position {
-    flex: 0 1 320px;
-    max-width: 350px;
-}
-
 .leader-position {
     display: flex;
     flex-direction: column;
@@ -158,40 +155,49 @@
     perspective: 1000px;
 }
 
+.project-leaders-container .leader-position {
+    flex: 0 1 320px;
+    max-width: 350px;
+}
+
 .vertical-line {
     width: 2px;
     height: 50px;
-    background: linear-gradient(to bottom, var(--yellow-racing) 0%, rgba(255, 179, 0, 0.2) 100%);
+    background: linear-gradient(to bottom, var(--yellow-racing) 0%, rgba(255, 179, 0, 0.3) 100%);
     margin: 0;
     position: relative;
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.4);
 }
 
 .vertical-line::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -4px;
     left: 50%;
     transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     background-color: var(--yellow-racing);
     border-radius: 50%;
+    box-shadow: 0 0 8px var(--yellow-racing), 0 0 14px rgba(255, 179, 0, 0.5);
 }
 
 /* ====== Org Chart Connections ====== */
 .hierarchy-branch {
     width: 70%;
     height: 2px;
-    background: linear-gradient(90deg, rgba(255, 179, 0, 0.2), var(--yellow-racing), rgba(255, 179, 0, 0.2));
+    background: linear-gradient(90deg, rgba(255, 179, 0, 0.15), var(--yellow-racing) 30%, var(--yellow-racing) 70%, rgba(255, 179, 0, 0.15));
     position: relative;
     margin-top: 0;
+    box-shadow: 0 0 10px rgba(255, 179, 0, 0.35);
 }
+
 
 .sectors-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 3rem;
     width: 100%;
     flex-wrap: nowrap;
     margin-top: 0;
@@ -210,22 +216,54 @@
     width: 2px;
     height: 30px;
     background: linear-gradient(to bottom, var(--yellow-racing), rgba(255, 179, 0, 0.4));
+    position: relative;
+}
+
+.sector-drop::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--yellow-racing);
+    box-shadow: 0 0 8px var(--yellow-racing);
 }
 
 /* Sector-specific drop colors */
 .sector-column.mechanical .sector-drop,
 .sector-column.mechanical .vertical-line {
     background: linear-gradient(to bottom, #4CAF50, rgba(76, 175, 80, 0.2));
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.35);
 }
 
 .sector-column.electrical .sector-drop,
 .sector-column.electrical .vertical-line {
     background: linear-gradient(to bottom, #2196F3, rgba(33, 150, 243, 0.2));
+    box-shadow: 0 0 8px rgba(33, 150, 243, 0.35);
 }
 
 .sector-column.operating-business .sector-drop,
 .sector-column.operating-business .vertical-line {
     background: linear-gradient(to bottom, #FFB300, rgba(255, 179, 0, 0.2));
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.35);
+}
+
+.sector-column.mechanical .sector-drop::before {
+    background: #4CAF50;
+    box-shadow: 0 0 8px #4CAF50;
+}
+
+.sector-column.electrical .sector-drop::before {
+    background: #2196F3;
+    box-shadow: 0 0 8px #2196F3;
+}
+
+.sector-column.operating-business .sector-drop::before {
+    background: #FFB300;
+    box-shadow: 0 0 8px #FFB300;
 }
 
 .sector-column .vertical-line::after {
@@ -239,16 +277,51 @@
     position: relative;
 }
 
+.sub-branch::before,
+.sub-branch::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.sub-branch::before { left: 0; }
+.sub-branch::after  { right: 0; }
+
 .sector-column.mechanical .sub-branch {
     background: linear-gradient(90deg, rgba(76, 175, 80, 0.2), #4CAF50, rgba(76, 175, 80, 0.2));
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.sector-column.mechanical .sub-branch::before,
+.sector-column.mechanical .sub-branch::after {
+    background: #4CAF50;
+    box-shadow: 0 0 6px #4CAF50;
 }
 
 .sector-column.electrical .sub-branch {
     background: linear-gradient(90deg, rgba(33, 150, 243, 0.2), #2196F3, rgba(33, 150, 243, 0.2));
+    box-shadow: 0 0 8px rgba(33, 150, 243, 0.3);
+}
+
+.sector-column.electrical .sub-branch::before,
+.sector-column.electrical .sub-branch::after {
+    background: #2196F3;
+    box-shadow: 0 0 6px #2196F3;
 }
 
 .sector-column.operating-business .sub-branch {
     background: linear-gradient(90deg, rgba(255, 179, 0, 0.2), #FFB300, rgba(255, 179, 0, 0.2));
+    box-shadow: 0 0 8px rgba(255, 179, 0, 0.3);
+}
+
+.sector-column.operating-business .sub-branch::before,
+.sector-column.operating-business .sub-branch::after {
+    background: #FFB300;
+    box-shadow: 0 0 6px #FFB300;
 }
 
 /* Subteams row */
@@ -269,18 +342,22 @@
 .subteam-drop {
     width: 2px;
     height: 20px;
+    position: relative;
 }
 
 .sector-column.mechanical .subteam-drop {
     background: linear-gradient(to bottom, #4CAF50, rgba(76, 175, 80, 0.3));
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
 }
 
 .sector-column.electrical .subteam-drop {
     background: linear-gradient(to bottom, #2196F3, rgba(33, 150, 243, 0.3));
+    box-shadow: 0 0 6px rgba(33, 150, 243, 0.3);
 }
 
 .sector-column.operating-business .subteam-drop {
     background: linear-gradient(to bottom, #FFB300, rgba(255, 179, 0, 0.3));
+    box-shadow: 0 0 6px rgba(255, 179, 0, 0.3);
 }
 
 /* Subteam box */
@@ -351,15 +428,8 @@
     margin-bottom: 0;
 }
 
-.sector-column .vertical-line {
-    height: 30px;
-}
-
-/* Sector "See Team" button */
-.sector-column .see-team-btn {
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    padding: 0.5rem 1.2rem;
+.subteams-row {
+    margin-top: 1.2rem;
 }
 
 /* ====== Member Cards ====== */
@@ -370,6 +440,7 @@
     margin: 0;
     flex: 0 0 auto;
     cursor: pointer;
+    border-radius: 14px;
 }
 
 .card-inner {
@@ -395,7 +466,23 @@
     border-radius: 14px;
     overflow: hidden;
     background: #1a1a1a;
-    border: 2px solid rgba(255, 179, 0, 0.4);
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    transition: border-color 0.35s ease;
+}
+
+.team--mechanical .card-front,
+.team--mechanical .card-back {
+    border-color: rgba(76, 175, 80, 0.35);
+}
+
+.team--electrical .card-front,
+.team--electrical .card-back {
+    border-color: rgba(33, 150, 243, 0.35);
+}
+
+.team--business .card-front,
+.team--business .card-back {
+    border-color: rgba(255, 179, 0, 0.35);
 }
 
 .card-front {
@@ -446,6 +533,11 @@
     line-height: 1.2;
 }
 
+.position {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .member-info .position {
     color: #ccc;
     font-size: 0.88rem;
@@ -480,6 +572,11 @@
     gap: 6px;
 }
 
+.empty-message i {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
 .card-back .info-label i {
     font-size: 0.85rem;
 }
@@ -492,53 +589,26 @@
 }
 
 /* ====== Leader Card Styles ====== */
-.project-leader-card {
-    border: 2px solid #8A2BE2 !important;
-    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2) !important;
+
+.project-leader-card .position { color: var(--yellow-racing); }
+.team-leader-card .position    { color: var(--yellow-bright); }
+.sub-leader-card .position     { color: var(--yellow-bright); }
+
+/* Hover glow — driven by team class from DB */
+.team--mechanical.member-card:hover {
+    box-shadow: 0 0 22px rgba(76, 175, 80, 0.45), 0 0 50px rgba(76, 175, 80, 0.12);
 }
 
-.project-leader-card .card-front {
-    background: linear-gradient(to right, rgba(138, 43, 226, 0.15), #1a1a1a);
+.team--electrical.member-card:hover {
+    box-shadow: 0 0 22px rgba(33, 150, 243, 0.45), 0 0 50px rgba(33, 150, 243, 0.12);
 }
 
-.team-leader-card {
-    border: 2px solid #1E90FF !important;
-    box-shadow: 0 5px 15px rgba(30, 144, 255, 0.2) !important;
+.team--business.member-card:hover {
+    box-shadow: 0 0 22px rgba(255, 179, 0, 0.45), 0 0 50px rgba(255, 179, 0, 0.12);
 }
 
-.team-leader-card .card-front {
-    background: linear-gradient(to right, rgba(30, 144, 255, 0.15), #1a1a1a);
-}
-
-.position {
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.project-leader-card .position {
-    color: #8A2BE2 !important;
-}
-
-.team-leader-card .position {
-    color: #1E90FF !important;
-}
-
-.sub-leader-card .position {
-    color: #FFD700 !important;
-}
-
-/* Business Project Leader card (when same person as Team Leader) */
-.business-pl-card {
-    border: 2px solid #FFB300 !important;
-    box-shadow: 0 5px 15px rgba(255, 179, 0, 0.2) !important;
-}
-
-.business-pl-card .card-front {
-    background: linear-gradient(to right, rgba(255, 179, 0, 0.15), #1a1a1a);
-}
-
-.business-pl-card .position {
-    color: #FFB300 !important;
+.team-leader-card:hover {
+    box-shadow: 0 0 22px rgba(255, 215, 0, 0.45), 0 0 50px rgba(255, 215, 0, 0.12);
 }
 
 /* ====== Org Structure / Departments ====== */
@@ -730,9 +800,19 @@
     box-shadow: 0 2px 10px rgba(255, 179, 0, 0.3);
 }
 
+.sector-column .see-team-btn {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    padding: 0.5rem 1.2rem;
+}
+
 /* ====== Department Members View ====== */
 .department-members-view {
-    padding: 2rem;
+    padding: 2rem 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .back-container {
@@ -820,17 +900,17 @@
 .sub-leader-container .member-card {
     transform: scale(1.05);
     z-index: 2;
-    border: 2px solid var(--yellow-bright) !important;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3) !important;
+    border: 2px solid var(--yellow-bright);
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
     max-width: 280px;
 }
 
 .sub-leader-container .card-front {
-    background: linear-gradient(to bottom, rgba(255, 215, 0, 0.08), #1a1a1a) !important;
+    background: linear-gradient(to bottom, rgba(255, 215, 0, 0.08), #1a1a1a);
 }
 
 .sub-leader-container .position {
-    color: var(--yellow-bright) !important;
+    color: var(--yellow-bright);
     font-weight: bold;
 }
 
@@ -869,11 +949,6 @@
     align-items: center;
     gap: 1rem;
     color: #888;
-}
-
-.empty-message i {
-    font-size: 3rem;
-    opacity: 0.5;
 }
 
 .empty-message p {
@@ -1190,7 +1265,7 @@
     .department-box:active { transform: scale(0.98); }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (min-resolution: 192dpi) {
     .member-image img {
         image-rendering: -webkit-optimize-contrast;
     }
@@ -1198,5 +1273,5 @@
 
 @media (pointer: coarse) {
     .card-inner { transition: transform 0.4s; }
-    .sub-departments span { transition: transform 0.2s; }
+    .department-box .sub-departments span { transition: transform 0.2s; }
 }

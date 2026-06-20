@@ -1,0 +1,162 @@
+const DEPARTMENT_MAPPING = {
+    'Marketing':               'Marketing',
+    'Sponsorships':            'Sponsorships',
+    'Sponzorstva':             'Sponsorships',
+    'Management':              'Management',
+    'Menadžment':              'Management',
+    'Chassis and Aerodynamics': 'Chassis and Aerodynamics',
+    'Šasije i aerodinamika':   'Chassis and Aerodynamics',
+    'Suspension and Steering': 'Suspension and Steering',
+    'Oslanjanje i upravljanje': 'Suspension and Steering',
+    'Transmission and Braking': 'Transmission and Braking',
+    'Transmisija i kočenje':   'Transmission and Braking',
+    'High Voltage':            'High Voltage',
+    'Visoki napon':            'High Voltage',
+    'Low Voltage':             'Low Voltage',
+    'Niski napon':             'Low Voltage',
+};
+
+window.clearActiveStates = () => {
+    document.querySelectorAll('.department-box').forEach(box => { box.classList.remove('active'); });
+};
+
+window.showError = (message) => {
+    const membersGrid = document.querySelector('.members-grid');
+    if (!membersGrid) return;
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    membersGrid.innerHTML = '';
+    membersGrid.appendChild(errorDiv);
+};
+
+window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = false) => {
+    const actualTeam = team === 'bot' ? 'operating_business' : team;
+    const teamStructure = window.getTeamStructure();
+    const teamData = teamStructure[actualTeam];
+    const t = window.getTranslations?.() || {};
+    const membersGrid = document.querySelector('.members-grid');
+    const departmentView = document.querySelector('.department-members-view');
+
+    if (!teamData) { window.showError(`Team not found: ${actualTeam}`); return; }
+
+    window.currentViewTeam = actualTeam;
+    window.currentViewDepartmentEnglish = specificDepartment
+        ? (DEPARTMENT_MAPPING[specificDepartment] || specificDepartment)
+        : null;
+
+    membersGrid.innerHTML = '';
+    membersGrid.style.display = 'block';
+    departmentView.style.display = 'block';
+
+    if (!skipScroll) {
+        setTimeout(() => departmentView.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+
+    const teamMembers = (window.allTeamMembers || []).filter(m => m.team === actualTeam);
+
+    const teamHeader = document.createElement('div');
+    teamHeader.className = 'team-header';
+    teamHeader.innerHTML = `<h2 class="team-title">${teamData.name}</h2>`;
+    if (specificDepartment) {
+        teamHeader.innerHTML += `<h3 class="department-title">${specificDepartment}</h3>`;
+    }
+    membersGrid.appendChild(teamHeader);
+
+    let departmentMembers;
+    if (specificDepartment) {
+        const englishDept = DEPARTMENT_MAPPING[specificDepartment] || specificDepartment;
+        departmentMembers = teamMembers.filter(m => {
+            const dept = m.department_name || m.department;
+            return dept && dept.toLowerCase() === englishDept.toLowerCase();
+        });
+    } else {
+        departmentMembers = teamMembers;
+    }
+
+    if (departmentMembers.length > 0) {
+        const deptSection = document.createElement('div');
+        deptSection.className = 'department-section';
+
+        deptSection.innerHTML = specificDepartment
+            ? `<h3 class="department-title">${specificDepartment}</h3>`
+            : `<h3 class="department-title">${t.allMembers || 'All Members'} - ${teamData.name}</h3>`;
+
+        const subLeader = departmentMembers.find(m => m.role === 'sub_leader');
+        const regularMembers = departmentMembers.filter(m => m.role !== 'sub_leader');
+
+        if (subLeader) {
+            const subLeaderContainer = document.createElement('div');
+            subLeaderContainer.className = 'sub-leader-container';
+            subLeaderContainer.appendChild(window.createMemberCard(subLeader));
+            deptSection.appendChild(subLeaderContainer);
+        }
+
+        if (regularMembers.length > 0) {
+            const membersContainer = document.createElement('div');
+            membersContainer.className = 'members-row';
+            regularMembers.forEach(member => { membersContainer.appendChild(window.createMemberCard(member)); });
+            deptSection.appendChild(membersContainer);
+        }
+
+        membersGrid.appendChild(deptSection);
+    } else {
+        const noMembersText = t.noMembersFound || 'No members found';
+        window.showError(specificDepartment
+            ? `${noMembersText} - ${specificDepartment}`
+            : `${noMembersText} - ${teamData.name}`);
+    }
+};
+
+window.showMemberDetails = (member) => {
+    const modal = document.getElementById('memberModal');
+    if (!modal) return;
+
+    const t = window.getTranslations?.() || {};
+    const defaultImage = '/frontend/assets/images/W logo.png';
+
+    const modalImage      = document.getElementById('modalMemberImage');
+    const modalName       = document.getElementById('modalMemberName');
+    const modalPosition   = document.getElementById('modalMemberPosition');
+    const modalDepartment = document.getElementById('modalMemberDepartment');
+    const modalFaculty    = document.getElementById('modalMemberFaculty');
+    const modalStudy      = document.getElementById('modalMemberStudy');
+    const modalYear       = document.getElementById('modalMemberYear');
+    const modalEmail      = document.getElementById('modalMemberEmail');
+    const modalMotivation = document.getElementById('modalMemberMotivation');
+
+    if (modalImage) {
+        modalImage.src = member.profile_picture && member.profile_picture !== 'default.jpg'
+            ? `/uploads/profiles/${member.profile_picture}`
+            : defaultImage;
+        modalImage.onerror = () => { modalImage.src = defaultImage; };
+    }
+
+    let position = window.translatePosition(member.position, member.position_en) || t.teamMember || 'Team Member';
+    if (member.role === 'sub_leader') position = t.subLeader || 'Sub Leader';
+
+    const deptName = member.department_name || member.department;
+    const deptMapping = {
+        'Marketing':               t.marketing    || 'Marketing',
+        'Sponsorships':            t.sponsorships || 'Sponsorships',
+        'Management':              t.management   || 'Management',
+        'Chassis and Aerodynamics': t.chassisAero || 'Chassis and Aerodynamics',
+        'Suspension and Steering': t.suspensionSteering  || 'Suspension and Steering',
+        'Transmission and Braking': t.transmissionBraking || 'Transmission and Braking',
+        'High Voltage':            t.highVoltage  || 'High Voltage',
+        'Low Voltage':             t.lowVoltage   || 'Low Voltage',
+    };
+    const translatedDept = deptMapping[deptName] || window.decodeHtmlEntities(deptName) || 'N/A';
+
+    if (modalName)       modalName.textContent = window.decodeHtmlEntities(member.full_name);
+    if (modalPosition)   modalPosition.textContent = position;
+    if (modalDepartment) modalDepartment.innerHTML = `<i class="fas fa-sitemap"></i> ${t.department || 'Department'}: ${translatedDept}`;
+    if (modalFaculty)    modalFaculty.innerHTML = `<i class="fas fa-university"></i> ${t.faculty || 'Faculty'}: ${window.decodeHtmlEntities(member.faculty) || 'N/A'}`;
+    if (modalStudy)      modalStudy.innerHTML = `<i class="fas fa-graduation-cap"></i> ${t.studyField || 'Study Field'}: ${window.decodeHtmlEntities(member.study_field) || 'N/A'}`;
+    if (modalYear)       modalYear.style.display = 'none';
+    if (modalEmail)      modalEmail.style.display = 'none';
+    if (modalMotivation) modalMotivation.innerHTML = '';
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+};
