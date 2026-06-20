@@ -11,6 +11,8 @@ const _load = (src) => new Promise(resolve => {
 
 const _loadAll = (srcs) => Promise.all(srcs.map(_load));
 
+const AXIOS_CDN = 'https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js';
+
 const ENDPOINTS = [
     '/frontend/api/endpoints/projects.js',
     '/frontend/api/endpoints/team.js',
@@ -20,4 +22,6 @@ const ENDPOINTS = [
     '/frontend/api/endpoints/newsletter.js',
 ];
 
-_load('/frontend/api/client.js').then(() => _loadAll(ENDPOINTS));
+window.apiReady = _load(AXIOS_CDN)
+    .then(() => _load('/frontend/api/client.js'))
+    .then(() => _loadAll(ENDPOINTS));
