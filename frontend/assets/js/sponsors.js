@@ -134,8 +134,7 @@ async function loadSponsors() {
     };
     
     try {
-        const response = await fetch('/backend/api/sponsors/read.php');
-        const data = await response.json();
+        const data = await window.API.sponsors.getAll();
         
         const sponsorsContainer = document.getElementById('sponsors-container');
         
@@ -341,8 +340,7 @@ async function loadBrochure() {
     const lang = getBrochureLang();
 
     try {
-        const response = await fetch('/backend/api/brochure/read.php?lang=' + lang);
-        const data = await response.json();
+        const data = await window.API.brochure.get(lang);
 
         if (!data.success || !data.data || !data.data.pdf_url) {
             if (loadingEl) loadingEl.innerHTML = '<p style="color:#888;">Brochure coming soon.</p>';

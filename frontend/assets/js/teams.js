@@ -156,13 +156,7 @@
 
     async function fetchTeamMembers() {
         try {
-            const response = await fetch('/backend/api/team/read.php');
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
+            const data = await window.API.team.getAll();
 
             if (data.success) {
                 allMembers = data.members;

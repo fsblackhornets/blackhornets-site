@@ -111,8 +111,7 @@ function setupSearch() {
 // تحميل تصنيفات المدونة
 async function loadCategories() {
     try {
-        const response = await fetch('/backend/api/posts/categories.php');
-        const data = await response.json();
+        const data = await window.API.posts.getCategories();
         
         if (data.status === 'success') {
             displayCategories(data.data);
@@ -153,15 +152,7 @@ function setupNewsletter() {
         const email = this.querySelector('input').value.trim();
         
         try {
-            const response = await fetch('/backend/api/newsletter/subscribe.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email })
-            });
-            
-            const data = await response.json();
+            const data = await window.API.newsletter.subscribe({ email });
             alert(data.message);
             
             if (data.status === 'success') {

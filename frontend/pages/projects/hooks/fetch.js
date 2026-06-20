@@ -4,8 +4,7 @@ window.loadProjects = async () => {
     if (!projectsContainer) return;
 
     try {
-        const response = await fetch('/backend/api/projects/read.php');
-        const data = await response.json();
+        const data = await window.API.projects.getAll();
 
         if (data.success && data.data.length > 0) {
             window.displayProjects(data.data, projectsContainer);

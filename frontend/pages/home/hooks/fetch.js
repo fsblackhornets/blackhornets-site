@@ -1,6 +1,5 @@
 window.loadHomeNews = () => {
-    fetch('/backend/api/posts/read.php')
-        .then(response => response.json())
+    window.API.posts.getAll()
         .then(data => {
             const newsGrid = document.getElementById('newsGrid');
             newsGrid.innerHTML = '';
