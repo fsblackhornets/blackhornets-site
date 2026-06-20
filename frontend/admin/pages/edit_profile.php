@@ -157,7 +157,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     
-    <link rel="stylesheet" href="../../assets/css/edit_profile.css">
+    <link rel="stylesheet" href="../css/edit_profile.css">
 </head>
 <body>
     <?php include __DIR__ . '/../components/admin_navbar.php'; ?>

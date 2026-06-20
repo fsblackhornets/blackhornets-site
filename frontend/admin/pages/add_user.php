@@ -340,7 +340,7 @@ try {
     <title>Add New User - Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <style>
         .page-header {
             display: flex;
@@ -818,6 +818,7 @@ try {
                         <option value="team_member" data-i18n="roleTeamMember">Team Member</option>
                         <option value="sub_leader" data-i18n="roleSubLeader">Sub Leader</option>
                         <option value="project_leader" data-i18n="roleProjectLeader">Project Leader</option>
+                        <option value="manager" data-i18n="roleManager">Manager</option>
                         ${teamLeaderOption}
                         ${adminOption}
                     </select>
@@ -871,7 +872,7 @@ try {
             const teamSelect = entry.querySelector('.team-select');
             const deptSelect = entry.querySelector('.dept-select');
 
-            if (role === 'admin' || role === 'team_leader') {
+            if (role === 'admin' || role === 'team_leader' || role === 'manager') {
                 teamGroup.style.display = 'none';
                 deptGroup.style.display = 'none';
                 teamSelect.value = '';
@@ -927,6 +928,7 @@ try {
             var firstRoleSelect = document.querySelector('.role-entry .role-select');
             var isAdmin = firstRoleSelect && firstRoleSelect.value === 'admin';
             var isTeamLeader = firstRoleSelect && firstRoleSelect.value === 'team_leader';
+            var isManager = firstRoleSelect && firstRoleSelect.value === 'manager';
 
             var adminCreds = document.getElementById('admin-credentials');
             var memberFields = document.getElementById('member-fields');
@@ -939,7 +941,7 @@ try {
             document.getElementById('email').required = !isAdmin;
             document.getElementById('full_name').required = !isAdmin;
 
-            if (isAdmin || isTeamLeader) {
+            if (isAdmin || isTeamLeader || isManager) {
                 // Remove all entries except first
                 var entries = document.querySelectorAll('.role-entry');
                 entries.forEach(function(entry, i) {

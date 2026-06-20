@@ -48,8 +48,8 @@ try {
             throw new Exception("Your account is not active. Please contact administrator.");
         }
 
-        // Only admin accounts can log in
-        if ($user['role'] !== 'admin') {
+        // Only admin and manager accounts can log in here
+        if (!in_array($user['role'], ['admin', 'manager'])) {
             throw new Exception("Invalid username or password");
         }
 
@@ -57,16 +57,19 @@ try {
         session_regenerate_id(true);
 
         // Store session data
+        $_SESSION['admin_logged_in'] = true;
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['full_name'] = $user['full_name'];
         $_SESSION['role'] = $user['role'];
         $_SESSION['last_activity'] = time();
 
+        $redirect = $user['role'] === 'manager' ? '../manager/dashboard.php' : 'pages/dashboard.php';
+
         echo json_encode([
             'status' => 'success',
             'message' => 'Login successful',
-            'redirect' => 'pages/dashboard.php'
+            'redirect' => $redirect
         ]);
 
     } else {
