@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-function checkAuth($allowed_roles = ['team_member', 'team_leader', 'project_leader', 'admin']) {
+function checkAuth($allowed_roles = ['team_member', 'team_leader', 'project_leader', 'admin', 'manager']) {
     if (!isset($_SESSION['user_id'])) {
         header("Location: login.php");
         exit;

@@ -10,6 +10,7 @@ $nav_items = [
     ['href' => 'manage-sponsors.php', 'icon' => 'fa-handshake', 'label' => 'Sponsors', 'i18n' => 'sponsors', 'keys' => ['manage-sponsors', 'add-edit-sponsor', 'delete-sponsor']],
     ['href' => 'manage_members.php', 'icon' => 'fa-users', 'label' => 'Members', 'i18n' => 'members', 'keys' => ['manage_members', 'add_user', 'edit_member']],
     ['href' => 'messages.php', 'icon' => 'fa-envelope', 'label' => 'Messages', 'i18n' => 'messages', 'keys' => ['messages', 'delete_message']],
+    ['href' => 'content-requests.php', 'icon' => 'fa-inbox', 'label' => 'Requests', 'i18n' => 'requests', 'keys' => ['content-requests']],
 ];
 ?>
 <style>
