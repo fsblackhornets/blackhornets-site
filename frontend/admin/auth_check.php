@@ -1,9 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 
-// التحقق من تسجيل دخول المشرف
-if (!isset($_SESSION['admin_logged_in'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: ../login.php');
     exit;
 }
-?> 
