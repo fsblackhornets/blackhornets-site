@@ -23,6 +23,7 @@ const ENDPOINTS = [
     '/frontend/api/endpoints/gallery.js',
     '/frontend/api/endpoints/requests.js',
     '/frontend/api/endpoints/applications.js',
+    '/frontend/api/endpoints/contact.js',
 ];
 
 _load(AXIOS_CDN)
