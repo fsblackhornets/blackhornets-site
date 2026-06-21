@@ -1,3 +1,3 @@
 window.API.team = {
-    getAll: () => window._apiGet('team/read.php'),
+    getAll: () => window._apiGet('team'),
 };

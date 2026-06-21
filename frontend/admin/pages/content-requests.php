@@ -114,7 +114,7 @@ let currentRequestId = null;
 function loadRequests() {
     const status = document.getElementById('filterStatus').value;
     const type   = document.getElementById('filterType').value;
-    fetch(`/backend/manager/read.php?status=${status}&type=${type}`)
+    fetch(`/backend/api/requests?status=${status}&type=${type}`)
         .then(r => r.json())
         .then(data => {
             const pending = data.data?.filter(r => r.status === 'pending').length || 0;
@@ -180,7 +180,7 @@ async function submitReview(action) {
     if (!currentRequestId) return;
     const notes = document.getElementById('adminNotes').value.trim();
 
-    const res  = await fetch('/backend/manager/review.php', {
+    const res  = await fetch('/backend/api/requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: currentRequestId, action, notes })
