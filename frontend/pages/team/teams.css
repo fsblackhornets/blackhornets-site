@@ -899,7 +899,6 @@
 .sub-leader-container .member-card {
     transform: scale(1.05);
     z-index: 2;
-    border: 2px solid var(--yellow-bright);
     box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
     max-width: 280px;
 }
