@@ -123,7 +123,7 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
         deptSection.appendChild(membersContainer);
     }
 
-    if (!subLeader && regularMembers.length === 0) {
+    if (subLeaders.length === 0 && regularMembers.length === 0) {
         deptSection.innerHTML += `<p style="color:#888;text-align:center;padding:2rem;">${t.noMembersFound || 'No members found'}</p>`;
     }
 
