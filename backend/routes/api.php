@@ -23,6 +23,12 @@ $router->get('/gallery', [GalleryController::class, 'index']);
 // Brochure
 $router->get('/brochure', [BrochureController::class, 'show']);
 
+// Contact form
+$router->post('/contact/send', [ContactController::class, 'send']);
+
+// Applications
+$router->post('/applications', [ApplicationController::class, 'submit']);
+
 // Content requests (manager workflow)
 $router->get('/requests',          [RequestController::class, 'index']);
 $router->post('/requests',         [RequestController::class, 'create']);
