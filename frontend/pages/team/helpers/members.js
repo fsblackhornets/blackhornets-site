@@ -50,56 +50,84 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
         setTimeout(() => departmentView.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
     }
 
-    const teamMembers = (window.allTeamMembers || []).filter(m => m.team === actualTeam);
+    const allMembers  = window.allTeamMembers || [];
+    const teamMembers = allMembers.filter(m => m.team === actualTeam);
 
+    // Team name header
     const teamHeader = document.createElement('div');
     teamHeader.className = 'team-header';
     teamHeader.innerHTML = `<h2 class="team-title">${teamData.name}</h2>`;
     membersGrid.appendChild(teamHeader);
 
-    let departmentMembers;
-    if (specificDepartment) {
-        const englishDept = DEPARTMENT_MAPPING[specificDepartment] || specificDepartment;
-        departmentMembers = teamMembers.filter(m => {
-            const dept = m.department_name || m.department;
-            return dept && dept.toLowerCase() === englishDept.toLowerCase();
-        });
-    } else {
-        departmentMembers = teamMembers;
+    // Project Leader for this team (always show at top)
+    const projectLeader = allMembers.find(m => m.role === 'project_leader' && m.team === actualTeam);
+    if (projectLeader) {
+        const plContainer = document.createElement('div');
+        plContainer.className = 'sub-leader-container';
+        plContainer.appendChild(window.createMemberCard(projectLeader));
+        membersGrid.appendChild(plContainer);
     }
 
-    if (departmentMembers.length > 0) {
-        const deptSection = document.createElement('div');
-        deptSection.className = 'department-section';
-
-        deptSection.innerHTML = specificDepartment
-            ? `<h3 class="department-title">${specificDepartment}</h3>`
-            : `<h3 class="department-title">${t.allMembers || 'All Members'} - ${teamData.name}</h3>`;
-
-        const subLeader = departmentMembers.find(m => m.role === 'sub_leader');
-        const regularMembers = departmentMembers.filter(m => m.role !== 'sub_leader');
-
-        if (subLeader) {
-            const subLeaderContainer = document.createElement('div');
-            subLeaderContainer.className = 'sub-leader-container';
-            subLeaderContainer.appendChild(window.createMemberCard(subLeader));
-            deptSection.appendChild(subLeaderContainer);
+    if (!specificDepartment) {
+        // No dept selected — show all sub_leaders in a row (clickable)
+        const subLeaders = teamMembers.filter(m => m.role === 'sub_leader');
+        if (subLeaders.length > 0) {
+            const subRow = document.createElement('div');
+            subRow.className = 'members-row';
+            subRow.style.justifyContent = 'center';
+            subLeaders.forEach(sl => {
+                const card = window.createMemberCard(sl);
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => window.showDepartmentMembers(actualTeam, sl.department_name || sl.department, true));
+                subRow.appendChild(card);
+            });
+            membersGrid.appendChild(subRow);
+        } else {
+            // No sub leaders — show all regular members
+            const regularMembers = teamMembers.filter(m => !['sub_leader','project_leader','team_leader'].includes(m.role));
+            if (regularMembers.length > 0) {
+                const membersContainer = document.createElement('div');
+                membersContainer.className = 'members-row';
+                regularMembers.forEach(m => { membersContainer.appendChild(window.createMemberCard(m)); });
+                membersGrid.appendChild(membersContainer);
+            }
         }
-
-        if (regularMembers.length > 0) {
-            const membersContainer = document.createElement('div');
-            membersContainer.className = 'members-row';
-            regularMembers.forEach(member => { membersContainer.appendChild(window.createMemberCard(member)); });
-            deptSection.appendChild(membersContainer);
-        }
-
-        membersGrid.appendChild(deptSection);
-    } else {
-        const noMembersText = t.noMembersFound || 'No members found';
-        window.showError(specificDepartment
-            ? `${noMembersText} - ${specificDepartment}`
-            : `${noMembersText} - ${teamData.name}`);
+        return;
     }
+
+    // Specific department selected — show sub_leader + members
+    const englishDept = DEPARTMENT_MAPPING[specificDepartment] || specificDepartment;
+    const departmentMembers = teamMembers.filter(m => {
+        const dept = m.department_name || m.department;
+        return dept && dept.toLowerCase() === englishDept.toLowerCase();
+    });
+
+    const deptSection = document.createElement('div');
+    deptSection.className = 'department-section';
+    deptSection.innerHTML = `<h3 class="department-title">${specificDepartment}</h3>`;
+
+    const subLeader     = departmentMembers.find(m => m.role === 'sub_leader');
+    const regularMembers = departmentMembers.filter(m => !['sub_leader','project_leader','team_leader'].includes(m.role));
+
+    if (subLeader) {
+        const slContainer = document.createElement('div');
+        slContainer.className = 'sub-leader-container';
+        slContainer.appendChild(window.createMemberCard(subLeader));
+        deptSection.appendChild(slContainer);
+    }
+
+    if (regularMembers.length > 0) {
+        const membersContainer = document.createElement('div');
+        membersContainer.className = 'members-row';
+        regularMembers.forEach(m => { membersContainer.appendChild(window.createMemberCard(m)); });
+        deptSection.appendChild(membersContainer);
+    }
+
+    if (!subLeader && regularMembers.length === 0) {
+        deptSection.innerHTML += `<p style="color:#888;text-align:center;padding:2rem;">${t.noMembersFound || 'No members found'}</p>`;
+    }
+
+    membersGrid.appendChild(deptSection);
 };
 
 window.showMemberDetails = (member) => {
