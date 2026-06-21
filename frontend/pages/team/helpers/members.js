@@ -106,14 +106,14 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
     deptSection.className = 'department-section';
     deptSection.innerHTML = `<h3 class="department-title">${specificDepartment}</h3>`;
 
-    const subLeader     = departmentMembers.find(m => m.role === 'sub_leader');
+    const subLeaders     = departmentMembers.filter(m => m.role === 'sub_leader');
     const regularMembers = departmentMembers.filter(m => !['sub_leader','project_leader','team_leader'].includes(m.role));
 
-    if (subLeader) {
-        const slContainer = document.createElement('div');
-        slContainer.className = 'sub-leader-container';
-        slContainer.appendChild(window.createMemberCard(subLeader));
-        deptSection.appendChild(slContainer);
+    if (subLeaders.length > 0) {
+        const slRow = document.createElement('div');
+        slRow.className = subLeaders.length > 1 ? 'members-row' : 'sub-leader-container';
+        subLeaders.forEach(sl => slRow.appendChild(window.createMemberCard(sl)));
+        deptSection.appendChild(slRow);
     }
 
     if (regularMembers.length > 0) {
