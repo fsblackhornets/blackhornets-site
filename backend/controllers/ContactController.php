@@ -36,12 +36,27 @@ class ContactController {
 
         $stmt->bind_param('ssss', $name, $email, $subject, $message);
 
-        if ($stmt->execute()) {
-            Response::json(['status' => 'success', 'message' => 'Message sent! We will get back to you soon.']);
-        } else {
+        if (!$stmt->execute()) {
             Response::error('Failed to send message. Please try again.', 500);
         }
-
         $stmt->close();
+
+        // Email notification to team
+        $to      = 'formulastudentftn@gmail.com';
+        $headers = implode("\r\n", [
+            "From: Black Hornets Contact <noreply@fsblackhornets.org.rs>",
+            "Reply-To: {$email}",
+            "Content-Type: text/plain; charset=UTF-8",
+            "MIME-Version: 1.0",
+        ]);
+        $body = "New contact form submission:\n\n"
+              . "Name:    {$name}\n"
+              . "Email:   {$email}\n"
+              . "Subject: {$subject}\n\n"
+              . "Message:\n{$message}\n";
+
+        @mail($to, "[Contact] {$subject}", $body, $headers);
+
+        Response::json(['status' => 'success', 'message' => 'Message sent! We will get back to you soon.']);
     }
 }
