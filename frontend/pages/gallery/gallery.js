@@ -94,23 +94,20 @@ function getImageDescription(image) {
     return image.description || '';
 }
 
-function loadGalleryImages(category, gridId) {
-    const apiUrl = `../api/gallery/read.php?category=${category}`;
+async function loadGalleryImages(category, gridId) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
 
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const grid = document.getElementById(gridId);
-
-            if (!grid) {
-                console.error(`Grid element with id '${gridId}' not found`);
-                return;
-            }
+    try {
+        await window.apiReady;
+        const data = await window.API.gallery.getByCategory(category);
 
             if (data.success && data.data.length > 0) {
                 grid.innerHTML = '';
                 data.data.forEach((image) => {
-                    const imagePath = `../admin/${image.image_path}`;
+                    const imagePath = image.image_path
+                        ? `/frontend/admin/${image.image_path}`
+                        : '';
 
                     // Store for navigation
                     const entry = { image, imagePath };
@@ -146,22 +143,18 @@ function loadGalleryImages(category, gridId) {
                     </div>
                 `;
             }
-        })
-        .catch(error => {
-            console.error(`Error loading gallery images for [${category}]:`, error);
-            const grid = document.getElementById(gridId);
-            if (grid) {
-                const t = getGalleryTranslations();
-                grid.innerHTML = `
-                    <div class="gallery-item placeholder">
-                        <div class="placeholder-content">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <p>${t ? t.errorLoadingImages : 'Error loading images'}</p>
-                        </div>
-                    </div>
-                `;
-            }
-        });
+    } catch (error) {
+        console.error(`Error loading gallery images for [${category}]:`, error);
+        const t = getGalleryTranslations();
+        grid.innerHTML = `
+            <div class="gallery-item placeholder">
+                <div class="placeholder-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>${t ? t.errorLoadingImages : 'Error loading images'}</p>
+                </div>
+            </div>
+        `;
+    }
 }
 
 function navigateGallery(direction) {
