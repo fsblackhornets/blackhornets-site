@@ -1,16 +1,13 @@
+// PROJECT_STATUS_CLASSES and PROJECT_PROGRESS_COLORS from frontend/constants/projects.js
+
 window.getStatusClass = (status) => {
-    switch (status.toLowerCase()) {
-        case 'active':    return 'active';
-        case 'completed': return 'completed';
-        default:          return 'pending';
-    }
+    const classes = window.PROJECT_STATUS_CLASSES || {};
+    return classes[status?.toLowerCase()] || 'pending';
 };
 
 window.getProgressColor = (progress) => {
-    if (progress >= 80) return '#4CAF50';
-    if (progress >= 60) return '#FF9800';
-    if (progress >= 40) return '#FFC107';
-    return '#F44336';
+    const colors = window.PROJECT_PROGRESS_COLORS || [{ min: 0, color: '#F44336' }];
+    return (colors.find(c => progress >= c.min) || colors[colors.length - 1]).color;
 };
 
 window.formatDate = (dateString) => {

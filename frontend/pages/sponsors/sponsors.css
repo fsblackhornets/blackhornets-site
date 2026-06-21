@@ -1410,3 +1410,168 @@
         font-size: 1.5rem;
     }
 } 
+/* ── Sponsor Items (moved from inline HTML styles) ── */
+.sponsors-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    margin: 30px auto 0;
+    justify-items: center;
+    max-width: 1200px;
+}
+
+.sponsor-item {
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+    border-radius: 15px;
+    background: transparent;
+    width: 100%;
+    max-width: 300px;
+}
+
+.sponsor-item:hover { transform: translateY(-10px) scale(1.05); }
+
+.sponsor-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    filter: grayscale(30%) brightness(1.1);
+    background: rgba(255,255,255,0.02);
+    padding: 20px;
+}
+
+.sponsor-item:hover .sponsor-logo {
+    filter: grayscale(0%) brightness(1.2);
+    box-shadow: 0 15px 35px rgba(255,215,0,0.3);
+}
+
+.sponsor-logo-placeholder {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(145deg, var(--gold), #ffed4e);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #111;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.sponsor-item:hover .sponsor-logo-placeholder {
+    box-shadow: 0 15px 35px rgba(255,215,0,0.4);
+    transform: scale(1.05);
+}
+
+.sponsor-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin: 10px 0 0;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.sponsor-hover-info {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    border-radius: 15px;
+    z-index: 2;
+}
+
+.sponsor-item:hover .sponsor-hover-info { opacity: 1; visibility: visible; }
+
+.sponsor-hover-info .sponsor-hover-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+.sponsor-description {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin: 0 0 14px;
+    line-height: 1.5;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.sponsor-website {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #222;
+    background: #FFD700;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.sponsor-website:hover { background: #ffe066; }
+
+.tier-title {
+    font-family: 'Michroma', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.tier-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--gold);
+}
+
+@media (max-width: 768px) {
+    .sponsors-list { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .sponsor-item { padding: 20px; max-width: 250px; }
+    .sponsor-logo, .sponsor-logo-placeholder { width: 160px; height: 160px; }
+    .sponsor-logo-placeholder { font-size: 3rem; }
+    .tier-title { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+    .sponsors-list { grid-template-columns: 1fr; gap: 30px; }
+    .sponsor-item { padding: 15px; max-width: 280px; }
+    .sponsor-logo, .sponsor-logo-placeholder { width: 180px; height: 180px; }
+    .sponsor-logo-placeholder { font-size: 3.5rem; }
+    .tier-title { font-size: 1.5rem; }
+}
