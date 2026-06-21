@@ -25,8 +25,9 @@ class RequestRepository {
         if ($params) $stmt->bind_param($types, ...$params);
         $stmt->execute();
 
+        $result = $stmt->get_result();
         $rows = [];
-        while ($row = $stmt->get_result()->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $row['data'] = json_decode($row['data'], true);
             $rows[] = $row;
         }
