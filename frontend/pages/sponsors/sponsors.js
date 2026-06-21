@@ -328,7 +328,7 @@ async function loadBrochure() {
             return;
         }
 
-        const pdfUrl = '../' + data.data.pdf_url;
+        const pdfUrl = '/frontend/' + data.data.pdf_url;
 
         // Show download link
         if (downloadSection && downloadLink) {
