@@ -112,7 +112,7 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
     if (subLeaders.length > 0) {
         const slRow = document.createElement('div');
         slRow.className = subLeaders.length > 1 ? 'members-row' : 'sub-leader-container';
-        subLeaders.forEach(sl => slRow.appendChild(window.createMemberCard(sl)));
+        subLeaders.forEach(sl => { slRow.appendChild(window.createMemberCard(sl)); });
         deptSection.appendChild(slRow);
     }
 
