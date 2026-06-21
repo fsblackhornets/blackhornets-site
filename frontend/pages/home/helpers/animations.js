@@ -6,7 +6,6 @@ window.setupHomeAnimations = () => {
     gsap.from('.who-we-are-text', {
         scrollTrigger: { trigger: '#who-we-are', start: 'top 80%' },
         y: 40,
-        opacity: 0,
         duration: 0.7,
         ease: 'power2.out',
         immediateRender: false,
@@ -15,7 +14,6 @@ window.setupHomeAnimations = () => {
     gsap.from('.who-we-are-text p', {
         scrollTrigger: { trigger: '#who-we-are', start: 'top 70%' },
         y: 20,
-        opacity: 0,
         duration: 0.6,
         stagger: 0.25,
         ease: 'power2.out',
