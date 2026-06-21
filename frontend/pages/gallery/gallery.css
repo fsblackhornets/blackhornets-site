@@ -622,6 +622,13 @@
     font-size: 1.8rem;
 }
 
+.section-title-icon {
+    height: 2rem;
+    width: auto;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+}
+
 .image-counter {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.2rem;
