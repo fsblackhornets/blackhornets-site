@@ -9,6 +9,7 @@ window.setupHomeAnimations = () => {
         opacity: 0,
         duration: 0.7,
         ease: 'power2.out',
+        immediateRender: false,
     });
 
     gsap.from('.who-we-are-text p', {
@@ -19,5 +20,6 @@ window.setupHomeAnimations = () => {
         stagger: 0.25,
         ease: 'power2.out',
         delay: 0.4,
+        immediateRender: false,
     });
 };

@@ -3,7 +3,16 @@
 
 /* Root Variables */
 :root {
-    --glass-bg: rgba(26, 26, 26, 0.9);
+    --primary-color:  #FFD700;
+    --accent-yellow:  #FFA500;
+    --dark-bg:        #111111;
+    --secondary-color:#1a1a1a;
+    --text-light:     #e0e0e0;
+    --text-gray:      #888888;
+    --glass-bg:       rgba(26, 26, 26, 0.9);
+    --primary-hover:  #ffcc00;
+    --success-color:  #28a745;
+    --danger-color:   #dc3545;
 }
 
 /* Base Styles */
