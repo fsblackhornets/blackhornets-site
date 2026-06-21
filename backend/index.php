@@ -10,8 +10,8 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
 require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/Response.php';
-require_once __DIR__ . '/Router.php';
+require_once __DIR__ . '/schemas/Response.php';
+require_once __DIR__ . '/routes/Router.php';
 
 // Autoload classes
 spl_autoload_register(function (string $class): void {
