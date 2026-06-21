@@ -18,6 +18,8 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
     margin-bottom: 1rem;
 }
 
