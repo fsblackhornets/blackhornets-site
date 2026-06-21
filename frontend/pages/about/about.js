@@ -67,10 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Number counter animation
     function animateNumber(element, start, end, duration) {
+        if (isNaN(end) || end === start) { element.textContent = isNaN(end) ? start : end; return; }
         let current = start;
         const range = end - start;
         const increment = end > start ? 1 : -1;
-        const stepTime = Math.abs(Math.floor(duration / range));
+        const stepTime = Math.max(1, Math.abs(Math.floor(duration / range)));
         
         const timer = setInterval(() => {
             current += increment;
