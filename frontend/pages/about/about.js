@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const totalMembers = data.members.length;
                 const teamMembersCountEl = document.getElementById('team-members-count');
                 if (teamMembersCountEl) {
-                    teamMembersCountEl.textContent = totalMembers + '+';
+                    teamMembersCountEl.textContent = totalMembers;
                     teamMembersCountEl.setAttribute('data-count', totalMembers);
                 }
                 
