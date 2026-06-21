@@ -5,6 +5,8 @@ const GLOBAL_SCRIPTS = [
     '/frontend/routes.js',
     '/frontend/constants/teams.js',
     '/frontend/constants/positions.js',
+    '/frontend/constants/sponsors.js',
+    '/frontend/constants/projects.js',
     '/frontend/api/router.js',
 ];
 
