@@ -1,17 +1,7 @@
-window.deptTransKeys = {
-    'Marketing':               'marketing',
-    'Sponsorships':            'sponsorships',
-    'Management':              'management',
-    'Chassis and Aerodynamics': 'chassisAero',
-    'Suspension and Steering': 'suspensionSteering',
-    'Transmission and Braking': 'transmissionBraking',
-    'High Voltage':            'highVoltage',
-    'Low Voltage':             'lowVoltage',
-};
-
-window.positionSrToKey = {
-    'Softverski programer': 'software_developer', 'Specijalista za baterije': 'battery_specialist',
-};
+// DEPT_TRANS_KEYS and POSITION_SR_TO_KEY loaded from frontend/constants/positions.js
+// Expose as old names for backward compatibility
+window.deptTransKeys    = window.DEPT_TRANS_KEYS    || {};
+window.positionSrToKey  = window.POSITION_SR_TO_KEY || {};
 
 window.decodeHtmlEntities = (text) => {
     if (!text) return text;

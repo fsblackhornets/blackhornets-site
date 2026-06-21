@@ -1,17 +1,5 @@
-const DEPARTMENT_MAPPING = {
-    'Marketing':               'Marketing',
-    'Sponsorships':            'Sponsorships',
-    'Sponzorstva':             'Sponsorships',
-    'Management':              'Management',
-    'Chassis and Aerodynamics': 'Chassis and Aerodynamics',
-    'Suspension and Steering': 'Suspension and Steering',
-    'Oslanjanje i upravljanje': 'Suspension and Steering',
-    'Transmission and Braking': 'Transmission and Braking',
-    'High Voltage':            'High Voltage',
-    'Visoki napon':            'High Voltage',
-    'Low Voltage':             'Low Voltage',
-    'Niski napon':             'Low Voltage',
-};
+// DEPARTMENT_MAPPING loaded from frontend/constants/teams.js
+const DEPARTMENT_MAPPING = window.DEPARTMENT_MAPPING || {};
 
 window.clearActiveStates = () => {
     document.querySelectorAll('.department-box').forEach(box => { box.classList.remove('active'); });

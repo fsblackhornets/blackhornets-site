@@ -1,14 +1,4 @@
-window.TEAM_COLOR_CLASS = {
-    mechanical:         'team--mechanical',
-    electrical:         'team--electrical',
-    operating_business: 'team--business',
-};
-
-window.DEPT_TO_TEAM = {
-    'Mechanical Engineering': 'mechanical',
-    'Electrical Engineering': 'electrical',
-    'Business Team':          'operating_business',
-};
+// TEAM_COLOR_CLASS and DEPT_TO_TEAM loaded from frontend/constants/teams.js
 
 window.buildCardElement = (person, { positionLabel, positionClass = '', team = '', departmentLabel = '', t }) => {
     const defaultImage = '/frontend/assets/images/W logo.png';

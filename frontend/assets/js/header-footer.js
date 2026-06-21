@@ -3,6 +3,8 @@ window.apiReady = new Promise(resolve => { window._resolveApiReady = resolve; })
 
 const GLOBAL_SCRIPTS = [
     '/frontend/routes.js',
+    '/frontend/constants/teams.js',
+    '/frontend/constants/positions.js',
     '/frontend/api/router.js',
 ];
 
