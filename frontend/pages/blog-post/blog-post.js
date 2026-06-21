@@ -143,7 +143,6 @@ function renderRelatedPosts(currentId) {
                 return;
             }
 
-            const readMoreText = currentLang === 'en' ? 'Read More' : 'Pročitaj više';
 
             function buildCard(post) {
                 const title = (currentLang === 'en' ? (post.title_en || post.title_sr || post.title) : (post.title_sr || post.title || post.title_en)) || 'Untitled';

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // يدعم كلا المعرفين
     const form = document.querySelector('#add-post-form') || document.querySelector('#addPostForm');
     if (!form) return;
 
@@ -7,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         const formData = new FormData(form);
-        // إذا كان هناك حقل id مخفي أرسله (وضع التعديل)
         const isEdit = !!form.querySelector('input[name="id"]');
 
         window.apiReady.then(() => window.API.posts.create(formData))
@@ -19,9 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
         .catch(error => {
-            alert('حدث خطأ في الاتصال بالخادم.');
             console.error(error);
         });
     });
 });
-// يجب أن يحتوي نموذج إضافة الخبر على id="add-post-form" وحقول: title, content, image (اختياري) 

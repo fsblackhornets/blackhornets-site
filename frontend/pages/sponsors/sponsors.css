@@ -1,8 +1,4 @@
 :root {
-    --primary-color: #FFD700;    /* أصفر */
-    --secondary-color: #1a1a1a;  /* أسود فاتح */
-    --dark-bg: #111111;         /* أسود داكن */
-    --text-light: #e0e0e0;      /* نص فاتح */
     --platinum: #E5E4E2;
     --gold: #FFD700;
     --silver: #C0C0C0;
@@ -279,7 +275,6 @@
     filter: grayscale(0%) brightness(1.1);
 }
 
-/* تصيص أحجام مختلفة لكل مستوى */
 .gold-tier .sponsor-logo {
     height: 150px;
 }
@@ -742,7 +737,6 @@
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .sponsors-hero {
         height: 40vh;
@@ -769,7 +763,6 @@
     }
 }
 
-/* تحسينات للأجهزة الصغيرة جداً */
 @media (max-width: 360px) {
     .hero-content h1 {
         font-size: 1.5rem;
@@ -807,14 +800,12 @@
     font-family: 'Rajdhani', sans-serif;
 }
 
-/* تحديث أنماط الأزرار */
 .cta-button {
     font-family: 'Michroma',sans-serif;
     font-weight: 600;
     letter-spacing: 1px;
 }
 
-/* تحديث أنماط العناوين */
 .sponsors-hero h1 {
     font-weight: 700;
     letter-spacing: 2px;
@@ -825,13 +816,11 @@
     letter-spacing: 1.5px;
 }
 
-/* تحديث حجم الصور في tier cards */
 .tier-header img:hover {
     transform: scale(1.1);
     filter: brightness(1.4) contrast(1.2);
 }
 
-/* تحديث تصميم بطاقات الرعاة */
 .sponsor-card {
     position: relative;
     width: 280px;
@@ -911,7 +900,6 @@
     opacity: 1;
 }
 
-/* تخصيص الألوان حسب المستوى */
 .gold-tier .sponsor-card {
     box-shadow: 0 0 20px rgba(255,215,0,0.1);
 }
@@ -924,7 +912,6 @@
     box-shadow: 0 0 20px rgba(205,127,50,0.1);
 }
 
-/* تحسين التنسيق للشاشات المختلفة */
 @media (max-width: 768px) {
     .sponsor-card {
         width: 240px;
@@ -1089,7 +1076,6 @@
     }
 }
 
-/* تنسيق العناوين الرئيسية والفرعية في قسم الرعاة */
 .main-heading {
     color: var(--primary-color);
     font-family: 'Michroma',sans-serif;
@@ -1125,7 +1111,6 @@
     font-family: 'Rajdhani', sans-serif;
 }
 
-/* تعديلات للشاشات المتوسطة والصغيرة */
 @media (max-width: 768px) {
     .main-heading {
         font-size: 2.2rem;
@@ -1150,7 +1135,6 @@
     }
 }
 
-/* تنسيق عبارة Coming Soon */
 .coming-soon-container {
     display: flex;
     justify-content: center;
@@ -1341,7 +1325,6 @@
     transform: scale(1.05);
 }
 
-/* إخفاء النص والوصف والزر */
 .sponsor-info {
     display: none;
 }

@@ -594,7 +594,6 @@
 .team-leader-card .position    { color: var(--yellow-bright); }
 .sub-leader-card .position     { color: var(--yellow-bright); }
 
-/* Hover glow — driven by team class from DB */
 .team--mechanical.member-card:hover {
     box-shadow: 0 0 22px rgba(76, 175, 80, 0.45), 0 0 50px rgba(76, 175, 80, 0.12);
 }

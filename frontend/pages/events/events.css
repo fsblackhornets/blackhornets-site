@@ -289,7 +289,6 @@
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .events-hero {
         height: 30vh;

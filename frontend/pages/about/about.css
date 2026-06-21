@@ -1,9 +1,4 @@
 :root {
-    --primary-color: #FFD700;    /* أصفر */
-    --secondary-color: #1a1a1a;  /* أسود فاتح */
-    --dark-bg: #111111;         /* أسود داكن */
-    --text-light: #e0e0e0;      /* نص فاتح */
-    --text-gray: #999999;       /* نص رمادي */
 }
 
 * {
@@ -172,7 +167,6 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* glow keyframes removed for performance — static text-shadow used instead */
 
 @keyframes slideUp {
     to {
@@ -187,7 +181,6 @@ body {
     }
 }
 
-/* تحسين التجاوب مع الشاشات الصغيرة */
 @media (max-width: 768px) {
     .about-hero {
         height: auto;
@@ -251,7 +244,6 @@ body {
     }
 }
 
-/* إضافة توهج للنجوم */
 .stars-background::before,
 .stars-background::after {
     filter: drop-shadow(0 0 6px #FFD700);
@@ -471,16 +463,13 @@ body {
     transition: all 0.6s ease;
 }
 
-/* تحسينات التصميم المتجاوب */
 @media (max-width: 768px) {
-    /* تحسين Hero Section */
     .about-hero {
         height: auto;
         min-height: 100vh;
     }
 
 
-    /* تحسين Our Story Section */
     .our-story {
         padding: 40px 0;
     }
@@ -512,7 +501,6 @@ body {
         font-size: 1.5rem;
     }
 
-    /* تحسين Mission & Vision */
     .mission-vision {
         padding: 40px 0;
     }
@@ -530,7 +518,6 @@ body {
         font-size: 2.5rem;
     }
 
-    /* تحسين Team Structure */
     .team-structure {
         padding: 40px 0;
     }
@@ -544,7 +531,6 @@ body {
         padding: 20px;
     }
 
-    /* تحسين Join Us Section */
     .join-us {
         padding: 50px 0;
     }
@@ -555,7 +541,6 @@ body {
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .story-stats {
         grid-template-columns: 1fr;
@@ -584,7 +569,6 @@ body {
     }
 }
 
-/* Media Queries - تحسينات متناسقة */
 /* Large Screens (1400px and up) */
 @media screen and (min-width: 1400px) {
     .our-story .container {

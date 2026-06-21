@@ -262,7 +262,6 @@
 }
 
 .dept-content ul li::before {
-    content: '▸';
     position: absolute;
     left: 0;
     color: var(--primary-color);
@@ -559,7 +558,6 @@
     }
 }
 
-/* تحسينات للهواتف النقالة */
 @media (max-width: 768px) {
     /* Hero Section */
     .apply-hero {
@@ -737,7 +735,6 @@
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .apply-hero h1 {
         font-size: 1.8rem;
@@ -764,7 +761,6 @@
     }
 }
 
-/* إضافة أنماط رسائل النموذج */
 .form-message {
     margin: 20px 0;
     padding: 15px;
@@ -810,7 +806,6 @@
     }
 }
 
-/* أنماط مؤشر التحميل */
 .loading {
     position: relative;
     pointer-events: none;

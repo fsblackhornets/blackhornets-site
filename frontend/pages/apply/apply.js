@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             
             try {
-                // التحقق من جميع الحقول المطلوبة
                 const requiredFields = {
                     'firstName': 'First Name',
                     'lastName': 'Last Name',
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     'motivation': 'Motivation'
                 };
 
-                // التحقق من كل حقل مطلوب
                 for (const [fieldId, fieldName] of Object.entries(requiredFields)) {
                     const field = document.getElementById(fieldId);
                     if (!field || !field.value.trim()) {
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
-                // التحقق من الملف
                 const file = fileInput.files[0];
                 if (!file) {
                     throw new Error('Please select a resume file');
@@ -63,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
-                // إضافة حالة التحميل
                 const submitBtn = this.querySelector('.submit-btn');
                 const originalText = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
@@ -86,11 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (data.status === 'success') {
-                    // عرض رسالة النجاح
                     showSuccessMessage(data.message);
-                    // إعادة تعيين النموذج
                     applyForm.reset();
-                    // إعادة إخفاء قسم الأقسام
                     const departmentGroup = document.getElementById('department-group');
                     if (departmentGroup) {
                         departmentGroup.style.display = 'none';
@@ -126,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showSuccessMessage(message) {
-        // إنشاء مكون رسالة النجاح
         const successDiv = document.createElement('div');
         successDiv.className = 'success-notification';
         successDiv.innerHTML = `
@@ -140,15 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        // إضافة رسالة النجاح إلى النموذج
         formMessage.innerHTML = '';
         formMessage.appendChild(successDiv);
         formMessage.style.display = 'block';
         
-        // تمرير إلى رسالة النجاح
         formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         
-        // إضافة تأثير حركي
         setTimeout(() => {
             successDiv.classList.add('animated');
         }, 100);

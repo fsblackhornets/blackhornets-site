@@ -2,12 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const isMobile = window.innerWidth <= 768;
 
-    // تحسين تأثيرات GSAP للأداء
     const initAnimations = () => {
         gsap.registerPlugin(ScrollTrigger);
 
 
-        // تحسين تأثيرات البطاقات
         const animateCards = () => {
             gsap.utils.toArray('.project-card, .number-card').forEach(card => {
                 gsap.from(card, {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         };
 
-        // تأثيرات تفاعلية للبطاقات (فقط للأجهزة غير المحمولة)
         if (!isMobile) {
             initCardInteractions();
         }
@@ -33,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         initNumberAnimation();
     };
 
-    // تحسين تأثيرات البطاقات التفاعلية
     const initCardInteractions = () => {
         const cards = document.querySelectorAll('.project-card, .number-card');
         
@@ -58,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // تحسين تحريك الأرقام
     const initNumberAnimation = () => {
         const animateNumbers = () => {
             document.querySelectorAll('.number').forEach(number => {
@@ -97,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // تهيئة جميع الوظائف
     initAnimations();
 });
 

@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // تهيئة مكتبة AOS للتأثيرات
     AOS.init({
         duration: 1000,
         once: true
     });
 
-    // تأثير تتبع المؤشر للبطاقات
     const cards = document.querySelectorAll('.tier-card');
     
     cards.forEach(card => {
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // تحريك الأرقام الإحصائية
     const stats = document.querySelectorAll('.stat-number');
     
     const animateValue = (element, start, end, duration) => {
@@ -45,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.requestAnimationFrame(step);
     };
 
-    // مراقب التمرير للإحصائيات
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -58,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     stats.forEach(stat => statsObserver.observe(stat));
 
-    // تأثير الخلفية التفاعلية في Hero Section
     const heroSection = document.querySelector('.sponsors-hero');
     const heroContent = document.querySelector('.hero-content');
 
@@ -66,26 +61,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const { clientX, clientY } = e;
         const { width, height } = heroSection.getBoundingClientRect();
         
-        // حساب موقع المؤشر النسبي
         const x = (clientX / width - 0.5) * 2;
         const y = (clientY / height - 0.5) * 2;
 
-        // تحريك العنوان
         heroContent.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
         
-        // تأثير الظل
         heroContent.querySelector('h1').style.textShadow = 
             `${x * 10}px ${y * 10}px 20px rgba(255, 215, 0, 0.5)`;
     });
 
-    // إعادة تعيين الموضع عند مغادرة المؤشر
     heroSection.addEventListener('mouseleave', () => {
         heroContent.style.transform = 'translate(0, 0)';
         heroContent.querySelector('h1').style.textShadow = 
             '0 0 20px rgba(255, 215, 0, 0.5)';
     });
 
-    // تأثير التمرير السلس للروابط
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -95,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // تأثير توهج للبطاقات عند التمرير
     const glowObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -111,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         glowObserver.observe(card);
     });
 
-    // تحميل وعرض الداعمين من قاعدة البيانات
     loadSponsors();
 
     // Load brochure PDF into flipbook
@@ -123,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// دالة تحميل الداعمين
 async function loadSponsors() {
     const t = window.getTranslations ? window.getTranslations() : {
         comingSoon: 'Coming Soon',
@@ -140,13 +127,10 @@ async function loadSponsors() {
         const sponsorsContainer = document.getElementById('sponsors-container');
         
         if (data.success && data.data.length > 0) {
-            // تجميع الداعمين حسب الفئة
             const sponsorsByTier = groupSponsorsByTier(data.data);
             
-            // عرض الداعمين
             displaySponsors(sponsorsByTier, sponsorsContainer);
         } else {
-            // عرض رسالة "قريباً" إذا لم يكن هناك داعمين
             sponsorsContainer.innerHTML = `
                 <div class="sponsor-category" data-aos="fade-up">
                     <div class="coming-soon-container">
@@ -176,7 +160,6 @@ async function loadSponsors() {
     }
 }
 
-// دالة تجميع الداعمين حسب الفئة
 function groupSponsorsByTier(sponsors) {
     const tiers = {
         'Institucija': [],
@@ -188,10 +171,8 @@ function groupSponsorsByTier(sponsors) {
     };
     
      sponsors.forEach(sponsor => {
-        // تنظيف وتوحيد اسم الفئة
         const cleanTier = sponsor.tier.trim();
         
-        // البحث عن الفئة المناسبة (مع مرونة في المطابقة)
         let matchedTier = null;
         
         if (cleanTier.toLowerCase().includes('institucija')) {
@@ -211,14 +192,12 @@ function groupSponsorsByTier(sponsors) {
         if (matchedTier) {
             tiers[matchedTier].push(sponsor);
         } else {
-            // إذا لم يتم العثور على فئة مناسبة، نضيف إلى F1 - Platinum كافتراضي
             tiers['F1 - Platinum'].push(sponsor);
         }
     });
     
     return tiers;
 }
-// دالة عرض الداعمين
 function displaySponsors(sponsorsByTier, container) {
     const t = window.getTranslations ? window.getTranslations() : {
         institutionsTier: 'Institutions',

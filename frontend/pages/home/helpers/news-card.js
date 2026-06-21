@@ -7,7 +7,6 @@ window.buildImagePath = (image) => {
 
 window.renderNewsCard = (post, lang) => {
     const featuredText = lang === 'en' ? 'Featured' : 'Istaknuto';
-    const readMoreText = lang === 'en' ? 'Read More' : 'Pročitaj više';
 
     const title = (lang === 'en'
         ? (post.title_en || post.title_sr || post.title)

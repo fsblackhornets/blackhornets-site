@@ -1,8 +1,4 @@
 :root {
-    --primary-color: #FFD700;    /* ذهبي */
-    --secondary-color: #1a1a1a;  /* أسود فاتح */
-    --dark-bg: #111111;         /* أسود داكن */
-    --text-light: #e0e0e0;      /* نص فاتح */
     --border-color: rgba(255, 215, 0, 0.2);
 }
 
@@ -256,7 +252,6 @@
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .project-details-container {
         margin: 10px;
@@ -293,7 +288,6 @@
     }
 }
 
-/* تحسينات للأجهزة الصغيرة جداً */
 @media (max-width: 360px) {
     .project-header h1 {
         font-size: 1.3rem;

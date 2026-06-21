@@ -280,7 +280,6 @@ body {
     }
 } 
 
-/* تحسينات للهواتف النقالة */
 @media (max-width: 768px) {
     /* Hero Section */
     .projects-hero {
@@ -362,7 +361,6 @@ body {
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .projects-hero {
         height: 40vh;
@@ -384,7 +382,6 @@ body {
     }
 }
 
-/* تحسينات للأجهزة الصغيرة جداً */
 @media (max-width: 360px) {
     .project-info h3 {
         font-size: 1.1rem;
@@ -561,7 +558,6 @@ body {
     }
 }
 
-/* تحسينا�� للأجهزة التي تدعم hover */
 @media (hover: hover) {
     .project-card:hover {
         transform: translateY(-8px);
@@ -579,12 +575,10 @@ body {
     }
 }
 
-/* تحسينات خاصة للأجهزة المحمولة */
 @media screen and (max-width: 767px) {
     /* Hero Section */
     .projects-hero {
         height: 45vh;
-        min-height: 300px; /* ضمان ارتفاع أدنى */
     }
 
     .hero-content {
@@ -609,7 +603,6 @@ body {
     }
 
     .filter-btn {
-        flex: 1 1 calc(50% - 8px); /* عرض متساوٍ لزرين في كل صف */
         min-width: 140px;
         padding: 8px 15px;
         font-size: 0.9rem;
@@ -681,7 +674,6 @@ body {
     }
 }
 
-/* تحسينات إضافية للهواتف الصغيرة */
 @media screen and (max-width: 480px) {
     .projects-hero {
         height: 40vh;
@@ -689,7 +681,6 @@ body {
     }
 
     .filter-btn {
-        flex: 1 1 100%; /* زر واحد في كل صف */
         margin: 0;
     }
 
@@ -702,7 +693,6 @@ body {
     }
 
     .project-stats .container {
-        grid-template-columns: 1fr; /* عمود واحد للإحصائيات */
         gap: 15px;
     }
 
@@ -715,7 +705,6 @@ body {
     }
 }
 
-/* تحسينات للهواتف الصغيرة جداً */
 @media screen and (max-width: 360px) {
     .project-card {
         max-width: 260px;
