@@ -45,7 +45,7 @@ window.setupSponsorsAnimations = () => {
         });
     }, { threshold: 0.5 });
 
-    document.querySelectorAll('.tier-card').forEach(card => glowObserver.observe(card));
+    document.querySelectorAll('.tier-card').forEach(card => { glowObserver.observe(card); });
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
