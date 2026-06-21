@@ -1,3 +1,33 @@
+.who-are-hornets-section {
+    padding: 80px 0 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.who-are-hornets-section .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.who-are-hornets-section .section-header h2 {
+    font-family: 'Michroma', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-yellow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.who-are-hornets-section .title-accent {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: 0 auto;
+}
+
 .latest-news {
     margin: 80px 0;
     padding: 40px 0;
