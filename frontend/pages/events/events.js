@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // تهيئة AOS
     AOS.init({
         duration: 1000,
         once: true,
         offset: 100
     });
 
-    // تأثير التحويم على البطاقات
     const cards = document.querySelectorAll('.event-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', handleHover);
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
     }
 
-    // تأثير الظهور التدريجي للخط الزمني
     const timelineItems = document.querySelectorAll('.timeline-item');
     timelineItems.forEach((item, index) => {
         item.style.opacity = '0';

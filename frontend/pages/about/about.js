@@ -1,5 +1,4 @@
 // When DOM content is loaded
-// عندما يتم تحميل محتوى الصفحة
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch team members count
     async function fetchTeamMembersCount() {
@@ -10,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const totalMembers = data.members.length;
                 const teamMembersCountEl = document.getElementById('team-members-count');
                 if (teamMembersCountEl) {
-                    teamMembersCountEl.textContent = totalMembers + '+';
                     teamMembersCountEl.setAttribute('data-count', totalMembers);
+                    animateNumber(teamMembersCountEl, 0, totalMembers, 1500);
                 }
                 
                 // Set total departments count to 8 (as per your structure)
@@ -41,14 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Scroll animation effects
-    // تأثيرات ظهور العناصر عند التمرير
     const observerOptions = {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px"
     };
 
     // Create intersection observer
-    // إنشاء مراقب التقاطع
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -61,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Apply observer to elements
-    // تطبيق المراقب على العناصر
     document.querySelectorAll('.story-content, .mission-box, .vision-box, .department-card, .stat-item').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -70,12 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Number counter animation
-    // تأثير عداد الأرقام
     function animateNumber(element, start, end, duration) {
+        if (isNaN(end) || end === start) { element.textContent = isNaN(end) ? start : end; return; }
         let current = start;
         const range = end - start;
         const increment = end > start ? 1 : -1;
-        const stepTime = Math.abs(Math.floor(duration / range));
+        const stepTime = Math.max(1, Math.abs(Math.floor(duration / range)));
         
         const timer = setInterval(() => {
             current += increment;
@@ -87,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Stats observer
-    // مراقب الإحصائيات
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -114,13 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.5 });
 
     // Apply stats observer
-    // تطبيق مراقب الإحصائيات
     document.querySelectorAll('.stat-item').forEach(stat => {
         statsObserver.observe(stat);
     });
 
     // Card hover effects
-    // تأثيرات التحويم للبطاقات
     const cards = document.querySelectorAll('.department-card');
     cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -135,7 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Story image hover effect
-    // تأثير الصورة عند التحويم
     const storyImage = document.querySelector('.story-image img');
     if (storyImage) {
         storyImage.addEventListener('mouseenter', () => {
@@ -150,7 +142,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Interactive hero background effect
-    // تأثير الخلفية التفاعلية للقسم الرئيسي
     const heroSection = document.querySelector('.about-hero');
     const heroContent = heroSection.querySelector('.hero-content');
 
@@ -169,7 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // CTA button effect
-    // تأثير زر الدعوة للعمل
     const ctaButton = document.querySelector('.cta-button');
     if (ctaButton) {
         ctaButton.addEventListener('mouseenter', () => {
@@ -184,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Smooth scroll effect
-    // تأثير التمرير السلس
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -199,23 +188,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Video handling
-    // معالجة الفيديو
     const video = document.getElementById('myVideo');
     
     // Ensure video is loaded
-    // التأكد من تحميل الفيديو
     video.addEventListener('loadeddata', function() {
         video.play();
     });
 
     // Replay video when ended
-    // إعادة تشغيل الفيديو عند انتهائه
     video.addEventListener('ended', function() {
         video.play();
     });
 
     // Handle errors
-    // معالجة الأخطاء
     video.addEventListener('error', function(e) {
         console.error('Error loading video:', e);
     });

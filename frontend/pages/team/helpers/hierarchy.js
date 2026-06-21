@@ -44,7 +44,6 @@ window.updateLeadershipStructure = (data) => {
     }
 
     const placeholderBusinessPL = {
-        full_name: 'Jana Petrović',
         profile_picture: 'default.jpg',
         email: 'business@blackhornets.rs',
         study_field: 'Business Administration',

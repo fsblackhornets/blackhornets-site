@@ -10,16 +10,7 @@ window.deptTransKeys = {
 };
 
 window.positionSrToKey = {
-    'Inženjer': 'engineer', 'Dizajner': 'designer', 'CAD Inženjer': 'cad_engineer',
-    'Inženjer oslanjanja': 'suspension_engineer', 'Inženjer aerodinamike': 'aerodynamics_engineer',
-    'Termalni inženjer': 'thermal_engineer', 'Inženjer šasije': 'chassis_engineer',
-    'Inženjer elektronike': 'electronics_engineer', 'Programer firmvera': 'firmware_developer',
     'Softverski programer': 'software_developer', 'Specijalista za baterije': 'battery_specialist',
-    'PCB Dizajner': 'pcb_designer', 'Kreator sadržaja': 'content_creator',
-    'Menadžer društvenih mreža': 'social_media_manager', 'Menadžer marketinga': 'marketing_manager',
-    'Menadžer sponzorstava': 'sponsorship_manager', 'Koordinator događaja': 'event_coordinator',
-    'Grafički dizajner': 'graphic_designer', 'Fotograf': 'photographer',
-    'Finansijski analitičar': 'budget_analyst', 'Koordinator projekta': 'project_coordinator',
 };
 
 window.decodeHtmlEntities = (text) => {

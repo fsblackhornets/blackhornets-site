@@ -2,8 +2,10 @@
 session_start();
 
 if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
-    header("Location: pages/dashboard.php");
-    exit;
+    header("Location: pages/dashboard.php"); exit;
+}
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'manager') {
+    header("Location: /frontend/manager/dashboard.php"); exit;
 }
 ?>
 <!DOCTYPE html>
@@ -26,7 +28,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
 
     <div class="login-container">
         <h1 id="loginTitle">Admin Login</h1>
-        <p id="loginSubtitle" style="color: #aaa; margin-bottom: 20px;">Administrator Access</p>
+        <p id="loginSubtitle" style="color: #aaa; margin-bottom: 20px;">Administrator Access Only</p>
         <div id="error-message" class="error" style="display: none;"></div>
         <form id="loginForm">
             <div class="form-group">

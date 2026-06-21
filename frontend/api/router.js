@@ -20,6 +20,8 @@ const ENDPOINTS = [
     '/frontend/api/endpoints/sponsors.js',
     '/frontend/api/endpoints/brochure.js',
     '/frontend/api/endpoints/newsletter.js',
+    '/frontend/api/endpoints/gallery.js',
+    '/frontend/api/endpoints/requests.js',
 ];
 
 _load(AXIOS_CDN)

@@ -1,5 +1,6 @@
 window.API.posts = {
-    getAll:        ()     => window._apiGet('posts/read.php'),
-    getCategories: ()     => window._apiGet('posts/categories.php'),
-    create:        (data) => window._apiPost('posts/create.php', data),
+    getAll:        ()     => window._apiGet('posts'),
+    getCategories: ()     => window._apiGet('posts/categories'),
+    getById:       (id)   => window._apiGet(`posts/${id}`),
+    create:        (data) => window._apiPost('posts', data),
 };

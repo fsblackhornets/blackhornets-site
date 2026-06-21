@@ -343,7 +343,7 @@ const translations = {
         pos_project_coordinator: 'Koordinator projekta',
 
         // About Page
-        aboutBlackHornets: 'O Black Hornets',
+        aboutBlackHornets: 'O Crnim Stršljenima',
         drivingInnovation: 'Pokrećemo inovacije u studentskom trkanju.',
         speed: 'Brzina',
         innovation: 'Inovacija',

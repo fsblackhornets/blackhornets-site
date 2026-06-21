@@ -2,91 +2,38 @@
 session_start();
 header('Content-Type: application/json');
 
-// Include centralized database configuration
 require_once __DIR__ . '/../../backend/config/database.php';
 
 try {
-    if ($conn->connect_error) {
-        throw new Exception("Connection failed");
-    }
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') throw new Exception("Invalid request method");
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = trim($_POST['username'] ?? '');
-        $password = $_POST['password'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-        if (empty($username) || empty($password)) {
-            throw new Exception("Please enter both username and password");
-        }
+    if (empty($username) || empty($password)) throw new Exception("Please enter both username and password");
 
-        $stmt = $conn->prepare("
-            SELECT id, username, password, role, status, full_name
-            FROM users
-            WHERE username = ?
-        ");
+    $stmt = $conn->prepare("SELECT id, username, password, role, status, full_name FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $user = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
 
-        if (!$stmt) {
-            throw new Exception("Database error occurred");
-        }
+    if (!$user || !password_verify($password, $user['password'])) throw new Exception("Invalid username or password");
+    if ($user['status'] !== 'active') throw new Exception("Account is not active");
+    if ($user['role'] !== 'admin') throw new Exception("Invalid username or password");
 
-        $stmt->bind_param("s", $username);
-        if (!$stmt->execute()) {
-            throw new Exception("Database error occurred");
-        }
+    session_regenerate_id(true);
+    $_SESSION['admin_logged_in'] = true;
+    $_SESSION['user_id']         = $user['id'];
+    $_SESSION['username']        = $user['username'];
+    $_SESSION['full_name']       = $user['full_name'];
+    $_SESSION['role']            = $user['role'];
+    $_SESSION['last_activity']   = time();
 
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-
-        if (!$user) {
-            throw new Exception("Invalid username or password");
-        }
-
-        if (!password_verify($password, $user['password'])) {
-            throw new Exception("Invalid username or password");
-        }
-
-        if ($user['status'] !== 'active') {
-            throw new Exception("Your account is not active. Please contact administrator.");
-        }
-
-        // Only admin and manager accounts can log in here
-        if (!in_array($user['role'], ['admin', 'manager'])) {
-            throw new Exception("Invalid username or password");
-        }
-
-        // Regenerate session ID to prevent session fixation
-        session_regenerate_id(true);
-
-        // Store session data
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['full_name'] = $user['full_name'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['last_activity'] = time();
-
-        $redirect = $user['role'] === 'manager' ? '../manager/dashboard.php' : 'pages/dashboard.php';
-
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Login successful',
-            'redirect' => $redirect
-        ]);
-
-    } else {
-        throw new Exception("Invalid request method");
-    }
+    echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => 'pages/dashboard.php']);
 
 } catch (Exception $e) {
-    echo json_encode([
-        'status' => 'error',
-        'message' => $e->getMessage()
-    ]);
+    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 } finally {
-    if (isset($stmt)) {
-        $stmt->close();
-    }
-    if (isset($conn)) {
-        $conn->close();
-    }
+    if (isset($conn)) $conn->close();
 }
-?>

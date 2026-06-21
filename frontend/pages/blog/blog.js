@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Load blog posts
-// تحميل المقالات
 async function loadPosts(page = 1, category = '', search = '') {
     try {
         const response = await fetch(`../api/posts/read.php?page=${page}&category=${category}&search=${search}`);
@@ -36,7 +35,6 @@ async function loadPosts(page = 1, category = '', search = '') {
 }
 
 // Display posts in the grid
-// عرض المقالات في الشبكة
 function displayPosts(posts) {
     const blogGrid = document.querySelector('.blog-grid');
     blogGrid.innerHTML = '';
@@ -71,7 +69,6 @@ function displayPosts(posts) {
         const shortContent = content.length > 150 ? content.substring(0, 147) + '...' : content;
         const featuredText = currentLang === 'en' ? 'Featured' : 'Istaknuto';
         const featuredBadge = post.featured == 1 ? `<span class="news-badge">${featuredText}</span>` : '';
-        const readMoreText = currentLang === 'en' ? 'Read More' : 'Pročitaj više';
 
         blogGrid.innerHTML += `
             <a href="blog-post.html?id=${parseInt(post.id)}" class="blog-post-link">
@@ -97,7 +94,6 @@ function displayPosts(posts) {
 }
 
 // Setup search functionality
-// إعداد وظيفة البحث
 function setupSearch() {
     const searchForm = document.querySelector('.search-form');
     searchForm.addEventListener('submit', function(e) {
@@ -108,7 +104,6 @@ function setupSearch() {
 }
 
 // Load blog categories
-// تحميل تصنيفات المدونة
 async function loadCategories() {
     try {
         await window.apiReady;
@@ -123,7 +118,6 @@ async function loadCategories() {
 }
 
 // Display categories in sidebar
-// عرض التصنيفات في الشريط الجانبي
 function displayCategories(categories) {
     const categoryList = document.querySelector('.category-list');
     categoryList.innerHTML = categories.map(cat => `
@@ -135,7 +129,6 @@ function displayCategories(categories) {
     `).join('');
 
     // Add event listeners to category links
-    // إضافة مستمعي الأحداث لروابط التصنيفات
     categoryList.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -145,7 +138,6 @@ function displayCategories(categories) {
 }
 
 // Setup newsletter subscription
-// إعداد الاشتراك في النشرة الإخبارية
 function setupNewsletter() {
     const newsletterForm = document.querySelector('.newsletter-form');
     newsletterForm.addEventListener('submit', async function(e) {
@@ -167,10 +159,8 @@ function setupNewsletter() {
 }
 
 // Helper functions
-// دوال مساعدة
 
 // Format date to readable string
-// تنسيق التاريخ إلى نص مقروء
 function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -180,7 +170,6 @@ function formatDate(dateString) {
 }
 
 // Setup pagination
-// إعداد الترقيم
 function setupPagination(pagination) {
     const paginationDiv = document.querySelector('.pagination');
     let html = '';
@@ -203,7 +192,6 @@ function setupPagination(pagination) {
     paginationDiv.innerHTML = html;
     
     // Add event listeners to pagination links
-    // إضافة مستمعي الأحداث لروابط الترقيم
     paginationDiv.querySelectorAll('.page-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();

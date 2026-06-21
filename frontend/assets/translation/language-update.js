@@ -13,7 +13,7 @@ window.updateHomepageContent = function updateHomepageContent() {
     if (joinUsBtn) joinUsBtn.textContent = t.joinUs;
     if (scrollDown) scrollDown.textContent = t.scrollDown;
 
-    const latestNewsTitle = document.querySelector('#latest-news .section-header h2');
+    const latestNewsTitle = document.getElementById('latest-news-title') || document.querySelector('#latest-news .section-header h2');
     if (latestNewsTitle) latestNewsTitle.textContent = t.latestNews;
 
     const moreNewsBtn = document.querySelector('.more-news-btn-container .primary-btn');
@@ -203,30 +203,22 @@ window.updateGalleryPageContent = function() {
         raceCarsDesc.innerHTML = t.raceCarsDesc
             .replace(/Black Hornets Racing/, '<span class="highlight">Black Hornets Racing</span>')
             .replace(/inovacija|innovation/, '<span class="highlight-secondary">$&</span>')
-            .replace(/preciznog inženjeringa|precision engineering/, '<span class="highlight-secondary">$&</span>')
-            .replace(/aerodinamičke izvrsnosti|aerodynamic excellence/, '<span class="highlight-secondary">$&</span>');
     }
     if (teamSectionTitle) teamSectionTitle.textContent = t.teamSectionTitle;
     if (teamSectionDesc) {
         teamSectionDesc.innerHTML = t.teamSectionDesc
             .replace(/strastvene umove|passionate minds/, '<span class="highlight">$&</span>')
-            .replace(/inženjera|engineers/, '<span class="highlight-secondary">$&</span>')
             .replace(/dizajnera|designers/, '<span class="highlight-secondary">$&</span>')
             .replace(/inovatora|innovators/, '<span class="highlight-secondary">$&</span>');
     }
     if (eventsTitle) eventsTitle.textContent = t.eventsTitle;
     if (eventsDesc) {
         eventsDesc.innerHTML = t.eventsDesc
-            .replace(/competitive spirit|takmičarskom duhu/, '<span class="highlight">$&</span>')
-            .replace(/Formula Student competitions|Formula Student takmičenja/, '<span class="highlight-secondary">$&</span>')
-            .replace(/engineering showcases|inženjerskih predstavljanja/, '<span class="highlight-secondary">$&</span>');
     }
     if (workshopTitle) workshopTitle.textContent = t.workshopTitle;
     if (workshopDesc) {
         workshopDesc.innerHTML = t.workshopDesc
-            .replace(/inženjersko utočište|engineering sanctuary/, '<span class="highlight">$&</span>')
             .replace(/ideje pretvaraju u stvarnost|ideas transform into reality/, '<span class="highlight-secondary">$&</span>')
-            .replace(/inovacije se susreću sa zanatstvom|innovation meets craftsmanship/, '<span class="highlight-secondary">$&</span>');
     }
 };
 

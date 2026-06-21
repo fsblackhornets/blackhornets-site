@@ -223,7 +223,6 @@
     }
 }
 
-/* تحسينات إضافية للشاشات الأصغر */
 @media (max-width: 480px) {
     .gallery-hero {
         height: 40vh;
@@ -325,7 +324,6 @@
     display: block;
 }
 
-/* تخصيص Lightbox */
 .lb-nav {
     position: fixed;
     width: 100%;
@@ -362,7 +360,6 @@
     right: 30px !important;
 }
 
-/* إضافة الأسهم */
 .lb-nav a.lb-prev::after,
 .lb-nav a.lb-next::after {
     content: '';
@@ -384,7 +381,6 @@
     right: 32px;
 }
 
-/* ت��سين ظهور الأزرار على الهواتف */
 @media (max-width: 768px) {
     .lb-nav a {
         width: 60px !important;
@@ -427,7 +423,6 @@
     background: var(--dark-bg);
 }
 
-/* تحسين حجم الصورة في Lightbox */
 .lb-outerContainer {
     max-width: 90vw !important;
     max-height: 90vh !important;
@@ -489,7 +484,6 @@
     animation: fadeIn 0.5s ease forwards;
 }
 
-/* تحسين تخطيط الشبكة */
 @media (max-width: 1200px) {
     .grid {
         grid-template-columns: repeat(3, 1fr);
@@ -508,12 +502,10 @@
     }
 }
 
-/* إضافة تأثير التحميل */
 .grid {
     animation: fadeIn 0.5s ease-in forwards;
 }
 
-/* تحسين الـ container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -600,7 +592,6 @@
     font-family: 'Michroma',sans-serif;
 }
 
-/* تنسيق الأقسام */
 .gallery-section {
     position: relative;
     margin-bottom: 60px;
@@ -631,7 +622,6 @@
     font-size: 1.8rem;
 }
 
-/* إضافة عداد الصور */
 .image-counter {
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.2rem;
@@ -645,7 +635,6 @@
     z-index: 2;
 }
 
-/* تحسين عرض الصور */
 .gallery-section {
     position: relative;
     margin-bottom: 60px;
@@ -675,7 +664,6 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* تنسيق النصوص المميزة */
 .highlight {
     color: var(--primary-color);
     font-weight: 700;
@@ -692,7 +680,6 @@
     padding: 0 3px;
 }
 
-/* تحسينات للموبايل */
 @media (max-width: 768px) {
     .section-title {
         font-size: 2rem;
@@ -709,7 +696,6 @@
     }
 }
 
-/* تأثيرات إضافية */
 .section-description::before {
     content: '';
     position: absolute;
@@ -728,7 +714,6 @@
     opacity: 1;
 }
 
-/* تحسين أزرار التنقل */
 .section-nav {
     display: flex;
     justify-content: center;
@@ -757,7 +742,6 @@
     box-shadow: 0 5px 15px rgba(255,215,0,0.3);
 }
 
-/* تحسين Lightbox */
 .lb-data .lb-caption {
     font-family: 'Michroma',sans-serif;
     font-size: 1.2rem;
@@ -771,7 +755,6 @@
     color: var(--text-light);
 }
 
-/* تحسينات للموبايل */
 @media (max-width: 768px) {
     .section-title {
         font-size: 2rem;
@@ -787,7 +770,6 @@
     }
 }
 
-/* Media Queries - تحسينات متناسقة */
 /* Large Screens (1400px and up) */
 @media screen and (min-width: 1400px) {
     .grid {
