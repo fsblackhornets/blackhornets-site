@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const totalMembers = data.members.length;
                 const teamMembersCountEl = document.getElementById('team-members-count');
                 if (teamMembersCountEl) {
-                    teamMembersCountEl.textContent = totalMembers;
                     teamMembersCountEl.setAttribute('data-count', totalMembers);
+                    animateNumber(teamMembersCountEl, 0, totalMembers, 1500);
                 }
                 
                 // Set total departments count to 8 (as per your structure)
