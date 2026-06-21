@@ -14,11 +14,11 @@
     font-size: clamp(2rem, 6vw, 3.5rem);
     text-transform: uppercase;
     letter-spacing: 3px;
+    color: var(--primary-color);
     background: linear-gradient(45deg, var(--primary-color), var(--accent-yellow));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
     text-shadow: none;
     margin-bottom: 1rem;
 }
