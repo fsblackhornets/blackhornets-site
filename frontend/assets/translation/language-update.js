@@ -13,7 +13,7 @@ window.updateHomepageContent = function updateHomepageContent() {
     if (joinUsBtn) joinUsBtn.textContent = t.joinUs;
     if (scrollDown) scrollDown.textContent = t.scrollDown;
 
-    const latestNewsTitle = document.querySelector('#latest-news .section-header h2');
+    const latestNewsTitle = document.getElementById('latest-news-title') || document.querySelector('#latest-news .section-header h2');
     if (latestNewsTitle) latestNewsTitle.textContent = t.latestNews;
 
     const moreNewsBtn = document.querySelector('.more-news-btn-container .primary-btn');
