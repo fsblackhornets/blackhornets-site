@@ -552,7 +552,7 @@
 /* Card Back Info Items */
 .card-back .info-item {
     width: 100%;
-    text-align: center;
+    text-align: left;
     padding: 8px 12px;
     background: rgba(255, 215, 0, 0.04);
     border-radius: 8px;
@@ -568,8 +568,8 @@
     font-weight: 600;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 4px;
+    justify-content: flex-start;
+    gap: 6px;
 }
 
 .empty-message i {
