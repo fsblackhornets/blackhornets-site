@@ -55,9 +55,6 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
     const teamHeader = document.createElement('div');
     teamHeader.className = 'team-header';
     teamHeader.innerHTML = `<h2 class="team-title">${teamData.name}</h2>`;
-    if (specificDepartment) {
-        teamHeader.innerHTML += `<h3 class="department-title">${specificDepartment}</h3>`;
-    }
     membersGrid.appendChild(teamHeader);
 
     let departmentMembers;
