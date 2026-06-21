@@ -55,7 +55,29 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
     const teamHeader = document.createElement('div');
     teamHeader.className = 'team-header';
     teamHeader.innerHTML = `<h2 class="team-title">${teamData.name}</h2>`;
+    if (specificDepartment) {
+        teamHeader.innerHTML += `<p class="department-subtitle">${specificDepartment}</p>`;
+    }
     membersGrid.appendChild(teamHeader);
+
+    // Show Team Leader at top of member view
+    const allMembers = window.allTeamMembers || [];
+    const teamLeader = allMembers.find(m => m.role === 'team_leader');
+    if (teamLeader) {
+        const tlContainer = document.createElement('div');
+        tlContainer.className = 'sub-leader-container';
+        tlContainer.appendChild(window.createMemberCard(teamLeader));
+        membersGrid.appendChild(tlContainer);
+    }
+
+    // Show Project Leader for this team
+    const projectLeader = allMembers.find(m => m.role === 'project_leader' && m.team === actualTeam);
+    if (projectLeader) {
+        const plContainer = document.createElement('div');
+        plContainer.className = 'sub-leader-container';
+        plContainer.appendChild(window.createMemberCard(projectLeader));
+        membersGrid.appendChild(plContainer);
+    }
 
     let departmentMembers;
     if (specificDepartment) {
@@ -72,12 +94,8 @@ window.showDepartmentMembers = (team, specificDepartment = null, skipScroll = fa
         const deptSection = document.createElement('div');
         deptSection.className = 'department-section';
 
-        deptSection.innerHTML = specificDepartment
-            ? `<h3 class="department-title">${specificDepartment}</h3>`
-            : `<h3 class="department-title">${t.allMembers || 'All Members'} - ${teamData.name}</h3>`;
-
         const subLeader = departmentMembers.find(m => m.role === 'sub_leader');
-        const regularMembers = departmentMembers.filter(m => m.role !== 'sub_leader');
+        const regularMembers = departmentMembers.filter(m => !['sub_leader','project_leader','team_leader'].includes(m.role));
 
         if (subLeader) {
             const subLeaderContainer = document.createElement('div');
