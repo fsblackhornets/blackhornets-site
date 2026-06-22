@@ -1,3 +1,8 @@
+.leaflet-control-container .leaflet-top,
+.leaflet-control-container .leaflet-bottom {
+	z-index: 400;
+}
+
 /* Hero Section */
 .contact-hero {
 	height: 60vh;

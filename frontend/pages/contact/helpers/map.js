@@ -3,6 +3,7 @@ window.setupContactMap = () => {
 	if (!mapEl || typeof L === "undefined") return;
 
 	const map = L.map(mapEl, { zoomControl: false, scrollWheelZoom: false }).setView([45.24565, 19.85045], 17);
+	L.control.zoom({ position: "bottomright" }).addTo(map);
 
 	L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
 		attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
