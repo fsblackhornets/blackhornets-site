@@ -5,183 +5,184 @@ $user = checkAuth('admin');
 require_once __DIR__ . '/../../../backend/config/database.php';
 
 try {
-    if ($conn->connect_error) {
-        throw new Exception("Connection failed: " . $conn->connect_error);
-    }
+    $pending_applications = $conn->query("SELECT COUNT(*) as c FROM applications WHERE status='pending'")->fetch_assoc()['c'];
+    $new_messages         = $conn->query("SELECT COUNT(*) as c FROM contact_messages")->fetch_assoc()['c'];
+    $total_applications   = $conn->query("SELECT COUNT(*) as c FROM applications")->fetch_assoc()['c'];
+    $pending_requests     = $conn->query("SELECT COUNT(*) as c FROM content_requests WHERE status='pending'")->fetch_assoc()['c'];
 
-    // Get statistics
-    $pending_applications = $conn->query("SELECT COUNT(*) as count FROM applications WHERE status = 'pending'")->fetch_assoc()['count'];
-    $new_messages = $conn->query("SELECT COUNT(*) as count FROM contact_messages")->fetch_assoc()['count'];
-    $total_applications = $conn->query("SELECT COUNT(*) as count FROM applications")->fetch_assoc()['count'];
-    
-    // استعلام لحساب عدد الأعضاء في كل فريق
-    $team_stats = $conn->prepare("
-        SELECT 
-            team,
-            COUNT(*) as count
-        FROM users 
-        WHERE status = 'active' 
-        AND role != 'admin'
-        GROUP BY team
-    ");
-    
-    $team_stats->execute();
-    $result = $team_stats->get_result();
-    
-    // تهيئة المتغيرات
-    $mechanical_members = 0;
-    $electrical_members = 0;
-    $business_members = 0;
-    $total_members = 0;
-    
-    // تعيين القيم من نتيجة الاستعلام
+    $result = $conn->query("SELECT team, COUNT(*) as count FROM users WHERE status='active' AND role NOT IN ('admin','manager') GROUP BY team");
+    $mechanical = $electrical = $business = $total = 0;
     while ($row = $result->fetch_assoc()) {
-        $total_members += $row['count'];
-        switch ($row['team']) {
-            case 'mechanical':
-                $mechanical_members = $row['count'];
-                break;
-            case 'electrical':
-                $electrical_members = $row['count'];
-                break;
-            case 'operating_business':
-                $business_members = $row['count'];
-                break;
-        }
+        $total += $row['count'];
+        if ($row['team'] === 'mechanical')        $mechanical = $row['count'];
+        if ($row['team'] === 'electrical')        $electrical = $row['count'];
+        if ($row['team'] === 'operating_business') $business  = $row['count'];
     }
+} catch (Exception $e) {}
 
-} catch (Exception $e) {
-    $error_message = $e->getMessage();
-}
+$admin_name = $_SESSION['full_name'] ?? 'Admin';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="/frontend/assets/js/favicon.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin Dashboard — Black Hornets</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+    /* ── Dashboard-specific styles ── */
+    .a-hero {
+        background: linear-gradient(135deg, #0a0a0a 0%, #111 50%, rgba(255,215,0,0.04) 100%);
+        border: 1px solid rgba(255,215,0,0.12);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .a-hero::before {
+        content: '';
+        position: absolute; top: -60px; right: -60px;
+        width: 240px; height: 240px;
+        background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .a-hero-eyebrow { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #ffb300; margin-bottom: 0.5rem; }
+    .a-hero h1 { font-family: 'Michroma', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); color: #fff; margin-bottom: 0.4rem; }
+    .a-hero h1 span { color: #FFD700; }
+    .a-hero p { color: #888; font-size: 1rem; }
+    .a-hero-logo { position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%); height: 80px; opacity: 0.12; }
+
+    /* ── Section header ── */
+    .a-section-header { display: flex; align-items: center; gap: 12px; margin: 2rem 0 1.2rem; }
+    .a-section-title { font-family: 'Michroma', sans-serif; font-size: 0.9rem; color: #FFD700; letter-spacing: 2px; text-transform: uppercase; }
+    .a-section-line { flex: 1; height: 1px; background: rgba(255,215,0,0.12); }
+
+    /* ── Stat cards ── */
+    .a-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+    .a-stat {
+        background: #111; border: 1px solid rgba(255,215,0,0.12);
+        border-radius: 14px; padding: 1.6rem 1.5rem;
+        display: flex; flex-direction: column; gap: 0.5rem;
+        text-decoration: none; color: inherit; transition: all 0.25s;
+    }
+    .a-stat:hover { border-color: rgba(255,215,0,0.4); box-shadow: 0 0 24px rgba(255,215,0,0.08); transform: translateY(-3px); }
+    .a-stat-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(255,215,0,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #FFD700; margin-bottom: 0.4rem; }
+    .a-stat-label { font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: #666; }
+    .a-stat-value { font-family: 'Michroma', sans-serif; font-size: 2rem; color: #FFD700; line-height: 1; }
+    .a-stat-sub { font-size: 0.82rem; color: #555; }
+    .a-stat-sub span { display: block; }
+
+    /* ── Quick action cards ── */
+    .a-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.1rem; }
+    .a-card {
+        background: #111; border: 1px solid rgba(255,215,0,0.12);
+        border-radius: 14px; padding: 1.6rem 1.4rem;
+        display: flex; flex-direction: column; align-items: center;
+        gap: 0.75rem; text-align: center; text-decoration: none; color: inherit;
+        transition: all 0.25s;
+    }
+    .a-card:hover { border-color: rgba(255,215,0,0.4); box-shadow: 0 0 24px rgba(255,215,0,0.1); transform: translateY(-4px); }
+    .a-card-icon { width: 54px; height: 54px; border-radius: 12px; background: rgba(255,215,0,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #FFD700; transition: background 0.2s; }
+    .a-card:hover .a-card-icon { background: rgba(255,215,0,0.15); }
+    .a-card h3 { font-family: 'Michroma', sans-serif; font-size: 0.82rem; color: #fff; letter-spacing: 1px; text-transform: uppercase; }
+    .a-card p { color: #666; font-size: 0.82rem; line-height: 1.4; margin: 0; }
+    </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <?php include __DIR__ . '/../components/admin_navbar.php'; ?>
+    <?php include __DIR__ . '/../components/admin_navbar.php'; ?>
 
-        <div class="cards-container">
-            <a href="applications_list.php" class="card">
-                <i class="fas fa-users icon"></i>
-                <h3 data-i18n="pendingApplications">Pending Applications</h3>
-                <p><?php echo $pending_applications; ?></p>
-                <span class="subtitle" data-i18n="awaitingReview">Awaiting Review</span>
+    <div class="main-content">
+
+        <!-- Hero -->
+        <div class="a-hero">
+            <img src="/frontend/assets/images/Tipografija_belo.png" alt="" class="a-hero-logo">
+            <div class="a-hero-eyebrow">Black Hornets Racing</div>
+            <h1>Welcome back, <span><?= htmlspecialchars($admin_name) ?></span></h1>
+            <p>Manage content, team members, and requests from here.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="a-section-header">
+            <span class="a-section-title">Overview</span>
+            <div class="a-section-line"></div>
+        </div>
+        <div class="a-stats">
+            <a href="applications_list.php" class="a-stat">
+                <div class="a-stat-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="a-stat-label">Pending Applications</div>
+                <div class="a-stat-value"><?= $pending_applications ?></div>
+                <div class="a-stat-sub">Awaiting review</div>
             </a>
-
-            <a href="messages.php" class="card">
-                <i class="fas fa-envelope icon"></i>
-                <h3 data-i18n="newMessages">New Messages</h3>
-                <p><?php echo $new_messages; ?></p>
-                <span class="subtitle" data-i18n="unreadMessages">Unread Messages</span>
+            <a href="messages.php" class="a-stat">
+                <div class="a-stat-icon"><i class="fas fa-envelope"></i></div>
+                <div class="a-stat-label">Messages</div>
+                <div class="a-stat-value"><?= $new_messages ?></div>
+                <div class="a-stat-sub">In inbox</div>
             </a>
-
-            <a href="applications_list.php" class="card">
-                <i class="fas fa-chart-line icon"></i>
-                <h3 data-i18n="totalApplications">Total Applications</h3>
-                <p><?php echo $total_applications; ?></p>
-                <span class="subtitle" data-i18n="allTime">All Time</span>
+            <a href="content-requests.php" class="a-stat">
+                <div class="a-stat-icon"><i class="fas fa-inbox"></i></div>
+                <div class="a-stat-label">Pending Requests</div>
+                <div class="a-stat-value"><?= $pending_requests ?></div>
+                <div class="a-stat-sub">From managers</div>
             </a>
-
-            <a href="manage_members.php" class="card">
-                <i class="fas fa-users-gear icon"></i>
-                <h3 data-i18n="teamMembers">Team Members</h3>
-                <div class="team-stats">
-                    <span><span data-i18n="mechanical">Mechanical</span>: <?php echo $mechanical_members; ?></span>
-                    <span><span data-i18n="electrical">Electrical</span>: <?php echo $electrical_members; ?></span>
-                    <span><span data-i18n="business">Business</span>: <?php echo $business_members; ?></span>
+            <a href="manage_members.php" class="a-stat">
+                <div class="a-stat-icon"><i class="fas fa-users"></i></div>
+                <div class="a-stat-label">Team Members</div>
+                <div class="a-stat-value"><?= $total ?></div>
+                <div class="a-stat-sub">
+                    <span>Mechanical: <?= $mechanical ?></span>
+                    <span>Electrical: <?= $electrical ?></span>
+                    <span>Business: <?= $business ?></span>
                 </div>
-                <span class="subtitle"><span data-i18n="totalMembers">Total Members</span>: <?php echo $total_members; ?></span>
             </a>
         </div>
 
-        <div class="quick-actions">
-            <h2 data-i18n="quickActions">Quick Actions</h2>
-            <div class="cards-grid">
-                <a href="add_user.php" class="card">
-                    <i class="fas fa-user-plus icon"></i>
-                    <h3 data-i18n="addNewUser">Add New User</h3>
-                    <p data-i18n="createNewTeamMember">Create new team member account</p>
-                </a>
-
-                <a href="add-edit-post.php" class="card add-post-card">
-                    <i class="fas fa-newspaper icon"></i>
-                    <h3 data-i18n="addNewsBlogPost">Add News / Blog Post</h3>
-                    <p data-i18n="createPublishNews">Create and publish a new news or blog article for your website audience.</p>
-                </a>
-
-                <a href="manage-gallery.php" class="card gallery-card">
-                    <i class="fas fa-images icon"></i>
-                    <h3 data-i18n="manageGallery">Manage Gallery</h3>
-                    <p data-i18n="uploadManageImages">Upload and manage images for the website gallery</p>
-                </a>
-
-                <a href="manage-sponsors.php" class="card sponsors-card">
-                    <i class="fas fa-handshake icon"></i>
-                    <h3 data-i18n="manageSponsors">Manage Sponsors</h3>
-                    <p data-i18n="addEditDeleteSponsors">Add, edit, and delete sponsors for the website</p>
-                </a>
-
-                <a href="manage-projects.php" class="card projects-card">
-                    <i class="fas fa-project-diagram icon"></i>
-                    <h3 data-i18n="manageProjects">Manage Projects</h3>
-                    <p data-i18n="addEditDeleteProjects">Add, edit, and delete projects for the website</p>
-                </a>
-
-                <a href="manage_members.php" class="card">
-                    <i class="fas fa-users-cog icon"></i>
-                    <h3 data-i18n="manageMembers">Manage Members</h3>
-                    <p data-i18n="viewManageMembers">View and manage all team members</p>
-                </a>
-
-                <a href="manage-sponsors.php#brochure-section" class="card brochure-card">
-                    <i class="fas fa-file-pdf icon"></i>
-                    <h3 data-i18n="partnerBrochure">Partner Brochure</h3>
-                    <p data-i18n="uploadManageBrochures">Upload and manage partner brochures</p>
-                </a>
-            </div>
+        <!-- Quick Actions -->
+        <div class="a-section-header">
+            <span class="a-section-title">Quick Actions</span>
+            <div class="a-section-line"></div>
         </div>
+        <div class="a-grid">
+            <a href="add_user.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-user-plus"></i></div>
+                <h3>Add User</h3>
+                <p>Create a new team member account</p>
+            </a>
+            <a href="add-edit-post.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-newspaper"></i></div>
+                <h3>Add Post</h3>
+                <p>Publish a news or blog article</p>
+            </a>
+            <a href="manage-gallery.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-images"></i></div>
+                <h3>Gallery</h3>
+                <p>Upload and manage gallery images</p>
+            </a>
+            <a href="manage-sponsors.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Sponsors</h3>
+                <p>Add, edit, and delete sponsors</p>
+            </a>
+            <a href="manage-projects.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>Projects</h3>
+                <p>Add, edit, and delete projects</p>
+            </a>
+            <a href="manage_members.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-users-cog"></i></div>
+                <h3>Members</h3>
+                <p>View and manage team members</p>
+            </a>
+            <a href="content-requests.php" class="a-card">
+                <div class="a-card-icon"><i class="fas fa-inbox"></i></div>
+                <h3>Requests</h3>
+                <p>Review pending manager requests</p>
+            </a>
+        </div>
+
     </div>
-
-    <div class="loading-overlay">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <script>
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href) {
-                    document.querySelector('.loading-overlay').style.display = 'flex';
-                    window.location.href = href;
-                }
-            });
-        });
-
-        window.addEventListener('load', function() {
-            document.querySelector('.loading-overlay').style.display = 'none';
-        });
-
-        window.addEventListener('error', function() {
-            document.querySelector('.loading-overlay').style.display = 'none';
-            alert('حدث خطأ أثناء تحميل الصفحة. يرجى المحاولة مرة أخرى.');
-        });
-    </script>
 </body>
 </html>
-
-<?php
-if (isset($conn)) {
-    $conn->close();
-}
-?>
+<?php if (isset($conn)) $conn->close(); ?>
