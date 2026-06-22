@@ -1,10 +1,10 @@
 window.showNotification = (message) => {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.innerHTML = `<i class="fas fa-info-circle"></i><span>${message}</span>`;
+	const notification = document.createElement("div");
+	notification.className = "notification";
+	notification.innerHTML = `<i class="fas fa-info-circle"></i><span>${message}</span>`;
 
-    const style = document.createElement('style');
-    style.textContent = `
+	const style = document.createElement("style");
+	style.textContent = `
         .notification {
             position: fixed; bottom: 20px; right: 20px;
             background: var(--primary-color); color: var(--dark-bg);
@@ -16,12 +16,12 @@ window.showNotification = (message) => {
         .notification.show { transform: translateY(0); opacity: 1; }
     `;
 
-    document.head.appendChild(style);
-    document.body.appendChild(notification);
+	document.head.appendChild(style);
+	document.body.appendChild(notification);
 
-    setTimeout(() => notification.classList.add('show'), 100);
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
+	setTimeout(() => notification.classList.add("show"), 100);
+	setTimeout(() => {
+		notification.classList.remove("show");
+		setTimeout(() => notification.remove(), 300);
+	}, 3000);
 };

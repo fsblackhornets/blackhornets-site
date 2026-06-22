@@ -1,3 +1,3 @@
 window.API.applications = {
-    submit: (data) => window._apiPost('applications', data),
+	submit: (data) => window._apiPost("applications", data),
 };

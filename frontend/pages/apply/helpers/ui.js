@@ -1,13 +1,13 @@
 window.showApplyMessage = (html) => {
-    const div = document.getElementById('formMessage');
-    if (!div) return;
-    div.innerHTML = html;
-    div.style.display = 'block';
-    div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+	const div = document.getElementById("formMessage");
+	if (!div) return;
+	div.innerHTML = html;
+	div.style.display = "block";
+	div.scrollIntoView({ behavior: "smooth", block: "nearest" });
 };
 
 window.showApplySuccess = (message) => {
-    window.showApplyMessage(`
+	window.showApplyMessage(`
         <div class="success-notification">
             <div class="success-icon"><i class="fas fa-check-circle"></i></div>
             <div class="success-content">
@@ -19,17 +19,17 @@ window.showApplySuccess = (message) => {
 };
 
 window.setupFileUpload = () => {
-    const input    = document.getElementById('resume');
-    const nameSpan = document.getElementById('file-name');
-    if (!input || !nameSpan) return;
+	const input = document.getElementById("resume");
+	const nameSpan = document.getElementById("file-name");
+	if (!input || !nameSpan) return;
 
-    input.addEventListener('change', () => {
-        if (input.files?.[0]) {
-            nameSpan.textContent = input.files[0].name;
-            nameSpan.style.color = 'var(--primary-color)';
-        } else {
-            nameSpan.textContent = 'No file chosen';
-            nameSpan.style.color = '';
-        }
-    });
+	input.addEventListener("change", () => {
+		if (input.files?.[0]) {
+			nameSpan.textContent = input.files[0].name;
+			nameSpan.style.color = "var(--primary-color)";
+		} else {
+			nameSpan.textContent = "No file chosen";
+			nameSpan.style.color = "";
+		}
+	});
 };
