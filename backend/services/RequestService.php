@@ -66,10 +66,14 @@ class RequestService {
     }
 
     private function insertSponsor(array $d): void {
-        $desc = $d['description_sr'] ?? '';
-        $logo = $d['logo'] ?? '';
+        $desc    = $d['description_sr'] ?? '';
+        $descEn  = $d['description_en'] ?? '';
+        $logo    = $d['logo'] ?? '';
+        $name    = $d['name'] ?? '';
+        $tier    = $d['tier'] ?? '';
+        $website = $d['website'] ?? '';
         $stmt = $this->conn->prepare("INSERT INTO sponsors (name,tier,website,description,description_en,logo,created_at) VALUES (?,?,?,?,?,?,NOW())");
-        $stmt->bind_param('ssssss', $d['name'],$d['tier'],$d['website'],$desc,$d['description_en']??'',$logo);
+        $stmt->bind_param('ssssss', $name, $tier, $website, $desc, $descEn, $logo);
         $stmt->execute();
     }
 
@@ -81,15 +85,24 @@ class RequestService {
         $ck->bind_param('s',$username); $ck->execute();
         while ($ck->get_result()->num_rows > 0) { $username = $base.'_'.$suffix++; $ck->bind_param('s',$username); $ck->execute(); }
 
-        $role = $d['role'] ?? 'team_member';
+        $role     = $d['role']     ?? 'team_member';
+        $phone    = $d['phone']    ?? '';
+        $email    = $d['email']    ?? '';
+        $fullName = $d['full_name'] ?? '';
+        $team     = $d['team']     ?? '';
+        $dept     = $d['department'] ?? '';
         $stmt = $this->conn->prepare("INSERT INTO users (username,password,email,full_name,role,team,department,phone,status,created_at) VALUES (?,?,?,?,?,?,?,?,'active',NOW())");
-        $stmt->bind_param('ssssssss',$username,$hash,$d['email'],$d['full_name'],$role,$d['team'],$d['department'],$d['phone']??'');
+        $stmt->bind_param('ssssssss', $username, $hash, $email, $fullName, $role, $team, $dept, $phone);
         $stmt->execute();
         $uid = $this->conn->insert_id;
 
-        $pic = $d['profile_picture'] ?? 'default.jpg';
+        $pic          = $d['profile_picture'] ?? 'default.jpg';
+        $position     = $d['position']     ?? '';
+        $faculty      = $d['faculty']      ?? '';
+        $studyField   = $d['study_field']  ?? '';
+        $academicYear = $d['academic_year'] ?? '';
         $m = $this->conn->prepare("INSERT INTO team_members (user_id,position,profile_picture,faculty,study_field,academic_year,department,team,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())");
-        $m->bind_param('isssssss',$uid,$d['position']??'',$pic,$d['faculty']??'',$d['study_field']??'',$d['academic_year']??'',$d['department'],$d['team']);
+        $m->bind_param('isssssss', $uid, $position, $pic, $faculty, $studyField, $academicYear, $dept, $team);
         $m->execute();
     }
 }
