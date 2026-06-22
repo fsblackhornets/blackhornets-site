@@ -108,7 +108,6 @@ class RequestController {
             'title_en'   => trim($_POST['title_en']   ?? ''),
             'content_sr' => trim($_POST['content_sr'] ?? ''),
             'content_en' => trim($_POST['content_en'] ?? ''),
-            'featured'       => isset($_POST['featured']) ? 1 : 0,
             'category'       => trim($_POST['category']       ?? ''),
             'image_position' => trim($_POST['image_position'] ?? '50% 50%'),
         ];

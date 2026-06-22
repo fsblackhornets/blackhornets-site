@@ -13,18 +13,14 @@ window.loadBlogPosts = async (page = 1, search = "") => {
 
 		let posts = data.data || [];
 
-		// Client-side filter by search
+		// Client-side filter by title keywords
 		if (search) {
 			const q = search.toLowerCase();
 			const lang = window.getCurrentLanguage?.() || "sr";
 			posts = posts.filter((p) => {
 				const title =
 					(lang === "en" ? p.title_en : p.title_sr) || p.title || "";
-				const body =
-					(lang === "en" ? p.content_en : p.content_sr) || p.content || "";
-				return (
-					title.toLowerCase().includes(q) || body.toLowerCase().includes(q)
-				);
+				return title.toLowerCase().includes(q);
 			});
 		}
 

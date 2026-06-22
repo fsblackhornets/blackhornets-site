@@ -116,9 +116,6 @@
                         </div>
                         <div class="form-group"><label>Cover Image</label><input type="file" id="f_image" name="image" accept="image/*"></div>
                     </div>
-                    <div class="form-group">
-                        <label><input type="checkbox" id="f_featured" name="featured" value="1" style="width:auto;margin-right:8px;"> Mark as Featured</label>
-                    </div>
                 </div>
 
                 <!-- Right: Live Preview -->
@@ -128,7 +125,6 @@
                         <!-- Image area (flex:7) -->
                         <div class="preview-cover" id="pCoverWrap">
                             <div class="preview-badges">
-                                <span class="preview-badge-featured" id="pFeaturedBadge" style="display:none;">Featured</span>
                                 <span class="preview-badge-category" id="pCategoryBadge" style="display:none;"></span>
                             </div>
                             <div class="preview-cover-placeholder" id="pCoverPlaceholder">
@@ -169,7 +165,6 @@
 (function () {
     const pTitle          = document.getElementById('pTitle');
     const pCategoryBadge  = document.getElementById('pCategoryBadge');
-    const pFeaturedBadge  = document.getElementById('pFeaturedBadge');
     const pCoverImg         = document.getElementById('pCoverImg');
     const pCoverPlaceholder = document.getElementById('pCoverPlaceholder');
     const pCoverLabel       = document.getElementById('pCoverLabel');
@@ -182,16 +177,11 @@
         const titleEn = document.getElementById('f_title_en').value.trim();
         const contentSr = document.getElementById('f_content_sr').value.trim();
         const category  = document.getElementById('f_category').value.trim();
-        const featured  = document.getElementById('f_featured').checked;
-
         const title   = titleSr || titleEn || '';
-        const content = contentSr || '';
-        const short   = content.length > 180 ? content.substring(0, 177) + '...' : content;
 
         pTitle.textContent = title || 'Title will appear here...';
         pTitle.className   = 'preview-title' + (title ? '' : ' empty');
 
-        pFeaturedBadge.style.display  = featured  ? '' : 'none';
         pCategoryBadge.style.display  = category  ? '' : 'none';
         pCategoryBadge.textContent    = category;
         pCoverLabel.textContent       = category  || 'Black Hornets';

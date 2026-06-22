@@ -10,6 +10,7 @@ const translations = {
 		gallery: "Gallery",
 		sponsors: "Sponsors",
 		contact: "Contact",
+		blog: "Blog",
 		login: "Login",
 		applyNow: "Apply",
 
@@ -307,6 +308,7 @@ const translations = {
 		gallery: "Galerija",
 		sponsors: "Sponzori",
 		contact: "Kontakt",
+		blog: "Blog",
 		login: "Prijava",
 		applyNow: "Postani član",
 

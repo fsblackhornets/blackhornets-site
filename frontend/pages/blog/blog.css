@@ -34,7 +34,7 @@
 
 /* Blog Content */
 .blog-content {
-	padding: 80px 0;
+	padding: 40px 0 20px;
 	background: var(--dark-bg);
 }
 
@@ -192,13 +192,13 @@
 
 .post-category {
 	position: absolute;
-	top: 20px;
-	right: 20px;
+	top: 12px;
+	right: 12px;
 	background: var(--primary-color);
 	color: var(--dark-bg);
-	padding: 6px 18px;
+	padding: 3px 10px;
 	border-radius: 20px;
-	font-size: 1.05rem;
+	font-size: 0.7rem;
 	font-weight: 700;
 	z-index: 2;
 	letter-spacing: 1px;
