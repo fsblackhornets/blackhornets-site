@@ -2,11 +2,7 @@ window.setupHeaderScroll = () => {
 	const header = document.querySelector(".main-header");
 	if (!header) return;
 
-	window.addEventListener(
-		"scroll",
-		() => {
-			header.classList.toggle("scrolled", window.scrollY > 50);
-		},
-		{ passive: true },
-	);
+	const update = () => header.classList.toggle("scrolled", window.scrollY > 50);
+	update();
+	window.addEventListener("scroll", update, { passive: true });
 };
