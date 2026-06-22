@@ -295,7 +295,7 @@ try {
                                 <a href="add-edit-project.php?id=<?= $project['id'] ?>" class="btn-edit-project">
                                     <i class="fas fa-edit"></i> <span data-i18n="edit">Edit</span>
                                 </a>
-                                <a href="delete-project.php?id=<?= $project['id'] ?>&csrf_token=<?= htmlspecialchars(csrf_generate_token()) ?>"
+                                <a href="/backend/admin/delete-project.php?id=<?= $project['id'] ?>&csrf_token=<?= htmlspecialchars(csrf_generate_token()) ?>"
                                    class="btn-delete-project"
                                    onclick="return confirm(getT().confirmDeleteProject);">
                                     <i class="fas fa-trash"></i> <span data-i18n="delete">Delete</span>
