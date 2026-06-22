@@ -38,7 +38,7 @@ window.displayPosts = (posts) => {
 				imagePath =
 					post.image.startsWith("http") || post.image.startsWith("/")
 						? post.image
-						: "/" + post.image.replace(/^\.\.\//, "");
+						: "/frontend/" + post.image.replace(/^\.\.\//, "");
 			}
 
 			const date = new Date(
@@ -52,9 +52,13 @@ window.displayPosts = (posts) => {
 				post.featured == 1
 					? `<span class="news-badge">${featuredTxt}</span>`
 					: "";
+			const imgPos = post.image_position || "50% 50%";
 			const imgHtml = imagePath
-				? `<img src="${e(imagePath)}" alt="${e(title)}" onerror="this.parentElement.style.display='none'">`
-				: `<div style="height:200px;background:#222;display:flex;align-items:center;justify-content:center;"><i class="fas fa-image" style="font-size:3rem;color:#333;"></i></div>`;
+				? `<img src="${e(imagePath)}" alt="${e(title)}" style="object-position:${e(imgPos)}" onerror="this.parentElement.classList.add('no-image-fallback');this.replaceWith(document.querySelector('#blog-placeholder-tpl').content.cloneNode(true));">`
+				: `<div class="post-img-placeholder">
+						<img src="/frontend/assets/images/Tipografija_belo.png" alt="" class="placeholder-watermark">
+						<span class="placeholder-label">${e(post.category || "Black Hornets")}</span>
+					</div>`;
 
 			return `<a href="/frontend/pages/blog-post/blog-post.html?id=${parseInt(post.id)}" class="blog-post-link">
             <article class="blog-post">
@@ -68,7 +72,6 @@ window.displayPosts = (posts) => {
                         <span><i class="far fa-user"></i> ${e(post.author || "Team Black Hornets")}</span>
                     </div>
                     <h3>${e(title)}</h3>
-                    <p>${e(short)}</p>
                     <span class="read-more-btn">${readMore} <i class="fas fa-arrow-right"></i></span>
                 </div>
             </article>

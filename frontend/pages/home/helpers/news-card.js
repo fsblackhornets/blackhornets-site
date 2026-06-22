@@ -35,6 +35,7 @@ window.renderNewsCard = (post, lang) => {
 	return `
         <div class="news-card-featured">
             ${post.featured === 1 ? `<span class="news-badge">${featuredText}</span>` : ""}
+            ${post.category ? `<span class="news-category-badge">${post.category}</span>` : ""}
             ${
 							imagePath
 								? `<div class="news-image" style="width:100%;height:220px;overflow:hidden;border-radius:8px;margin-bottom:15px;">

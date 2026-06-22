@@ -7,7 +7,10 @@ class SponsorRepository {
         $result = $this->conn->query("SELECT * FROM sponsors ORDER BY tier_order ASC, created_at DESC");
         $rows = [];
         while ($row = $result->fetch_assoc()) {
-            $row['logo_url'] = $row['logo'] ? 'admin/uploads/sponsors/' . $row['logo'] : null;
+            $logo = $row['logo'];
+            $row['logo_url'] = $logo
+                ? (str_starts_with($logo, 'uploads/') ? $logo : 'admin/uploads/sponsors/' . $logo)
+                : null;
             $rows[] = $row;
         }
         return $rows;

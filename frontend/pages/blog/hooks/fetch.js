@@ -29,7 +29,7 @@ window.loadBlogPosts = async (page = 1, search = "") => {
 		}
 
 		// Client-side pagination
-		const perPage = 6;
+		const perPage = 9;
 		const totalPages = Math.max(1, Math.ceil(posts.length / perPage));
 		const pagePosts = posts.slice((page - 1) * perPage, page * perPage);
 

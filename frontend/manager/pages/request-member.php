@@ -32,7 +32,9 @@
                     <div class="form-group"><label>Faculty</label><input type="text" name="faculty"></div>
                     <div class="form-group"><label>Study Field</label><input type="text" name="study_field"></div>
                     <div class="form-group"><label>Academic Year</label><input type="text" name="academic_year"></div>
-                    <div class="form-group"><label>Profile Picture</label><input type="file" name="profile_picture" accept="image/*"></div>
+                    <div class="form-group"><label>Profile Picture</label><input type="file" id="f_profile_pic" name="profile_picture" accept="image/*"></div>
+                    <input type="hidden" id="f_image_position" name="image_position" value="50% 50%">
+                    <div id="posDisplay" style="display:none;font-size:0.65rem;color:#555;font-family:Michroma,sans-serif;letter-spacing:1px;margin-top:4px;">position: <span id="posVal">50% 50%</span></div>
                 </div>
                 <div class="form-section">
                     <h3><i class="fas fa-users-cog"></i> Role & Team</h3>
@@ -77,11 +79,12 @@
                     <!-- Live Preview -->
                     <div class="preview-wrap">
                         <div class="preview-label">Live Preview</div>
-                        <div class="member-card preview-card" id="previewCard">
+                        <div class="member-card preview-card" id="previewCard" style="cursor:default;display:flex;flex-direction:column;align-items:center;gap:8px;">
                             <div class="card-inner">
                                 <div class="card-front">
-                                    <div class="member-image">
-                                        <img id="previewImg" src="/frontend/assets/images/W logo.png" alt="Preview">
+                                    <div class="member-image" id="previewImgWrap" style="cursor:grab;user-select:none;overflow:hidden;position:relative;">
+                                        <img id="previewImg" src="/frontend/assets/images/W logo.png" alt="Preview" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.5);transform-origin:center;">
+                                        <div id="previewDragHint" style="display:none;position:absolute;bottom:4px;right:5px;z-index:3;"><span style="color:rgba(255,215,0,0.6);font-size:0.58rem;font-family:Michroma,sans-serif;letter-spacing:1px;">DRAG · SCROLL</span></div>
                                     </div>
                                     <div class="member-info">
                                         <h3 id="previewName">Full Name</h3>
@@ -105,6 +108,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button type="button" onclick="document.getElementById('previewCard').classList.toggle('flipped')" style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);color:#FFD700;font-family:'Michroma',sans-serif;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:6px;">
+                            <i class="fas fa-sync-alt"></i> Rotate
+                        </button>
                     </div>
                 </div>
             </div>
@@ -123,7 +129,7 @@
 /* Flip card */
 .member-card { width: 240px; height: 320px; perspective: 1000px; cursor: pointer; border-radius: 14px; }
 .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.7s; transform-style: preserve-3d; }
-.member-card:hover .card-inner { transform: rotateY(180deg); }
+.member-card.flipped .card-inner { transform: rotateY(180deg); }
 .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 14px; overflow: hidden; background: #1a1a1a; border: 2px solid rgba(255,215,0,0.25); }
 .card-front { display: flex; flex-direction: column; }
 .card-back { transform: rotateY(180deg); padding: 1.2rem 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.8rem; background: linear-gradient(145deg,#1a1a1a,#222); }
@@ -227,15 +233,44 @@
         card.className = 'member-card preview-card ' + (teamClass[team] || '');
     }
 
+    // ── Drag + zoom (translate approach — works in all directions) ──
+    const previewImgWrap  = document.getElementById('previewImgWrap');
+    const previewDragHint = document.getElementById('previewDragHint');
+    const posInput  = document.getElementById('f_image_position');
+    const posDisplay = document.getElementById('posDisplay');
+    const posValEl  = document.getElementById('posVal');
+    let isDraggingPic = false, picStartX = 0, picStartY = 0, picTx = 0, picTy = 0, picScale = 1.5;
+
+    function applyPicPos() {
+        pImg.style.transform = `translate(calc(-50% + ${picTx}px), calc(-50% + ${picTy}px)) scale(${picScale})`;
+        const pos = `${Math.round(50 - picTx)}% ${Math.round(50 - picTy)}%`;
+        if (posInput) { posInput.value = pos; posValEl.textContent = pos; }
+    }
+    previewImgWrap.addEventListener('mousedown', e => { isDraggingPic = true; picStartX = e.clientX; picStartY = e.clientY; previewImgWrap.style.cursor = 'grabbing'; e.preventDefault(); });
+    window.addEventListener('mousemove', e => {
+        if (!isDraggingPic) return;
+        picTx += e.clientX - picStartX;
+        picTy += e.clientY - picStartY;
+        picStartX = e.clientX; picStartY = e.clientY; applyPicPos();
+    });
+    window.addEventListener('mouseup', () => { isDraggingPic = false; previewImgWrap.style.cursor = 'grab'; });
+    previewImgWrap.addEventListener('wheel', e => { e.preventDefault(); picScale = Math.max(1, Math.min(4, picScale - e.deltaY * 0.003)); applyPicPos(); }, { passive: false });
+
     // Picture preview
-    document.querySelector('[name="profile_picture"]').addEventListener('change', function () {
+    document.getElementById('f_profile_pic').addEventListener('change', function () {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = e => { pImg.src = e.target.result; };
+            reader.onload = e => {
+                pImg.src = e.target.result;
+                previewDragHint.style.display = 'block';
+                if (posDisplay) posDisplay.style.display = 'block';
+                picTx = 0; picTy = 0; picScale = 1.5; applyPicPos();
+            };
             reader.readAsDataURL(file);
         } else {
             pImg.src = '/frontend/assets/images/W logo.png';
+            previewDragHint.style.display = 'none';
         }
     });
 
