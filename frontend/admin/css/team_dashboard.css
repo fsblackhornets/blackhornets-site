@@ -1,280 +1,280 @@
 /* Team Dashboard Specific Styles */
 .welcome-section {
-    background-color: var(--secondary-color);
-    padding: 2rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    color: var(--text-light);
+	background-color: var(--secondary-color);
+	padding: 2rem;
+	border-radius: 10px;
+	margin-bottom: 2rem;
+	color: var(--text-light);
 }
 
 .welcome-section h2 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+	color: var(--primary-color);
+	margin-bottom: 0.5rem;
 }
 
 /* Stats Container */
 .stats-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1.5rem;
+	margin-bottom: 2rem;
 }
 
 .stat-card {
-    background-color: var(--secondary-color);
-    padding: 1.5rem;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+	background-color: var(--secondary-color);
+	padding: 1.5rem;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
 }
 
 .stat-card i {
-    font-size: 2rem;
-    color: var(--primary-color);
+	font-size: 2rem;
+	color: var(--primary-color);
 }
 
 .stat-info h3 {
-    color: var(--text-light);
-    margin: 0;
-    font-size: 1rem;
+	color: var(--text-light);
+	margin: 0;
+	font-size: 1rem;
 }
 
 .stat-info p {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0.5rem 0 0 0;
+	color: var(--primary-color);
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 0.5rem 0 0 0;
 }
 
 /* Quick Actions */
 .quick-actions {
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
 .quick-actions h2 {
-    color: var(--text-light);
-    margin-bottom: 1rem;
+	color: var(--text-light);
+	margin-bottom: 1rem;
 }
 
 .actions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
 }
 
 .action-btn {
-    background-color: var(--secondary-color);
-    color: var(--text-light);
-    padding: 1.5rem;
-    border-radius: 10px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
+	background-color: var(--secondary-color);
+	color: var(--text-light);
+	padding: 1.5rem;
+	border-radius: 10px;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	transition: all 0.3s ease;
 }
 
 .action-btn:hover {
-    transform: translateY(-3px);
-    background-color: var(--primary-color);
-    color: var(--dark-bg);
+	transform: translateY(-3px);
+	background-color: var(--primary-color);
+	color: var(--dark-bg);
 }
 
 .action-btn i {
-    font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 /* Latest Reports */
 .latest-reports {
-    background-color: var(--secondary-color);
-    padding: 2rem;
-    border-radius: 10px;
+	background-color: var(--secondary-color);
+	padding: 2rem;
+	border-radius: 10px;
 }
 
 .latest-reports h2 {
-    color: var(--text-light);
-    margin-bottom: 1.5rem;
+	color: var(--text-light);
+	margin-bottom: 1.5rem;
 }
 
 .reports-list {
-    display: grid;
-    gap: 1.5rem;
+	display: grid;
+	gap: 1.5rem;
 }
 
 .report-card {
-    background-color: var(--dark-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
+	background-color: var(--dark-bg);
+	padding: 1.5rem;
+	border-radius: 8px;
 }
 
 .report-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 0.5rem;
 }
 
 .report-header h3 {
-    color: var(--primary-color);
-    margin: 0;
-    font-size: 1.1rem;
+	color: var(--primary-color);
+	margin: 0;
+	font-size: 1.1rem;
 }
 
 .report-date {
-    color: var(--text-gray);
-    font-size: 0.9rem;
+	color: var(--text-gray);
+	font-size: 0.9rem;
 }
 
 .report-author {
-    color: var(--text-gray);
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
+	color: var(--text-gray);
+	font-size: 0.9rem;
+	margin: 0.5rem 0;
 }
 
 .report-preview {
-    color: var(--text-light);
-    margin: 1rem 0;
-    line-height: 1.6;
+	color: var(--text-light);
+	margin: 1rem 0;
+	line-height: 1.6;
 }
 
 .read-more {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-top: 0.5rem;
+	color: var(--primary-color);
+	text-decoration: none;
+	font-size: 0.9rem;
+	display: inline-block;
+	margin-top: 0.5rem;
 }
 
 .read-more:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .stats-container {
-        grid-template-columns: 1fr;
-    }
+	.stats-container {
+		grid-template-columns: 1fr;
+	}
 
-    .actions-grid {
-        grid-template-columns: 1fr;
-    }
+	.actions-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 /* Team Members Section */
 .team-members-section {
-    margin-bottom: 2rem;
-    background: rgba(25, 25, 25, 0.7);
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	margin-bottom: 2rem;
+	background: rgba(25, 25, 25, 0.7);
+	border-radius: 10px;
+	padding: 1.5rem;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .team-members-section h2 {
-    color: #FFB300;
-    font-family: 'Michroma',sans-serif;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.8rem;
+	color: #ffb300;
+	font-family: "Michroma", sans-serif;
+	margin-bottom: 1.5rem;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 1.8rem;
 }
 
 .members-container {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 /* تنسيق مصغر للبطاقات داخل لوحة التحكم */
 .members-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 0 -10px;
-    padding: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.5rem;
+	margin: 0 -10px;
+	padding: 10px;
 }
 
 .dashboard-content .member-card {
-    width: 220px;
-    height: 350px;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease;
+	width: 220px;
+	height: 350px;
+	margin-bottom: 1.5rem;
+	transition: transform 0.3s ease;
 }
 
 .dashboard-content .member-card:hover {
-    transform: translateY(-5px);
+	transform: translateY(-5px);
 }
 
 .dashboard-content .member-image {
-    height: 150px;
+	height: 150px;
 }
 
 .dashboard-content .member-info h3 {
-    font-size: 1.1rem;
+	font-size: 1.1rem;
 }
 
 .dashboard-content .member-info .position,
 .dashboard-content .member-info .department {
-    font-size: 0.9rem;
+	font-size: 0.9rem;
 }
 
 .dashboard-content .card-back {
-    padding: 1rem;
+	padding: 1rem;
 }
 
 .dashboard-content .info-label {
-    font-size: 0.8rem;
+	font-size: 0.8rem;
 }
 
 .dashboard-content .info-value {
-    font-size: 0.85rem;
+	font-size: 0.85rem;
 }
 
 .no-members {
-    text-align: center;
-    padding: 2rem;
-    color: #aaa;
-    font-style: italic;
+	text-align: center;
+	padding: 2rem;
+	color: #aaa;
+	font-style: italic;
 }
 
 /* تعديل للشاشات الصغيرة */
 @media (max-width: 768px) {
-    .members-row {
-        justify-content: center;
-    }
-    
-    .dashboard-content .member-card {
-        width: 180px;
-        height: 320px;
-    }
-    
-    .dashboard-content .member-image {
-        height: 120px;
-    }
-    
-    .dashboard-content .member-info h3 {
-        font-size: 1rem;
-    }
-    
-    .dashboard-content .member-info .position,
-    .dashboard-content .member-info .department {
-        font-size: 0.8rem;
-    }
+	.members-row {
+		justify-content: center;
+	}
+
+	.dashboard-content .member-card {
+		width: 180px;
+		height: 320px;
+	}
+
+	.dashboard-content .member-image {
+		height: 120px;
+	}
+
+	.dashboard-content .member-info h3 {
+		font-size: 1rem;
+	}
+
+	.dashboard-content .member-info .position,
+	.dashboard-content .member-info .department {
+		font-size: 0.8rem;
+	}
 }
 
-/* تنسيق خاص للبطاقات في لوحة التحكم */ 
+/* تنسيق خاص للبطاقات في لوحة التحكم */
 @media (max-width: 480px) {
-    .dashboard-content .member-card {
-        width: 160px;
-        height: 300px;
-    }
-    
-    .dashboard-content .member-image {
-        height: 110px;
-    }
-    
-    .team-members-section h2 {
-        font-size: 1.5rem;
-    }
-} 
+	.dashboard-content .member-card {
+		width: 160px;
+		height: 300px;
+	}
+
+	.dashboard-content .member-image {
+		height: 110px;
+	}
+
+	.team-members-section h2 {
+		font-size: 1.5rem;
+	}
+}

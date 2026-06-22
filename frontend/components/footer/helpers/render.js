@@ -1,14 +1,14 @@
 window.loadFooter = () => {
-    const footer = document.querySelector('footer');
-    if (!footer) return;
+	const footer = document.querySelector("footer");
+	if (!footer) return;
 
-    footer.classList.add('footer');
+	footer.classList.add("footer");
 
-    const imagePath = window.getImagePath?.();
-    const t = window.getTranslations?.();
-    const r = window.ROUTES;
+	const imagePath = window.getImagePath?.();
+	const t = window.getTranslations?.();
+	const r = window.ROUTES;
 
-    footer.innerHTML = `
+	footer.innerHTML = `
         <div class="footer-waves">
             <div class="wave" id="wave1"></div>
             <div class="wave" id="wave2"></div>

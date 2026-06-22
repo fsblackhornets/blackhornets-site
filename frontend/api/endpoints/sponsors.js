@@ -1,3 +1,3 @@
 window.API.sponsors = {
-    getAll: () => window._apiGet('sponsors'),
+	getAll: () => window._apiGet("sponsors"),
 };

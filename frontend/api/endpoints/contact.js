@@ -1,3 +1,3 @@
 window.API.contact = {
-    send: (data) => window._apiPost('contact/send', data),
+	send: (data) => window._apiPost("contact/send", data),
 };

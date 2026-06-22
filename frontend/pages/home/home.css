@@ -1,133 +1,139 @@
 /* Latest News Section — home-page layout wrapper */
 .latest-news {
-    margin: 80px 0;
-    padding: 40px 0;
-    background: var(--dark-bg);
-    border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+	margin: 80px 0;
+	padding: 40px 0;
+	background: var(--dark-bg);
+	border-radius: 24px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .latest-news .container {
-    max-width: 1050px;
+	max-width: 1050px;
 }
 
 .latest-news .section-header h2 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    color: var(--primary-color);
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-yellow));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	font-size: clamp(2rem, 6vw, 3.5rem);
+	color: var(--primary-color);
+	background: linear-gradient(
+		45deg,
+		var(--primary-color),
+		var(--accent-yellow)
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-bottom: 1.5rem;
+	text-transform: uppercase;
+	letter-spacing: 3px;
 }
 
 /* Who We Are Section */
 .who-we-are-content {
-    margin-top: 50px;
-    max-width: 1050px;
-    margin-left: auto;
-    margin-right: auto;
+	margin-top: 50px;
+	max-width: 1050px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .who-we-are-text {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 215, 0, 0.1);
+	background: rgba(255, 255, 255, 0.03);
+	backdrop-filter: blur(10px);
+	padding: 40px;
+	border-radius: 20px;
+	border: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .who-we-are-text p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    color: var(--text-light);
-    text-align: justify;
-    font-family: 'Rajdhani', sans-serif;
+	font-size: 1.1rem;
+	line-height: 1.8;
+	margin-bottom: 1.5rem;
+	color: var(--text-light);
+	text-align: justify;
+	font-family: "Rajdhani", sans-serif;
 }
 
 .who-we-are-text p:last-child {
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .who-we-are-text p {
-    position: relative;
+	position: relative;
 }
 
 .who-we-are-text p::after {
-    content: '';
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: linear-gradient(90deg, #ffd700, rgba(255, 215, 0, 0.3));
-    transition: width 1.5s ease;
+	content: "";
+	position: absolute;
+	bottom: -18px;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: linear-gradient(90deg, #ffd700, rgba(255, 215, 0, 0.3));
+	transition: width 1.5s ease;
 }
 
 .who-we-are-text p::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    width: 53px;
-    height: 20px;
-    background-image: url('/frontend/assets/images/f1-car.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0;
-    transition: left 1.5s ease, opacity 0s;
+	content: "";
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+	width: 53px;
+	height: 20px;
+	background-image: url("/frontend/assets/images/f1-car.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0;
+	transition:
+		left 1.5s ease,
+		opacity 0s;
 }
 
 /* front wheel at ~75% of 53px = ~40px from car left, 2px gap */
 .who-we-are-text:hover p::after {
-    width: calc(100% - 15px);
+	width: calc(100% - 15px);
 }
 
 .who-we-are-text:hover p::before {
-    left: calc(100% - 53px);
-    opacity: 1;
+	left: calc(100% - 53px);
+	opacity: 1;
 }
 
 .who-we-are-text p:nth-child(1)::after,
 .who-we-are-text p:nth-child(1)::before {
-    transition-delay: 0s;
+	transition-delay: 0s;
 }
 
 .who-we-are-text p:nth-child(2)::after,
 .who-we-are-text p:nth-child(2)::before {
-    transition-delay: 0.2s;
+	transition-delay: 0.2s;
 }
 
 .who-we-are-text p:nth-child(3)::after,
 .who-we-are-text p:nth-child(3)::before {
-    transition-delay: 0.4s;
+	transition-delay: 0.4s;
 }
 
 #who-black-hornets-title {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 @media (max-width: 768px) {
-    .who-we-are-content {
-        margin-top: 30px;
-    }
+	.who-we-are-content {
+		margin-top: 30px;
+	}
 
-    .who-we-are-text {
-        padding: 30px 20px;
-    }
+	.who-we-are-text {
+		padding: 30px 20px;
+	}
 
-    .who-we-are-text p {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
+	.who-we-are-text p {
+		font-size: 1rem;
+		line-height: 1.6;
+	}
 }
