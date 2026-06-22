@@ -8,6 +8,7 @@ window.validateApplyForm = (form) => {
 		"faculty",
 		"major",
 		"academic_year",
+		"years_studying",
 		"gpa",
 		"position",
 		"motivation",

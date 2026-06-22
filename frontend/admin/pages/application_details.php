@@ -119,7 +119,20 @@ try {
                         </div>
                         <div class="detail-item">
                             <label>Academic Year</label>
-                            <span><?php echo htmlspecialchars($application['academic_year']); ?></span>
+                            <span><?php
+                                $yr = $application['academic_year'] ?? '';
+                                echo htmlspecialchars(match($yr) {
+                                    '1' => 'First Year', '2' => 'Second Year',
+                                    '3' => 'Third Year', '4' => 'Fourth Year',
+                                    'master' => 'Master Studies',
+                                    'doctoral' => 'Doctoral Studies',
+                                    default => $yr
+                                });
+                            ?></span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Years Studying</label>
+                            <span><?php echo htmlspecialchars((string)($application['years_studying'] ?? '—')); ?></span>
                         </div>
                         <div class="detail-item">
                             <label>GPA</label>
@@ -176,7 +189,7 @@ try {
                         <?php
                             // Get resume filename
                             $resume_filename = basename($application['resume_path']);
-                            $resume_full_path = __DIR__ . '/../../uploads/resumes/' . $resume_filename;
+                            $resume_full_path = __DIR__ . '/../../../uploads/resumes/' . $resume_filename;
                             $resume_url = '../../view-resume.php?file=' . urlencode($resume_filename);
                             
                             if (!empty($application['resume_path']) && file_exists($resume_full_path)):
@@ -223,7 +236,13 @@ try {
         'studentId' => $application['student_id'] ?? '',
         'faculty' => $application['faculty'] ?? '',
         'major' => $application['major'] ?? '',
-        'academicYear' => $application['academic_year'] ?? '',
+        'academicYear' => match($application['academic_year'] ?? '') {
+            '1' => 'First Year', '2' => 'Second Year',
+            '3' => 'Third Year', '4' => 'Fourth Year',
+            'master' => 'Master Studies', 'doctoral' => 'Doctoral Studies',
+            default => $application['academic_year'] ?? ''
+        },
+        'yearsStudying' => $application['years_studying'] ?? '',
         'gpa' => $application['gpa'] ?? '',
         'desiredPosition' => $positionText ?? ($application['desired_position'] ?? 'N/A'),
         'status' => ucfirst($application['status'] ?? ''),
@@ -335,7 +354,7 @@ try {
         y = addSection('Academic Information', y);
         y = addFieldRow('Student ID', applicantData.studentId, 'Faculty', applicantData.faculty, y);
         y = addFieldRow('Major', applicantData.major, 'Academic Year', applicantData.academicYear, y);
-        y = addFieldRow('GPA', applicantData.gpa, '', '', y);
+        y = addFieldRow('Years Studying', applicantData.yearsStudying, 'GPA', applicantData.gpa, y);
 
         y += 4;
 

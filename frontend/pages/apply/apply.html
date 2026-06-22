@@ -34,39 +34,38 @@
     <!-- Hero -->
     <section class="apply-hero">
         <div class="hero-content">
+            <div class="hero-eyebrow">Black Hornets Racing</div>
             <h1 id="join-team">Join Our Team</h1>
             <p id="be-part">Be part of something extraordinary</p>
         </div>
     </section>
 
-    <!-- Requirements & Departments -->
-    <section class="info-cards-section">
-        <div class="info-cards-grid">
+    <!-- Info: Requirements & Departments -->
+    <section class="apply-info">
+        <div class="apply-container">
+
             <!-- Requirements -->
-            <div class="info-card requirements-card">
-                <div class="card-header">
-                    <div class="header-icon"><i class="fas fa-clipboard-check"></i></div>
-                    <h2 id="requirements-title">Requirements</h2>
-                </div>
-                <div class="card-body">
-                    <div class="requirement-item">
+            <div class="info-panel">
+                <div class="panel-label"><i class="fas fa-clipboard-check"></i> <span id="requirements-title">Requirements</span></div>
+                <div class="req-list">
+                    <div class="req-item">
                         <div class="req-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="req-content">
-                            <h3 id="req1-title">Student Status</h3>
+                        <div>
+                            <h4 id="req1-title">Student Status</h4>
                             <p id="req1-desc">Active student at University of Novi Sad</p>
                         </div>
                     </div>
-                    <div class="requirement-item">
+                    <div class="req-item">
                         <div class="req-icon"><i class="fas fa-fire"></i></div>
-                        <div class="req-content">
-                            <h3 id="req2-title">Passion</h3>
+                        <div>
+                            <h4 id="req2-title">Passion</h4>
                             <p id="req2-desc">Enthusiasm for motorsports and engineering</p>
                         </div>
                     </div>
-                    <div class="requirement-item">
+                    <div class="req-item">
                         <div class="req-icon"><i class="fas fa-users"></i></div>
-                        <div class="req-content">
-                            <h3 id="req3-title">Team Spirit</h3>
+                        <div>
+                            <h4 id="req3-title">Team Spirit</h4>
                             <p id="req3-desc">Ability to work in a collaborative environment</p>
                         </div>
                     </div>
@@ -74,16 +73,13 @@
             </div>
 
             <!-- Departments -->
-            <div class="info-card departments-card">
-                <div class="card-header">
-                    <div class="header-icon"><i class="fas fa-sitemap"></i></div>
-                    <h2 id="departments-title">Available Departments</h2>
-                </div>
-                <div class="card-body">
-                    <div class="department-item">
+            <div class="info-panel">
+                <div class="panel-label"><i class="fas fa-sitemap"></i> <span id="departments-title">Available Departments</span></div>
+                <div class="dept-list">
+                    <div class="dept-item">
                         <div class="dept-icon"><i class="fas fa-briefcase"></i></div>
-                        <div class="dept-content">
-                            <h3 id="business-ops">Business Operations</h3>
+                        <div>
+                            <h4 id="business-ops">Business Operations</h4>
                             <ul>
                                 <li id="marketing-dept">Marketing</li>
                                 <li id="sponsorships-dept">Sponsorships</li>
@@ -91,10 +87,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="department-item">
+                    <div class="dept-item">
                         <div class="dept-icon"><i class="fas fa-cog"></i></div>
-                        <div class="dept-content">
-                            <h3 id="mechanical-eng">Mechanical Engineering</h3>
+                        <div>
+                            <h4 id="mechanical-eng">Mechanical Engineering</h4>
                             <ul>
                                 <li id="chassis-aero-dept">Chassis and Aerodynamics</li>
                                 <li id="suspension-steering-dept">Suspension and Steering</li>
@@ -102,10 +98,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="department-item">
+                    <div class="dept-item">
                         <div class="dept-icon"><i class="fas fa-bolt"></i></div>
-                        <div class="dept-content">
-                            <h3 id="electrical-eng">Electrical Engineering</h3>
+                        <div>
+                            <h4 id="electrical-eng">Electrical Engineering</h4>
                             <ul>
                                 <li id="high-voltage-dept">High Voltage</li>
                                 <li id="low-voltage-dept">Low Voltage</li>
@@ -114,20 +110,23 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
     <!-- Application Form -->
-    <section class="application-form-section">
-        <div class="container">
-            <div class="form-wrapper">
-                <h2 id="application-form-title">Application Form</h2>
-                <p id="application-form-subtitle">Fill out the form below to apply for a position in our team</p>
+    <section class="apply-form-section">
+        <div class="apply-container">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 id="application-form-title">Application Form</h2>
+                    <p id="application-form-subtitle">Fill out the form below to apply for a position in our team</p>
+                </div>
 
                 <form id="applyForm" enctype="multipart/form-data">
-                    <!-- Personal Information -->
-                    <div class="form-section">
-                        <h3 id="personal-info">Personal Information</h3>
+
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-user"></i> <span id="personal-info">Personal Information</span></div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label id="first-name-label" for="firstName">First Name</label>
@@ -150,9 +149,8 @@
                         </div>
                     </div>
 
-                    <!-- Academic Information -->
-                    <div class="form-section">
-                        <h3 id="academic-info">Academic Information</h3>
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-university"></i> <span id="academic-info">Academic Information</span></div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label id="student-id-label" for="studentId">Student ID</label>
@@ -168,6 +166,10 @@
                                 <label id="major-label" for="major">Major</label>
                                 <input type="text" id="major" name="major" required>
                             </div>
+                            <div class="form-group">
+                                <label id="gpa-label" for="gpa">GPA</label>
+                                <input type="number" id="gpa" name="gpa" step="0.01" min="6.00" max="10.00" required>
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -178,39 +180,40 @@
                                     <option value="2" id="second-year">Second Year</option>
                                     <option value="3" id="third-year">Third Year</option>
                                     <option value="4" id="fourth-year">Fourth Year</option>
+                                    <option value="master" id="master-studies">Master Studies</option>
+                                    <option value="doctoral" id="doctoral-studies">Doctoral Studies</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label id="gpa-label" for="gpa">GPA</label>
-                                <input type="number" id="gpa" name="gpa" step="0.01" min="6.00" max="10.00" required>
+                                <label id="years-studying-label" for="years_studying">Years Currently Studying</label>
+                                <input type="number" id="years_studying" name="years_studying" min="1" max="10" placeholder="e.g. 3" required>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Team Preferences -->
-                    <div class="form-section">
-                        <h3 id="team-preferences">Team Preferences</h3>
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-racing-flag fa-flag-checkered"></i> <span id="team-preferences">Team Preferences</span></div>
                         <div class="form-group">
                             <label id="position-label" for="position">Desired Position</label>
-                            <input type="text" id="position" name="position" id="yourDesiredPosition" placeholder="e.g., Suspension Engineer, Marketing Coordinator" required>
+                            <input type="text" id="position" name="position" placeholder="e.g., Suspension Engineer, Marketing Coordinator" required>
                         </div>
                         <div class="form-group">
                             <label id="experience-label" for="experience">Relevant Experience</label>
-                            <textarea id="experience" name="experience" rows="4"></textarea>
+                            <textarea id="experience" name="experience" rows="3"></textarea>
                         </div>
                         <div class="form-group">
                             <label id="motivation-label" for="motivation">Why do you want to join our team?</label>
-                            <textarea id="motivation" name="motivation" rows="6" required></textarea>
+                            <textarea id="motivation" name="motivation" rows="5" required></textarea>
                         </div>
                     </div>
 
-                    <!-- Documents -->
-                    <div class="form-section">
-                        <h3 id="additional-docs">Additional Documents</h3>
-                        <div class="form-group file-upload">
-                            <label id="resume-label" for="resume">
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-paperclip"></i> <span id="additional-docs">Documents</span></div>
+                        <div class="form-group file-upload-group">
+                            <label for="resume" class="file-upload-label">
                                 <i class="fas fa-file-pdf"></i>
-                                <span id="resume-text">Resume/CV (PDF only)</span>
+                                <span id="resume-text">Resume / CV</span>
+                                <small>PDF only · max 5MB</small>
                             </label>
                             <input type="file" id="resume" name="resume" accept=".pdf" required>
                             <span class="file-name" id="file-name">No file chosen</span>
@@ -224,10 +227,12 @@
                     </div>
                     <input type="hidden" id="recaptcha_token" name="recaptcha_token">
 
-                    <button type="submit" class="submit-btn">
-                        <span id="submit-application">Submit Application</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <div class="form-submit-row">
+                        <button type="submit" class="submit-btn">
+                            <span id="submit-application">Submit Application</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
 
                     <div id="formMessage" class="form-message"></div>
                 </form>

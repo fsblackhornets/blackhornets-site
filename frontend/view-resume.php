@@ -19,7 +19,7 @@ if (empty($filename)) {
 $filename = basename($filename);
 
 // Build the full path to the resume file
-$file_path = __DIR__ . '/uploads/resumes/' . $filename;
+$file_path = __DIR__ . '/../uploads/resumes/' . $filename;
 
 // Check if file exists
 if (!file_exists($file_path)) {

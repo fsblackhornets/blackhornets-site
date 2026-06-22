@@ -509,12 +509,18 @@ window.updateApplyPageContent = () => {
 	const secondYear = document.getElementById("second-year");
 	const thirdYear = document.getElementById("third-year");
 	const fourthYear = document.getElementById("fourth-year");
+	const masterStudies = document.getElementById("master-studies");
+	const doctoralStudies = document.getElementById("doctoral-studies");
+	const yearsStudyingLabel = document.getElementById("years-studying-label");
 
 	if (selectYear) selectYear.textContent = t.selectYear;
 	if (firstYear) firstYear.textContent = t.firstYear;
 	if (secondYear) secondYear.textContent = t.secondYear;
 	if (thirdYear) thirdYear.textContent = t.thirdYear;
 	if (fourthYear) fourthYear.textContent = t.fourthYear;
+	if (masterStudies) masterStudies.textContent = t.masterStudies;
+	if (doctoralStudies) doctoralStudies.textContent = t.doctoralStudies;
+	if (yearsStudyingLabel) yearsStudyingLabel.textContent = t.yearsStudying;
 
 	updateSelectOptions(t);
 };

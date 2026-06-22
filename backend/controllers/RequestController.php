@@ -27,6 +27,12 @@ class RequestController {
             'sponsor' => $this->sponsorData(),
         };
 
+        if ($type === 'member') {
+            if (empty($data['email'])) Response::error('Email is required.');
+            if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) Response::error('Invalid email address.');
+            if (empty($data['full_name'])) Response::error('Full name is required.');
+        }
+
         $id = $this->service->create($type, $data, (int)$_SESSION['user_id'], $_SESSION['full_name'] ?? '');
         Response::json(['success' => true, 'message' => 'Request submitted. Awaiting admin approval.', 'id' => $id], 201);
     }
