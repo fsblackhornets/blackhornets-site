@@ -33,6 +33,36 @@ class RequestController {
             if (empty($data['full_name'])) Response::error('Full name is required.');
         }
 
+        // Handle file uploads
+        $fileMap = [
+            'post'    => ['field' => 'image',           'dir' => __DIR__ . '/../../frontend/uploads/pending/', 'store' => 'path'],
+            'project' => ['field' => 'image',           'dir' => __DIR__ . '/../../frontend/uploads/pending/', 'store' => 'path'],
+            'sponsor' => ['field' => 'logo',            'dir' => __DIR__ . '/../../frontend/uploads/pending/', 'store' => 'path'],
+            'member'  => ['field' => 'profile_picture', 'dir' => __DIR__ . '/../../uploads/profiles/',         'store' => 'filename'],
+        ];
+
+        if (isset($fileMap[$type])) {
+            $fm       = $fileMap[$type];
+            $field    = $fm['field'];
+            $allowed  = ['jpg','jpeg','png','gif','webp','svg'];
+
+            if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES[$field];
+                $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+                if (in_array($ext, $allowed) && $file['size'] <= 10 * 1024 * 1024) {
+                    if (!is_dir($fm['dir'])) mkdir($fm['dir'], 0755, true);
+                    $filename = uniqid('req_') . '.' . $ext;
+
+                    if (move_uploaded_file($file['tmp_name'], $fm['dir'] . $filename)) {
+                        $data[$field] = $fm['store'] === 'filename'
+                            ? $filename
+                            : 'uploads/pending/' . $filename;
+                    }
+                }
+            }
+        }
+
         $id = $this->service->create($type, $data, (int)$_SESSION['user_id'], $_SESSION['full_name'] ?? '');
         Response::json(['success' => true, 'message' => 'Request submitted. Awaiting admin approval.', 'id' => $id], 201);
     }
@@ -58,35 +88,52 @@ class RequestController {
 
     private function memberData(): array {
         return [
-            'full_name' => trim($_POST['full_name'] ?? ''), 'email' => trim($_POST['email'] ?? ''),
-            'phone' => trim($_POST['phone'] ?? ''), 'team' => trim($_POST['team'] ?? ''),
-            'department' => trim($_POST['department'] ?? ''), 'role' => trim($_POST['role'] ?? 'team_member'),
-            'position' => trim($_POST['position'] ?? ''), 'faculty' => trim($_POST['faculty'] ?? ''),
-            'study_field' => trim($_POST['study_field'] ?? ''), 'academic_year' => trim($_POST['academic_year'] ?? ''),
+            'full_name'     => trim($_POST['full_name']     ?? ''),
+            'email'         => trim($_POST['email']         ?? ''),
+            'phone'         => trim($_POST['phone']         ?? ''),
+            'team'          => trim($_POST['team']          ?? ''),
+            'department'    => trim($_POST['department']    ?? ''),
+            'role'          => trim($_POST['role']          ?? 'team_member'),
+            'position'      => trim($_POST['position']      ?? ''),
+            'faculty'       => trim($_POST['faculty']       ?? ''),
+            'study_field'    => trim($_POST['study_field']    ?? ''),
+            'academic_year'  => trim($_POST['academic_year']  ?? ''),
+            'image_position' => trim($_POST['image_position'] ?? '50% 50%'),
         ];
     }
 
     private function postData(): array {
         return [
-            'title_sr' => trim($_POST['title_sr'] ?? ''), 'title_en' => trim($_POST['title_en'] ?? ''),
-            'content_sr' => trim($_POST['content_sr'] ?? ''), 'content_en' => trim($_POST['content_en'] ?? ''),
-            'featured' => isset($_POST['featured']) ? 1 : 0, 'category' => trim($_POST['category'] ?? ''),
+            'title_sr'   => trim($_POST['title_sr']   ?? ''),
+            'title_en'   => trim($_POST['title_en']   ?? ''),
+            'content_sr' => trim($_POST['content_sr'] ?? ''),
+            'content_en' => trim($_POST['content_en'] ?? ''),
+            'featured'       => isset($_POST['featured']) ? 1 : 0,
+            'category'       => trim($_POST['category']       ?? ''),
+            'image_position' => trim($_POST['image_position'] ?? '50% 50%'),
         ];
     }
 
     private function projectData(): array {
         return [
-            'name' => trim($_POST['name'] ?? ''), 'description' => trim($_POST['description'] ?? ''),
-            'status' => trim($_POST['status'] ?? 'pending'), 'progress' => (int)($_POST['progress'] ?? 0),
-            'due_date' => trim($_POST['due_date'] ?? ''), 'duration' => trim($_POST['duration'] ?? ''),
+            'name'           => trim($_POST['name']           ?? ''),
+            'description'    => trim($_POST['description']    ?? ''),
+            'status'         => trim($_POST['status']         ?? 'pending'),
+            'progress'       => (int)($_POST['progress']      ?? 0),
+            'due_date'       => trim($_POST['due_date']       ?? ''),
+            'duration'       => trim($_POST['duration']       ?? ''),
+            'image_position' => trim($_POST['image_position'] ?? '50% 50%'),
         ];
     }
 
     private function sponsorData(): array {
         return [
-            'name' => trim($_POST['name'] ?? ''), 'tier' => trim($_POST['tier'] ?? ''),
-            'website' => trim($_POST['website'] ?? ''), 'description_sr' => trim($_POST['description_sr'] ?? ''),
+            'name'           => trim($_POST['name']           ?? ''),
+            'tier'           => trim($_POST['tier']           ?? ''),
+            'website'        => trim($_POST['website']        ?? ''),
+            'description_sr' => trim($_POST['description_sr'] ?? ''),
             'description_en' => trim($_POST['description_en'] ?? ''),
+            'image_position' => trim($_POST['image_position'] ?? '50% 50%'),
         ];
     }
 }

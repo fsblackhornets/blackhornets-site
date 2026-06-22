@@ -47,9 +47,10 @@ class RequestService {
 
     private function insertProject(array $d): void {
         $progress = (int)($d['progress'] ?? 0);
-        $image    = $d['image_url'] ?? '';
-        $stmt = $this->conn->prepare("INSERT INTO projects (name,description,status,progress,due_date,duration,image,created_at) VALUES (?,?,?,?,?,?,?,NOW())");
-        $stmt->bind_param('sssisss', $d['name'], $d['description'], $d['status'], $progress, $d['due_date'], $d['duration'], $image);
+        $image    = $d['image'] ?? $d['image_url'] ?? '';
+        $imgPos   = $d['image_position'] ?? '50% 50%';
+        $stmt = $this->conn->prepare("INSERT INTO projects (name,description,status,progress,due_date,duration,image,image_position,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())");
+        $stmt->bind_param('sssissss', $d['name'], $d['description'], $d['status'], $progress, $d['due_date'], $d['duration'], $image, $imgPos);
         $stmt->execute();
     }
 
@@ -58,22 +59,24 @@ class RequestService {
         $content  = $d['content_sr'];
         $featured = (int)($d['featured'] ?? 0);
         $image    = $d['image'] ?? '';
+        $imagePos = $d['image_position'] ?? '50% 50%';
         $category = $d['category'] ?? '';
         $author   = $d['author'] ?? 'Manager';
-        $stmt = $this->conn->prepare("INSERT INTO posts (title,title_sr,title_en,content,content_sr,content_en,author,category,featured,image,status,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,'published',NOW())");
-        $stmt->bind_param('ssssssssis', $title,$d['title_sr'],$d['title_en'],$content,$d['content_sr'],$d['content_en'],$author,$category,$featured,$image);
+        $stmt = $this->conn->prepare("INSERT INTO posts (title,title_sr,title_en,content,content_sr,content_en,author,category,featured,image,image_position,status,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,'published',NOW())");
+        $stmt->bind_param('ssssssssiss', $title,$d['title_sr'],$d['title_en'],$content,$d['content_sr'],$d['content_en'],$author,$category,$featured,$image,$imagePos);
         $stmt->execute();
     }
 
     private function insertSponsor(array $d): void {
-        $desc    = $d['description_sr'] ?? '';
-        $descEn  = $d['description_en'] ?? '';
-        $logo    = $d['logo'] ?? '';
-        $name    = $d['name'] ?? '';
-        $tier    = $d['tier'] ?? '';
-        $website = $d['website'] ?? '';
-        $stmt = $this->conn->prepare("INSERT INTO sponsors (name,tier,website,description,description_en,logo,created_at) VALUES (?,?,?,?,?,?,NOW())");
-        $stmt->bind_param('ssssss', $name, $tier, $website, $desc, $descEn, $logo);
+        $desc    = $d['description_sr']  ?? '';
+        $descEn  = $d['description_en']  ?? '';
+        $logo    = $d['logo']            ?? '';
+        $imgPos  = $d['image_position']  ?? '50% 50%';
+        $name    = $d['name']            ?? '';
+        $tier    = $d['tier']            ?? '';
+        $website = $d['website']         ?? '';
+        $stmt = $this->conn->prepare("INSERT INTO sponsors (name,tier,website,description,description_en,logo,image_position,created_at) VALUES (?,?,?,?,?,?,?,NOW())");
+        $stmt->bind_param('sssssss', $name, $tier, $website, $desc, $descEn, $logo, $imgPos);
         $stmt->execute();
     }
 
@@ -97,12 +100,13 @@ class RequestService {
         $uid = $this->conn->insert_id;
 
         $pic          = $d['profile_picture'] ?? 'default.jpg';
+        $imgPos       = $d['image_position']  ?? '50% 50%';
         $position     = $d['position']     ?? '';
         $faculty      = $d['faculty']      ?? '';
         $studyField   = $d['study_field']  ?? '';
         $academicYear = $d['academic_year'] ?? '';
-        $m = $this->conn->prepare("INSERT INTO team_members (user_id,position,profile_picture,faculty,study_field,academic_year,department,team,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())");
-        $m->bind_param('isssssss', $uid, $position, $pic, $faculty, $studyField, $academicYear, $dept, $team);
+        $m = $this->conn->prepare("INSERT INTO team_members (user_id,position,profile_picture,image_position,faculty,study_field,academic_year,department,team,created_at) VALUES (?,?,?,?,?,?,?,?,?,NOW())");
+        $m->bind_param('issssssss', $uid, $position, $pic, $imgPos, $faculty, $studyField, $academicYear, $dept, $team);
         $m->execute();
     }
 }

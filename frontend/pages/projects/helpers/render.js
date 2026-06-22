@@ -28,8 +28,9 @@ window.displayProjects = (projects, container) => {
 	let html = "";
 
 	projects.forEach((project) => {
+		const imgPos = project.image_position || "50% 50%";
 		const imageHtml = project.image_url
-			? `<img src="/frontend/${project.image_url}" alt="${project.name}" class="project-image">`
+			? `<img src="/frontend/${project.image_url}" alt="${project.name}" class="project-image" style="object-position:${imgPos}">`
 			: `<div class="project-placeholder">${project.name.charAt(0)}</div>`;
 
 		const statusClass = window.getStatusClass(project.status);
