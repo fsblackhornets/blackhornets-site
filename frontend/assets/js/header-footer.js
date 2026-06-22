@@ -308,6 +308,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			initComponents();
 
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					document.body.classList.add("page-ready");
+				});
+			});
+
 			setTimeout(() => {
 				if (document.querySelector(".department-box")) {
 					window.updateTeamPageContent?.();

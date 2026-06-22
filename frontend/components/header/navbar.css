@@ -88,6 +88,12 @@
 
 body {
 	padding-top: var(--header-height);
+	opacity: 0;
+	transition: opacity 0.12s ease;
+}
+
+body.page-ready {
+	opacity: 1;
 }
 
 /* Header Styles */
