@@ -145,7 +145,7 @@ while ($row = $stmt->fetch_assoc()) {
                         <td><?= htmlspecialchars($post['created_at']) ?></td>
                         <td class="actions">
                             <a href="add-edit-post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="delete-post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this post?');"><i class="fas fa-trash"></i> Delete</a>
+                            <a href="/backend/admin/delete-post.php?id=<?= $post['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this post?');"><i class="fas fa-trash"></i> Delete</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

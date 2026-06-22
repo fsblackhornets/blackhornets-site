@@ -116,7 +116,7 @@ $messages_result = $stmt->get_result();
                 if (confirm(t.confirmDeleteMessage)) {
                     const id = this.dataset.id;
                     try {
-                        const response = await fetch('delete_message.php', {
+                        const response = await fetch('/backend/admin/delete_message.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

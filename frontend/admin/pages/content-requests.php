@@ -180,7 +180,7 @@ async function submitReview(action) {
     if (!currentRequestId) return;
     const notes = document.getElementById('adminNotes').value.trim();
 
-    const res  = await fetch('/backend/api/requests', {
+    const res  = await fetch(`/backend/api/requests/${currentRequestId}/review`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: currentRequestId, action, notes })

@@ -268,7 +268,7 @@ try {
                                 <a href="add-edit-sponsor.php?id=<?= $sponsor['id'] ?>" class="btn-edit-sponsor">
                                     <i class="fas fa-edit"></i> <span data-i18n="edit">Edit</span>
                                 </a>
-                                <a href="delete-sponsor.php?id=<?= $sponsor['id'] ?>&csrf_token=<?= htmlspecialchars(csrf_generate_token()) ?>"
+                                <a href="/backend/admin/delete-sponsor.php?id=<?= $sponsor['id'] ?>&csrf_token=<?= htmlspecialchars(csrf_generate_token()) ?>"
                                    class="btn-delete-sponsor"
                                    onclick="return confirm(getT().confirmDeleteSponsor);">
                                     <i class="fas fa-trash"></i> <span data-i18n="delete">Delete</span>
