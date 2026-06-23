@@ -821,18 +821,34 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
-        // 1. Upload gallery images
+        // 1. Upload all section images to gallery
         for (const p of pages) {
             for (const s of p) {
-                if (s.type !== 'images') continue;
-                const cols = s.data.cols || 1;
-                for (let i = 0; i < cols; i++) {
-                    const file = slotFiles[`${s.id}_${i}`];
-                    const cat  = s.data.cats?.[i];
-                    if (!file || !cat) continue;
-                    const fd = new FormData();
-                    fd.append('image', file); fd.append('category', cat); fd.append('title', draft.titleSr||'');
-                    try { await fetch('/backend/api/gallery', { method: 'POST', body: fd }); } catch {}
+                if (!['images','photo-left','photo-right','gallery'].includes(s.type)) continue;
+
+                if (s.type === 'gallery') {
+                    // gallery carousel — no per-slot category, use default
+                    const count = Object.keys(s.data.previews || {}).length;
+                    for (let i = 0; i < count; i++) {
+                        const file = slotFiles[`${s.id}_${i}`];
+                        if (!file) continue;
+                        const fd = new FormData();
+                        fd.append('image', file);
+                        fd.append('category', 'events');
+                        fd.append('title', draft.titleSr || '');
+                        try { await fetch('/backend/api/gallery', { method: 'POST', body: fd }); } catch {}
+                    }
+                } else {
+                    // images, photo-left, photo-right — use selected category per slot
+                    const cols = s.type === 'images' ? (s.data.cols || 1) : 1;
+                    for (let i = 0; i < cols; i++) {
+                        const file = slotFiles[`${s.id}_${i}`];
+                        const cat  = s.data.cats?.[i];
+                        if (!file || !cat) continue;
+                        const fd = new FormData();
+                        fd.append('image', file); fd.append('category', cat); fd.append('title', draft.titleSr || '');
+                        try { await fetch('/backend/api/gallery', { method: 'POST', body: fd }); } catch {}
+                    }
                 }
             }
         }
