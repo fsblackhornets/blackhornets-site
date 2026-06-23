@@ -29,6 +29,10 @@ class RequestService {
         }
     }
 
+    public function updateRequestData(int $id, array $data): void {
+        $this->repo->updateData($id, json_encode($data));
+    }
+
     public function decline(int $id, ?string $notes, int $reviewedBy): void {
         $request = $this->repo->findPendingById($id);
         if (!$request) throw new RuntimeException('Request not found or already reviewed');
