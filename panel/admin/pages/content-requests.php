@@ -119,19 +119,7 @@ require_once __DIR__ . '/../auth_check.php';
         <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
         <div class="modal-title" id="modalTitle"></div>
 
-        <div class="modal-tabs" id="modalTabs" style="display:none;">
-            <button class="modal-tab active" onclick="switchTab('view')">View</button>
-            <button class="modal-tab" onclick="switchTab('edit')">Edit</button>
-        </div>
-
-        <div id="tabView">
-            <div id="modalData"></div>
-        </div>
-
-        <div id="tabEdit" style="display:none;">
-            <div id="editFields"></div>
-        </div>
-
+        <div id="modalData"></div>
         <div id="statusBar" class="status-bar" style="display:none;"></div>
 
         <div>
@@ -144,7 +132,6 @@ require_once __DIR__ . '/../auth_check.php';
 
 <script>
 let currentReq = null;
-let currentTab = 'view';
 
 // ── Load requests ──
 function loadRequests() {
@@ -179,24 +166,15 @@ function loadRequests() {
 // ── Open modal ──
 function openModal(req) {
     currentReq = req;
-    currentTab = 'view';
     document.getElementById('modalTitle').textContent = `#${req.id} — ${req.type} request by ${req.submitter_name}`;
     document.getElementById('adminNotes').value = req.admin_notes || '';
 
-    // View tab
     const d = req.data;
     document.getElementById('modalData').innerHTML = Object.entries(d)
         .map(([k, v]) => `<div class="data-row"><span class="data-label">${k.replace(/_/g,' ')}</span><span class="data-value">${v||'—'}</span></div>`)
         .join('');
 
-    // Edit tab
-    document.getElementById('editFields').innerHTML = buildEditFields(req.type, d);
-
-    // Tabs — only show for pending
     const isPending = req.status === 'pending';
-    document.getElementById('modalTabs').style.display = isPending ? 'flex' : 'none';
-    document.getElementById('tabView').style.display = 'block';
-    document.getElementById('tabEdit').style.display = 'none';
 
     // Status bar for reviewed requests
     const bar = document.getElementById('statusBar');
@@ -207,12 +185,10 @@ function openModal(req) {
         bar.style.display = 'none';
     }
 
-    // Actions
     const actions = document.getElementById('modalActions');
     actions.innerHTML = isPending ? `
         <button class="btn-action btn-decline" onclick="submitReview('decline')"><i class="fas fa-times"></i> Decline</button>
         <button class="btn-action btn-approve" onclick="submitReview('approve')"><i class="fas fa-check"></i> Approve</button>
-        <button class="btn-action btn-edit" onclick="submitReview('approve', true)"><i class="fas fa-edit"></i> Edit &amp; Approve</button>
     ` : '';
 
     document.getElementById('reviewModal').classList.add('open');
@@ -223,92 +199,11 @@ function closeModal() {
     currentReq = null;
 }
 
-// ── Tabs ──
-function switchTab(tab) {
-    currentTab = tab;
-    document.getElementById('tabView').style.display = tab === 'view' ? 'block' : 'none';
-    document.getElementById('tabEdit').style.display = tab === 'edit' ? 'block' : 'none';
-    document.querySelectorAll('.modal-tab').forEach((t, i) => t.classList.toggle('active', (i === 0) === (tab === 'view')));
-}
-
-// ── Build editable fields per type ──
-function buildEditFields(type, d) {
-    const field = (key, label, multiline = false, opts = null) => {
-        const val = (d[key] || '').replace(/"/g, '&quot;');
-        if (opts) {
-            const options = opts.map(o => `<option value="${o.v}" ${d[key]===o.v?'selected':''}>${o.l}</option>`).join('');
-            return `<div class="edit-field"><label>${label}</label><select id="ef_${key}"><option value="">${label}...</option>${options}</select></div>`;
-        }
-        if (multiline) return `<div class="edit-field"><label>${label}</label><textarea id="ef_${key}" rows="4">${d[key]||''}</textarea></div>`;
-        return `<div class="edit-field"><label>${label}</label><input type="text" id="ef_${key}" value="${val}"></div>`;
-    };
-
-    if (type === 'post') return [
-        field('title_sr', 'Title (Serbian)'),
-        field('title_en', 'Title (English)'),
-        field('content_sr', 'Content (Serbian)', true),
-        field('content_en', 'Content (English)', true),
-        field('category', 'Category', false, [{v:'Technology',l:'Technology'},{v:'Events',l:'Events'},{v:'Competitions',l:'Competitions'},{v:'Team Updates',l:'Team Updates'}]),
-    ].join('');
-
-    if (type === 'project') return [
-        field('name', 'Project Name'),
-        field('description', 'Description', true),
-        field('status', 'Status', false, [{v:'active',l:'Active'},{v:'pending',l:'Pending'},{v:'completed',l:'Completed'}]),
-        field('progress', 'Progress (%)'),
-        field('due_date', 'Due Date'),
-        field('duration', 'Duration'),
-    ].join('');
-
-    if (type === 'sponsor') return [
-        field('name', 'Sponsor Name'),
-        field('tier', 'Tier', false, [{v:'Institucija',l:'Institucija'},{v:'F1 - Platinum',l:'F1 - Platinum'},{v:'F2 - Gold',l:'F2 - Gold'},{v:'F3 - Silver',l:'F3 - Silver'},{v:'F4 - Bronze',l:'F4 - Bronze'}]),
-        field('website', 'Website'),
-        field('description_sr', 'Description (Serbian)', true),
-        field('description_en', 'Description (English)', true),
-    ].join('');
-
-    if (type === 'member') return [
-        field('full_name', 'Full Name'),
-        field('email', 'Email'),
-        field('phone', 'Phone'),
-        field('role', 'Role', false, [{v:'team_member',l:'Team Member'},{v:'sub_leader',l:'Sub Leader'}]),
-        field('team', 'Team', false, [{v:'mechanical',l:'Mechanical'},{v:'electrical',l:'Electrical'},{v:'operating_business',l:'Business'}]),
-        field('department', 'Department'),
-        field('position', 'Position'),
-        field('faculty', 'Faculty'),
-        field('study_field', 'Study Field'),
-        field('academic_year', 'Academic Year'),
-    ].join('');
-
-    return '<p style="color:#666;">No editable fields for this type.</p>';
-}
-
-// ── Collect edited data ──
-function collectEditedData(type) {
-    const keys = {
-        post:    ['title_sr','title_en','content_sr','content_en','category'],
-        project: ['name','description','status','progress','due_date','duration'],
-        sponsor: ['name','tier','website','description_sr','description_en'],
-        member:  ['full_name','email','phone','role','team','department','position','faculty','study_field','academic_year'],
-    }[type] || [];
-
-    const data = { ...currentReq.data };
-    keys.forEach(k => {
-        const el = document.getElementById(`ef_${k}`);
-        if (el) data[k] = el.value;
-    });
-    return data;
-}
-
 // ── Submit review ──
-async function submitReview(action, useEdited = false) {
+async function submitReview(action) {
     if (!currentReq) return;
-    const notes      = document.getElementById('adminNotes').value.trim();
-    const editedData = useEdited ? collectEditedData(currentReq.type) : null;
-
+    const notes = document.getElementById('adminNotes').value.trim();
     const body = { id: currentReq.id, action, notes };
-    if (editedData) body.editedData = editedData;
 
     const res  = await fetch(`/backend/api/requests/${currentReq.id}/review`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
