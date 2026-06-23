@@ -1443,3 +1443,16 @@
 	letter-spacing: 2px;
 	margin: 0;
 }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+	.gallery-container { padding: 0 1rem; }
+	.grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	.gallery-section { padding: 18px 0; }
+	.va-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+	.grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+	.va-grid { grid-template-columns: repeat(2, 1fr); }
+}
