@@ -484,7 +484,7 @@ Black Hornets Racing Team`);
     }
 
     function processApplication(id, action) {
-        fetch('process_application.php', {
+        fetch('/backend/admin/process_application.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
