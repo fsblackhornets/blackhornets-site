@@ -971,12 +971,21 @@ a {
 	flex-direction: column;
 	overflow: hidden;
 	position: relative;
-	padding-bottom: 24px;
+	padding: 0 0 24px;
 	border: 2px solid #232323;
 	margin-bottom: 10px;
 	transition:
 		box-shadow 0.2s,
 		transform 0.2s;
+}
+
+/* Consistent side padding for all text content inside news cards */
+.news-meta-row,
+.news-title-featured,
+.news-text-featured,
+.news-readmore {
+	padding-left: 20px;
+	padding-right: 20px;
 }
 .news-card-featured:hover {
 	box-shadow:
@@ -1039,7 +1048,6 @@ a {
 	gap: 18px;
 	align-items: center;
 	margin: 18px 0 0 0;
-	padding: 0 24px;
 	color: #ffd700;
 	font-size: 1rem;
 	opacity: 0.95;
@@ -1055,7 +1063,6 @@ a {
 	font-size: 1.45rem;
 	color: #ffd700;
 	margin: 18px 0 10px 0;
-	padding: 0 24px;
 	font-weight: 700;
 	letter-spacing: 1px;
 }
@@ -1064,7 +1071,6 @@ a {
 	font-family: "Rajdhani", Arial, sans-serif;
 	font-size: 1.08rem;
 	margin: 0 0 18px 0;
-	padding: 0 24px;
 	line-height: 1.7;
 	min-height: 48px;
 	word-break: break-word;
@@ -1073,7 +1079,7 @@ a {
 	color: #ffd700;
 	font-weight: 700;
 	font-size: 1.08rem;
-	margin-left: 24px;
+	margin-left: 0;
 	margin-top: 8px;
 	text-decoration: none;
 	display: inline-block;

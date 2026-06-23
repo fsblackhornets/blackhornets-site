@@ -23,9 +23,10 @@ const translations = {
 		// Homepage
 		heroTitle: "Black Hornets",
 		heroSubtitle: "Formula Student Novi Sad",
-		discoverMore: "Discover More",
+		discoverMore: "About Us",
 		joinUs: "Join Us",
 		scrollDown: "Scroll Down",
+		blogLinkText: "Blog",
 		latestNews: "Latest News",
 		moreNews: "More News",
 		featured: "Featured",
@@ -320,9 +321,10 @@ const translations = {
 		// Homepage
 		heroTitle: "Crni Stršljeni",
 		heroSubtitle: "Formula Student Novi Sad",
-		discoverMore: "Saznaj više",
+		discoverMore: "O nama",
 		joinUs: "Pridruži nam se",
 		scrollDown: "Scroll Down",
+		blogLinkText: "Blog",
 		latestNews: "Najnovije vesti",
 		moreNews: "Još vesti",
 		featured: "Istaknuto",
