@@ -7,9 +7,9 @@
 }
 
 .single-post > .container {
-	max-width: 820px;
+	max-width: 1600px;
 	margin: 0 auto;
-	padding: 0 24px;
+	padding: 0 4rem;
 }
 
 .post-wrapper {
@@ -108,7 +108,9 @@
 
 .post-featured-image img {
 	width: 100%;
-	height: auto;
+	max-height: 480px;
+	object-fit: cover;
+	object-position: center;
 	display: block;
 	transition: transform 0.5s ease;
 }
@@ -125,26 +127,35 @@
 	padding: 0;
 }
 
+/* Gold separator — only between sections (before h2 that follows content) */
+.post-content > * + h2 {
+	border-top: 1px solid rgba(255, 215, 0, 0.18);
+	padding-top: 1.5rem;
+}
+
+/* Yellow outline on all post images */
+.post-content img {
+	border: 2px solid rgba(255, 215, 0, 0.5);
+	border-radius: 8px;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	width: 100%;
+}
+
+.post-content img:hover {
+	border-color: #ffd700;
+	box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
+}
+
 .post-content h2 {
 	font-family: "Rajdhani", sans-serif;
 	color: var(--primary-color);
 	margin: 40px 0 20px;
 	font-size: 1.6rem;
 	font-weight: 700;
-	position: relative;
-	padding-left: 18px;
-}
-
-.post-content h2::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 4px;
-	height: 22px;
-	background: var(--primary-color);
-	border-radius: 2px;
+	border: none !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 .post-content p {
@@ -218,9 +229,9 @@
 }
 
 .related-posts > .container {
-	max-width: 1100px;
+	max-width: 1600px;
 	margin: 0 auto;
-	padding: 0 24px;
+	padding: 0 4rem;
 }
 
 .related-posts h2 {

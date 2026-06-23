@@ -61,7 +61,8 @@ function fetchAndRenderPost() {
 	if (!postId) return;
 	window.apiReady
 		.then(() => window.API.posts.getById(postId))
-		.then((data) => {
+		.then((res) => {
+			const data = res?.data || res;
 			if (!data) {
 				document.querySelector(".single-post .post-wrapper").innerHTML =
 					'<p style="color:red;text-align:center;">Post not found.</p>';

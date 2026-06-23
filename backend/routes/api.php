@@ -18,7 +18,8 @@ $router->get('/projects', [ProjectController::class, 'index']);
 $router->get('/sponsors', [SponsorController::class, 'index']);
 
 // Gallery
-$router->get('/gallery', [GalleryController::class, 'index']);
+$router->get('/gallery',  [GalleryController::class, 'index']);
+$router->post('/gallery', [GalleryController::class, 'create']);
 
 // Brochure
 $router->get('/brochure', [BrochureController::class, 'show']);
