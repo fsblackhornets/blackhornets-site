@@ -10,7 +10,7 @@ class GalleryService {
         if (!in_array($ext, $allowed) || $file['size'] > 10 * 1024 * 1024) {
             throw new RuntimeException('Invalid file type or size.');
         }
-        $uploadDir = __DIR__ . '/../../frontend/uploads/gallery/';
+        $uploadDir = __DIR__ . '/../../panel/admin/uploads/gallery/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
         $filename  = uniqid('gallery_') . '.' . $ext;
         if (!move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) {
