@@ -41,19 +41,6 @@ function setupImageZoom() {
 	});
 }
 
-// Setup Reading Progress
-function setupReadingProgress() {
-	const progressBar = document.createElement("div");
-	progressBar.className = "reading-progress";
-	document.body.appendChild(progressBar);
-
-	window.addEventListener("scroll", () => {
-		const windowHeight = document.documentElement.clientHeight;
-		const fullHeight = document.documentElement.scrollHeight - windowHeight;
-		const scrolled = (window.scrollY / fullHeight) * 100;
-		progressBar.style.width = scrolled + "%";
-	});
-}
 
 function fetchAndRenderPost() {
 	const urlParams = new URLSearchParams(window.location.search);
