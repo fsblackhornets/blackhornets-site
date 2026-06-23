@@ -115,6 +115,10 @@ const loadHeader = () => {
                         <i class="fas fa-project-diagram"></i>
                         <span>${t.projects}</span>
                     </a>
+                    <a href="${window.ROUTES.blog}" class="nav-link">
+                        <i class="fas fa-newspaper"></i>
+                        <span>${t.blog || "Blog"}</span>
+                    </a>
                     <a href="${window.ROUTES.gallery}" class="nav-link">
                         <i class="fas fa-images"></i>
                         <span>${t.gallery}</span>

@@ -3,6 +3,7 @@
 	background: transparent;
 	padding: 80px 0 30px;
 	overflow: hidden;
+	border-top: 1px solid rgba(255, 215, 0, 0.15);
 }
 
 .footer-waves {

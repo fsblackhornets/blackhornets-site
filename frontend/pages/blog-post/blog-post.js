@@ -59,15 +59,16 @@ function fetchAndRenderPost() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const postId = urlParams.get("id");
 	if (!postId) return;
-	fetch(`../api/posts/read.php?id=${postId}`)
-		.then((res) => res.json())
-		.then((data) => {
-			if (data.status !== "success" || !data.data) {
+	window.apiReady
+		.then(() => window.API.posts.getById(postId))
+		.then((res) => {
+			const data = res?.data || res;
+			if (!data) {
 				document.querySelector(".single-post .post-wrapper").innerHTML =
 					'<p style="color:red;text-align:center;">Post not found.</p>';
 				return;
 			}
-			renderPost(data.data);
+			renderPost(data);
 		})
 		.catch(() => {
 			document.querySelector(".single-post .post-wrapper").innerHTML =
@@ -112,9 +113,10 @@ function renderPost(post) {
 	// Image
 	let imagePath = "";
 	if (post.image) {
-		imagePath = post.image.startsWith("/")
-			? post.image
-			: "/" + post.image.replace(/^\.\.\//, "");
+		imagePath =
+			post.image.startsWith("http") || post.image.startsWith("/")
+				? post.image
+				: "/frontend/" + post.image.replace(/^\.\.\//, "");
 	}
 	// Author
 	let author = post.author || "Team Black Hornets";
@@ -181,9 +183,10 @@ function renderRelatedPosts(currentId) {
 						: post.content_sr || post.content || post.content_en) || "";
 				let imagePath = "";
 				if (post.image) {
-					imagePath = post.image.startsWith("/")
-						? post.image
-						: "/" + post.image.replace(/^\.\.\//, "");
+					imagePath =
+						post.image.startsWith("http") || post.image.startsWith("/")
+							? post.image
+							: "/frontend/" + post.image.replace(/^\.\.\//, "");
 				}
 				const plainContent = content.replace(/<[^>]*>/g, "");
 				const shortContent =

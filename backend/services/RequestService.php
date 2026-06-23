@@ -57,13 +57,12 @@ class RequestService {
     private function insertPost(array $d): void {
         $title    = $d['title_sr'];
         $content  = $d['content_sr'];
-        $featured = (int)($d['featured'] ?? 0);
         $image    = $d['image'] ?? '';
         $imagePos = $d['image_position'] ?? '50% 50%';
         $category = $d['category'] ?? '';
         $author   = $d['author'] ?? 'Manager';
-        $stmt = $this->conn->prepare("INSERT INTO posts (title,title_sr,title_en,content,content_sr,content_en,author,category,featured,image,image_position,status,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,'published',NOW())");
-        $stmt->bind_param('ssssssssiss', $title,$d['title_sr'],$d['title_en'],$content,$d['content_sr'],$d['content_en'],$author,$category,$featured,$image,$imagePos);
+        $stmt = $this->conn->prepare("INSERT INTO posts (title,title_sr,title_en,content,content_sr,content_en,author,category,image,image_position,status,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,'published',NOW())");
+        $stmt->bind_param('ssssssssss', $title,$d['title_sr'],$d['title_en'],$content,$d['content_sr'],$d['content_en'],$author,$category,$image,$imagePos);
         $stmt->execute();
     }
 

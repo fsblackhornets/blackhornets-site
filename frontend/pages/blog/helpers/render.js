@@ -17,7 +17,6 @@ window.displayPosts = (posts) => {
 
 	const lang = window.getCurrentLanguage?.() || "sr";
 	const readMore = lang === "en" ? "Read More" : "Pročitaj više";
-	const featuredTxt = lang === "en" ? "Featured" : "Istaknuto";
 	const e = window.escapeHtmlBlog;
 
 	grid.innerHTML = posts
@@ -48,10 +47,6 @@ window.displayPosts = (posts) => {
 				month: "long",
 				day: "numeric",
 			});
-			const featured =
-				post.featured == 1
-					? `<span class="news-badge">${featuredTxt}</span>`
-					: "";
 			const imgPos = post.image_position || "50% 50%";
 			const imgHtml = imagePath
 				? `<img src="${e(imagePath)}" alt="${e(title)}" style="object-position:${e(imgPos)}" onerror="this.parentElement.classList.add('no-image-fallback');this.replaceWith(document.querySelector('#blog-placeholder-tpl').content.cloneNode(true));">`
@@ -63,7 +58,7 @@ window.displayPosts = (posts) => {
 			return `<a href="/frontend/pages/blog-post/blog-post.html?id=${parseInt(post.id)}" class="blog-post-link">
             <article class="blog-post">
                 <div class="post-image">
-                    ${featured}${imgHtml}
+                    ${imgHtml}
                     <div class="post-category">${e(post.category || "")}</div>
                 </div>
                 <div class="post-content">

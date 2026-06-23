@@ -44,14 +44,13 @@
     .preview-cover-placeholder img { width: auto; height: 40px; opacity: 0.08; filter: brightness(10); border: none; border-radius: 0; }
     .preview-cover-placeholder span { font-family: 'Michroma', sans-serif; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,215,0,0.35); border: 1px solid rgba(255,215,0,0.15); padding: 3px 12px; border-radius: 20px; }
 
-    /* Badges — absolute over image */
-    .preview-badges { position: absolute; top: 18px; left: 18px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
-    .preview-badge-featured, .preview-badge-category {
+    /* Category badge — top-right, matches .post-category */
+    .preview-badges { position: absolute; top: 12px; right: 12px; display: flex; gap: 6px; flex-wrap: wrap; z-index: 2; }
+    .preview-badge-category {
         background: #ffd700; color: #23231f;
-        font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-        padding: 4px 12px; border-radius: 16px; font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+        padding: 3px 10px; border-radius: 20px; font-family: 'Michroma', sans-serif;
     }
-    .preview-badge-category { background: rgba(255,215,0,0.9); }
 
     /* Content area — flex:3 like blog */
     .preview-body { flex: 3; padding: 14px 18px 14px; display: flex; flex-direction: column; min-height: 0; justify-content: space-between; overflow: hidden; }
@@ -95,29 +94,40 @@
                         <div class="form-group"><label>Title (Serbian) *</label><input type="text" id="f_title_sr" name="title_sr" required></div>
                         <div class="form-group"><label>Title (English)</label><input type="text" id="f_title_en" name="title_en"></div>
                     </div>
+                    <!-- Hidden content fields -->
+                    <textarea id="f_content_sr" name="content_sr" style="display:none;"></textarea>
+                    <textarea id="f_content_en" name="content_en" style="display:none;"></textarea>
+
                     <div class="form-group">
-                        <label>Content (Serbian) *</label>
-                        <textarea id="f_content_sr" name="content_sr" rows="6" required style="width:100%;padding:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:Poppins,sans-serif;resize:vertical;"></textarea>
+                        <label>Category</label>
+                        <select id="f_category" name="category">
+                            <option value="">Select category</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Events">Events</option>
+                            <option value="Competitions">Competitions</option>
+                            <option value="Team Updates">Team Updates</option>
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <label>Content (English)</label>
-                        <textarea id="f_content_en" name="content_en" rows="6" style="width:100%;padding:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:Poppins,sans-serif;resize:vertical;"></textarea>
+                        <label>Cover Image *</label>
+                        <input type="file" id="f_image" name="image" accept="image/*" onchange="onImagePick(this)" required>
+                        <p id="imageHint" style="color:#555;font-size:0.75rem;margin-top:4px;font-family:'Rajdhani',sans-serif;">Required before building content</p>
                     </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select id="f_category" name="category">
-                                <option value="">Select category</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Events">Events</option>
-                                <option value="Competitions">Competitions</option>
-                                <option value="Team Updates">Team Updates</option>
-                            </select>
-                        </div>
-                        <div class="form-group"><label>Cover Image</label><input type="file" id="f_image" name="image" accept="image/*"></div>
-                    </div>
-                    <div class="form-group">
-                        <label><input type="checkbox" id="f_featured" name="featured" value="1" style="width:auto;margin-right:8px;"> Mark as Featured</label>
+
+                    <!-- Build button — disabled until title + image filled -->
+                    <div class="form-group" style="margin-top:0.5rem;">
+                        <button type="button" id="buildBtn" onclick="goToBuilder()" disabled style="
+                            width:100%;padding:12px;background:rgba(255,215,0,0.03);
+                            border:1px dashed rgba(255,215,0,0.15);border-radius:8px;
+                            color:#555;font-family:'Michroma',sans-serif;font-size:0.78rem;
+                            letter-spacing:2px;text-transform:uppercase;cursor:not-allowed;
+                            display:flex;align-items:center;justify-content:center;gap:10px;
+                            transition:all 0.2s;
+                        ">
+                            <i class="fas fa-tools"></i> Build Post Content
+                        </button>
+                        <p id="buildHint" style="color:#555;font-size:0.75rem;text-align:center;margin-top:6px;font-family:'Rajdhani',sans-serif;">Fill title and cover image to continue</p>
                     </div>
                 </div>
 
@@ -128,17 +138,16 @@
                         <!-- Image area (flex:7) -->
                         <div class="preview-cover" id="pCoverWrap">
                             <div class="preview-badges">
-                                <span class="preview-badge-featured" id="pFeaturedBadge" style="display:none;">Featured</span>
                                 <span class="preview-badge-category" id="pCategoryBadge" style="display:none;"></span>
                             </div>
                             <div class="preview-cover-placeholder" id="pCoverPlaceholder">
                                 <img src="/frontend/assets/images/Tipografija_belo.png" alt="">
                                 <span id="pCoverLabel">Black Hornets</span>
                             </div>
-                            <div id="pCoverImgWrap" style="display:none;width:100%;height:100%;overflow:hidden;cursor:grab;user-select:none;position:relative;">
-                                <img id="pCoverImg" src="" alt="" style="position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.5);transform-origin:center;display:block;border-bottom:2.5px solid #ffd700;">
-                                <div style="position:absolute;bottom:6px;right:8px;z-index:10;">
-                                    <span style="color:rgba(255,215,0,0.6);font-size:0.62rem;font-family:Michroma,sans-serif;letter-spacing:1px;">DRAG · SCROLL TO ZOOM</span>
+                            <div id="pCoverImgWrap" style="display:none;width:100%;overflow:hidden;border-bottom:2.5px solid #ffd700;cursor:grab;user-select:none;position:relative;">
+                                <img id="pCoverImg" src="" alt="" style="width:100%;height:auto;display:block;transform-origin:center;transition:none;">
+                                <div style="position:absolute;bottom:5px;right:8px;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:4px;">
+                                    <span style="color:rgba(255,215,0,0.7);font-size:0.6rem;font-family:Michroma,sans-serif;letter-spacing:1px;">DRAG · SCROLL TO ZOOM</span>
                                 </div>
                             </div>
                         </div>
@@ -152,8 +161,7 @@
                             <span class="preview-readmore">Read More <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
-                    <input type="hidden" id="f_image_position" name="image_position" value="50% 50%">
-                    <div id="posDisplay" style="display:none;font-size:0.65rem;color:#555;text-align:center;font-family:Michroma,sans-serif;letter-spacing:1px;margin-top:6px;">position: <span id="posVal">50% 50%</span></div>
+                    <input type="hidden" name="image_position" value="50% 50%">
                 </div>
 
             </div>
@@ -169,7 +177,6 @@
 (function () {
     const pTitle          = document.getElementById('pTitle');
     const pCategoryBadge  = document.getElementById('pCategoryBadge');
-    const pFeaturedBadge  = document.getElementById('pFeaturedBadge');
     const pCoverImg         = document.getElementById('pCoverImg');
     const pCoverPlaceholder = document.getElementById('pCoverPlaceholder');
     const pCoverLabel       = document.getElementById('pCoverLabel');
@@ -180,68 +187,79 @@
     function update() {
         const titleSr = document.getElementById('f_title_sr').value.trim();
         const titleEn = document.getElementById('f_title_en').value.trim();
-        const contentSr = document.getElementById('f_content_sr').value.trim();
         const category  = document.getElementById('f_category').value.trim();
-        const featured  = document.getElementById('f_featured').checked;
-
         const title   = titleSr || titleEn || '';
-        const content = contentSr || '';
-        const short   = content.length > 180 ? content.substring(0, 177) + '...' : content;
 
         pTitle.textContent = title || 'Title will appear here...';
         pTitle.className   = 'preview-title' + (title ? '' : ' empty');
 
-        pFeaturedBadge.style.display  = featured  ? '' : 'none';
         pCategoryBadge.style.display  = category  ? '' : 'none';
         pCategoryBadge.textContent    = category;
         pCoverLabel.textContent       = category  || 'Black Hornets';
     }
 
-    // ── Focal point drag + zoom ──
-    const imgWrap      = document.getElementById('pCoverImgWrap');
-    const posInput     = document.getElementById('f_image_position');
-    const posDisplay   = document.getElementById('posDisplay');
-    const posVal       = document.getElementById('posVal');
+    const imgWrap = document.getElementById('pCoverImgWrap');
+    const posInput = document.querySelector('[name="image_position"]');
+    let isDragging = false, startX = 0, startY = 0, tx = 0, ty = 0, imgScale = 1;
 
-    let isDragging = false, startX = 0, startY = 0, tx = 0, ty = 0, scale = 1.5;
-
-    function applyTransform() {
-        pCoverImg.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
-        const pos = `${Math.round(50 - tx)}% ${Math.round(50 - ty)}%`;
-        posInput.value = pos; posVal.textContent = pos;
+    function applyImgTransform() {
+        pCoverImg.style.transform = `translateX(${tx}px) translateY(${ty}px) scale(${imgScale})`;
+        if (posInput) posInput.value = `${Math.round(50 - tx)}% ${Math.round(50 - ty)}%`;
     }
 
     imgWrap.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; startY = e.clientY; imgWrap.style.cursor = 'grabbing'; e.preventDefault(); });
     window.addEventListener('mousemove', e => {
         if (!isDragging) return;
         tx += e.clientX - startX; ty += e.clientY - startY;
-        startX = e.clientX; startY = e.clientY; applyTransform();
+        startX = e.clientX; startY = e.clientY; applyImgTransform();
     });
     window.addEventListener('mouseup', () => { isDragging = false; imgWrap.style.cursor = 'grab'; });
-    imgWrap.addEventListener('wheel', e => { e.preventDefault(); scale = Math.max(1, Math.min(4, scale - e.deltaY * 0.003)); applyTransform(); }, { passive: false });
+    imgWrap.addEventListener('wheel', e => { e.preventDefault(); imgScale = Math.max(0.5, Math.min(4, imgScale - e.deltaY * 0.002)); applyImgTransform(); }, { passive: false });
 
-    document.getElementById('f_image').addEventListener('change', function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                pCoverImg.src = e.target.result;
-                imgWrap.style.display = 'block';
-                pCoverPlaceholder.style.display = 'none';
-                posDisplay.style.display = 'block';
-                tx = 0; ty = 0; scale = 1.5;
-                applyTransform();
-            };
-            reader.readAsDataURL(file);
-        } else {
-            imgWrap.style.display = 'none';
-            pCoverPlaceholder.style.display = '';
-            posDisplay.style.display = 'none';
-        }
-    });
+    let coverImageDataUrl = null;
 
-    ['f_title_sr','f_title_en','f_content_sr'].forEach(id => {
-        document.getElementById(id)?.addEventListener('input', update);
+    window.onImagePick = function(input) {
+        const file = input.files[0];
+        if (!file) { coverImageDataUrl = null; checkReady(); return; }
+        const reader = new FileReader();
+        reader.onload = e => {
+            coverImageDataUrl = e.target.result;
+            document.getElementById('imageHint').style.color = '#5cb85c';
+            document.getElementById('imageHint').textContent = file.name;
+            pCoverImg.src = e.target.result;
+            imgWrap.style.display = 'block';
+            pCoverPlaceholder.style.display = 'none';
+            tx = 0; ty = 0; imgScale = 1; applyImgTransform();
+            checkReady();
+        };
+        reader.readAsDataURL(file);
+    };
+
+    function checkReady() {
+        const titleFilled = document.getElementById('f_title_sr').value.trim() || document.getElementById('f_title_en').value.trim();
+        const ready = !!(titleFilled && coverImageDataUrl);
+        const btn   = document.getElementById('buildBtn');
+        btn.disabled = !ready;
+        btn.style.cursor     = ready ? 'pointer' : 'not-allowed';
+        btn.style.color      = ready ? '#FFD700' : '#555';
+        btn.style.borderColor = ready ? 'rgba(255,215,0,0.4)' : 'rgba(255,215,0,0.15)';
+        btn.style.background  = ready ? 'rgba(255,215,0,0.08)' : 'rgba(255,215,0,0.03)';
+        document.getElementById('buildHint').textContent = ready ? 'Ready — click to open builder' : 'Fill title and cover image to continue';
+        document.getElementById('buildHint').style.color = ready ? '#5cb85c' : '#555';
+    }
+
+    window.goToBuilder = function() {
+        const titleSr  = document.getElementById('f_title_sr').value.trim();
+        const titleEn  = document.getElementById('f_title_en').value.trim();
+        const category = document.getElementById('f_category').value;
+        if (!titleSr && !titleEn) { alert('Enter a title first.'); return; }
+        if (!coverImageDataUrl)   { alert('Choose a cover image first.'); return; }
+        sessionStorage.setItem('postDraft', JSON.stringify({ titleSr, titleEn, category, coverImage: coverImageDataUrl }));
+        window.location.href = 'request-post-builder.php';
+    };
+
+    ['f_title_sr','f_title_en'].forEach(id => {
+        document.getElementById(id)?.addEventListener('input', () => { update(); checkReady(); });
     });
     document.getElementById('f_category')?.addEventListener('change', update);
     document.getElementById('f_featured').addEventListener('change', update);
