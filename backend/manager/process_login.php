@@ -29,7 +29,7 @@ try {
     $_SESSION['role']          = $user['role'];
     $_SESSION['last_activity'] = time();
 
-    echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => '/frontend/manager/dashboard.php']);
+    echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => '/panel/manager/dashboard.php']);
 
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);

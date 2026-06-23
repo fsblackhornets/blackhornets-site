@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request: Add Sponsor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/manager/manager.css">
+    <link rel="stylesheet" href="/panel/manager/manager.css">
     <?php include __DIR__ . '/../_form-styles.php'; ?>
     <style>
     .sponsor-layout {

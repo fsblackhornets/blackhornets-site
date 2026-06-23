@@ -28,7 +28,7 @@ if ($stmt->execute()) {
     echo "Manager user created.\n";
     echo "Username: $username\n";
     echo "Password: $password\n";
-    echo "Login at: /frontend/admin/login.php\n";
+    echo "Login at: /panel/admin/login.php\n";
 } else {
     echo "Error: " . $stmt->error . "\n";
 }

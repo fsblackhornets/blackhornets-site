@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin')    { header("Location: /frontend/admin/pages/dashboard.php"); exit; }
-if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'manager')  { header("Location: /frontend/manager/dashboard.php"); exit; }
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin')    { header("Location: /panel/admin/pages/dashboard.php"); exit; }
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'manager')  { header("Location: /panel/manager/dashboard.php"); exit; }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'manager')  { header("L
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Black Hornets Racing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/admin/css/login.css">
+    <link rel="stylesheet" href="/panel/admin/css/login.css">
 </head>
 <body>
     <div class="language-switcher" style="position:absolute;top:20px;right:20px;z-index:1000;">
