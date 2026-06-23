@@ -11,4 +11,10 @@ class ProjectController {
         $data = $this->service->getAll();
         Response::json(['success' => true, 'data' => $data, 'count' => count($data)]);
     }
+
+    public function show(array $params): void {
+        $project = $this->service->getById((int)$params['id']);
+        if (!$project) Response::error('Project not found', 404);
+        Response::json(['success' => true, 'data' => $project]);
+    }
 }

@@ -12,7 +12,8 @@ $router->get('/posts/{id}',        [PostController::class, 'show']);
 $router->post('/posts',            [PostController::class, 'create']);
 
 // Projects
-$router->get('/projects', [ProjectController::class, 'index']);
+$router->get('/projects',      [ProjectController::class, 'index']);
+$router->get('/projects/{id}', [ProjectController::class, 'show']);
 
 // Sponsors
 $router->get('/sponsors', [SponsorController::class, 'index']);
