@@ -29,8 +29,14 @@ window.renderNewsCard = (post, lang) => {
 			day: "numeric",
 		},
 	);
+	const plainContent = content
+		.replace(/<[^>]*>/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
 	const shortContent =
-		content.length > 150 ? `${content.substring(0, 147)}...` : content;
+		plainContent.length > 150
+			? `${plainContent.substring(0, 147)}...`
+			: plainContent;
 
 	return `
         <div class="news-card-featured">
@@ -47,9 +53,9 @@ window.renderNewsCard = (post, lang) => {
                 <span class="news-meta-item"><i class="fa-regular fa-calendar"></i> ${formattedDate}</span>
                 <span class="news-meta-item"><i class="fa-regular fa-user"></i> ${post.author || "Team Black Hornets"}</span>
             </div>
-            <h3 class="news-title-featured" style="padding-left:20px;">${title}</h3>
-            <p class="news-text-featured" style="padding-left:20px;">${shortContent}</p>
-            <a href="/frontend/pages/blog-post.html?id=${post.id}" class="news-readmore">${readMoreText}</a>
+            <h3 class="news-title-featured">${title}</h3>
+            <p class="news-text-featured">${shortContent}</p>
+            <a href="/frontend/pages/blog-post/blog-post.html?id=${post.id}" class="news-readmore">${readMoreText}</a>
         </div>
     `;
 };

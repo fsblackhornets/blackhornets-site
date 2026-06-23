@@ -12,6 +12,8 @@ window.updateHomepageContent = function updateHomepageContent() {
 	if (discoverMore) discoverMore.textContent = t.discoverMore;
 	if (joinUsBtn) joinUsBtn.textContent = t.joinUs;
 	if (scrollDown) scrollDown.textContent = t.scrollDown;
+	const blogLinkText = document.getElementById("blog-link-text");
+	if (blogLinkText) blogLinkText.textContent = t.blogLinkText || "Blog";
 
 	const latestNewsTitle =
 		document.getElementById("latest-news-title") ||
