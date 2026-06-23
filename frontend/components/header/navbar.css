@@ -312,19 +312,15 @@ body.page-ready {
 /* Language Switcher */
 .language-switcher {
 	display: flex;
-	gap: 8px;
-	padding: 6px;
-	border-radius: 30px;
-	background: rgba(17, 17, 17, 0.95);
-	border: 1px solid rgba(255, 215, 0, 0.2);
+	gap: 4px;
+	align-items: center;
 }
 
-/* Language Switcher — inline in nav-actions, bleeds past right padding */
+/* Language Switcher — inline in nav-actions */
 .nav-actions .language-switcher {
 	display: flex;
 	gap: 2px;
 	align-items: center;
-	margin-right: -3.5rem;
 }
 
 /* Mobile Language Switcher */
