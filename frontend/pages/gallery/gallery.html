@@ -104,6 +104,22 @@
 
     </section>
 
+    <!-- View All Modal -->
+    <div id="viewAllModal" class="va-modal">
+        <div class="va-modal-box">
+            <div class="va-modal-header">
+                <span id="viewAllTitle"></span>
+                <button onclick="window.closeViewAll()" class="va-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="va-grid" id="viewAllGrid"></div>
+            <div class="va-nav" id="viewAllNav" style="display:none;">
+                <button id="viewAllPrev" class="g-arrow"><i class="fas fa-chevron-left"></i></button>
+                <span id="viewAllPageLabel"></span>
+                <button id="viewAllNext" class="g-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
     <!-- Gallery Detail Modal -->
     <div id="galleryModal" class="gallery-modal">
         <button class="modal-nav modal-prev" id="galleryModalPrev"><i class="fas fa-chevron-left"></i></button>
