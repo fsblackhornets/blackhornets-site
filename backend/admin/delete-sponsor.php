@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../frontend/admin/auth.php';
+require_once __DIR__ . '/../../panel/admin/auth.php';
 $user = checkAuth('admin');
 
 require_once __DIR__ . '/../config/database.php';
@@ -29,23 +29,23 @@ try {
                 if (!empty($sponsor['logo']) && file_exists($logoPath)) {
                     unlink($logoPath);
                 }
-                header("Location: /frontend/admin/pages/manage-sponsors.php?deleted=1");
+                header("Location: /panel/admin/pages/manage-sponsors.php?deleted=1");
                 exit();
             } else {
-                header("Location: /frontend/admin/pages/manage-sponsors.php?error=delete_failed");
+                header("Location: /panel/admin/pages/manage-sponsors.php?error=delete_failed");
                 exit();
             }
         } else {
-            header("Location: /frontend/admin/pages/manage-sponsors.php?error=not_found");
+            header("Location: /panel/admin/pages/manage-sponsors.php?error=not_found");
             exit();
         }
     } else {
-        header("Location: /frontend/admin/pages/manage-sponsors.php");
+        header("Location: /panel/admin/pages/manage-sponsors.php");
         exit();
     }
 
 } catch (Exception $e) {
-    header("Location: /frontend/admin/pages/manage-sponsors.php?error=db_error");
+    header("Location: /panel/admin/pages/manage-sponsors.php?error=db_error");
     exit();
 }
 

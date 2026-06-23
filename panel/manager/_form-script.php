@@ -22,7 +22,7 @@ document.getElementById('requestForm').addEventListener('submit', async function
 
         if (data.success) {
             this.reset();
-            setTimeout(() => { window.location.href = '/frontend/manager/dashboard.php'; }, 1800);
+            setTimeout(() => { window.location.href = '/panel/manager/dashboard.php'; }, 1800);
         }
     } catch (err) {
         const alert = document.createElement('div');

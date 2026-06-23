@@ -126,7 +126,7 @@ a { text-decoration: none; color: inherit; }
             <i class="fas fa-user-circle"></i>
             <?= htmlspecialchars($admin_name) ?>
         </div>
-        <a href="/frontend/admin/logout.php" class="admin-logout">
+        <a href="/panel/admin/logout.php" class="admin-logout">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>
@@ -155,4 +155,4 @@ a { text-decoration: none; color: inherit; }
     <?php endforeach; ?>
 </aside>
 
-<script src="/frontend/admin/js/admin-translations.js"></script>
+<script src="/panel/admin/js/admin-translations.js"></script>

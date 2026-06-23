@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../frontend/admin/auth.php';
+require_once __DIR__ . '/../../panel/admin/auth.php';
 $user = checkAuth('admin');
 
 require_once __DIR__ . '/../config/database.php';
@@ -29,23 +29,23 @@ try {
                 if (!empty($project['image']) && file_exists($imgPath)) {
                     unlink($imgPath);
                 }
-                header("Location: /frontend/admin/pages/manage-projects.php?deleted=1");
+                header("Location: /panel/admin/pages/manage-projects.php?deleted=1");
                 exit();
             } else {
-                header("Location: /frontend/admin/pages/manage-projects.php?error=delete_failed");
+                header("Location: /panel/admin/pages/manage-projects.php?error=delete_failed");
                 exit();
             }
         } else {
-            header("Location: /frontend/admin/pages/manage-projects.php?error=not_found");
+            header("Location: /panel/admin/pages/manage-projects.php?error=not_found");
             exit();
         }
     } else {
-        header("Location: /frontend/admin/pages/manage-projects.php");
+        header("Location: /panel/admin/pages/manage-projects.php");
         exit();
     }
 
 } catch (Exception $e) {
-    header("Location: /frontend/admin/pages/manage-projects.php?error=db_error");
+    header("Location: /panel/admin/pages/manage-projects.php?error=db_error");
     exit();
 }
 

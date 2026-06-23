@@ -43,7 +43,7 @@ window.renderGalleryGrid = (data, gridId) => {
 	grid.innerHTML = "";
 	data.data.forEach((image) => {
 		const imagePath = image.image_path
-			? `/frontend/admin/${image.image_path}`
+			? `/panel/admin/${image.image_path}`
 			: "";
 		const entry = { image, imagePath };
 		window.allGalleryImages.push(entry);

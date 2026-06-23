@@ -31,9 +31,9 @@ try {
 
     if ($user['role'] === 'admin') {
         $_SESSION['admin_logged_in'] = true;
-        $redirect = '/frontend/admin/pages/dashboard.php';
+        $redirect = '/panel/admin/pages/dashboard.php';
     } else {
-        $redirect = '/frontend/manager/dashboard.php';
+        $redirect = '/panel/manager/dashboard.php';
     }
 
     echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => $redirect]);

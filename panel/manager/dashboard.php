@@ -9,7 +9,7 @@ $manager_name = $_SESSION['full_name'] ?? 'Manager';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager Dashboard — Black Hornets</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/manager/manager.css">
+    <link rel="stylesheet" href="/panel/manager/manager.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@ $manager_name = $_SESSION['full_name'] ?? 'Manager';
             <i class="fas fa-user-circle"></i>
             <?= htmlspecialchars($manager_name) ?>
         </div>
-        <a href="/frontend/admin/logout.php" class="m-logout">
+        <a href="/panel/admin/logout.php" class="m-logout">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>
