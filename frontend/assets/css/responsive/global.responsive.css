@@ -1,12 +1,32 @@
 /* Global responsive styles */
 @media (max-width: 768px) {
-	.news-grid { padding: 0; }
-	.latest-news { padding: 2rem 1rem; }
-	.news-card-featured { min-width: 0; max-width: 100%; flex: 1 1 100%; }
-	.hero-buttons { flex-direction: column; align-items: center; gap: 12px; }
-	.hero-buttons a { width: 100%; max-width: 280px; justify-content: center; }
+	.news-grid {
+		padding: 0;
+	}
+	.latest-news {
+		padding: 2rem 1rem;
+	}
+	.news-card-featured {
+		min-width: 0;
+		max-width: 100%;
+		flex: 1 1 100%;
+	}
+	.hero-buttons {
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+	}
+	.hero-buttons a {
+		width: 100%;
+		max-width: 280px;
+		justify-content: center;
+	}
 }
 
 @media (max-width: 480px) {
-	.primary-btn, .secondary-btn { padding: 0.8rem 1.5rem; font-size: 0.8rem; }
+	.primary-btn,
+	.secondary-btn {
+		padding: 0.8rem 1.5rem;
+		font-size: 0.8rem;
+	}
 }

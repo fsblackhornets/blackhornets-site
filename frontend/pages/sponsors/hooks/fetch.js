@@ -58,7 +58,7 @@ window.loadBrochure = async () => {
 			return;
 		}
 
-		const pdfUrl = "/frontend/" + data.data.pdf_url;
+		const pdfUrl = "/" + data.data.pdf_url;
 
 		if (downloadSection && downloadLink) {
 			if (window.brochureDownloadHandler) {

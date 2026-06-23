@@ -1002,18 +1002,45 @@ body {
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-	.projects-hero { height: 40vh; }
-	.hero-content h1 { font-size: clamp(1.8rem, 7vw, 3rem); }
-	.hero-content p  { font-size: 1rem; }
-	.project-meta { grid-template-columns: 1fr; gap: 6px; }
-	.project-card { margin-bottom: 16px; }
-	.project-title { font-size: 1rem; }
-	.project-description { font-size: 0.85rem; }
-	.project-filters { padding: 0 1rem; }
-	.filter-btn { padding: 8px 14px; font-size: 0.8rem; margin: 4px; }
+	.projects-hero {
+		height: 40vh;
+	}
+	.hero-content h1 {
+		font-size: clamp(1.8rem, 7vw, 3rem);
+	}
+	.hero-content p {
+		font-size: 1rem;
+	}
+	.project-meta {
+		grid-template-columns: 1fr;
+		gap: 6px;
+	}
+	.project-card {
+		margin-bottom: 16px;
+	}
+	.project-title {
+		font-size: 1rem;
+	}
+	.project-description {
+		font-size: 0.85rem;
+	}
+	.project-filters {
+		padding: 0 1rem;
+	}
+	.filter-btn {
+		padding: 8px 14px;
+		font-size: 0.8rem;
+		margin: 4px;
+	}
 }
 
 @media (max-width: 480px) {
-	.filter-btn { padding: 6px 10px; font-size: 0.75rem; margin: 3px; }
-	.progress-item { flex-wrap: wrap; }
+	.filter-btn {
+		padding: 6px 10px;
+		font-size: 0.75rem;
+		margin: 3px;
+	}
+	.progress-item {
+		flex-wrap: wrap;
+	}
 }

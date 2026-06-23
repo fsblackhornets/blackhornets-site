@@ -1,14 +1,34 @@
 /* Team page responsive styles */
 @media (max-width: 768px) {
-	.members-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-	.member-card { width: 100%; }
-	.card-inner { width: 100%; }
-	.sectors-container { flex-wrap: wrap; gap: 1rem; }
-	.sector-column { min-width: 0; flex: 1 1 45%; }
+	.members-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+	.member-card {
+		width: 100%;
+	}
+	.card-inner {
+		width: 100%;
+	}
+	.sectors-container {
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+	.sector-column {
+		min-width: 0;
+		flex: 1 1 45%;
+	}
 }
 
 @media (max-width: 480px) {
-	.members-grid { grid-template-columns: 1fr; }
-	.sector-column { flex: 1 1 100%; }
-	.project-leaders-container .leader-position { flex: 1 1 100%; max-width: 100%; }
+	.members-grid {
+		grid-template-columns: 1fr;
+	}
+	.sector-column {
+		flex: 1 1 100%;
+	}
+	.project-leaders-container .leader-position {
+		flex: 1 1 100%;
+		max-width: 100%;
+	}
 }

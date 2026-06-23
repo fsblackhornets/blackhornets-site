@@ -308,14 +308,29 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-	.project-details-container { padding: 1rem; }
-	.project-content { flex-direction: column; }
-	.project-sidebar { width: 100%; }
-	.project-header h1 { font-size: clamp(1.4rem, 6vw, 2rem); }
-	.project-gallery .main-image img { max-height: 220px; }
+	.project-details-container {
+		padding: 1rem;
+	}
+	.project-content {
+		flex-direction: column;
+	}
+	.project-sidebar {
+		width: 100%;
+	}
+	.project-header h1 {
+		font-size: clamp(1.4rem, 6vw, 2rem);
+	}
+	.project-gallery .main-image img {
+		max-height: 220px;
+	}
 }
 
 @media (max-width: 480px) {
-	.project-meta { flex-wrap: wrap; gap: 8px; }
-	.team-grid { grid-template-columns: repeat(2, 1fr); }
+	.project-meta {
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.team-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }

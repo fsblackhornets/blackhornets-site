@@ -6,6 +6,6 @@ class BrochureService {
     public function get(string $lang): ?array {
         $row = $this->repo->findByLang($lang);
         if (!$row) return null;
-        return ['pdf_url' => 'admin/' . $row['setting_value'], 'updated_at' => $row['updated_at']];
+        return ['pdf_url' => 'panel/admin/' . $row['setting_value'], 'updated_at' => $row['updated_at']];
     }
 }
