@@ -41,7 +41,6 @@ function setupImageZoom() {
 	});
 }
 
-
 function fetchAndRenderPost() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const postId = urlParams.get("id");

@@ -49,7 +49,7 @@ window.displayProjects = (projects, container) => {
 			: `${project.days_remaining} ${t.daysRemaining || "days remaining"}`;
 
 		html += `
-            <div class="project-card ${statusClass}" data-aos="fade-up">
+            <div class="project-card ${statusClass}" data-aos="fade-up" onclick="window.location.href='/frontend/pages/project-details/project-details.html?id=${project.id}'" style="cursor:pointer;">
                 <div class="project-content">
                     ${imageHtml}
                     <div class="status-badge ${statusClass}">${translatedStatus}</div>

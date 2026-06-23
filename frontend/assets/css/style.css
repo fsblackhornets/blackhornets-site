@@ -526,14 +526,18 @@ a {
 	letter-spacing: 0.5px;
 }
 
-.lang-btn i { display: none; }
+.lang-btn i {
+	display: none;
+}
 
 .lang-btn.active {
 	background: rgba(255, 215, 0, 0.12);
 	color: var(--primary-color);
 }
 
-.lang-btn:hover:not(.active) { color: #999; }
+.lang-btn:hover:not(.active) {
+	color: #999;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
