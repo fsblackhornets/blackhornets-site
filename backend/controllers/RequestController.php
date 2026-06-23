@@ -70,12 +70,18 @@ class RequestController {
     public function review(array $params): void {
         if (($_SESSION['role'] ?? '') !== 'admin') Response::forbidden();
 
-        $input  = json_decode(file_get_contents('php://input'), true);
-        $id     = (int)($input['id'] ?? 0);
-        $action = $input['action'] ?? '';
-        $notes  = $input['notes'] ?? null;
+        $input      = json_decode(file_get_contents('php://input'), true);
+        $id         = (int)($input['id'] ?? 0);
+        $action     = $input['action'] ?? '';
+        $notes      = $input['notes'] ?? null;
+        $editedData = $input['editedData'] ?? null; // optional admin edits
 
         if (!$id || !in_array($action, ['approve','decline'])) Response::error('Invalid parameters');
+
+        // If admin edited the data, update it before approving
+        if ($editedData && is_array($editedData)) {
+            $this->service->updateRequestData($id, $editedData);
+        }
 
         if ($action === 'approve') {
             $this->service->approve($id, $notes, (int)$_SESSION['user_id']);

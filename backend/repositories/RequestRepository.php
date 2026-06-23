@@ -43,6 +43,12 @@ class RequestRepository {
         return $row ?: null;
     }
 
+    public function updateData(int $id, string $jsonData): void {
+        $stmt = $this->conn->prepare("UPDATE content_requests SET data = ? WHERE id = ?");
+        $stmt->bind_param('si', $jsonData, $id);
+        $stmt->execute();
+    }
+
     public function markReviewed(int $id, string $status, ?string $notes, int $reviewedBy): void {
         $stmt = $this->conn->prepare("UPDATE content_requests SET status=?, admin_notes=?, reviewed_by=?, reviewed_at=NOW() WHERE id=?");
         $stmt->bind_param('ssii', $status, $notes, $reviewedBy, $id);
