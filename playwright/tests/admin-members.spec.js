@@ -59,14 +59,14 @@ test.describe('Admin — add user form', () => {
 
     test('submit empty form shows validation', async ({ page }) => {
         await page.locator('button[type="submit"], input[type="submit"]').first().click();
-        const emailValid = await page.locator('#email').evaluate(el => el.validity.valid).catch(() => true);
+        const emailValid = await page.locator('#email').evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid).catch(() => true);
         expect(emailValid).toBe(false);
     });
 
     test('invalid email shows validation error', async ({ page }) => {
         await page.fill('#email', 'not-valid');
         await page.locator('button[type="submit"], input[type="submit"]').first().click();
-        const valid = await page.locator('#email').evaluate(el => el.validity.valid);
+        const valid = await page.locator('#email').evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid);
         expect(valid).toBe(false);
     });
 });

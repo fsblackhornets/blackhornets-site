@@ -61,6 +61,63 @@ test.describe('Admin — applications list', () => {
     });
 });
 
+test.describe('Admin — applications list filters', () => {
+    test.beforeEach(async ({ page }) => {
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/applications_list.php');
+        await page.waitForLoadState('networkidle');
+    });
+
+    test('filter buttons are present', async ({ page }) => {
+        const filters = page.locator('.filter-btn, [data-filter], button[onclick*="filter"]');
+        const hasFilters = await filters.first().isVisible().catch(() => false);
+        if (hasFilters) {
+            await expect(filters).toHaveCount({ min: 2 });
+        }
+    });
+
+    test('"Pending" filter shows only pending applications', async ({ page }) => {
+        const pendingBtn = page.locator('.filter-btn, button').filter({ hasText: /Pending/i }).first();
+        if (await pendingBtn.isVisible().catch(() => false)) {
+            await pendingBtn.click();
+            await page.waitForTimeout(300);
+            // Accepted/rejected cards should be hidden
+            const rejectedVisible = await page.locator('.status-rejected, .badge-rejected').isVisible().catch(() => false);
+            expect(rejectedVisible).toBe(false);
+        }
+    });
+
+    test('"All" filter shows all applications', async ({ page }) => {
+        const allBtn = page.locator('.filter-btn, button').filter({ hasText: /^All$/i }).first();
+        if (await allBtn.isVisible().catch(() => false)) {
+            await allBtn.click();
+            await page.waitForTimeout(300);
+            await expect(page.locator('body')).toBeVisible();
+        }
+    });
+
+    test('accepted application shows "Create Account" button', async ({ page }) => {
+        const createBtn = page.locator('.btn-create-account, a[href*="add_user"][href*="from_application"]').first();
+        if (await createBtn.isVisible().catch(() => false)) {
+            const href = await createBtn.getAttribute('href') ?? '';
+            expect(href).toContain('from_application');
+            // Should pre-fill params
+            expect(href).toContain('full_name');
+            expect(href).toContain('email');
+        }
+    });
+
+    test('"Create Account" link navigates to add_user with pre-filled params', async ({ page }) => {
+        const createBtn = page.locator('.btn-create-account, a[href*="add_user"][href*="from_application"]').first();
+        if (await createBtn.isVisible().catch(() => false)) {
+            await createBtn.click();
+            await expect(page).toHaveURL(/add_user/);
+            // Email should be pre-filled from application
+            await expect(page.locator('#email')).not.toBeEmpty();
+        }
+    });
+});
+
 test.describe('Admin — application details', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page);

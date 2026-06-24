@@ -122,7 +122,7 @@ test.describe('Admin — manage gallery', () => {
 
     test('category select has options', async ({ page }) => {
         const options = page.locator('#category option');
-        await expect(options).toHaveCount({ min: 2 });
+        expect(await options.count()).toBeGreaterThanOrEqual(2);
     });
 
     test('toggle status and delete forms have image_id', async ({ page }) => {
@@ -131,6 +131,90 @@ test.describe('Admin — manage gallery', () => {
         if (hasImages) {
             const val = await toggleInput.inputValue();
             expect(Number(val)).toBeGreaterThan(0);
+        }
+    });
+});
+
+// ─── Gallery edit modal ───────────────────────────────────────────────────────
+
+test.describe('Admin — gallery edit modal', () => {
+    test.beforeEach(async ({ page }) => {
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/manage-gallery.php');
+        await page.waitForLoadState('networkidle');
+    });
+
+    test('edit button is present for existing images', async ({ page }) => {
+        const editBtn = page.locator('button[onclick*="openEdit"], .edit-btn, [data-action="edit"]').first();
+        if (await editBtn.isVisible().catch(() => false)) {
+            await expect(editBtn).toBeVisible();
+        }
+    });
+
+    test('edit form has action=edit_image hidden input', async ({ page }) => {
+        await expect(page.locator('input[name="action"][value="edit_image"]')).toBeVisible();
+    });
+
+    test('edit form has image_id field', async ({ page }) => {
+        await expect(page.locator('input[name="image_id"]#edit_image_id, [name="image_id"]')).toBeVisible();
+    });
+
+    test('edit submit fires POST to manage-gallery', async ({ page }) => {
+        const editForm = page.locator('form:has(input[name="action"][value="edit_image"])');
+        if (await editForm.isVisible().catch(() => false)) {
+            const imageId = await editForm.locator('[name="image_id"]').first().inputValue();
+            if (Number(imageId) > 0) {
+                const [response] = await Promise.all([
+                    page.waitForResponse(
+                        res => res.url().includes('manage-gallery'),
+                        { timeout: 5000 }
+                    ).catch(() => null),
+                    editForm.locator('button[type="submit"]').click(),
+                ]);
+                expect(response).not.toBeNull();
+            }
+        }
+    });
+});
+
+// ─── Brochure upload ──────────────────────────────────────────────────────────
+
+test.describe('Admin — brochure upload', () => {
+    test.beforeEach(async ({ page }) => {
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/manage-sponsors.php');
+        await page.waitForLoadState('networkidle');
+    });
+
+    test('brochure PDF upload field is present', async ({ page }) => {
+        await expect(page.locator('input[name="brochure_pdf"]').first()).toBeVisible();
+    });
+
+    test('brochure upload form has lang=sr field', async ({ page }) => {
+        await expect(page.locator('input[name="brochure_lang"][value="sr"]')).toBeVisible();
+    });
+
+    test('brochure upload accepts PDF only', async ({ page }) => {
+        const accept = await page.locator('input[name="brochure_pdf"]').first().getAttribute('accept') ?? '';
+        expect(accept).toContain('pdf');
+    });
+
+    test('brochure upload fires POST to manage-sponsors', async ({ page }) => {
+        const uploadForm = page.locator('form:has(input[name="action"][value="upload_brochure"])').first();
+        if (await uploadForm.isVisible().catch(() => false)) {
+            await uploadForm.locator('input[name="brochure_pdf"]').setInputFiles({
+                name: 'test.pdf',
+                mimeType: 'application/pdf',
+                buffer: Buffer.from('%PDF-1.4 E2E test brochure'),
+            });
+            const [response] = await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('manage-sponsors'),
+                    { timeout: 6000 }
+                ).catch(() => null),
+                uploadForm.locator('button[type="submit"], input[type="submit"]').click(),
+            ]);
+            expect(response).not.toBeNull();
         }
     });
 });

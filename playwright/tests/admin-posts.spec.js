@@ -54,13 +54,13 @@ test.describe('Admin — add/edit post form', () => {
 
     test('submit without required fields shows validation', async ({ page }) => {
         await page.locator('button[type="submit"], .btn-submit').click();
-        const titleValid = await page.locator('#title_sr').evaluate(el => el.validity.valid);
+        const titleValid = await page.locator('#title_sr').evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid);
         expect(titleValid).toBe(false);
     });
 
     test('category select has options', async ({ page }) => {
         const options = page.locator('#category option');
-        await expect(options).toHaveCount({ min: 2 });
+        expect(await options.count()).toBeGreaterThanOrEqual(2);
     });
 
     test('cancel button goes back', async ({ page }) => {

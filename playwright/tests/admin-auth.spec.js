@@ -33,7 +33,7 @@ test.describe('Admin — login page', () => {
     test('empty submit triggers HTML5 validation', async ({ page }) => {
         await page.goto(ADMIN_LOGIN);
         await page.locator('#submitBtn').click();
-        const valid = await page.locator('#username').evaluate(el => el.validity.valid);
+        const valid = await page.locator('#username').evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid);
         expect(valid).toBe(false);
     });
 

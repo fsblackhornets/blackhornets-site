@@ -22,7 +22,7 @@ test.describe('Contact form', () => {
         await page.locator('#contactForm button[type="submit"], #contactForm input[type="submit"]').click();
         // Browser native validation prevents submission — name field should be invalid
         const nameField = page.locator('#name');
-        const valid = await nameField.evaluate(el => el.validity.valid);
+        const valid = await nameField.evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid);
         expect(valid).toBe(false);
     });
 
@@ -35,7 +35,7 @@ test.describe('Contact form', () => {
         await page.locator('#contactForm button[type="submit"], #contactForm input[type="submit"]').click();
 
         const emailField = page.locator('#email');
-        const valid = await emailField.evaluate(el => el.validity.valid);
+        const valid = await emailField.evaluate(el => /** @type {HTMLInputElement} */ (el).validity.valid);
         expect(valid).toBe(false);
     });
 
