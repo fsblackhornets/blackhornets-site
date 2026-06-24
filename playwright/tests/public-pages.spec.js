@@ -12,8 +12,8 @@ test.describe('Public pages', () => {
     test('blog page renders post cards or empty state', async ({ page }) => {
         await page.goto('/frontend/pages/blog/blog.html');
         await page.waitForLoadState('networkidle');
-        const posts = page.locator('.post-card, .blog-card, .no-posts, .empty');
-        await expect(posts.first()).toBeVisible({ timeout: 8000 });
+        // Blog renders article.blog-post elements or shows #blogGrid (even if empty)
+        await expect(page.locator('#blogGrid')).toBeVisible({ timeout: 8000 });
     });
 
     test('gallery page renders images or empty state', async ({ page }) => {
@@ -46,7 +46,7 @@ test.describe('Public pages', () => {
 
     test('about page loads', async ({ page }) => {
         await page.goto('/frontend/pages/about/about.html');
-        await expect(page.locator('section, main, body')).toBeVisible();
+        await expect(page.locator('.about-hero')).toBeVisible();
     });
 
     test('no page returns 500 error', async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe('Public pages', () => {
     });
 
     test('404 redirects to home', async ({ page }) => {
-        const response = await page.goto('/this-page-does-not-exist-xyz');
+        await page.goto('/this-page-does-not-exist-xyz');
         // htaccess routes 404 to home
         await expect(page.locator('body')).toBeVisible();
     });

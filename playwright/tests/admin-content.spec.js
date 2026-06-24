@@ -12,7 +12,7 @@ test.describe('Admin — manage projects', () => {
 
     test('page loads with project list or empty state', async ({ page }) => {
         await page.waitForLoadState('networkidle');
-        await expect(page.locator('.project-card, .empty, table, body')).toBeVisible({ timeout: 8000 });
+        await expect(page.locator('.project-card, .empty').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('edit link navigates to add-edit-project with id', async ({ page }) => {
@@ -60,7 +60,7 @@ test.describe('Admin — manage sponsors', () => {
 
     test('page loads with sponsor list or empty state', async ({ page }) => {
         await page.waitForLoadState('networkidle');
-        await expect(page.locator('.sponsor-card, .empty, table, body')).toBeVisible({ timeout: 8000 });
+        await expect(page.locator('.sponsor-card, .empty').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('edit link navigates to add-edit-sponsor with id', async ({ page }) => {
@@ -73,12 +73,12 @@ test.describe('Admin — manage sponsors', () => {
     });
 
     test('brochure upload form is present', async ({ page }) => {
-        await expect(page.locator('input[name="brochure_pdf"]')).toBeVisible();
+        // Two file inputs (SR + EN) — check first one
+        await expect(page.locator('input[name="brochure_pdf"]').first()).toBeVisible();
     });
 
     test('brochure upload requires PDF', async ({ page }) => {
-        const input = page.locator('input[name="brochure_pdf"]');
-        const accept = await input.getAttribute('accept') ?? '';
+        const accept = await page.locator('input[name="brochure_pdf"]').first().getAttribute('accept') ?? '';
         expect(accept).toContain('pdf');
     });
 });
@@ -104,15 +104,17 @@ test.describe('Admin — manage gallery', () => {
 
     test('gallery page loads', async ({ page }) => {
         await page.waitForLoadState('networkidle');
-        await expect(page.locator('form, .gallery-item, .empty, body')).toBeVisible({ timeout: 8000 });
+        await expect(page.locator('.gallery-item, form').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('add image form is present', async ({ page }) => {
-        await expect(page.locator('input[name="action"][value="add_image"]')).toBeVisible();
+        // action field is type="hidden" — check by count not visibility
+        expect(await page.locator('input[name="action"][value="add_image"]').count()).toBeGreaterThan(0);
         await expect(page.locator('#title')).toBeVisible();
         await expect(page.locator('#category')).toBeVisible();
         await expect(page.locator('#alt_text')).toBeVisible();
-        await expect(page.locator('#image')).toBeVisible();
+        // file inputs styled as hidden — check existence
+        expect(await page.locator('#image').count()).toBeGreaterThan(0);
     });
 
     test('image upload accepts only images', async ({ page }) => {
@@ -126,10 +128,10 @@ test.describe('Admin — manage gallery', () => {
     });
 
     test('toggle status and delete forms have image_id', async ({ page }) => {
-        const toggleInput = page.locator('input[name="image_id"]').first();
-        const hasImages = await toggleInput.isVisible().catch(() => false);
+        // image_id is a hidden input — check by count
+        const hasImages = await page.locator('input[name="image_id"]').count() > 0;
         if (hasImages) {
-            const val = await toggleInput.inputValue();
+            const val = await page.locator('input[name="image_id"]').first().inputValue();
             expect(Number(val)).toBeGreaterThan(0);
         }
     });
@@ -152,11 +154,11 @@ test.describe('Admin — gallery edit modal', () => {
     });
 
     test('edit form has action=edit_image hidden input', async ({ page }) => {
-        await expect(page.locator('input[name="action"][value="edit_image"]')).toBeVisible();
+        expect(await page.locator('input[name="action"][value="edit_image"]').count()).toBeGreaterThan(0);
     });
 
     test('edit form has image_id field', async ({ page }) => {
-        await expect(page.locator('input[name="image_id"]#edit_image_id, [name="image_id"]')).toBeVisible();
+        expect(await page.locator('[name="image_id"]').count()).toBeGreaterThan(0);
     });
 
     test('edit submit fires POST to manage-gallery', async ({ page }) => {
@@ -191,7 +193,8 @@ test.describe('Admin — brochure upload', () => {
     });
 
     test('brochure upload form has lang=sr field', async ({ page }) => {
-        await expect(page.locator('input[name="brochure_lang"][value="sr"]')).toBeVisible();
+        // hidden input — check by count
+        expect(await page.locator('input[name="brochure_lang"][value="sr"]').count()).toBeGreaterThan(0);
     });
 
     test('brochure upload accepts PDF only', async ({ page }) => {
@@ -269,7 +272,7 @@ test.describe('Admin — messages', () => {
     });
 
     test('shows messages table or empty state', async ({ page }) => {
-        await expect(page.locator('table, .message, .empty, .no-messages')).toBeVisible({ timeout: 8000 });
+        await expect(page.locator('table, .message-card, .empty, .no-messages').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('delete button fires DELETE request', async ({ page }) => {
@@ -304,6 +307,6 @@ test.describe('Admin — dashboard', () => {
     });
 
     test('admin navbar is visible', async ({ page }) => {
-        await expect(page.locator('nav, .admin-nav, .sidebar, .navbar')).toBeVisible();
+        await expect(page.locator('nav, .admin-nav, .sidebar, .navbar').first()).toBeVisible();
     });
 });

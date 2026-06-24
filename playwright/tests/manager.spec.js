@@ -162,6 +162,15 @@ test.describe('Manager — request member form', () => {
         await page.fill('[name="full_name"]', 'Test Member');
         await page.fill('[name="email"]', 'member@test.com');
         await page.selectOption('[name="role"]', { index: 1 });
+        // team and department are also required — fill them
+        const teamSelect = page.locator('#teamSelect');
+        if (await teamSelect.isVisible().catch(() => false)) {
+            await teamSelect.selectOption({ index: 1 });
+        }
+        const deptSelect = page.locator('#deptSelect');
+        if (await deptSelect.isVisible().catch(() => false)) {
+            await deptSelect.selectOption({ index: 1 });
+        }
 
         const [request] = await Promise.all([
             page.waitForRequest(

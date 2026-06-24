@@ -69,15 +69,12 @@ test.describe('Admin — applications list filters', () => {
     });
 
     test('filter buttons are present', async ({ page }) => {
-        const filters = page.locator('.filter-btn, [data-filter], button[onclick*="filter"]');
-        const hasFilters = await filters.first().isVisible().catch(() => false);
-        if (hasFilters) {
-            await expect(filters).toHaveCount({ min: 2 });
-        }
+        await expect(page.locator('button.filter-btn').first()).toBeVisible();
+        expect(await page.locator('button.filter-btn').count()).toBeGreaterThanOrEqual(3);
     });
 
     test('"Pending" filter shows only pending applications', async ({ page }) => {
-        const pendingBtn = page.locator('.filter-btn, button').filter({ hasText: /Pending/i }).first();
+        const pendingBtn = page.locator('button.filter-btn[data-filter="pending"]');
         if (await pendingBtn.isVisible().catch(() => false)) {
             await pendingBtn.click();
             await page.waitForTimeout(300);
@@ -88,7 +85,7 @@ test.describe('Admin — applications list filters', () => {
     });
 
     test('"All" filter shows all applications', async ({ page }) => {
-        const allBtn = page.locator('.filter-btn, button').filter({ hasText: /^All$/i }).first();
+        const allBtn = page.locator('button.filter-btn[data-filter="all"]');
         if (await allBtn.isVisible().catch(() => false)) {
             await allBtn.click();
             await page.waitForTimeout(300);

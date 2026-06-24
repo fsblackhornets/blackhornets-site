@@ -14,7 +14,7 @@ test.describe('Navigation', () => {
     test('navbar is visible', async ({ page }) => {
         await page.goto(HOME);
         await page.waitForLoadState('networkidle');
-        await expect(page.locator('nav, header')).toBeVisible();
+        await expect(page.locator('.navbar, nav').first()).toBeVisible();
     });
 
     test('logo links to home', async ({ page }) => {
