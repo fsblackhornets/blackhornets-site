@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 function sendEmail(string $to, string $toName, string $subject, string $body): bool {
-    if (empty(SMTP_PASSWORD)) return false; // not configured yet
+    if (empty(SMTP_PASSWORD)) return false;
 
     $mail = new PHPMailer(true);
     try {
@@ -21,7 +21,13 @@ function sendEmail(string $to, string $toName, string $subject, string $body): b
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
+        $mail->XMailer  = ' '; // hide PHPMailer fingerprint
+        $mail->CharSet  = PHPMailer::CHARSET_UTF8;
+        $mail->Encoding = PHPMailer::ENCODING_BASE64;
+
+        $from = !empty(SMTP_FROM) ? SMTP_FROM : SMTP_USERNAME;
+        $mail->setFrom($from, SMTP_FROM_NAME);
+        $mail->addReplyTo($from, SMTP_FROM_NAME);
         $mail->addAddress($to, $toName);
         $mail->Subject = $subject;
         $mail->Body    = $body;
