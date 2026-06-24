@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="32x32" href="/frontend/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/frontend/assets/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/frontend/assets/images/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Team - Black Hornets Racing</title>
+    <meta name="description" content="Join Black Hornets Racing! Apply to be part of our Formula Student team. We are looking for engineers, designers, and business minds.">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Black Hornets Racing">
+    <meta property="og:title" content="Join Our Team - Black Hornets Racing">
+    <meta property="og:description" content="Join Black Hornets Racing! Apply to be part of our Formula Student team. We are looking for engineers, designers, and business minds.">
+    <meta property="og:url" content="https://fsblackhornets.org.rs/frontend/pages/apply/apply.html">
+    <meta property="og:image" content="https://fsblackhornets.org.rs/frontend/assets/images/favicon-512x512.png">
+    <link rel="canonical" href="https://fsblackhornets.org.rs/frontend/pages/apply/apply.html">
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LcQ448sAAAAAIrc00fSSD15qBzOrufD2HSMiNwB"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/frontend/components/header/navbar.css">
+    <link rel="stylesheet" href="/frontend/assets/css/style.css?v=1.2">
+    <link rel="stylesheet" href="/frontend/pages/apply/apply.css">
+    <link rel="stylesheet" href="/frontend/components/footer/footer.css">
+</head>
+<body>
+    <header></header>
+
+    <!-- Hero -->
+    <section class="apply-hero">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Black Hornets Racing</div>
+            <h1 id="join-team">Join Our Team</h1>
+            <p id="be-part">Be part of something extraordinary</p>
+        </div>
+    </section>
+
+    <!-- Info: Requirements & Departments -->
+    <section class="apply-info">
+        <div class="apply-container">
+
+            <!-- Requirements -->
+            <div class="info-panel">
+                <div class="panel-label"><i class="fas fa-clipboard-check"></i> <span id="requirements-title">Requirements</span></div>
+                <div class="req-list">
+                    <div class="req-item">
+                        <div class="req-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div>
+                            <h4 id="req1-title">Student Status</h4>
+                            <p id="req1-desc">Active student at University of Novi Sad</p>
+                        </div>
+                    </div>
+                    <div class="req-item">
+                        <div class="req-icon"><i class="fas fa-fire"></i></div>
+                        <div>
+                            <h4 id="req2-title">Passion</h4>
+                            <p id="req2-desc">Enthusiasm for motorsports and engineering</p>
+                        </div>
+                    </div>
+                    <div class="req-item">
+                        <div class="req-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h4 id="req3-title">Team Spirit</h4>
+                            <p id="req3-desc">Ability to work in a collaborative environment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Departments -->
+            <div class="info-panel">
+                <div class="panel-label"><i class="fas fa-sitemap"></i> <span id="departments-title">Available Departments</span></div>
+                <div class="dept-list">
+                    <div class="dept-item">
+                        <div class="dept-icon"><i class="fas fa-briefcase"></i></div>
+                        <div>
+                            <h4 id="business-ops">Business Operations</h4>
+                            <ul>
+                                <li id="marketing-dept">Marketing</li>
+                                <li id="sponsorships-dept">Sponsorships</li>
+                                <li id="management-dept">Management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dept-item">
+                        <div class="dept-icon"><i class="fas fa-cog"></i></div>
+                        <div>
+                            <h4 id="mechanical-eng">Mechanical Engineering</h4>
+                            <ul>
+                                <li id="chassis-aero-dept">Chassis and Aerodynamics</li>
+                                <li id="suspension-steering-dept">Suspension and Steering</li>
+                                <li id="transmission-braking-dept">Transmission and Braking</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dept-item">
+                        <div class="dept-icon"><i class="fas fa-bolt"></i></div>
+                        <div>
+                            <h4 id="electrical-eng">Electrical Engineering</h4>
+                            <ul>
+                                <li id="high-voltage-dept">High Voltage</li>
+                                <li id="low-voltage-dept">Low Voltage</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="apply-form-section">
+        <div class="apply-container">
+            <div class="form-card">
+                <div class="form-card-header">
+                    <h2 id="application-form-title">Application Form</h2>
+                    <p id="application-form-subtitle">Fill out the form below to apply for a position in our team</p>
+                </div>
+
+                <form id="applyForm" enctype="multipart/form-data">
+
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-user"></i> <span id="personal-info">Personal Information</span></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label id="first-name-label" for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label id="last-name-label" for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label id="email-label" for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label id="phone-label" for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-university"></i> <span id="academic-info">Academic Information</span></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label id="student-id-label" for="studentId">Student ID</label>
+                                <input type="text" id="studentId" name="studentId" required>
+                            </div>
+                            <div class="form-group">
+                                <label id="faculty-label" for="faculty">Faculty</label>
+                                <input type="text" id="faculty" name="faculty" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label id="major-label" for="major">Major</label>
+                                <input type="text" id="major" name="major" required>
+                            </div>
+                            <div class="form-group">
+                                <label id="gpa-label" for="gpa">GPA</label>
+                                <input type="number" id="gpa" name="gpa" step="0.01" min="6.00" max="10.00" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label id="academic-year-label" for="academic_year">Academic Year</label>
+                                <select id="academic_year" name="academic_year" required>
+                                    <option value="" id="select-year">Select Year</option>
+                                    <option value="1" id="first-year">First Year</option>
+                                    <option value="2" id="second-year">Second Year</option>
+                                    <option value="3" id="third-year">Third Year</option>
+                                    <option value="4" id="fourth-year">Fourth Year</option>
+                                    <option value="master" id="master-studies">Master Studies</option>
+                                    <option value="doctoral" id="doctoral-studies">Doctoral Studies</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label id="years-studying-label" for="years_studying">Years Currently Studying</label>
+                                <input type="number" id="years_studying" name="years_studying" min="1" max="10" placeholder="e.g. 3" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-racing-flag fa-flag-checkered"></i> <span id="team-preferences">Team Preferences</span></div>
+                        <div class="form-group">
+                            <label id="position-label" for="position">Desired Position</label>
+                            <input type="text" id="position" name="position" placeholder="e.g., Suspension Engineer, Marketing Coordinator" required>
+                        </div>
+                        <div class="form-group">
+                            <label id="experience-label" for="experience">Relevant Experience</label>
+                            <textarea id="experience" name="experience" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label id="motivation-label" for="motivation">Why do you want to join our team?</label>
+                            <textarea id="motivation" name="motivation" rows="5" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-block">
+                        <div class="form-block-title"><i class="fas fa-paperclip"></i> <span id="additional-docs">Documents</span></div>
+                        <div class="form-group file-upload-group">
+                            <label for="resume" class="file-upload-label">
+                                <i class="fas fa-file-pdf"></i>
+                                <span id="resume-text">Resume / CV</span>
+                                <small>PDF only · max 5MB</small>
+                            </label>
+                            <input type="file" id="resume" name="resume" accept=".pdf" required>
+                            <span class="file-name" id="file-name">No file chosen</span>
+                        </div>
+                    </div>
+
+                    <!-- Honeypot -->
+                    <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                        <label for="company_name">Leave this empty</label>
+                        <input type="text" id="company_name" name="company_name" tabindex="-1" autocomplete="off">
+                    </div>
+                    <input type="hidden" id="recaptcha_token" name="recaptcha_token">
+
+                    <div class="form-submit-row">
+                        <button type="submit" class="submit-btn">
+                            <span id="submit-application">Submit Application</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                    <div id="formMessage" class="form-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <script src="/frontend/assets/js/header-footer.js?v=1.4.0"></script>
+    <script src="/frontend/pages/apply/apply.js"></script>
+</body>
+</html>
