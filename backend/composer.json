@@ -1,0 +1,22 @@
+{
+    "name": "blackhornets/backend",
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    },
+    "autoload": {
+        "classmap": [
+            "controllers/",
+            "services/",
+            "repositories/",
+            "schemas/",
+            "routes/",
+            "utils/",
+            "helpers/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
