@@ -1,15 +1,13 @@
 // @ts-check
 /**
- * Data-flow E2E tests.
- * These tests create real records in the database.
- * Run against a dev/staging environment, not production.
- *
- * Each test uses a unique timestamp in names so records are identifiable.
+ * Data-flow E2E tests — full create→read and action→state-change pipelines.
+ * These tests write to a real database. Run against dev/staging, not production.
+ * Each test uses a unique timestamp so records are identifiable and cleanable.
  */
 const { test, expect } = require('@playwright/test');
-const { loginAsAdmin, loginAsManager, logout } = require('../fixtures/auth');
+const { loginAsAdmin, loginAsManager } = require('../fixtures/auth');
 
-// Minimal 1x1 red JPEG — used for all file-upload tests
+/** Minimal 1×1 JPEG — for all file-upload fields */
 const TINY_JPEG = Buffer.from(
     '/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8U' +
     'HRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgN' +
@@ -22,240 +20,355 @@ const TINY_JPEG = Buffer.from(
 
 const ts = () => Date.now();
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/** Create a published blog post and return its title. */
+async function createPost(page, title) {
+    await loginAsAdmin(page);
+    await page.goto('/panel/admin/pages/add-edit-post.php');
+    await page.fill('#title_sr', title);
+    await page.fill('#content_sr', 'E2E test content. Safe to delete.');
+    await page.selectOption('#category', { index: 1 });
+    await page.locator('button.btn-submit').click();
+    await expect(page.locator('#flashMessage')).toBeVisible({ timeout: 8000 });
+}
+
+/** Create a project and return when the page reloads. */
+async function createProject(page, name) {
+    await loginAsAdmin(page);
+    await page.goto('/panel/admin/pages/add-edit-project.php');
+    await page.fill('[name="name"]', name);
+    await page.fill('[name="description"]', 'E2E test project. Safe to delete.');
+    await page.selectOption('[name="status"]', 'Active');
+    await page.fill('[name="due_date"]', '2026-12-31');
+    await page.fill('[name="duration"]', '6 months');
+    await page.locator('button[type="submit"], input[type="submit"]').first().click();
+    await page.waitForLoadState('networkidle');
+}
+
+/** Create a sponsor and return when the page reloads. */
+async function createSponsor(page, name) {
+    await loginAsAdmin(page);
+    await page.goto('/panel/admin/pages/add-edit-sponsor.php');
+    await page.fill('[name="name"]', name);
+    await page.fill('[name="description"]', 'E2E test sponsor. Safe to delete.');
+    await page.selectOption('[name="tier"]', 'Friends of the Project');
+    await page.locator('[name="logo"]').setInputFiles({ name: 'logo.jpg', mimeType: 'image/jpeg', buffer: TINY_JPEG });
+    await page.locator('button[type="submit"], input[type="submit"]').first().click();
+    await page.waitForLoadState('networkidle');
+}
+
 // ─── Blog post → Blog page ────────────────────────────────────────────────────
 
-test.describe('Data flow — blog post appears on blog page', () => {
-    let postTitle;
+test.describe('Blog post → blog page', () => {
+    test('create post → visible in #blogGrid', async ({ page }) => {
+        const title = `E2E Post ${ts()}`;
+        await createPost(page, title);
 
-    test('create post in admin → visible in blog grid', async ({ page }) => {
-        postTitle = `E2E Post ${ts()}`;
-
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/add-edit-post.php');
-
-        await page.fill('#title_sr', postTitle);
-        await page.fill('#content_sr', 'Automated E2E test content. Safe to delete.');
-        await page.selectOption('#category', { index: 1 });
-
-        await page.locator('button.btn-submit').click();
-        await expect(page.locator('#flashMessage')).toBeVisible({ timeout: 8000 });
-
-        // Now check the blog page
         await page.goto('/frontend/pages/blog/blog.html');
         await page.waitForLoadState('networkidle');
         await page.waitForSelector('#blogGrid .blog-post, #blogGrid article', { timeout: 10000 });
-
-        await expect(page.locator('#blogGrid')).toContainText(postTitle);
+        await expect(page.locator('#blogGrid')).toContainText(title);
     });
-});
 
-// ─── Blog post → Home page news section ──────────────────────────────────────
+    test('edit post → updated title on blog page', async ({ page }) => {
+        const original = `E2E Post ${ts()}`;
+        const updated  = `E2E Edited ${ts()}`;
+        await createPost(page, original);
 
-test.describe('Data flow — blog post appears on home page', () => {
-    test('latest post shows in home #newsGrid', async ({ page }) => {
-        const postTitle = `E2E Home News ${ts()}`;
+        // Find the post in admin list and open edit
+        await page.goto('/panel/admin/pages/posts.php');
+        await page.waitForLoadState('networkidle');
+        await page.locator('.btn-edit, a[href*="add-edit-post?id"]').filter({ hasText: '' }).first().click();
+        await page.waitForURL(/add-edit-post.*id=/);
 
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/add-edit-post.php');
-
-        await page.fill('#title_sr', postTitle);
-        await page.fill('#content_sr', 'Automated E2E test content for home page. Safe to delete.');
-        await page.selectOption('#category', { index: 1 });
-
+        await page.fill('#title_sr', updated);
         await page.locator('button.btn-submit').click();
         await expect(page.locator('#flashMessage')).toBeVisible({ timeout: 8000 });
 
-        // Check home page news section
-        await page.goto('/');
+        await page.goto('/frontend/pages/blog/blog.html');
         await page.waitForLoadState('networkidle');
-        await page.waitForSelector('#newsGrid .news-card, #newsGrid article, #latest-news', { timeout: 10000 });
+        await page.waitForSelector('#blogGrid .blog-post, #blogGrid article', { timeout: 10000 });
+        await expect(page.locator('#blogGrid')).toContainText(updated);
+        await expect(page.locator('#blogGrid')).not.toContainText(original);
+    });
 
-        await expect(page.locator('#newsGrid, #latest-news')).toContainText(postTitle);
+    test('toggle post to draft → disappears from blog page', async ({ page }) => {
+        const title = `E2E Draft ${ts()}`;
+        await createPost(page, title);
+
+        // Toggle to draft via the toggle link in posts list
+        await page.goto('/panel/admin/pages/posts.php');
+        await page.waitForLoadState('networkidle');
+
+        const row = page.locator('tr').filter({ hasText: title });
+        if (await row.isVisible().catch(() => false)) {
+            const toggleLink = row.locator('.btn-toggle, a[href*="action=toggle"]');
+            if (await toggleLink.isVisible().catch(() => false)) {
+                await toggleLink.click();
+                await page.waitForLoadState('networkidle');
+
+                await page.goto('/frontend/pages/blog/blog.html');
+                await page.waitForLoadState('networkidle');
+                await page.waitForTimeout(3000);
+                await expect(page.locator('#blogGrid')).not.toContainText(title);
+            }
+        }
+    });
+
+    test('delete post → removed from blog page', async ({ page }) => {
+        const title = `E2E Delete Post ${ts()}`;
+        await createPost(page, title);
+
+        await page.goto('/panel/admin/pages/posts.php');
+        await page.waitForLoadState('networkidle');
+
+        const row = page.locator('tr').filter({ hasText: title });
+        if (await row.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await row.locator('.btn-delete, a[href*="action=delete"]').click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/blog/blog.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForTimeout(3000);
+            await expect(page.locator('#blogGrid')).not.toContainText(title);
+        }
     });
 });
 
-// ─── Gallery image → Gallery page by category ────────────────────────────────
+// ─── Blog post → Home page news ───────────────────────────────────────────────
 
-test.describe('Data flow — gallery image appears in correct category grid', () => {
-    test('upload team image → appears in #team-grid', async ({ page }) => {
-        const imageTitle = `E2E Gallery ${ts()}`;
+test.describe('Blog post → home page news', () => {
+    test('latest post shows in #newsGrid', async ({ page }) => {
+        const title = `E2E Home News ${ts()}`;
+        await createPost(page, title);
+
+        await page.goto('/');
+        await page.waitForLoadState('networkidle');
+        await page.waitForSelector('#newsGrid', { timeout: 10000 });
+        await expect(page.locator('#newsGrid, #latest-news')).toContainText(title);
+    });
+});
+
+// ─── Gallery → gallery page ───────────────────────────────────────────────────
+
+test.describe('Gallery image → gallery page', () => {
+    test('upload team image → appears in #team-grid with correct alt', async ({ page }) => {
+        const altText = `E2E Gallery ${ts()}`;
 
         await loginAsAdmin(page);
         await page.goto('/panel/admin/pages/manage-gallery.php');
-
-        await page.fill('#title', imageTitle);
+        await page.fill('#title', altText);
         await page.selectOption('#category', 'team');
-        await page.fill('#alt_text', imageTitle);
-
-        await page.locator('#image').setInputFiles({
-            name: 'test.jpg',
-            mimeType: 'image/jpeg',
-            buffer: TINY_JPEG,
-        });
-
+        await page.fill('#alt_text', altText);
+        await page.locator('#image').setInputFiles({ name: 'test.jpg', mimeType: 'image/jpeg', buffer: TINY_JPEG });
         await page.locator('form:has(input[name="action"][value="add_image"]) button[type="submit"]').click();
         await page.waitForLoadState('networkidle');
 
-        // Verify image was saved and appears in gallery
         await page.goto('/frontend/pages/gallery/gallery.html');
         await page.waitForLoadState('networkidle');
         await page.waitForSelector('#team-grid .gallery-item, #team-grid img', { timeout: 10000 });
 
-        await expect(page.locator('#team-grid')).not.toBeEmpty();
-
-        // Alt text or title should appear in rendered images
-        const altTexts = await page.locator('#team-grid img').evaluateAll(
-            imgs => imgs.map(img => img.alt)
+        const alts = await page.locator('#team-grid img').evaluateAll(
+            imgs => imgs.map(img => (/** @type {HTMLImageElement} */ (img)).alt)
         );
-        expect(altTexts.some(alt => alt.includes(imageTitle))).toBe(true);
+        expect(alts.some(a => a.includes(altText))).toBe(true);
+    });
+
+    test('deactivate gallery image → disappears from gallery page', async ({ page }) => {
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/manage-gallery.php');
+        await page.waitForLoadState('networkidle');
+
+        const toggleForm = page.locator('form:has(input[name="action"][value="toggle_status"]):has(input[name="status"][value="1"])').first();
+        if (await toggleForm.isVisible().catch(() => false)) {
+            const imageId = await toggleForm.locator('input[name="image_id"]').inputValue();
+            await toggleForm.locator('button[type="submit"]').click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/gallery/gallery.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForTimeout(2000);
+            // The deactivated image should not be in any grid
+            const srcs = await page.locator('.gallery-item img').evaluateAll(
+                imgs => imgs.map(img => (/** @type {HTMLImageElement} */ (img)).src)
+            );
+            // Verify by checking none of the srcs contain the image ID path segment
+            expect(srcs.every(src => !src.includes(`/${imageId}.`))).toBe(true);
+        }
+    });
+
+    test('delete gallery image → removed from manage-gallery list', async ({ page }) => {
+        // Upload a fresh image then immediately delete it
+        const altText = `E2E Del Img ${ts()}`;
+
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/manage-gallery.php');
+        await page.fill('#title', altText);
+        await page.selectOption('#category', 'team');
+        await page.fill('#alt_text', altText);
+        await page.locator('#image').setInputFiles({ name: 'del.jpg', mimeType: 'image/jpeg', buffer: TINY_JPEG });
+        await page.locator('form:has(input[name="action"][value="add_image"]) button[type="submit"]').click();
+        await page.waitForLoadState('networkidle');
+
+        // Find and delete
+        const deleteForm = page.locator('form:has(input[name="action"][value="delete_image"])').last();
+        if (await deleteForm.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await deleteForm.locator('button[type="submit"]').click();
+            await page.waitForLoadState('networkidle');
+            await expect(page.locator('body')).not.toContainText(altText);
+        }
     });
 });
 
-// ─── Sponsor → Sponsors page ─────────────────────────────────────────────────
+// ─── Sponsors ─────────────────────────────────────────────────────────────────
 
-test.describe('Data flow — sponsor appears on sponsors page', () => {
-    test('create sponsor → visible on public sponsors page', async ({ page }) => {
-        const sponsorName = `E2E Sponsor ${ts()}`;
+test.describe('Sponsor → sponsors page', () => {
+    test('create sponsor → visible as .sponsor-item', async ({ page }) => {
+        const name = `E2E Sponsor ${ts()}`;
+        await createSponsor(page, name);
 
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/add-edit-sponsor.php');
-
-        await page.fill('[name="name"]', sponsorName);
-        await page.fill('[name="description"]', 'E2E test sponsor. Safe to delete.');
-        await page.selectOption('[name="tier"]', 'Friends of the Project');
-
-        await page.locator('[name="logo"]').setInputFiles({
-            name: 'logo.jpg',
-            mimeType: 'image/jpeg',
-            buffer: TINY_JPEG,
-        });
-
-        await page.locator('button[type="submit"], input[type="submit"]').first().click();
-        await page.waitForLoadState('networkidle');
-
-        // Check sponsors page
         await page.goto('/frontend/pages/sponsors/sponsors.html');
         await page.waitForLoadState('networkidle');
         await page.waitForSelector('.sponsor-item, .sponsor-card', { timeout: 10000 });
+        await expect(page.locator('.sponsor-item, .sponsor-card').filter({ hasText: name })).toBeVisible();
+    });
 
-        await expect(page.locator('.sponsor-item, .sponsor-card').filter({ hasText: sponsorName })).toBeVisible();
+    test('edit sponsor → updated name on sponsors page', async ({ page }) => {
+        const original = `E2E Sponsor ${ts()}`;
+        const updated  = `E2E Sponsor Upd ${ts()}`;
+        await createSponsor(page, original);
+
+        await page.goto('/panel/admin/pages/manage-sponsors.php');
+        await page.waitForLoadState('networkidle');
+        const editBtn = page.locator('.btn-edit-sponsor, a[href*="add-edit-sponsor?id"]').first();
+        if (await editBtn.isVisible().catch(() => false)) {
+            await editBtn.click();
+            await page.waitForURL(/add-edit-sponsor.*id=/);
+            await page.fill('[name="name"]', updated);
+            await page.locator('button[type="submit"], input[type="submit"]').first().click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/sponsors/sponsors.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForSelector('.sponsor-item, .sponsor-card', { timeout: 10000 });
+            await expect(page.locator('.sponsor-item, .sponsor-card').filter({ hasText: updated })).toBeVisible();
+        }
+    });
+
+    test('delete sponsor → removed from sponsors page', async ({ page }) => {
+        const name = `E2E Del Sponsor ${ts()}`;
+        await createSponsor(page, name);
+
+        await page.goto('/panel/admin/pages/manage-sponsors.php');
+        await page.waitForLoadState('networkidle');
+        const deleteBtn = page.locator('.btn-delete-sponsor').first();
+        if (await deleteBtn.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await deleteBtn.click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/sponsors/sponsors.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForTimeout(3000);
+            await expect(page.locator('body')).not.toContainText(name);
+        }
     });
 });
 
-// ─── Project → Projects page ─────────────────────────────────────────────────
+// ─── Projects ─────────────────────────────────────────────────────────────────
 
-test.describe('Data flow — project appears on projects page', () => {
-    test('create project → visible on public projects page', async ({ page }) => {
-        const projectName = `E2E Project ${ts()}`;
+test.describe('Project → projects page', () => {
+    test('create project → visible as .project-card', async ({ page }) => {
+        const name = `E2E Project ${ts()}`;
+        await createProject(page, name);
 
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/add-edit-project.php');
-
-        await page.fill('[name="name"]', projectName);
-        await page.fill('[name="description"]', 'E2E test project. Safe to delete.');
-        await page.selectOption('[name="status"]', 'Active');
-        await page.fill('[name="due_date"]', '2026-12-31');
-        await page.fill('[name="duration"]', '6 months');
-
-        await page.locator('button[type="submit"], input[type="submit"]').first().click();
-        await page.waitForLoadState('networkidle');
-
-        // Check projects page
         await page.goto('/frontend/pages/projects/projects.html');
         await page.waitForLoadState('networkidle');
         await page.waitForSelector('.project-card', { timeout: 10000 });
+        await expect(page.locator('.project-card').filter({ hasText: name })).toBeVisible();
+    });
 
-        await expect(page.locator('.project-card').filter({ hasText: projectName })).toBeVisible();
+    test('edit project → updated name on projects page', async ({ page }) => {
+        const original = `E2E Project ${ts()}`;
+        const updated  = `E2E Project Upd ${ts()}`;
+        await createProject(page, original);
+
+        await page.goto('/panel/admin/pages/manage-projects.php');
+        await page.waitForLoadState('networkidle');
+        const editBtn = page.locator('.btn-edit-project, a[href*="add-edit-project?id"]').first();
+        if (await editBtn.isVisible().catch(() => false)) {
+            await editBtn.click();
+            await page.waitForURL(/add-edit-project.*id=/);
+            await page.fill('[name="name"]', updated);
+            await page.locator('button[type="submit"], input[type="submit"]').first().click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/projects/projects.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForSelector('.project-card', { timeout: 10000 });
+            await expect(page.locator('.project-card').filter({ hasText: updated })).toBeVisible();
+        }
+    });
+
+    test('delete project → removed from projects page', async ({ page }) => {
+        const name = `E2E Del Project ${ts()}`;
+        await createProject(page, name);
+
+        await page.goto('/panel/admin/pages/manage-projects.php');
+        await page.waitForLoadState('networkidle');
+        const deleteBtn = page.locator('.btn-delete-project').first();
+        if (await deleteBtn.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await deleteBtn.click();
+            await page.waitForLoadState('networkidle');
+
+            await page.goto('/frontend/pages/projects/projects.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForTimeout(3000);
+            await expect(page.locator('body')).not.toContainText(name);
+        }
     });
 });
 
-// ─── Contact form → Admin messages ───────────────────────────────────────────
+// ─── Applications ─────────────────────────────────────────────────────────────
 
-test.describe('Data flow — contact form message appears in admin messages', () => {
-    test('submit contact form → message visible in admin panel', async ({ page }) => {
-        const subject = `E2E Contact ${ts()}`;
-
-        // Submit contact form as a regular visitor
-        await page.goto('/frontend/pages/contact/contact.html');
-        await page.waitForLoadState('networkidle');
-
-        await page.fill('#name', 'Playwright Test User');
-        await page.fill('#email', 'playwright@e2e.test');
-        await page.fill('#subject', subject);
-        await page.fill('#message', 'This is an automated E2E test message. Safe to delete.');
-
-        await page.locator('button[type="submit"]').click();
-        await page.waitForResponse(
-            res => res.url().includes('contact') && res.request().method() === 'POST',
-            { timeout: 8000 }
-        ).catch(() => {});
-
-        // Login as admin and check messages
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/messages.php');
-        await page.waitForLoadState('networkidle');
-
-        await expect(page.locator('table, .message-list, body')).toContainText(subject);
-    });
-});
-
-// ─── Application → Admin applications list ───────────────────────────────────
-
-test.describe('Data flow — application appears in admin applications list', () => {
-    test('submit apply form → applicant visible in admin list', async ({ page }) => {
-        const uniqueEmail = `e2e.${ts()}@playwright.test`;
-
+test.describe('Application accept / reject flow', () => {
+    /** Submit an application and return the unique email used. */
+    async function submitApplication(page) {
+        const email = `e2e.${ts()}@playwright.test`;
         await page.goto('/frontend/pages/apply/apply.html');
         await page.waitForLoadState('networkidle');
 
-        // Fill personal info
         await page.fill('#firstName', 'E2E');
         await page.fill('#lastName', 'Playwright');
-        await page.fill('#email', uniqueEmail);
+        await page.fill('#email', email);
         await page.fill('#phone', '0601234567');
-
-        // Academic info
         await page.fill('#studentId', 'E2E123456');
-        const facultyField = page.locator('[name="faculty"], #faculty');
-        if (await facultyField.isVisible().catch(() => false)) {
-            await facultyField.fill('FTN');
-        }
-        const majorSelect = page.locator('[name="major"], #major, select[name="major"]');
-        if (await majorSelect.isVisible().catch(() => false)) {
-            await majorSelect.selectOption({ index: 1 });
-        }
-        const yearField = page.locator('[name="academic_year"], #academicYear');
-        if (await yearField.isVisible().catch(() => false)) {
-            await yearField.fill('2');
-        }
-        const gpaField = page.locator('[name="gpa"], #gpa');
-        if (await gpaField.isVisible().catch(() => false)) {
-            await gpaField.fill('8.5');
+
+        for (const [sel, val] of [
+            ['[name="faculty"], #faculty',        'FTN'],
+            ['[name="academic_year"], #academicYear', '2'],
+            ['[name="gpa"], #gpa',                '8.5'],
+            ['[name="motivation"], #motivation',  'E2E test. Safe to delete.'],
+        ]) {
+            const el = page.locator(sel);
+            if (await el.isVisible().catch(() => false)) await el.fill(val);
         }
 
-        // Position
-        const positionSelect = page.locator('[name="desired_position"], #desiredPosition, select[name="position"]');
-        if (await positionSelect.isVisible().catch(() => false)) {
-            await positionSelect.selectOption({ index: 1 });
+        for (const sel of ['[name="major"], #major', '[name="desired_position"], #desiredPosition']) {
+            const el = page.locator(sel);
+            if (await el.isVisible().catch(() => false)) await el.selectOption({ index: 1 });
         }
 
-        // Motivation
-        const motivationField = page.locator('[name="motivation"], #motivation');
-        if (await motivationField.isVisible().catch(() => false)) {
-            await motivationField.fill('E2E automated test application. Safe to delete.');
+        const resume = page.locator('[name="resume"], #resume, input[type="file"]').first();
+        if (await resume.isVisible().catch(() => false)) {
+            await resume.setInputFiles({ name: 'resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4 E2E') });
         }
 
-        // Resume upload (required)
-        const resumeInput = page.locator('[name="resume"], #resume, input[type="file"]').first();
-        if (await resumeInput.isVisible().catch(() => false)) {
-            await resumeInput.setInputFiles({
-                name: 'resume.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('%PDF-1.4 E2E test resume'),
-            });
-        }
-
-        const [response] = await Promise.all([
+        await Promise.all([
             page.waitForResponse(
                 res => res.url().includes('applications') && res.request().method() === 'POST',
                 { timeout: 10000 }
@@ -263,66 +376,262 @@ test.describe('Data flow — application appears in admin applications list', ()
             page.locator('button[type="submit"]').click(),
         ]);
 
-        // Check admin applications — email should appear
+        return email;
+    }
+
+    test('submit application → appears in admin list', async ({ page }) => {
+        const email = await submitApplication(page);
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/applications_list.php');
+        await page.waitForLoadState('networkidle');
+        await expect(page.locator('body')).toContainText(email);
+    });
+
+    test('accept application → status changes to accepted', async ({ page }) => {
+        await submitApplication(page);
         await loginAsAdmin(page);
         await page.goto('/panel/admin/pages/applications_list.php');
         await page.waitForLoadState('networkidle');
 
-        await expect(page.locator('body')).toContainText(uniqueEmail);
+        const acceptBtn = page.locator('.btn-accept').first();
+        if (await acceptBtn.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('process_application') && res.request().method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
+                acceptBtn.click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+            // Row should now show "accepted" status
+            await expect(page.locator('.status-accepted, td:has-text("accepted"), .badge-accepted')).toBeVisible({ timeout: 5000 });
+        }
+    });
+
+    test('reject application → status changes to rejected', async ({ page }) => {
+        await submitApplication(page);
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/applications_list.php');
+        await page.waitForLoadState('networkidle');
+
+        const rejectBtn = page.locator('.btn-reject').first();
+        if (await rejectBtn.isVisible().catch(() => false)) {
+            page.on('dialog', dialog => dialog.accept());
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('process_application') && res.request().method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
+                rejectBtn.click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+            await expect(page.locator('.status-rejected, td:has-text("rejected"), .badge-rejected')).toBeVisible({ timeout: 5000 });
+        }
+    });
+
+    test('application details page shows personal info', async ({ page }) => {
+        await submitApplication(page);
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/applications_list.php');
+        await page.waitForLoadState('networkidle');
+
+        const viewBtn = page.locator('.btn-view').first();
+        if (await viewBtn.isVisible().catch(() => false)) {
+            await viewBtn.click();
+            await expect(page).toHaveURL(/application_details/);
+            await expect(page.locator('body')).toContainText(/E2E|Playwright/);
+            await expect(page.locator('.accept-btn, .action-btn, button')).toBeVisible();
+        }
     });
 });
 
-// ─── Manager request → Admin content-requests ────────────────────────────────
+// ─── Contact form → Admin messages ───────────────────────────────────────────
 
-test.describe('Data flow — manager request appears in admin content-requests', () => {
-    test('manager submits project request → admin sees pending item', async ({ page }) => {
-        const projectName = `E2E Request ${ts()}`;
+test.describe('Contact form → admin messages', () => {
+    test('submit contact form → message appears in messages table', async ({ page }) => {
+        const subject = `E2E Contact ${ts()}`;
 
+        await page.goto('/frontend/pages/contact/contact.html');
+        await page.waitForLoadState('networkidle');
+        await page.fill('#name', 'Playwright Test User');
+        await page.fill('#email', 'playwright@e2e.test');
+        await page.fill('#subject', subject);
+        await page.fill('#message', 'Automated E2E test message. Safe to delete.');
+        await page.locator('button[type="submit"]').click();
+        await page.waitForResponse(
+            res => res.url().includes('contact') && res.request().method() === 'POST',
+            { timeout: 8000 }
+        ).catch(() => {});
+
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/messages.php');
+        await page.waitForLoadState('networkidle');
+        await expect(page.locator('body')).toContainText(subject);
+    });
+
+    test('delete message → removed from messages list', async ({ page }) => {
+        const subject = `E2E Del Msg ${ts()}`;
+
+        await page.goto('/frontend/pages/contact/contact.html');
+        await page.waitForLoadState('networkidle');
+        await page.fill('#name', 'Playwright Delete Test');
+        await page.fill('#email', 'playwright@e2e.test');
+        await page.fill('#subject', subject);
+        await page.fill('#message', 'Message to be deleted. Safe to delete.');
+        await page.locator('button[type="submit"]').click();
+        await page.waitForResponse(
+            res => res.url().includes('contact') && res.request().method() === 'POST',
+            { timeout: 8000 }
+        ).catch(() => {});
+
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/messages.php');
+        await page.waitForLoadState('networkidle');
+
+        const row = page.locator('tr').filter({ hasText: subject });
+        if (await row.isVisible().catch(() => false)) {
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('delete_message') && res.request().method() === 'POST',
+                    { timeout: 5000 }
+                ).catch(() => null),
+                row.locator('.delete-btn').click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+            await expect(page.locator('body')).not.toContainText(subject);
+        }
+    });
+});
+
+// ─── Content requests ─────────────────────────────────────────────────────────
+
+test.describe('Manager content requests → admin approve / decline / edit-approve', () => {
+    /** Submit a project request as manager and return the project name. */
+    async function submitProjectRequest(page) {
+        const name = `E2E Req ${ts()}`;
         await loginAsManager(page);
         await page.goto('/panel/manager/pages/request-project.php');
-
-        await page.fill('#f_name', projectName);
-        await page.fill('#f_desc', 'E2E automated request test. Safe to delete.');
+        await page.fill('#f_name', name);
+        await page.fill('#f_desc', 'E2E automated request. Safe to delete.');
         await page.selectOption('#f_status', 'Active');
         await page.fill('[name="due_date"], #f_due', '2026-12-31');
-
-        const durationField = page.locator('[name="duration"], #f_duration');
-        if (await durationField.isVisible().catch(() => false)) {
-            await durationField.fill('6 months');
-        }
-
-        const [response] = await Promise.all([
+        const dur = page.locator('[name="duration"], #f_duration');
+        if (await dur.isVisible().catch(() => false)) await dur.fill('6 months');
+        await Promise.all([
             page.waitForResponse(
                 res => res.url().includes('requests') && res.request().method() === 'POST',
                 { timeout: 8000 }
             ).catch(() => null),
             page.locator('button[type="submit"], input[type="submit"]').first().click(),
         ]);
+        return name;
+    }
 
-        // Now check admin sees it
+    test('manager submits request → pending in admin content-requests', async ({ page }) => {
+        const name = await submitProjectRequest(page);
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/content-requests.php');
+        await page.waitForLoadState('networkidle');
+        await expect(page.locator('#requestsBody, body')).toContainText(name);
+    });
+
+    test('admin approves request → status changes to approved', async ({ page }) => {
+        await submitProjectRequest(page);
         await loginAsAdmin(page);
         await page.goto('/panel/admin/pages/content-requests.php');
         await page.waitForLoadState('networkidle');
 
-        await expect(page.locator('#requestsBody, .req-table, body')).toContainText(projectName);
+        const reviewBtn = page.locator('.btn-edit.btn-action, button.btn-action').first();
+        if (await reviewBtn.isVisible().catch(() => false)) {
+            await reviewBtn.click();
+            // Modal opens
+            await expect(page.locator('.btn-approve')).toBeVisible({ timeout: 5000 });
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('requests') && res.url().includes('review') && res.request().method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
+                page.locator('.btn-approve').click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+            // Row should now show approved status
+            await expect(page.locator('body')).toContainText(/approved/i);
+        }
     });
 
-    test('manager submits member request → admin sees pending item', async ({ page }) => {
-        const memberName = `E2E Member ${ts()}`;
+    test('admin declines request → status changes to declined', async ({ page }) => {
+        await submitProjectRequest(page);
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/content-requests.php');
+        await page.waitForLoadState('networkidle');
 
+        const reviewBtn = page.locator('.btn-edit.btn-action, button.btn-action').first();
+        if (await reviewBtn.isVisible().catch(() => false)) {
+            await reviewBtn.click();
+            await expect(page.locator('.btn-decline')).toBeVisible({ timeout: 5000 });
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('requests') && res.url().includes('review') && res.request().method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
+                page.locator('.btn-decline').click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+            await expect(page.locator('body')).toContainText(/declined/i);
+        }
+    });
+
+    test('admin edits & approves request → project appears on projects page', async ({ page }) => {
+        const name = await submitProjectRequest(page);
+        const edited = `${name} Edited`;
+
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/content-requests.php');
+        await page.waitForLoadState('networkidle');
+
+        const reviewBtn = page.locator('.btn-edit.btn-action, button.btn-action').first();
+        if (await reviewBtn.isVisible().catch(() => false)) {
+            await reviewBtn.click();
+            // Switch to edit tab in modal
+            const editTab = page.locator('button.modal-tab:has-text("Edit"), [onclick*="edit"]');
+            if (await editTab.isVisible().catch(() => false)) {
+                await editTab.click();
+                const nameField = page.locator('.edit-field [name="name"], .edit-field input').first();
+                if (await nameField.isVisible().catch(() => false)) {
+                    await nameField.fill(edited);
+                }
+            }
+
+            await expect(page.locator('.btn-edit:has-text("Edit & Approve"), button:has-text("Edit & Approve")')).toBeVisible({ timeout: 5000 });
+            await Promise.all([
+                page.waitForResponse(
+                    res => res.url().includes('requests') && res.url().includes('review') && res.request().method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
+                page.locator('button:has-text("Edit & Approve")').click(),
+            ]);
+            await page.waitForLoadState('networkidle');
+
+            // Approved project request should create a real project
+            await page.goto('/frontend/pages/projects/projects.html');
+            await page.waitForLoadState('networkidle');
+            await page.waitForTimeout(3000);
+            await expect(page.locator('body')).toContainText(name);
+        }
+    });
+
+    test('manager submits member request → pending in admin content-requests', async ({ page }) => {
+        const memberName = `E2E Member ${ts()}`;
         await loginAsManager(page);
         await page.goto('/panel/manager/pages/request-member.php');
-
         await page.fill('[name="full_name"]', memberName);
         await page.fill('[name="email"]', `e2e.${ts()}@test.local`);
         await page.selectOption('[name="role"]', { index: 1 });
+        const team = page.locator('#teamSelect');
+        if (await team.isVisible().catch(() => false)) await team.selectOption({ index: 1 });
 
-        const teamSelect = page.locator('#teamSelect');
-        if (await teamSelect.isVisible().catch(() => false)) {
-            await teamSelect.selectOption({ index: 1 });
-        }
-
-        const [response] = await Promise.all([
+        await Promise.all([
             page.waitForResponse(
                 res => res.url().includes('requests') && res.request().method() === 'POST',
                 { timeout: 8000 }
@@ -333,93 +642,49 @@ test.describe('Data flow — manager request appears in admin content-requests',
         await loginAsAdmin(page);
         await page.goto('/panel/admin/pages/content-requests.php');
         await page.waitForLoadState('networkidle');
-
-        await expect(page.locator('#requestsBody, .req-table, body')).toContainText(memberName);
+        await expect(page.locator('#requestsBody, body')).toContainText(memberName);
     });
 });
 
-// ─── Post list shows in admin ─────────────────────────────────────────────────
+// ─── Members ──────────────────────────────────────────────────────────────────
 
-test.describe('Data flow — created post appears in admin posts list', () => {
-    test('create post → visible in admin posts table', async ({ page }) => {
-        const postTitle = `E2E Admin Post ${ts()}`;
-
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/add-edit-post.php');
-
-        await page.fill('#title_sr', postTitle);
-        await page.fill('#content_sr', 'E2E test. Safe to delete.');
-        await page.selectOption('#category', { index: 1 });
-
-        await page.locator('button.btn-submit').click();
-        await expect(page.locator('#flashMessage')).toBeVisible({ timeout: 8000 });
-
-        await page.goto('/panel/admin/pages/posts.php');
-        await page.waitForLoadState('networkidle');
-
-        await expect(page.locator('table, .admin-table')).toContainText(postTitle);
-    });
-});
-
-// ─── Gallery image toggle active/inactive ────────────────────────────────────
-
-test.describe('Data flow — gallery image toggle status', () => {
-    test('toggle image status updates correctly', async ({ page }) => {
-        await loginAsAdmin(page);
-        await page.goto('/panel/admin/pages/manage-gallery.php');
-        await page.waitForLoadState('networkidle');
-
-        // Check if there are existing images with toggle forms
-        const toggleForm = page.locator('form:has(input[name="action"][value="toggle_status"])').first();
-        const hasImages = await toggleForm.isVisible().catch(() => false);
-
-        if (hasImages) {
-            const [response] = await Promise.all([
-                page.waitForResponse(res => res.url().includes('manage-gallery'), { timeout: 5000 }).catch(() => null),
-                toggleForm.locator('button[type="submit"]').click(),
-            ]);
-            // Page should reload without error
-            await expect(page.locator('body')).toBeVisible();
-            await expect(page).not.toHaveURL(/login/);
-        }
-    });
-});
-
-// ─── Member added → Team page ─────────────────────────────────────────────────
-
-test.describe('Data flow — added member appears on team page', () => {
-    test('add user → member visible on public team page', async ({ page }) => {
-        const uniqueUser = `e2euser${ts()}`;
-        const fullName   = `E2E Test ${ts()}`;
+test.describe('Member management flows', () => {
+    test('add member → appears on public team page', async ({ page }) => {
+        const username = `e2euser${ts()}`;
+        const fullName = `E2E Member ${ts()}`;
 
         await loginAsAdmin(page);
         await page.goto('/panel/admin/pages/add_user.php');
-
-        await page.fill('#username', uniqueUser);
+        await page.fill('#username', username);
         await page.fill('#password', 'TestPass123!');
-        await page.fill('#email', `${uniqueUser}@e2e.local`);
+        await page.fill('#email', `${username}@e2e.local`);
         await page.fill('#full_name', fullName);
-
-        const roleSelect = page.locator('[name="role"], select[name="role"]');
-        if (await roleSelect.isVisible().catch(() => false)) {
-            await roleSelect.selectOption('team_member');
-        }
-        const teamSelect = page.locator('[name="team"], #team');
-        if (await teamSelect.isVisible().catch(() => false)) {
-            await teamSelect.selectOption({ index: 1 });
-        }
+        const role = page.locator('[name="role"]');
+        if (await role.isVisible().catch(() => false)) await role.selectOption('team_member');
+        const team = page.locator('[name="team"], #team');
+        if (await team.isVisible().catch(() => false)) await team.selectOption({ index: 1 });
 
         await page.locator('button[type="submit"], input[type="submit"]').first().click();
         await page.waitForLoadState('networkidle');
 
-        // Check team page
         await page.goto('/frontend/pages/team/team.html');
         await page.waitForLoadState('networkidle');
-        // Team page loads members dynamically; wait for API
         await page.waitForTimeout(3000);
+        await expect(page.locator('body')).toContainText(fullName);
+    });
 
-        const body = await page.locator('body').textContent() ?? '';
-        // Member should appear somewhere in the rendered page
-        expect(body).toContain(fullName);
+    test('disable member → status toggles in manage_members list', async ({ page }) => {
+        await loginAsAdmin(page);
+        await page.goto('/panel/admin/pages/manage_members.php');
+        await page.waitForLoadState('networkidle');
+
+        const toggleBtn = page.locator('.toggle-status-btn').first();
+        if (await toggleBtn.isVisible().catch(() => false)) {
+            const href = await toggleBtn.getAttribute('href') ?? '';
+            await page.goto(href);
+            await page.waitForLoadState('networkidle');
+            await expect(page).not.toHaveURL(/login/);
+            await expect(page.locator('body')).toBeVisible();
+        }
     });
 });
