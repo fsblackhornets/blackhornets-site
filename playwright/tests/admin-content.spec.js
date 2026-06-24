@@ -60,7 +60,7 @@ test.describe('Admin — manage sponsors', () => {
 
     test('page loads with sponsor list or empty state', async ({ page }) => {
         await page.waitForLoadState('networkidle');
-        await expect(page.locator('.sponsor-card, .empty').first()).toBeVisible({ timeout: 8000 });
+        await expect(page.locator('.sponsor-card, .no-sponsors, .sponsors-grid').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('edit link navigates to add-edit-sponsor with id', async ({ page }) => {

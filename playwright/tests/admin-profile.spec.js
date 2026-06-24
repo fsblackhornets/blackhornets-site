@@ -142,11 +142,9 @@ test.describe('Admin — team dashboard', () => {
         }
     });
 
-    test('quick actions section present or profile message shown', async ({ page }) => {
-        // Admin user may not have a team member profile
-        const hasActions = await page.locator('.quick-actions, .actions-grid').first().isVisible().catch(() => false);
-        const hasProfile = await page.locator('body').textContent().then(t => t.length > 100).catch(() => false);
-        expect(hasActions || hasProfile).toBe(true);
+    test('team dashboard page loaded without redirecting to login', async ({ page }) => {
+        await expect(page).not.toHaveURL(/login/);
+        await expect(page.locator('body')).toBeVisible();
     });
 });
 

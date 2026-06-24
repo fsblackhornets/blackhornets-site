@@ -158,9 +158,10 @@ test.describe('Blog post → home page news', () => {
         const title = `E2E Home News ${ts()}`;
         await createPost(page, title);
 
-        await page.goto('/');
+        // PHP dev server doesn't process .htaccess — use direct path
+        await page.goto('/frontend/pages/home/home.html');
         await page.waitForLoadState('networkidle');
-        await page.waitForSelector('#newsGrid', { timeout: 10000 });
+        await page.waitForSelector('#newsGrid, #latest-news', { timeout: 10000 });
         await expect(page.locator('#newsGrid, #latest-news')).toContainText(title);
     });
 });
@@ -371,9 +372,10 @@ test.describe('Application accept / reject flow', () => {
         // academic_year is a <select>
         await page.locator('#academic_year').selectOption({ index: 1 });
 
+        // File inputs are CSS-hidden — check by count not visibility
         const resume = page.locator('#resume, [name="resume"]').first();
-        if (await resume.isVisible().catch(() => false)) {
-            await resume.setInputFiles({ name: 'resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4 E2E') });
+        if (await resume.count() > 0) {
+            await resume.setInputFiles({ name: 'resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4 E2E test resume content') });
         }
 
         await Promise.all([
