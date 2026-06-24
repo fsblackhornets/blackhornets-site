@@ -361,32 +361,17 @@ test.describe('Application accept / reject flow', () => {
         await page.fill('#email', email);
         await page.fill('#phone', '0601234567');
         await page.fill('#studentId', 'E2E123456');
+        await page.fill('#faculty', 'FTN');
+        await page.fill('#major', 'Software Engineering');
+        await page.fill('#gpa', '8.50');
+        await page.fill('#years_studying', '2');
+        await page.fill('#position', 'Marketing Member');
+        await page.fill('#motivation', 'E2E test application. Safe to delete.');
 
-        for (const [sel, val] of [
-            ['[name="faculty"], #faculty',       'FTN'],
-            ['[name="gpa"], #gpa',               '8.5'],
-            ['[name="motivation"], #motivation', 'E2E test. Safe to delete.'],
-        ]) {
-            const el = page.locator(sel);
-            if (await el.isVisible().catch(() => false)) await el.fill(val);
-        }
-        // academic_year is a <select> in this form
-        const yearSel = page.locator('[name="academic_year"], #academic_year, #academicYear');
-        if (await yearSel.isVisible().catch(() => false)) {
-            const tag = await yearSel.evaluate(el => el.tagName.toLowerCase());
-            if (tag === 'select') {
-                await yearSel.selectOption({ index: 1 });
-            } else {
-                await yearSel.fill('2');
-            }
-        }
+        // academic_year is a <select>
+        await page.locator('#academic_year').selectOption({ index: 1 });
 
-        for (const sel of ['[name="major"], #major', '[name="desired_position"], #desiredPosition']) {
-            const el = page.locator(sel);
-            if (await el.isVisible().catch(() => false)) await el.selectOption({ index: 1 });
-        }
-
-        const resume = page.locator('[name="resume"], #resume, input[type="file"]').first();
+        const resume = page.locator('#resume, [name="resume"]').first();
         if (await resume.isVisible().catch(() => false)) {
             await resume.setInputFiles({ name: 'resume.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4 E2E') });
         }

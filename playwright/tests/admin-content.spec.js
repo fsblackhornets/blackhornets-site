@@ -284,6 +284,8 @@ test.describe('Admin — messages', () => {
             const messageId = await deleteBtn.getAttribute('data-id');
             expect(Number(messageId)).toBeGreaterThan(0);
 
+            // Delete uses confirm() — must accept it before fetch fires
+            page.on('dialog', d => d.accept());
             const [request] = await Promise.all([
                 page.waitForRequest(
                     req => req.url().includes('delete_message') && req.method() === 'POST',

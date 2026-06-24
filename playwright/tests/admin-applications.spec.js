@@ -8,8 +8,9 @@ test.describe('Admin — applications list', () => {
         await page.goto('/panel/admin/pages/applications_list.php');
     });
 
-    test('page loads with table or empty state', async ({ page }) => {
-        await expect(page.locator('table, .empty, .no-applications, .no-data')).toBeVisible({ timeout: 8000 });
+    test('page loads with application cards or empty state', async ({ page }) => {
+        await page.waitForLoadState('networkidle');
+        await expect(page.locator('.application-card, .applications-grid, .empty').first()).toBeVisible({ timeout: 8000 });
     });
 
     test('shows accept and reject buttons for pending applications', async ({ page }) => {
