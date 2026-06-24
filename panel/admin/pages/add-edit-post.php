@@ -1,5 +1,6 @@
 <?php
 require_once '../auth.php';
+$user = checkAuth('admin');
 require_once __DIR__ . '/../../../backend/config/database.php';
 require_once __DIR__ . '/../../../backend/helpers/csrf_helper.php';
 

@@ -3,7 +3,9 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Public pages', () => {
     test('home page shows hero section', async ({ page }) => {
-        await page.goto('/');
+        // PHP dev server doesn't process .htaccess — use direct path
+        await page.goto('/frontend/pages/home/home.html');
+        await page.waitForLoadState('networkidle');
         await expect(page.locator('.hero, .hero-section, section').first()).toBeVisible();
     });
 
@@ -49,7 +51,7 @@ test.describe('Public pages', () => {
 
     test('no page returns 500 error', async ({ page }) => {
         const pages = [
-            '/',
+            '/frontend/pages/home/home.html',
             '/frontend/pages/blog/blog.html',
             '/frontend/pages/gallery/gallery.html',
             '/frontend/pages/team/team.html',

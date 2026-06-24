@@ -2,6 +2,7 @@
 const { test, expect } = require('@playwright/test');
 const { ADMIN_LOGIN, loginAsAdmin, logout } = require('../fixtures/auth');
 
+// HTML pages that must redirect to login when unauthenticated
 const PROTECTED_PAGES = [
     '/panel/admin/pages/dashboard.php',
     '/panel/admin/pages/applications_list.php',
@@ -18,7 +19,7 @@ const PROTECTED_PAGES = [
     '/panel/admin/pages/add-edit-project.php',
     '/panel/admin/pages/add-edit-sponsor.php',
     '/panel/admin/pages/edit_profile.php',
-    '/panel/admin/change_password.php',
+    // change_password.php is a JSON API — tested separately below
 ];
 
 test.describe('Admin — login page', () => {
@@ -72,5 +73,17 @@ test.describe('Admin — logout', () => {
         await logout(page);
         await page.goto('/panel/admin/pages/dashboard.php');
         await expect(page).toHaveURL(/login/);
+    });
+});
+
+test.describe('Admin — JSON API auth guard', () => {
+    test('change_password.php returns 401 when unauthenticated', async ({ page }) => {
+        const response = await page.request.post('http://localhost:8080/panel/admin/change_password.php', {
+            data: JSON.stringify({ current_password: 'x', new_password: 'y' }),
+            headers: { 'Content-Type': 'application/json' },
+        });
+        expect(response.status()).toBe(401);
+        const body = await response.json();
+        expect(body.success).toBe(false);
     });
 });
