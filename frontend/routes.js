@@ -10,5 +10,4 @@ window.ROUTES = {
 	blog: "/frontend/pages/blog/blog.html",
 	blogPost: "/frontend/pages/blog-post/blog-post.html",
 	projectDetails: "/frontend/pages/project-details/project-details.html",
-	events: "/frontend/pages/events/events.html",
 };
