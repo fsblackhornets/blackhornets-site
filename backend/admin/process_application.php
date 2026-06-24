@@ -18,7 +18,6 @@ try {
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) throw new Exception("DB connection failed");
 
-    // Fetch applicant
     $stmt = $conn->prepare("SELECT first_name, last_name, email, desired_position FROM applications WHERE id = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -27,13 +26,11 @@ try {
 
     if (!$applicant) throw new Exception('Application not found');
 
-    // Update status
     $status = $action === 'accept' ? 'accepted' : 'rejected';
     $stmt   = $conn->prepare("UPDATE applications SET status = ? WHERE id = ?");
     $stmt->bind_param('si', $status, $id);
     if (!$stmt->execute()) throw new Exception('Error updating status');
 
-    // Send approval email
     if ($action === 'accept') {
         $name     = trim($applicant['first_name'] . ' ' . $applicant['last_name']);
         $email    = $applicant['email'];

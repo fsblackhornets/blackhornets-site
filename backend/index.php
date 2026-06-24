@@ -13,7 +13,6 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/schemas/Response.php';
 require_once __DIR__ . '/routes/Router.php';
 
-// Autoload classes
 spl_autoload_register(function (string $class): void {
     $dirs = [
         __DIR__ . '/controllers/',
@@ -28,7 +27,6 @@ spl_autoload_register(function (string $class): void {
     }
 });
 
-// Resolve path: strip /backend/api prefix
 $uri    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $prefix = '/backend/api';
 $path   = str_starts_with($uri, $prefix) ? substr($uri, strlen($prefix)) : $uri;
