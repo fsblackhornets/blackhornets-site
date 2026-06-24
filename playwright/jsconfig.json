@@ -4,8 +4,7 @@
     "strict": false,
     "noImplicitAny": false,
     "target": "ES2020",
-    "module": "CommonJS",
-    "baseUrl": "."
+    "module": "CommonJS"
   },
   "include": ["**/*.js"],
   "exclude": ["node_modules"]
