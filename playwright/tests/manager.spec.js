@@ -63,10 +63,11 @@ test.describe('Manager — dashboard', () => {
     });
 
     test('sidebar has all 4 navigation links', async ({ page }) => {
-        await expect(page.locator('a[href*="request-member"]')).toBeVisible();
-        await expect(page.locator('a[href*="request-post"]')).toBeVisible();
-        await expect(page.locator('a[href*="request-project"]')).toBeVisible();
-        await expect(page.locator('a[href*="request-sponsor"]')).toBeVisible();
+        // Scope to sidebar to avoid strict-mode violation with action cards
+        await expect(page.locator('.m-sidebar a[href*="request-member"]')).toBeVisible();
+        await expect(page.locator('.m-sidebar a[href*="request-post"]')).toBeVisible();
+        await expect(page.locator('.m-sidebar a[href*="request-project"]')).toBeVisible();
+        await expect(page.locator('.m-sidebar a[href*="request-sponsor"]')).toBeVisible();
     });
 
     test('logout link present in sidebar', async ({ page }) => {

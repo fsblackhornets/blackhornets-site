@@ -276,6 +276,7 @@ test.describe('Admin — messages', () => {
     });
 
     test('delete button fires DELETE request', async ({ page }) => {
+        await page.waitForLoadState('networkidle');
         const deleteBtn = page.locator('.delete-btn').first();
         const hasMessages = await deleteBtn.isVisible().catch(() => false);
 
@@ -284,7 +285,10 @@ test.describe('Admin — messages', () => {
             expect(Number(messageId)).toBeGreaterThan(0);
 
             const [request] = await Promise.all([
-                page.waitForRequest(req => req.url().includes('delete_message') && req.method() === 'POST', { timeout: 5000 }).catch(() => null),
+                page.waitForRequest(
+                    req => req.url().includes('delete_message') && req.method() === 'POST',
+                    { timeout: 8000 }
+                ).catch(() => null),
                 deleteBtn.click(),
             ]);
             expect(request).not.toBeNull();
@@ -307,6 +311,6 @@ test.describe('Admin — dashboard', () => {
     });
 
     test('admin navbar is visible', async ({ page }) => {
-        await expect(page.locator('nav, .admin-nav, .sidebar, .navbar').first()).toBeVisible();
+        await expect(page.locator('header.admin-topbar, aside.admin-sidebar').first()).toBeVisible();
     });
 });

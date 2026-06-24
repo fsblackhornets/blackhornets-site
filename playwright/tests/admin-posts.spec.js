@@ -72,12 +72,25 @@ test.describe('Admin — add/edit post form', () => {
         await page.fill('#content_sr', 'Test content for Playwright E2E test.');
         await page.selectOption('#category', { index: 1 });
 
+        // Select at least one author — form validation requires it
+        const firstAuthor = page.locator('.author-checkbox').first();
+        if (await firstAuthor.isVisible().catch(() => false)) {
+            await firstAuthor.check();
+        }
+
+        // Dismiss any alert dialogs (e.g. "please select author")
+        page.on('dialog', d => d.accept());
+
         const [request] = await Promise.all([
-            page.waitForRequest(req => req.url().includes('posts') && req.method() === 'POST', { timeout: 5000 }).catch(() => null),
+            page.waitForRequest(
+                req => req.url().includes('/backend/api/posts') && req.method() === 'POST',
+                { timeout: 5000 }
+            ).catch(() => null),
             page.locator('button[type="submit"], .btn-submit').click(),
         ]);
 
-        const flashVisible = await page.locator('#flashMessage, .success, .alert-success').isVisible().catch(() => false);
+        // Either request fired or flash message appeared (on redirect back)
+        const flashVisible = await page.locator('#flashMessage').isVisible().catch(() => false);
         expect(request !== null || flashVisible).toBe(true);
     });
 });

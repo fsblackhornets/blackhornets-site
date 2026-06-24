@@ -429,7 +429,7 @@ if ($postsResult && $postsResult->num_rows > 0) {
                 var formData = new FormData(form);
                 var isEdit = !!form.querySelector('input[name="id"]');
 
-                fetch('../../api/posts/create.php', {
+                fetch('/backend/api/posts', {
                     method: 'POST',
                     body: formData
                 })
