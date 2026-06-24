@@ -47,7 +47,7 @@ try {
                  . "Thank you for your interest in Black Hornets Racing.\n\n"
                  . "Best regards,\n"
                  . "Black Hornets Racing Team\n"
-                 . "formulastudentftn@gmail.com";
+                 . SMTP_FROM;
 
         sendEmail($email, $name, $subject, $body);
     }
