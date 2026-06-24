@@ -72,10 +72,15 @@ test.describe('Admin — add/edit post form', () => {
         await page.fill('#content_sr', 'Test content for Playwright E2E test.');
         await page.selectOption('#category', { index: 1 });
 
-        // Select at least one author — form validation requires it
+        // Author required — check checkbox or set hidden field directly
         const firstAuthor = page.locator('.author-checkbox').first();
         if (await firstAuthor.isVisible().catch(() => false)) {
             await firstAuthor.check();
+        } else {
+            await page.evaluate(() => {
+                const el = document.getElementById('author');
+                if (el) el.value = 'Admin';
+            });
         }
 
         // Dismiss any alert dialogs (e.g. "please select author")

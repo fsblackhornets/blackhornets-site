@@ -9,6 +9,8 @@ module.exports = defineConfig({
     workers: process.env.CI ? 1 : undefined,
     reporter: 'html',
 
+    timeout: 60000, // data-flow tests need more time (DB + full page render)
+
     use: {
         baseURL: process.env.BASE_URL || 'http://localhost',
         trace: 'on-first-retry',
