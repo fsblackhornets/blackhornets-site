@@ -1,5 +1,4 @@
-// English dept name → translation key (used in utils.js)
-window.DEPT_TRANS_KEYS = {
+export const DEPT_TRANS_KEYS = {
 	Marketing: "marketing",
 	Sponsorships: "sponsorships",
 	Management: "management",
@@ -10,8 +9,7 @@ window.DEPT_TRANS_KEYS = {
 	"Low Voltage": "lowVoltage",
 };
 
-// Old Serbian position text → key (used in utils.js)
-window.POSITION_SR_TO_KEY = {
+export const POSITION_SR_TO_KEY = {
 	Inženjer: "engineer",
 	Dizajner: "designer",
 	"CAD Inženjer": "cad_engineer",
@@ -34,3 +32,8 @@ window.POSITION_SR_TO_KEY = {
 	"Finansijski analitičar": "budget_analyst",
 	"Koordinator projekta": "project_coordinator",
 };
+
+if (typeof window !== "undefined") {
+	window.DEPT_TRANS_KEYS = DEPT_TRANS_KEYS;
+	window.POSITION_SR_TO_KEY = POSITION_SR_TO_KEY;
+}
