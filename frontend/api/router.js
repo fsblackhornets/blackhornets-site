@@ -1,6 +1,6 @@
 window.API = {};
 
-const _load = (src) =>
+const _loadScript = (src) =>
 	new Promise((resolve) => {
 		if (document.querySelector(`script[src="${src}"]`)) return resolve();
 		const s = document.createElement("script");
@@ -10,7 +10,18 @@ const _load = (src) =>
 		document.head.appendChild(s);
 	});
 
-const _loadAll = (srcs) => Promise.all(srcs.map(_load));
+const _loadModule = (src) =>
+	new Promise((resolve) => {
+		if (document.querySelector(`script[src="${src}"]`)) return resolve();
+		const s = document.createElement("script");
+		s.type = "module";
+		s.src = src;
+		s.onload = resolve;
+		s.onerror = resolve;
+		document.head.appendChild(s);
+	});
+
+const _loadAll = (srcs) => Promise.all(srcs.map(_loadModule));
 
 const AXIOS_CDN = "https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js";
 
@@ -27,7 +38,7 @@ const ENDPOINTS = [
 	"/frontend/api/endpoints/contact.js",
 ];
 
-_load(AXIOS_CDN)
-	.then(() => _load("/frontend/api/client.js"))
+_loadScript(AXIOS_CDN)
+	.then(() => _loadModule("/frontend/api/client.js"))
 	.then(() => _loadAll(ENDPOINTS))
 	.then(() => window._resolveApiReady?.());

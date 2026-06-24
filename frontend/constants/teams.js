@@ -1,19 +1,16 @@
-// Team → CSS color class (used in card.js)
-window.TEAM_COLOR_CLASS = {
+export const TEAM_COLOR_CLASS = {
 	mechanical: "team--mechanical",
 	electrical: "team--electrical",
 	operating_business: "team--business",
 };
 
-// Department label → team key (used in card.js)
-window.DEPT_TO_TEAM = {
+export const DEPT_TO_TEAM = {
 	"Mechanical Engineering": "mechanical",
 	"Electrical Engineering": "electrical",
 	"Business Team": "operating_business",
 };
 
-// Translated/localized dept name → English DB value (used in members.js)
-window.DEPARTMENT_MAPPING = {
+export const DEPARTMENT_MAPPING = {
 	Marketing: "Marketing",
 	Sponsorships: "Sponsorships",
 	Sponzorstva: "Sponsorships",
@@ -38,3 +35,9 @@ window.DEPARTMENT_MAPPING = {
 	sponsorships: "sponsorships",
 	management: "management",
 };
+
+if (typeof window !== "undefined") {
+	window.TEAM_COLOR_CLASS = TEAM_COLOR_CLASS;
+	window.DEPT_TO_TEAM = DEPT_TO_TEAM;
+	window.DEPARTMENT_MAPPING = DEPARTMENT_MAPPING;
+}

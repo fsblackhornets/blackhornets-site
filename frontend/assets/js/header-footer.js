@@ -40,6 +40,22 @@ const loadScripts = (srcs) =>
 		),
 	);
 
+const loadModuleScripts = (srcs) =>
+	Promise.all(
+		srcs.map(
+			(src) =>
+				new Promise((resolve) => {
+					if (document.querySelector(`script[src="${src}"]`)) return resolve();
+					const s = document.createElement("script");
+					s.type = "module";
+					s.src = src;
+					s.onload = resolve;
+					s.onerror = resolve;
+					document.head.appendChild(s);
+				}),
+		),
+	);
+
 const CONFIG = {
 	selectors: {
 		header: "header",
@@ -170,7 +186,7 @@ const loadHeader = () => {
 window.loadHeader = loadHeader;
 
 document.addEventListener("DOMContentLoaded", () => {
-	loadScripts(GLOBAL_SCRIPTS)
+	loadModuleScripts(GLOBAL_SCRIPTS)
 		.then(() =>
 			Promise.all([
 				loadScripts(HEADER_HELPERS),

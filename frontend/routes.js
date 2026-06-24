@@ -1,4 +1,4 @@
-window.ROUTES = {
+export const ROUTES = {
 	home: "/frontend/pages/home/home.html",
 	team: "/frontend/pages/team/team.html",
 	about: "/frontend/pages/about/about.html",
@@ -12,3 +12,7 @@ window.ROUTES = {
 	projectDetails: "/frontend/pages/project-details/project-details.html",
 	events: "/frontend/pages/events/events.html",
 };
+
+if (typeof window !== "undefined") {
+	window.ROUTES = ROUTES;
+}
