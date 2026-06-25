@@ -26,3 +26,8 @@ $router->post('/applications', [ApplicationController::class, 'submit']);
 $router->get('/requests',              [RequestController::class, 'index']);
 $router->post('/requests',             [RequestController::class, 'create']);
 $router->post('/requests/{id}/review', [RequestController::class, 'review']);
+
+// Admin
+$router->get('/admin/stats',              [AdminController::class, 'stats']);
+$router->get('/admin/messages',           [AdminController::class, 'messages']);
+$router->delete('/admin/messages/{id}',   [AdminController::class, 'deleteMessage']);
