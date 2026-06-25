@@ -1,11 +1,10 @@
 import type { InputHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 import { INPUT_BASE_CLS } from "../constants";
 
 export function Input({
-	className = "",
+	className,
 	...props
 }: InputHTMLAttributes<HTMLInputElement>) {
-	return (
-		<input className={`${INPUT_BASE_CLS} ${className}`.trim()} {...props} />
-	);
+	return <input className={cn(INPUT_BASE_CLS, className)} {...props} />;
 }

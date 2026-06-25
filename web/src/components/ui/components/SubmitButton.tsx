@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Button } from "./Button";
 import { Spinner } from "./Spinner";
 
@@ -14,13 +15,13 @@ export function SubmitButton({
 	label,
 	pendingLabel = "Submitting…",
 	icon,
-	className = "",
+	className,
 }: SubmitButtonProps) {
 	return (
 		<Button
 			type="submit"
 			disabled={pending}
-			className={`w-full ${className}`.trim()}
+			className={cn("w-full", className)}
 		>
 			{pending ? (
 				<>

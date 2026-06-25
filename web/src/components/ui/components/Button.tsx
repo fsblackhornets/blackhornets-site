@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { type ButtonHTMLAttributes, forwardRef } from "react";
+import { cn } from "@/lib/utils";
 import { SpinnerIcon } from "../../icons/SpinnerIcon";
 import {
 	BUTTON_SIZE_CLASSES,
@@ -24,15 +25,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			disabled,
 			href,
 			children,
-			className = "",
+			className,
 			onClick,
 			...props
 		},
 		ref,
 	) => {
-		const cls = `inline-flex items-center justify-center rounded-lg cursor-pointer
-      transition-colors duration-200 font-body
-      ${BUTTON_VARIANT_CLASSES[variant]} ${BUTTON_SIZE_CLASSES[size]} ${className}`;
+		const cls = cn(
+			"inline-flex items-center justify-center rounded-lg cursor-pointer transition-colors duration-200 font-body",
+			BUTTON_VARIANT_CLASSES[variant],
+			BUTTON_SIZE_CLASSES[size],
+			className,
+		);
 
 		if (href) {
 			return (

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface NavArrowProps {
 	direction: "left" | "right";
 	onClick: () => void;
@@ -10,7 +12,7 @@ export function NavArrow({
 	direction,
 	onClick,
 	disabled = false,
-	className = "",
+	className,
 	label,
 }: NavArrowProps) {
 	return (
@@ -19,7 +21,10 @@ export function NavArrow({
 			onClick={onClick}
 			disabled={disabled}
 			aria-label={label ?? (direction === "left" ? "Previous" : "Next")}
-			className={`text-text-gray hover:text-primary transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-3 ${className}`}
+			className={cn(
+				"text-text-gray hover:text-primary transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-3",
+				className,
+			)}
 		>
 			<i
 				className={`fas fa-chevron-${direction} text-2xl`}
