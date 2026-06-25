@@ -50,7 +50,17 @@ export function buildGalleryImageUrl(imagePath: string): string {
 }
 
 export function buildProjectImageUrl(imageUrl: string): string {
-	return `${API_ORIGIN}/frontend/${imageUrl}`;
+	return `${API_ORIGIN}/panel/admin/${imageUrl}`;
+}
+
+export function buildSponsorLogoUrl(logo: string | null | undefined): string | null {
+	if (!logo) return null;
+	const path = logo.startsWith("uploads/") ? logo : `uploads/sponsors/${logo}`;
+	return `${API_ORIGIN}/panel/admin/${path}`;
+}
+
+export function buildBrochureUrl(pdfUrl: string): string {
+	return `${API_ORIGIN}/${pdfUrl}`;
 }
 
 export function getProjectStatusVariant(

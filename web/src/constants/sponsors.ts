@@ -18,6 +18,11 @@ export const TIER_KEYWORDS: { keywords: string[]; tier: SponsorTier }[] = [
 	{ keywords: ["friends"], tier: "Friends of the Project" },
 ];
 
+export const BROCHURE_LANG_OPTIONS = [
+	{ value: "sr", label: "Serbian (SR)" },
+	{ value: "en", label: "English (EN)" },
+] as const;
+
 export const TIER_LABELS: Record<SponsorTier, string> = {
 	Institucija: "Institutions",
 	"F1 - Platinum": "F1 — Platinum",

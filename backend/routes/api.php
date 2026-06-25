@@ -26,6 +26,24 @@ $router->put('/gallery/{id}',         [GalleryController::class, 'update']);
 
 $router->get('/brochure', [BrochureController::class, 'show']);
 
+// Admin — projects
+$router->get('/admin/projects',         [ProjectController::class, 'adminIndex']);
+$router->get('/admin/projects/{id}',    [ProjectController::class, 'adminShow']);
+$router->post('/admin/projects',        [ProjectController::class, 'adminCreate']);
+$router->post('/admin/projects/{id}',   [ProjectController::class, 'adminUpdate']);
+$router->delete('/admin/projects/{id}', [ProjectController::class, 'adminDelete']);
+
+// Admin — sponsors
+$router->get('/admin/sponsors',         [SponsorController::class, 'adminIndex']);
+$router->get('/admin/sponsors/{id}',    [SponsorController::class, 'adminShow']);
+$router->post('/admin/sponsors',        [SponsorController::class, 'adminCreate']);
+$router->post('/admin/sponsors/{id}',   [SponsorController::class, 'adminUpdate']);
+$router->delete('/admin/sponsors/{id}', [SponsorController::class, 'adminDelete']);
+
+// Admin — brochure
+$router->get('/admin/brochure',  [BrochureController::class, 'showAll']);
+$router->post('/admin/brochure', [BrochureController::class, 'upload']);
+
 $router->post('/contact/send', [ContactController::class, 'send']);
 
 $router->post('/applications', [ApplicationController::class, 'submit']);
