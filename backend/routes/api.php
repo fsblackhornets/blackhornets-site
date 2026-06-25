@@ -49,6 +49,7 @@ $router->post('/contact/send', [ContactController::class, 'send']);
 $router->post('/applications', [ApplicationController::class, 'submit']);
 
 $router->get('/requests',              [RequestController::class, 'index']);
+$router->get('/requests/{id}',         [RequestController::class, 'show']);
 $router->post('/requests',             [RequestController::class, 'create']);
 $router->post('/requests/{id}/review', [RequestController::class, 'review']);
 

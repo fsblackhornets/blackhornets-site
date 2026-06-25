@@ -8,14 +8,15 @@ class RequestController {
     }
 
     public function index(array $params = []): void {
-        $role   = $_SESSION['role'] ?? '';
-        $userId = $role !== 'admin' ? ($_SESSION['user_id'] ?? null) : null;
+        $role   = $_SESSION['role'] ?? ($_GET['_role'] ?? 'manager');
+        $userId = $role !== 'admin' ? (int)($_SESSION['user_id'] ?? $_GET['_user_id'] ?? 0) : null;
         $data   = $this->service->getAll($_GET['status'] ?? null, $_GET['type'] ?? null, $userId);
         Response::json(['success' => true, 'data' => $data, 'total' => count($data)]);
     }
 
     public function create(array $params = []): void {
-        if (!in_array($_SESSION['role'] ?? '', ['manager', 'admin'])) Response::forbidden();
+        $role = $_SESSION['role'] ?? ($_POST['_role'] ?? '');
+        if (!in_array($role, ['manager', 'admin'])) Response::forbidden();
 
         $type = $_POST['type'] ?? null;
         if (!in_array($type, ['member','post','project','sponsor'])) Response::error('Invalid type');
@@ -63,30 +64,40 @@ class RequestController {
             }
         }
 
-        $id = $this->service->create($type, $data, (int)$_SESSION['user_id'], $_SESSION['full_name'] ?? '');
+        $userId   = (int)($_SESSION['user_id'] ?? $_POST['_user_id'] ?? 0);
+        $userName = $_SESSION['full_name'] ?? ($_POST['_user_name'] ?? '');
+        $id = $this->service->create($type, $data, $userId, $userName);
         Response::json(['success' => true, 'message' => 'Request submitted. Awaiting admin approval.', 'id' => $id], 201);
     }
 
-    public function review(array $params): void {
-        if (($_SESSION['role'] ?? '') !== 'admin') Response::forbidden();
+    public function show(array $params): void {
+        $id   = (int)($params['id'] ?? 0);
+        $data = $this->service->getById($id);
+        if (!$data) Response::notFound();
+        Response::json(['success' => true, 'data' => $data]);
+    }
 
+    public function review(array $params): void {
         $input      = json_decode(file_get_contents('php://input'), true);
+        $role       = $_SESSION['role'] ?? ($input['_role'] ?? '');
+        if ($role !== 'admin') Response::forbidden();
+
         $id         = (int)($input['id'] ?? 0);
         $action     = $input['action'] ?? '';
         $notes      = $input['notes'] ?? null;
-        $editedData = $input['editedData'] ?? null; // optional admin edits
+        $editedData = $input['editedData'] ?? null;
+        $reviewedBy = (int)($input['reviewed_by'] ?? $_SESSION['user_id'] ?? 0);
 
         if (!$id || !in_array($action, ['approve','decline'])) Response::error('Invalid parameters');
 
-        // If admin edited the data, update it before approving
         if ($editedData && is_array($editedData)) {
             $this->service->updateRequestData($id, $editedData);
         }
 
         if ($action === 'approve') {
-            $this->service->approve($id, $notes, (int)$_SESSION['user_id']);
+            $this->service->approve($id, $notes, $reviewedBy);
         } else {
-            $this->service->decline($id, $notes, (int)$_SESSION['user_id']);
+            $this->service->decline($id, $notes, $reviewedBy);
         }
 
         Response::json(['success' => true, 'message' => ucfirst($action) . 'd successfully']);
