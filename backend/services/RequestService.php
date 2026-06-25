@@ -10,6 +10,10 @@ class RequestService {
         return $this->repo->create($type, json_encode($data), $userId, $submitterName);
     }
 
+    public function getById(int $id): ?array {
+        return $this->repo->findById($id);
+    }
+
     public function getAll(?string $status, ?string $type, ?int $userId): array {
         return $this->repo->findAll($status, $type, $userId);
     }

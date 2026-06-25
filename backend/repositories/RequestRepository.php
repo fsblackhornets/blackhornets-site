@@ -34,6 +34,15 @@ class RequestRepository {
         return $rows;
     }
 
+    public function findById(int $id): ?array {
+        $stmt = $this->conn->prepare("SELECT * FROM content_requests WHERE id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $row = $stmt->get_result()->fetch_assoc();
+        if ($row) $row['data'] = json_decode($row['data'], true);
+        return $row ?: null;
+    }
+
     public function findPendingById(int $id): ?array {
         $stmt = $this->conn->prepare("SELECT * FROM content_requests WHERE id = ? AND status = 'pending'");
         $stmt->bind_param('i', $id);
