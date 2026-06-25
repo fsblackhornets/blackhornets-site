@@ -53,3 +53,6 @@ export const SPINNER_SIZE_CLASSES: Record<SpinnerSize, string> = {
 	md: "w-8 h-8",
 	lg: "w-12 h-12",
 };
+
+export const INPUT_BASE_CLS =
+	"bg-bg-dark border border-gray-mid rounded-lg px-4 py-2.5 text-text-light placeholder:text-text-gray outline-none focus:border-primary transition-colors text-sm w-full";
