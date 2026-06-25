@@ -103,3 +103,79 @@ export async function fetchMessages(
 		return null;
 	}
 }
+
+export async function fetchAdminProjects(): Promise<
+	import("@/types/project").Project[]
+> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: import("@/types/project").Project[];
+		}>("admin/projects", { cache: "no-store" });
+		return res.data ?? [];
+	} catch {
+		return [];
+	}
+}
+
+export async function fetchAdminProject(
+	id: number,
+): Promise<import("@/types/project").Project | null> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: import("@/types/project").Project;
+		}>(`admin/projects/${id}`, { cache: "no-store" });
+		return res.data ?? null;
+	} catch {
+		return null;
+	}
+}
+
+export async function fetchAdminSponsors(): Promise<
+	import("@/types/sponsor").Sponsor[]
+> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: import("@/types/sponsor").Sponsor[];
+		}>("admin/sponsors", { cache: "no-store" });
+		return res.data ?? [];
+	} catch {
+		return [];
+	}
+}
+
+export async function fetchAdminSponsor(
+	id: number,
+): Promise<import("@/types/sponsor").Sponsor | null> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: import("@/types/sponsor").Sponsor;
+		}>(`admin/sponsors/${id}`, { cache: "no-store" });
+		return res.data ?? null;
+	} catch {
+		return null;
+	}
+}
+
+export interface BrochureInfo {
+	pdf_url: string;
+	updated_at: string;
+}
+
+export async function fetchAdminBrochure(): Promise<{
+	sr: BrochureInfo | null;
+	en: BrochureInfo | null;
+}> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: { sr: BrochureInfo | null; en: BrochureInfo | null };
+		}>("admin/brochure", { cache: "no-store" });
+		return res.data ?? { sr: null, en: null };
+	} catch {
+		return { sr: null, en: null };
+	}
+}

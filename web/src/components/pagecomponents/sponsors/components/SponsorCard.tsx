@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { buildImageUrl } from "@/lib/utils/utils";
+import { buildSponsorLogoUrl } from "@/lib/utils/utils";
 import type { Sponsor } from "@/types/sponsor";
 
 export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
-	const logoUrl = buildImageUrl(sponsor.logo_url ?? sponsor.logo);
+	const logoUrl = buildSponsorLogoUrl(sponsor.logo_url ?? sponsor.logo);
 	const description = sponsor.description_en ?? sponsor.description;
 
 	const inner = (
