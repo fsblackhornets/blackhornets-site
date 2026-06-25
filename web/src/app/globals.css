@@ -141,3 +141,30 @@ a:hover {
 .who-we-are-text p:nth-child(3)::before {
 	transition-delay: 0.4s;
 }
+
+/* ─── Member flip card ─── */
+.member-card-wrapper {
+	perspective: 1000px;
+}
+
+.member-card-inner {
+	position: relative;
+	transition: transform 0.5s;
+	transform-style: preserve-3d;
+}
+
+.member-card-wrapper:hover .member-card-inner {
+	transform: rotateY(180deg);
+}
+
+.member-card-front,
+.member-card-back {
+	position: absolute;
+	inset: 0;
+	border-radius: 0.75rem;
+	backface-visibility: hidden;
+}
+
+.member-card-back {
+	transform: rotateY(180deg);
+}

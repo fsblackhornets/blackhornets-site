@@ -44,3 +44,12 @@ export function formatDate(dateStr: string, locale = "en-US"): string {
 		day: "numeric",
 	});
 }
+
+export function buildGalleryImageUrl(imagePath: string): string {
+	return `${API_ORIGIN}/panel/admin/${imagePath}`;
+}
+
+export function buildProfileImageUrl(filename: string | null): string | null {
+	if (!filename || filename === "default.jpg") return null;
+	return `${API_ORIGIN}/uploads/profiles/${filename}`;
+}
