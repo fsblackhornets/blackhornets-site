@@ -64,6 +64,11 @@ temp/
 # Node modules (if any)
 node_modules/
 
+# Playwright
+playwright/node_modules/
+playwright/playwright-report/
+playwright/test-results/
+
 # Composer
 vendor/
 composer.lock

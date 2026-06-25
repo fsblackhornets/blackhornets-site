@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "awesome-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "dykyi-roman/awesome-claude-code"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "acc@awesome-claude-code": true
+  }
+}

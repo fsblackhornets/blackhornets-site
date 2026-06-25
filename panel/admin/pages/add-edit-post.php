@@ -1,5 +1,6 @@
 <?php
 require_once '../auth.php';
+$user = checkAuth('admin');
 require_once __DIR__ . '/../../../backend/config/database.php';
 require_once __DIR__ . '/../../../backend/helpers/csrf_helper.php';
 
@@ -428,7 +429,7 @@ if ($postsResult && $postsResult->num_rows > 0) {
                 var formData = new FormData(form);
                 var isEdit = !!form.querySelector('input[name="id"]');
 
-                fetch('../../api/posts/create.php', {
+                fetch('/backend/api/posts', {
                     method: 'POST',
                     body: formData
                 })
