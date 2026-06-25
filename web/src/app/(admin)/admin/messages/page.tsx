@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
 import { deleteMessageAction } from "@/app/actions/messages";
-import { SITE_NAME } from "@/constants/site";
+import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchMessages } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";
 
-export const metadata: Metadata = { title: `Messages — ${SITE_NAME} Admin` };
+export const metadata = buildAdminMeta("Messages");
 
 interface Props {
 	searchParams: Promise<{ page?: string }>;

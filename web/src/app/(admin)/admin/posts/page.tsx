@@ -1,15 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { togglePostStatusAction } from "@/app/actions/posts";
 import { StatusBadge } from "@/components/ui/components/Badge";
 import { Button } from "@/components/ui/components/Button";
 import { Switch } from "@/components/ui/components/Switch";
-import { SITE_NAME } from "@/constants/site";
+import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchAllPosts } from "@/lib/api/posts";
 import { formatDate, resolvePostTitle } from "@/lib/utils/utils";
 import { PostDeleteButton } from "./PostDeleteButton";
 
-export const metadata: Metadata = { title: `Posts — ${SITE_NAME} Admin` };
+export const metadata = buildAdminMeta("Posts");
 
 export default async function PostsPage() {
 	const posts = await fetchAllPosts();

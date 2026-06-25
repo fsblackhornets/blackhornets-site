@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
-import { SITE_NAME } from "@/constants/site";
+import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchApplications } from "@/lib/api/admin";
 import { ApplicationsClient } from "./ApplicationsClient";
 
-export const metadata: Metadata = {
-	title: `Applications — ${SITE_NAME} Admin`,
-};
+export const metadata = buildAdminMeta("Applications");
 
 interface Props {
 	searchParams: Promise<{ status?: string; page?: string }>;
