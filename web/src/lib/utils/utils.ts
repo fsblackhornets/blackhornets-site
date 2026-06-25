@@ -49,6 +49,26 @@ export function buildGalleryImageUrl(imagePath: string): string {
 	return `${API_ORIGIN}/panel/admin/${imagePath}`;
 }
 
+export function buildProjectImageUrl(imageUrl: string): string {
+	return `${API_ORIGIN}/frontend/${imageUrl}`;
+}
+
+export function getProjectStatusVariant(
+	status: string,
+): "success" | "gold" | "warning" {
+	const s = status.toLowerCase();
+	if (s === "active") return "success";
+	if (s === "completed") return "gold";
+	return "warning";
+}
+
+export function getProgressColor(progress: number): string {
+	if (progress >= 80) return "#4CAF50";
+	if (progress >= 60) return "#FF9800";
+	if (progress >= 40) return "#FFC107";
+	return "#F44336";
+}
+
 export function buildProfileImageUrl(filename: string | null): string | null {
 	if (!filename || filename === "default.jpg") return null;
 	return `${API_ORIGIN}/uploads/profiles/${filename}`;
