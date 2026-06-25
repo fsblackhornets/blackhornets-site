@@ -20,6 +20,19 @@ export async function apiGet<T>(path: string, init?: FetchInit): Promise<T> {
 	return res.json() as Promise<T>;
 }
 
+export async function apiPut<T>(
+	path: string,
+	body: Record<string, unknown>,
+): Promise<T> {
+	const res = await fetch(`${BASE}/${path}`, {
+		method: "PUT",
+		body: JSON.stringify(body),
+		headers: { "Content-Type": "application/json" },
+	});
+	if (!res.ok) throw new ApiError(res.status, path);
+	return res.json() as Promise<T>;
+}
+
 export async function apiDelete<T>(path: string): Promise<T> {
 	const res = await fetch(`${BASE}/${path}`, { method: "DELETE" });
 	if (!res.ok) throw new ApiError(res.status, path);

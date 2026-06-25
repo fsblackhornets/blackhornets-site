@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { deleteMessageAction } from "@/app/actions/admin";
+import { deleteMessageAction } from "@/app/actions/messages";
 import { SITE_NAME } from "@/constants/site";
 import { fetchMessages } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";

@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { reviewApplicationAction } from "@/app/actions/admin";
+import { reviewApplicationAction } from "@/app/actions/applications";
 import type { Application } from "@/types/application";
 
 export function useApplicationReview() {

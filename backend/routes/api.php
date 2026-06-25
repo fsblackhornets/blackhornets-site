@@ -8,6 +8,9 @@ $router->get('/posts',             [PostController::class, 'index']);
 $router->get('/posts/categories',  [PostController::class, 'categories']);
 $router->get('/posts/{id}',        [PostController::class, 'show']);
 $router->post('/posts',            [PostController::class, 'create']);
+$router->put('/posts/{id}',        [PostController::class, 'update']);
+$router->delete('/posts/{id}',     [PostController::class, 'delete']);
+$router->post('/posts/{id}/toggle', [PostController::class, 'toggleStatus']);
 
 $router->get('/projects',      [ProjectController::class, 'index']);
 $router->get('/projects/{id}', [ProjectController::class, 'show']);
