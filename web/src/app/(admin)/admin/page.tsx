@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { auth } from "@/auth";
 import {
 	QUICK_ACTIONS,
@@ -7,10 +6,10 @@ import {
 } from "@/components/admin/constants";
 import { QuickActionCard } from "@/components/admin/QuickActionCard";
 import { StatCard } from "@/components/admin/StatCard";
-import { SITE_NAME } from "@/constants/site";
+import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchDashboardStats } from "@/lib/api/admin";
 
-export const metadata: Metadata = { title: `Dashboard — ${SITE_NAME} Admin` };
+export const metadata = buildAdminMeta("Dashboard");
 
 export default async function AdminDashboard() {
 	const [session, stats] = await Promise.all([auth(), fetchDashboardStats()]);

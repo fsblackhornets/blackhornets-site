@@ -1,5 +1,6 @@
 import { apiGet } from "@/lib/api-client";
 import type { Application } from "@/types/application";
+import type { AdminMember } from "@/types/member";
 import type { ContactMessage } from "@/types/message";
 
 export interface DashboardStats {
@@ -48,6 +49,30 @@ export async function fetchApplications(
 		return await apiGet<ApplicationsResponse>(`admin/applications?${params}`, {
 			cache: "no-store",
 		});
+	} catch {
+		return null;
+	}
+}
+
+export async function fetchAdminMembers(): Promise<AdminMember[]> {
+	try {
+		const res = await apiGet<{ data: AdminMember[] }>("admin/members", {
+			cache: "no-store",
+		});
+		return res.data ?? [];
+	} catch {
+		return [];
+	}
+}
+
+export async function fetchAdminMember(
+	id: number,
+): Promise<AdminMember | null> {
+	try {
+		const res = await apiGet<{ data: AdminMember }>(`admin/members/${id}`, {
+			cache: "no-store",
+		});
+		return res.data ?? null;
 	} catch {
 		return null;
 	}

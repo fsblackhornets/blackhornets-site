@@ -1,6 +1,6 @@
 "use client";
 
-import { deletePostAction } from "@/app/actions/posts";
+import { deleteMemberAction } from "@/app/actions/members";
 import { Button } from "@/components/ui/components/Button";
 import {
 	Dialog,
@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/components/Dialog";
 import { useDeleteDialog } from "@/hooks/useDeleteDialog";
 
-export function PostDeleteButton({ id, title }: { id: number; title: string }) {
+export function MemberDeleteButton({ id, name }: { id: number; name: string }) {
 	const { open, setOpen, loading, handleDelete } = useDeleteDialog({
-		action: () => deletePostAction(id),
-		successMessage: "Post deleted",
+		action: () => deleteMemberAction(id),
+		successMessage: "Member deleted",
 	});
 
 	return (
@@ -23,8 +23,8 @@ export function PostDeleteButton({ id, title }: { id: number; title: string }) {
 			<button
 				type="button"
 				onClick={() => setOpen(true)}
-				className="text-text-gray hover:text-red-400 transition-colors text-sm px-2"
-				aria-label={`Delete ${title}`}
+				className="text-text-gray hover:text-red-400 transition-colors text-sm px-1"
+				aria-label={`Delete ${name}`}
 			>
 				<i className="fas fa-trash" aria-hidden="true" />
 			</button>
@@ -32,10 +32,9 @@ export function PostDeleteButton({ id, title }: { id: number; title: string }) {
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent className="max-w-sm">
 					<DialogHeader>
-						<DialogTitle>Delete Post</DialogTitle>
+						<DialogTitle>Delete Member</DialogTitle>
 						<DialogDescription>
-							Are you sure you want to delete &ldquo;{title}&rdquo;? This cannot
-							be undone.
+							Delete &ldquo;{name}&rdquo;? This cannot be undone.
 						</DialogDescription>
 					</DialogHeader>
 					<DialogFooter>

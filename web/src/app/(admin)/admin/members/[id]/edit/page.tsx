@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { updatePostAction } from "@/app/actions/posts";
-import { PostForm } from "@/components/admin/PostForm";
+import { updateMemberAction } from "@/app/actions/members";
+import { MemberForm } from "@/components/admin/MemberForm";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
-import { fetchPost } from "@/lib/api/posts";
-import { resolvePostTitle } from "@/lib/utils/utils";
+import { fetchAdminMember } from "@/lib/api/admin";
 
 interface Props {
 	params: Promise<{ id: string }>;
@@ -12,31 +11,31 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
 	const { id } = await params;
-	const post = await fetchPost(Number(id));
-	return buildAdminMeta("Posts", `Edit: ${resolvePostTitle(post ?? {})}`);
+	const member = await fetchAdminMember(Number(id));
+	return buildAdminMeta("Members", `Edit: ${member?.full_name ?? "Member"}`);
 }
 
-export default async function EditPostPage({ params }: Props) {
+export default async function EditMemberPage({ params }: Props) {
 	const { id } = await params;
-	const post = await fetchPost(Number(id));
-	if (!post) notFound();
+	const member = await fetchAdminMember(Number(id));
+	if (!member) notFound();
 
-	const action = updatePostAction.bind(null, post.id);
+	const action = updateMemberAction.bind(null, member.id);
 
 	return (
 		<div className="max-w-[720px]">
 			<div className="flex items-center gap-3 mb-6">
 				<Link
-					href="/admin/posts"
+					href="/admin/members"
 					className="text-text-gray hover:text-primary transition-colors"
 				>
 					<i className="fas fa-arrow-left" aria-hidden="true" />
 				</Link>
 				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
-					Edit Post
+					Edit Member
 				</h1>
 			</div>
-			<PostForm action={action} post={post} />
+			<MemberForm action={action} member={member} />
 		</div>
 	);
 }
