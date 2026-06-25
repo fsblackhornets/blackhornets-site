@@ -10,8 +10,12 @@ class ApiError extends Error {
 	}
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
-	const res = await fetch(`${BASE}/${path}`, { cache: "no-store" });
+type FetchInit = RequestInit & {
+	next?: { revalidate?: number | false; tags?: string[] };
+};
+
+export async function apiGet<T>(path: string, init?: FetchInit): Promise<T> {
+	const res = await fetch(`${BASE}/${path}`, { cache: "no-store", ...init });
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;
 }

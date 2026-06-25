@@ -2,40 +2,169 @@
 
 /* ─── Brand tokens (ported from frontend/assets/css/style.css) ─── */
 @theme inline {
-  /* Colors */
-  --color-primary:      #ffd700;
-  --color-primary-dim:  #ffc107;
-  --color-bg-dark:      #111111;
-  --color-bg-panel:     #1a1a1a;
-  --color-gray-dark:    #2c2c2c;
-  --color-gray-mid:     #3a3a3a;
-  --color-text-light:   #e0e0e0;
-  --color-text-gray:    #999999;
-  --color-glass:        rgba(26, 26, 26, 0.9);
-  --color-link:         #4a90e2;
+	/* Colors */
+	--color-primary: #ffd700;
+	--color-primary-dim: #ffc107;
+	--color-bg-dark: #111111;
+	--color-bg-panel: #1a1a1a;
+	--color-gray-dark: #2c2c2c;
+	--color-gray-mid: #3a3a3a;
+	--color-text-light: #e0e0e0;
+	--color-text-gray: #999999;
+	--color-glass: rgba(26, 26, 26, 0.9);
+	--color-link: #4a90e2;
 
-  /* Fonts — set by layout.tsx via next/font/google */
-  --font-heading: var(--font-michroma), sans-serif;
-  --font-body:    var(--font-poppins), sans-serif;
-  --font-accent:  var(--font-rajdhani), sans-serif;
+	/* Fonts — set by layout.tsx via next/font/google */
+	--font-heading: var(--font-michroma), sans-serif;
+	--font-body: var(--font-poppins), sans-serif;
+	--font-accent: var(--font-rajdhani), sans-serif;
 }
 
 /* ─── Base ─── */
 :root {
-  --background: var(--color-bg-dark);
-  --foreground: var(--color-text-light);
+	--background: var(--color-bg-dark);
+	--foreground: var(--color-text-light);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body);
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-body);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  color: var(--color-primary);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-heading);
+	color: var(--color-primary);
 }
 
-a { color: var(--color-primary); text-decoration: none; }
-a:hover { opacity: 0.85; }
+a {
+	color: var(--color-primary);
+	text-decoration: none;
+}
+a:hover {
+	opacity: 0.85;
+}
+
+/* ─── Animations ─── */
+@theme inline {
+	--animate-fade-in: fadeIn 1s ease-out 0.8s both;
+	--animate-scroll-mouse: scrollMouse 2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes scrollMouse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	50% {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+}
+
+/* ─── Hero ─── */
+.hero-grid-overlay {
+	background-image:
+		linear-gradient(rgba(255, 215, 0, 1px) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 215, 0, 1px) 1px, transparent 1px);
+	background-size: 50px 50px;
+	opacity: 0.05;
+}
+
+/* ─── Who We Are hover animation ─── */
+.who-we-are-text p {
+	position: relative;
+	padding-bottom: 24px;
+}
+
+.who-we-are-text p::after {
+	content: "";
+	position: absolute;
+	bottom: 6px;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: linear-gradient(90deg, #ffd700, rgba(255, 215, 0, 0.3));
+	transition: width 1.5s ease;
+}
+
+.who-we-are-text p::before {
+	content: "";
+	position: absolute;
+	bottom: 4px;
+	left: 0;
+	width: 53px;
+	height: 20px;
+	background-image: url("/images/f1-car.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0;
+	transition:
+		left 1.5s ease,
+		opacity 0s;
+}
+
+.who-we-are-text:hover p::after {
+	width: calc(100% - 15px);
+}
+.who-we-are-text:hover p::before {
+	left: calc(100% - 53px);
+	opacity: 1;
+}
+
+.who-we-are-text p:nth-child(1)::after,
+.who-we-are-text p:nth-child(1)::before {
+	transition-delay: 0s;
+}
+.who-we-are-text p:nth-child(2)::after,
+.who-we-are-text p:nth-child(2)::before {
+	transition-delay: 0.2s;
+}
+.who-we-are-text p:nth-child(3)::after,
+.who-we-are-text p:nth-child(3)::before {
+	transition-delay: 0.4s;
+}
+
+/* ─── Member flip card ─── */
+.member-card-wrapper {
+	perspective: 1000px;
+}
+
+.member-card-inner {
+	position: relative;
+	transition: transform 0.5s;
+	transform-style: preserve-3d;
+}
+
+.member-card-wrapper:hover .member-card-inner {
+	transform: rotateY(180deg);
+}
+
+.member-card-front,
+.member-card-back {
+	position: absolute;
+	inset: 0;
+	border-radius: 0.75rem;
+	backface-visibility: hidden;
+}
+
+.member-card-back {
+	transform: rotateY(180deg);
+}
