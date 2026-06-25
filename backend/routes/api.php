@@ -17,8 +17,12 @@ $router->get('/projects/{id}', [ProjectController::class, 'show']);
 
 $router->get('/sponsors', [SponsorController::class, 'index']);
 
-$router->get('/gallery',  [GalleryController::class, 'index']);
-$router->post('/gallery', [GalleryController::class, 'create']);
+$router->get('/gallery',              [GalleryController::class, 'index']);
+$router->post('/gallery',             [GalleryController::class, 'create']);
+$router->get('/admin/gallery',        [GalleryController::class, 'adminIndex']);
+$router->delete('/gallery/{id}',      [GalleryController::class, 'delete']);
+$router->post('/gallery/{id}/toggle', [GalleryController::class, 'toggle']);
+$router->put('/gallery/{id}',         [GalleryController::class, 'update']);
 
 $router->get('/brochure', [BrochureController::class, 'show']);
 

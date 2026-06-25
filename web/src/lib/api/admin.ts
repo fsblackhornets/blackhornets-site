@@ -54,6 +54,20 @@ export async function fetchApplications(
 	}
 }
 
+export async function fetchAdminGallery(): Promise<
+	import("@/types/gallery").GalleryImage[]
+> {
+	try {
+		const res = await apiGet<{
+			success: boolean;
+			data: import("@/types/gallery").GalleryImage[];
+		}>("admin/gallery", { cache: "no-store" });
+		return res.data ?? [];
+	} catch {
+		return [];
+	}
+}
+
 export async function fetchAdminMembers(): Promise<AdminMember[]> {
 	try {
 		const res = await apiGet<{ data: AdminMember[] }>("admin/members", {
