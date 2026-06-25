@@ -4,27 +4,22 @@ $user = checkAuth('admin');
 
 header('Content-Type: application/json');
 
-// Database connection settings
 require_once __DIR__ . '/../../../backend/config/database.php';
 
 try {
-    // Get POST data
     $data = json_decode(file_get_contents('php://input'), true);
-    
+
     if (!isset($data['id'])) {
         throw new Exception('Message ID is required');
     }
 
-    $id = (int)$data['id'];
-
-    // Create database connection
+    $id   = (int)$data['id'];
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
-    // Delete the message
     $stmt = $conn->prepare("DELETE FROM contact_messages WHERE id = ?");
     $stmt->bind_param("i", $id);
     
