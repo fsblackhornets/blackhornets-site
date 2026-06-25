@@ -65,6 +65,84 @@ class AdminController {
         ]);
     }
 
+    public function applications(array $params = []): void {
+        $status = $_GET['status'] ?? '';
+        $page   = max(1, (int) ($_GET['page'] ?? 1));
+        $limit  = 10;
+        $offset = ($page - 1) * $limit;
+
+        $where = $status && in_array($status, ['pending', 'reviewing', 'accepted', 'rejected'])
+            ? "WHERE status = '$status'" : '';
+
+        $total = (int) $this->conn
+            ->query("SELECT COUNT(*) c FROM applications $where")
+            ->fetch_assoc()['c'];
+
+        $stmt = $this->conn->prepare(
+            "SELECT * FROM applications $where ORDER BY created_at DESC LIMIT ? OFFSET ?"
+        );
+        $stmt->bind_param('ii', $limit, $offset);
+        $stmt->execute();
+        $rows = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        Response::json([
+            'data'        => $rows,
+            'total'       => $total,
+            'page'        => $page,
+            'total_pages' => max(1, (int) ceil($total / $limit)),
+        ]);
+    }
+
+    public function applicationDetail(array $params): void {
+        $id   = (int) ($params['id'] ?? 0);
+        $stmt = $this->conn->prepare("SELECT * FROM applications WHERE id = ?");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $row  = $stmt->get_result()->fetch_assoc();
+        if (!$row) Response::error('Application not found', 404);
+        Response::json(['data' => $row]);
+    }
+
+    public function reviewApplication(array $params): void {
+        $id   = (int) ($params['id'] ?? 0);
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        $action = $data['action'] ?? '';
+
+        if (!$id || !in_array($action, ['accept', 'reject', 'review'])) {
+            Response::error('Invalid parameters', 400);
+        }
+
+        $status = match ($action) {
+            'accept' => 'accepted',
+            'reject' => 'rejected',
+            'review' => 'reviewing',
+        };
+
+        $stmt = $this->conn->prepare("UPDATE applications SET status = ? WHERE id = ?");
+        $stmt->bind_param('si', $status, $id);
+        if (!$stmt->execute()) Response::error('Update failed', 500);
+
+        if ($action === 'accept') {
+            $row = $this->conn->prepare(
+                "SELECT first_name, last_name, email, desired_position FROM applications WHERE id = ?"
+            );
+            $row->bind_param('i', $id);
+            $row->execute();
+            $applicant = $row->get_result()->fetch_assoc();
+
+            if ($applicant) {
+                $name     = trim($applicant['first_name'] . ' ' . $applicant['last_name']);
+                $position = $applicant['desired_position'] ?? 'team member';
+                $body     = "Dear {$name},\n\nYour application for the position of {$position} has been APPROVED!\n\nWe will contact you shortly with next steps.\n\nBest regards,\nBlack Hornets Racing Team";
+                if (function_exists('sendEmail')) {
+                    sendEmail($applicant['email'], $name, 'Black Hornets Racing — Application Approved!', $body);
+                }
+            }
+        }
+
+        Response::json(['success' => true, 'status' => $status]);
+    }
+
     public function deleteMessage(array $params): void {
         $id   = (int) ($params['id'] ?? 0);
         $stmt = $this->conn->prepare("DELETE FROM contact_messages WHERE id = ?");

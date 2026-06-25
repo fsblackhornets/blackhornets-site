@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
 	BADGE_VARIANT_CLASSES,
 	type BadgeVariant,
@@ -13,12 +14,15 @@ interface BadgeProps {
 export function Badge({
 	children,
 	variant = "default",
-	className = "",
+	className,
 }: BadgeProps) {
 	return (
 		<span
-			className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide
-        ${BADGE_VARIANT_CLASSES[variant]} ${className}`}
+			className={cn(
+				"inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide",
+				BADGE_VARIANT_CLASSES[variant],
+				className,
+			)}
 		>
 			{children}
 		</span>

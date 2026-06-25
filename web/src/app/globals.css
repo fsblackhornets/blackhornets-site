@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ─── Brand tokens (ported from frontend/assets/css/style.css) ─── */
+/* ─── Brand tokens ─── */
 @theme inline {
 	/* Colors */
 	--color-primary: #ffd700;
@@ -14,10 +14,14 @@
 	--color-glass: rgba(26, 26, 26, 0.9);
 	--color-link: #4a90e2;
 
-	/* Fonts — set by layout.tsx via next/font/google */
+	/* Fonts */
 	--font-heading: var(--font-michroma), sans-serif;
 	--font-body: var(--font-poppins), sans-serif;
 	--font-accent: var(--font-rajdhani), sans-serif;
+
+	/* Animations */
+	--animate-fade-in: fadeIn 1s ease-out 0.8s both;
+	--animate-scroll-mouse: scrollMouse 2s ease-in-out infinite;
 }
 
 /* ─── Base ─── */
@@ -50,30 +54,7 @@ a:hover {
 	opacity: 0.85;
 }
 
-/* ─── Animations ─── */
-@theme inline {
-	--animate-fade-in: fadeIn 1s ease-out 0.8s both;
-	--animate-scroll-mouse: scrollMouse 2s ease-in-out infinite;
-}
-
-@keyframes accordionOpen {
-	from {
-		height: 0;
-	}
-	to {
-		height: var(--radix-accordion-content-height);
-	}
-}
-
-@keyframes accordionClose {
-	from {
-		height: var(--radix-accordion-content-height);
-	}
-	to {
-		height: 0;
-	}
-}
-
+/* ─── Keyframes ─── */
 @keyframes fadeIn {
 	from {
 		opacity: 0;
@@ -94,6 +75,24 @@ a:hover {
 	50% {
 		opacity: 0;
 		transform: translateY(8px);
+	}
+}
+
+@keyframes accordionOpen {
+	from {
+		height: 0;
+	}
+	to {
+		height: var(--radix-accordion-content-height);
+	}
+}
+
+@keyframes accordionClose {
+	from {
+		height: var(--radix-accordion-content-height);
+	}
+	to {
+		height: 0;
 	}
 }
 
