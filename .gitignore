@@ -74,3 +74,8 @@ vendor/
 composer.lock
 
 .claude/settings.local.json
+
+# Next.js app
+web/.next/
+web/node_modules/
+web/.env.local
