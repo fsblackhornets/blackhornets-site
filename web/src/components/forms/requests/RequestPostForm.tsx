@@ -16,8 +16,16 @@ interface Props {
 
 export function RequestPostForm({ action }: Props) {
 	const [state, formAction, pending] = useActionState(action, {});
-	const { titleSr, setTitleSr, contentSr, setContentSr, category, setCategory, imageFile, setImageFile } =
-		useRequestPostPreview();
+	const {
+		titleSr,
+		setTitleSr,
+		contentSr,
+		setContentSr,
+		category,
+		setCategory,
+		imageFile,
+		setImageFile,
+	} = useRequestPostPreview();
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">

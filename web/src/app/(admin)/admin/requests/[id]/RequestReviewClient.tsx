@@ -13,8 +13,15 @@ interface Props {
 }
 
 export function RequestReviewClient({ request }: Props) {
-	const { isPending, notes, setNotes, error, editedData, updateField, handleAction } =
-		useRequestReview(request);
+	const {
+		isPending,
+		notes,
+		setNotes,
+		error,
+		editedData,
+		updateField,
+		handleAction,
+	} = useRequestReview(request);
 
 	const fields = getRequestFields(editedData);
 
@@ -28,10 +35,7 @@ export function RequestReviewClient({ request }: Props) {
 				<div className="bg-[#111] border border-primary/10 rounded-xl p-5 flex flex-col gap-4">
 					{fields.map(([key, val]) => (
 						<div key={key}>
-							<Field
-								label={key.replace(/_/g, " ")}
-								htmlFor={`field-${key}`}
-							>
+							<Field label={key.replace(/_/g, " ")} htmlFor={`field-${key}`}>
 								{typeof val === "string" && val.length > 80 ? (
 									<Textarea
 										id={`field-${key}`}

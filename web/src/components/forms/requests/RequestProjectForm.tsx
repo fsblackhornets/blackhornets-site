@@ -6,8 +6,11 @@ import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
 import { Textarea } from "@/components/ui/components/Textarea";
-import { PROJECT_STATUS_COLORS, PROJECT_STATUS_OPTIONS } from "@/constants/projects";
 import type { ProjectStatus } from "@/constants/projects";
+import {
+	PROJECT_STATUS_COLORS,
+	PROJECT_STATUS_OPTIONS,
+} from "@/constants/projects";
 import { useRequestProjectPreview } from "@/hooks/useRequestPreview";
 
 interface Props {
@@ -19,8 +22,18 @@ interface Props {
 
 export function RequestProjectForm({ action }: Props) {
 	const [state, formAction, pending] = useActionState(action, {});
-	const { name, setName, description, setDescription, status, setStatus, progress, setProgress, imageFile, setImageFile } =
-		useRequestProjectPreview();
+	const {
+		name,
+		setName,
+		description,
+		setDescription,
+		status,
+		setStatus,
+		progress,
+		setProgress,
+		imageFile,
+		setImageFile,
+	} = useRequestProjectPreview();
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
@@ -147,7 +160,9 @@ export function RequestProjectForm({ action }: Props) {
 						<div className="flex items-center justify-between gap-2 mb-3">
 							<h3 className="font-heading text-lg text-text-light leading-snug">
 								{name || (
-									<span className="text-text-gray/40 italic">Project name…</span>
+									<span className="text-text-gray/40 italic">
+										Project name…
+									</span>
 								)}
 							</h3>
 							<span

@@ -1,17 +1,16 @@
 "use client";
 
 import { useActionState } from "react";
-import { SPONSOR_TIERS, TIER_COLORS } from "@/constants/sponsors";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
 import { Textarea } from "@/components/ui/components/Textarea";
 import type { SponsorTier } from "@/constants/sponsors";
+import { SPONSOR_TIERS, TIER_COLORS } from "@/constants/sponsors";
 import { useRequestSponsorPreview } from "@/hooks/useRequestPreview";
 
 const TIER_OPTIONS = SPONSOR_TIERS.map((t) => ({ value: t, label: t }));
-
 
 interface Props {
 	action: (
@@ -22,8 +21,18 @@ interface Props {
 
 export function RequestSponsorForm({ action }: Props) {
 	const [state, formAction, pending] = useActionState(action, {});
-	const { name, setName, tier, setTier, website, setWebsite, descSr, setDescSr, logoFile, setLogoFile } =
-		useRequestSponsorPreview();
+	const {
+		name,
+		setName,
+		tier,
+		setTier,
+		website,
+		setWebsite,
+		descSr,
+		setDescSr,
+		logoFile,
+		setLogoFile,
+	} = useRequestSponsorPreview();
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
@@ -140,7 +149,9 @@ export function RequestSponsorForm({ action }: Props) {
 						<div className="min-w-0">
 							<h3 className="font-heading text-base text-text-light leading-snug">
 								{name || (
-									<span className="text-text-gray/40 italic">Sponsor name…</span>
+									<span className="text-text-gray/40 italic">
+										Sponsor name…
+									</span>
 								)}
 							</h3>
 							<span
@@ -151,7 +162,9 @@ export function RequestSponsorForm({ action }: Props) {
 						</div>
 					</div>
 					<p className="text-text-gray text-sm leading-relaxed line-clamp-3 mb-3">
-						{descSr || <span className="italic">Description will appear here…</span>}
+						{descSr || (
+							<span className="italic">Description will appear here…</span>
+						)}
 					</p>
 					{website && (
 						<p className="text-primary text-xs truncate">

@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { auth } from "@/auth";
-import { REQUEST_STATUS_COLORS, REQUEST_TYPE_ICONS } from "@/constants/requests";
+import {
+	REQUEST_STATUS_COLORS,
+	REQUEST_TYPE_ICONS,
+} from "@/constants/requests";
 import { fetchRequests } from "@/lib/api/requests";
 
 export const metadata = { title: "My Requests — Manager Panel" };
 
 function getTitle(data: Record<string, unknown>): string {
-	return String(
-		data.name ?? data.title_sr ?? data.full_name ?? "—",
-	);
+	return String(data.name ?? data.title_sr ?? data.full_name ?? "—");
 }
 
 export default async function MyRequestsPage() {

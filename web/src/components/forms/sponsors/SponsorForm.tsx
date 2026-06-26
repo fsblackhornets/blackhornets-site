@@ -1,12 +1,12 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { SPONSOR_TIERS } from "@/constants/sponsors";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
 import { Textarea } from "@/components/ui/components/Textarea";
+import { SPONSOR_TIERS } from "@/constants/sponsors";
 import type { Sponsor } from "@/types/sponsor";
 
 const TIER_OPTIONS = SPONSOR_TIERS.map((t) => ({ value: t, label: t }));
@@ -54,10 +54,7 @@ export function SponsorForm({ action, sponsor }: SponsorFormProps) {
 				/>
 			</Field>
 
-			<Field
-				label="Description (English)"
-				htmlFor="description_en"
-			>
+			<Field label="Description (English)" htmlFor="description_en">
 				<Textarea
 					id="description_en"
 					name="description_en"

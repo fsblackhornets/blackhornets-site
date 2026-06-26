@@ -7,7 +7,16 @@ export function useRequestPostPreview() {
 	const [contentSr, setContentSr] = useState("");
 	const [category, setCategory] = useState("");
 	const [imageFile, setImageFile] = useState<string | null>(null);
-	return { titleSr, setTitleSr, contentSr, setContentSr, category, setCategory, imageFile, setImageFile };
+	return {
+		titleSr,
+		setTitleSr,
+		contentSr,
+		setContentSr,
+		category,
+		setCategory,
+		imageFile,
+		setImageFile,
+	};
 }
 
 export function useRequestProjectPreview() {
@@ -16,7 +25,18 @@ export function useRequestProjectPreview() {
 	const [status, setStatus] = useState<ProjectStatus>("Active");
 	const [progress, setProgress] = useState(0);
 	const [imageFile, setImageFile] = useState<string | null>(null);
-	return { name, setName, description, setDescription, status, setStatus, progress, setProgress, imageFile, setImageFile };
+	return {
+		name,
+		setName,
+		description,
+		setDescription,
+		status,
+		setStatus,
+		progress,
+		setProgress,
+		imageFile,
+		setImageFile,
+	};
 }
 
 export function useRequestSponsorPreview() {
@@ -25,7 +45,18 @@ export function useRequestSponsorPreview() {
 	const [website, setWebsite] = useState("");
 	const [descSr, setDescSr] = useState("");
 	const [logoFile, setLogoFile] = useState<string | null>(null);
-	return { name, setName, tier, setTier, website, setWebsite, descSr, setDescSr, logoFile, setLogoFile };
+	return {
+		name,
+		setName,
+		tier,
+		setTier,
+		website,
+		setWebsite,
+		descSr,
+		setDescSr,
+		logoFile,
+		setLogoFile,
+	};
 }
 
 export function useRequestMemberPreview() {
@@ -33,5 +64,14 @@ export function useRequestMemberPreview() {
 	const [position, setPosition] = useState("");
 	const [team, setTeam] = useState("");
 	const [imageFile, setImageFile] = useState<string | null>(null);
-	return { fullName, setFullName, position, setPosition, team, setTeam, imageFile, setImageFile };
+	return {
+		fullName,
+		setFullName,
+		position,
+		setPosition,
+		team,
+		setTeam,
+		imageFile,
+		setImageFile,
+	};
 }
