@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BlogIcon } from "@/components/icons/BlogIcon";
 
 export function HeroSection() {
 	return (
@@ -47,16 +48,16 @@ export function HeroSection() {
 				<div className="flex gap-6 justify-center mt-8 flex-wrap">
 					<Link
 						href="/about"
-						className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-primary text-bg-dark font-heading font-bold tracking-widest border-2 border-primary hover:bg-transparent hover:text-primary transition-colors duration-300"
+						className="inline-flex items-center gap-2 px-10 py-4 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-black transition-colors duration-300"
 					>
 						Discover More
-						<i className="fas fa-chevron-right" aria-hidden="true" />
+						<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
 					</Link>
 					<Link
 						href="/blog"
-						className="inline-flex items-center gap-2 px-10 py-4 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-bg-dark transition-colors duration-300"
+						className="inline-flex items-center gap-2 px-10 py-4 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-black transition-colors duration-300"
 					>
-						<i className="fas fa-newspaper" aria-hidden="true" />
+						<BlogIcon className="w-4 h-4" />
 						Blog
 					</Link>
 				</div>
