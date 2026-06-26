@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, Calendar, Clock, Timer } from "lucide-react";
 import { Badge } from "@/components/ui/components/Badge";
 import { SITE_NAME } from "@/constants/site";
 import { fetchProject } from "@/lib/api/projects";
@@ -36,7 +37,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 		? buildProjectImageUrl(project.image_url)
 		: null;
 	const progressColor = getProgressColor(project.progress);
-
 	const statusVariant = getProjectStatusVariant(project.status);
 
 	return (
@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				href="/projects"
 				className="inline-flex items-center gap-2 text-primary font-heading text-sm tracking-widest hover:underline mb-10"
 			>
-				<i className="fas fa-arrow-left" aria-hidden="true" />
+				<ArrowLeft className="w-4 h-4" />
 				Back to Projects
 			</Link>
 
@@ -78,10 +78,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
 				{project.due_date && (
 					<div className="bg-bg-panel rounded-xl border border-gray-mid p-4 flex items-center gap-3">
-						<i
-							className="fas fa-calendar text-primary text-xl"
-							aria-hidden="true"
-						/>
+						<Calendar className="w-5 h-5 text-primary shrink-0" />
 						<div>
 							<p className="text-text-gray text-xs uppercase tracking-widest">
 								Due Date
@@ -94,10 +91,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				)}
 				{project.duration && (
 					<div className="bg-bg-panel rounded-xl border border-gray-mid p-4 flex items-center gap-3">
-						<i
-							className="fas fa-clock text-primary text-xl"
-							aria-hidden="true"
-						/>
+						<Clock className="w-5 h-5 text-primary shrink-0" />
 						<div>
 							<p className="text-text-gray text-xs uppercase tracking-widest">
 								Duration
@@ -107,17 +101,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 					</div>
 				)}
 				<div className="bg-bg-panel rounded-xl border border-gray-mid p-4 flex items-center gap-3">
-					<i
-						className={`fas fa-hourglass-half text-xl ${project.is_overdue ? "text-red-400" : "text-primary"}`}
-						aria-hidden="true"
-					/>
+					<Timer className={`w-5 h-5 shrink-0 ${project.is_overdue ? "text-red-400" : "text-primary"}`} />
 					<div>
 						<p className="text-text-gray text-xs uppercase tracking-widest">
 							Timeline
 						</p>
-						<p
-							className={`text-sm ${project.is_overdue ? "text-red-400" : "text-text-light"}`}
-						>
+						<p className={`text-sm ${project.is_overdue ? "text-red-400" : "text-text-light"}`}>
 							{project.is_overdue
 								? `${project.days_remaining} days overdue`
 								: `${project.days_remaining} days remaining`}
@@ -139,10 +128,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				<div className="h-3 bg-gray-mid rounded-full overflow-hidden">
 					<div
 						className="h-full rounded-full transition-all duration-700"
-						style={{
-							width: `${project.progress}%`,
-							backgroundColor: progressColor,
-						}}
+						style={{ width: `${project.progress}%`, backgroundColor: progressColor }}
 					/>
 				</div>
 			</div>
