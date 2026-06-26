@@ -1,10 +1,70 @@
 "use client";
 
-import { MemberCard } from "@/components/members/MemberCard";
+import { useState } from "react";
+import { buildProfileImageUrl } from "@/lib/utils/utils";
 import { useTeamState } from "@/hooks/team/useTeamState";
-import type { TeamData } from "@/types/team";
+import { MemberCard } from "@/components/members/MemberCard";
+import type { TeamData, TeamMember } from "@/types/team";
 import { MemberModal } from "./components/MemberModal";
 import { TEAM_STRUCTURE, type TeamKey } from "./constants";
+
+function LeaderHeroCard({
+	member,
+	onClick,
+}: {
+	member: TeamMember;
+	onClick: (m: TeamMember) => void;
+}) {
+	const imageUrl = buildProfileImageUrl(member.profile_picture);
+	const [imgError, setImgError] = useState(false);
+
+	return (
+		<button
+			type="button"
+			onClick={() => onClick(member)}
+			className="w-full bg-bg-panel rounded-2xl border border-primary/50 p-8 flex flex-col sm:flex-row gap-8 items-center hover:border-primary transition-colors duration-300 text-left"
+			aria-label={`View ${member.full_name}'s profile`}
+		>
+			{/* Photo */}
+			<div className="w-36 h-36 rounded-full border-2 border-primary/60 overflow-hidden shrink-0 bg-primary/20 flex items-center justify-center">
+				{imageUrl && !imgError ? (
+					// eslint-disable-next-line @next/next/no-img-element
+					<img
+						src={imageUrl}
+						alt={member.full_name}
+						className="w-full h-full object-cover"
+						onError={() => setImgError(true)}
+					/>
+				) : (
+					<span className="text-primary font-heading text-5xl font-bold">
+						{member.full_name.charAt(0)}
+					</span>
+				)}
+			</div>
+
+			{/* Info */}
+			<div>
+				<p className="font-heading text-xs tracking-[4px] text-primary/60 uppercase mb-2">
+					Team Leader
+				</p>
+				<h3 className="font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-primary font-bold">
+					{member.full_name}
+				</h3>
+				{member.study_field && (
+					<p className="text-text-gray text-sm mt-2 tracking-wide">
+						{member.study_field}
+					</p>
+				)}
+				{member.faculty && (
+					<p className="text-text-gray/70 text-xs mt-1">{member.faculty}</p>
+				)}
+				<p className="text-primary/50 text-xs font-heading tracking-widest mt-4 uppercase">
+					Click to view profile →
+				</p>
+			</div>
+		</button>
+	);
+}
 
 export function TeamPageClient({ data }: { data: TeamData }) {
 	const {
@@ -27,14 +87,10 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 						Team Leadership
 					</h2>
 
-					{/* Team Leader */}
+					{/* Team Leader — big horizontal card */}
 					{data.team_leader && (
-						<div className="flex justify-center mb-10">
-							<MemberCard
-								member={data.team_leader}
-								position="Team Leader"
-								onClick={openMember}
-							/>
+						<div className="mb-12">
+							<LeaderHeroCard member={data.team_leader} onClick={openMember} />
 						</div>
 					)}
 
@@ -102,16 +158,16 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 					{/* Members view */}
 					{selectedTeam && (
 						<div>
-							<div className="flex items-center gap-4 mb-8">
+							<div className="mb-8">
 								<button
 									type="button"
 									onClick={goBack}
-									className="flex items-center gap-2 text-primary hover:underline font-heading text-sm tracking-widest"
+									className="flex items-center gap-2 text-primary hover:underline font-heading text-sm tracking-widest ml-2"
 								>
 									<i className="fas fa-arrow-left" aria-hidden="true" />
 									Back to Teams
 								</button>
-								<h3 className="font-heading text-primary tracking-widest">
+								<h3 className="font-heading text-primary tracking-widest font-bold mt-3 ml-2">
 									{TEAM_STRUCTURE[selectedTeam].name}
 									{selectedDepartment && ` — ${selectedDepartment}`}
 								</h3>
@@ -121,19 +177,88 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								<p className="text-center text-text-gray py-12">
 									No members found.
 								</p>
-							) : (
-								<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-									{filteredMembers.map((member, i) => (
-										<MemberCard
-											key={`${member.id}-${i}`}
-											member={member}
-											onClick={openMember}
-										/>
+							) : (() => {
+								const subLeaders = filteredMembers.filter((m) => m.role === "sub_leader");
+								const members = filteredMembers.filter((m) => m.role !== "sub_leader");
+								return (
+									<>
+										{subLeaders.length > 0 && (
+											<div className="mb-8">
+												<p className="font-heading text-xs tracking-[4px] text-primary/60 uppercase mb-4 text-center">
+													Department Lead
+												</p>
+												<div className="flex flex-wrap gap-4 justify-center">
+													{subLeaders.map((member, i) => (
+														<MemberCard
+															key={`sub-${member.id}-${i}`}
+															member={member}
+															position="Sub Leader"
+															onClick={openMember}
+															size="lg"
+														/>
+													))}
+												</div>
+											</div>
+										)}
+										{subLeaders.length > 0 && members.length > 0 && (
+											<div className="flex items-center gap-4 my-6">
+												<div className="flex-1 h-px bg-primary/40" />
+												<span className="font-heading text-xs tracking-[4px] text-primary/40 uppercase">Members</span>
+												<div className="flex-1 h-px bg-primary/40" />
+											</div>
+										)}
+										{members.length > 0 && (
+											<div className="flex flex-wrap justify-center gap-4">
+												{members.map((member, i) => (
+													<MemberCard
+														key={`${member.id}-${i}`}
+														member={member}
+														onClick={openMember}
+													/>
+												))}
+											</div>
+										)}
+									</>
+								);
+							})()}
+
+						{/* Department quick-nav */}
+						{TEAM_STRUCTURE[selectedTeam].departments.length > 1 && (
+							<div className="mt-12 pt-8 border-t border-gray-mid">
+								<p className="font-heading text-xs tracking-[4px] text-primary/50 uppercase mb-4 text-center">
+									Other Departments
+								</p>
+								<div className="flex flex-wrap gap-2 justify-center">
+									<button
+										type="button"
+										onClick={() => selectTeam(selectedTeam)}
+										className={`text-xs px-4 py-2 rounded-full border transition-colors font-heading tracking-wider ${
+											!selectedDepartment
+												? "border-primary bg-primary/10 text-primary"
+												: "border-gray-mid text-text-gray hover:border-primary hover:text-primary"
+										}`}
+									>
+										All
+									</button>
+									{TEAM_STRUCTURE[selectedTeam].departments.map((dept) => (
+										<button
+											key={dept}
+											type="button"
+											onClick={() => selectTeam(selectedTeam, dept)}
+											className={`text-xs px-4 py-2 rounded-full border transition-colors font-heading tracking-wider ${
+												selectedDepartment === dept
+													? "border-primary bg-primary/10 text-primary"
+													: "border-gray-mid text-text-gray hover:border-primary hover:text-primary"
+											}`}
+										>
+											{dept}
+										</button>
 									))}
 								</div>
-							)}
-						</div>
-					)}
+							</div>
+						)}
+					</div>
+				)}
 				</div>
 			</section>
 
