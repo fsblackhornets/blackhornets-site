@@ -7,7 +7,7 @@ import { QUICK_LINKS, SOCIAL_LINKS } from "./constants";
 export function Footer() {
 	return (
 		<footer className="footer bg-bg-panel border-t border-gray-mid mt-auto">
-			<div className="container max-w-7xl mx-auto px-4 py-12">
+			<div className="container max-w-screen-2xl mx-auto px-4 py-12">
 				<div className="footer-content grid grid-cols-1 md:grid-cols-3 gap-8">
 					{/* Brand */}
 					<div className="footer-section brand flex flex-col gap-4">

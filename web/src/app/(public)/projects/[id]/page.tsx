@@ -40,7 +40,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 	const statusVariant = getProjectStatusVariant(project.status);
 
 	return (
-		<div className="max-w-[900px] mx-auto px-4 py-16">
+		<div className="max-w-screen-2xl mx-auto px-4 py-16">
 			<Link
 				href="/projects"
 				className="inline-flex items-center gap-2 text-primary font-heading text-sm tracking-widest hover:underline mb-10"

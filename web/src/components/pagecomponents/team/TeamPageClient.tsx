@@ -82,7 +82,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 		<>
 			{/* Leadership */}
 			<section className="py-16 px-4">
-				<div className="max-w-7xl mx-auto">
+				<div className="max-w-screen-2xl mx-auto">
 					<h2 className="font-heading text-[clamp(1.5rem,4vw,2.5rem)] uppercase tracking-[3px] text-center bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent mb-12">
 						Team Leadership
 					</h2>

@@ -37,7 +37,7 @@ export default async function BlogPostPage({ params }: Props) {
 	const imageUrl = buildImageUrl(post.image);
 
 	return (
-		<div className="max-w-[800px] mx-auto px-4 py-16">
+		<div className="max-w-screen-2xl mx-auto px-4 py-16">
 			<Link
 				href="/blog"
 				className="inline-flex items-center gap-2 text-primary font-heading text-sm tracking-widest hover:underline mb-10"

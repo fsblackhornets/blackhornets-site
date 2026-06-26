@@ -15,7 +15,7 @@ export function Navbar() {
 
 	return (
 		<header className={`main-header sticky top-0 z-50 backdrop-blur border-b border-gray-mid transition-all duration-300 ${scrolled ? "bg-bg-dark/95 shadow-lg" : "bg-bg-dark/90"}`}>
-			<nav className={`navbar max-w-7xl mx-auto px-4 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[70px]"}`}>
+			<nav className={`navbar max-w-screen-2xl mx-auto px-4 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[70px]"}`}>
 				{/* Brand */}
 				<Link
 					href="/"

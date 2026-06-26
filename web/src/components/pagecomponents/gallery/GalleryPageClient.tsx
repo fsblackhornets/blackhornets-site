@@ -16,7 +16,7 @@ export function GalleryPageClient({ grouped }: GalleryPageClientProps) {
 
 	return (
 		<>
-			<div className="py-16 px-4 max-w-[1100px] mx-auto flex flex-col gap-20">
+			<div className="py-16 px-4 max-w-screen-2xl mx-auto flex flex-col gap-20">
 				{GALLERY_SECTIONS.map(({ category, title, icon, description }) => {
 					const images = grouped[category] ?? [];
 

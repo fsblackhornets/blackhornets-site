@@ -11,7 +11,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 	return (
 		<>
 			{/* Search */}
-			<div className="max-w-[600px] mx-auto px-4 mb-10">
+			<div className="max-w-2xl mx-auto px-4 mb-10">
 				<form
 					onSubmit={(e) => e.preventDefault()}
 					className="flex gap-2 bg-bg-panel border border-gray-mid rounded-xl overflow-hidden"
@@ -34,7 +34,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 			</div>
 
 			{/* Grid */}
-			<div className="max-w-[1100px] mx-auto px-4">
+			<div className="max-w-screen-2xl mx-auto px-4">
 				{pagePosts.length === 0 ? (
 					<p className="text-center text-text-gray py-20">No posts found.</p>
 				) : (
