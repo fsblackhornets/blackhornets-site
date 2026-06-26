@@ -26,7 +26,6 @@ export function SponsorForm({ action, sponsor }: SponsorFormProps) {
 	return (
 		<form
 			action={formAction}
-			encType="multipart/form-data"
 			className="flex flex-col gap-5 max-w-[720px]"
 		>
 			{state.error && (

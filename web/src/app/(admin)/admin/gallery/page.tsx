@@ -81,7 +81,6 @@ export default async function GalleryPage() {
 											>
 												<Switch
 													checked={img.is_active === 1}
-													onCheckedChange={() => {}}
 													label="Toggle visibility"
 												/>
 												<button type="submit" className="sr-only">

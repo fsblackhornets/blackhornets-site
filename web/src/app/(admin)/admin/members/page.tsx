@@ -45,12 +45,13 @@ export default async function MembersPage() {
 								className="bg-[#111] border border-primary/12 rounded-xl px-4 py-3 flex items-center gap-4"
 							>
 								{/* Avatar */}
-								<div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading text-sm font-bold shrink-0 overflow-hidden">
+								<div className="relative w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading text-sm font-bold shrink-0 overflow-hidden">
 									{avatar ? (
 										<Image
 											src={avatar}
 											alt={m.full_name}
 											fill
+											sizes="36px"
 											className="object-cover"
 										/>
 									) : (
@@ -83,7 +84,6 @@ export default async function MembersPage() {
 								>
 									<Switch
 										checked={m.status === "active"}
-										onCheckedChange={() => {}}
 										label={`Toggle ${m.full_name}`}
 									/>
 									<button type="submit" className="sr-only">

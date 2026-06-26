@@ -31,7 +31,6 @@ export function RequestPostForm({ action }: Props) {
 		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
 			<form
 				action={formAction}
-				encType="multipart/form-data"
 				className="flex flex-col gap-5"
 			>
 				{state.error && (

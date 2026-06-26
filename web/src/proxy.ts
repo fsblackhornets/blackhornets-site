@@ -9,8 +9,11 @@ export default auth((req) => {
 	const role = req.auth?.user?.role;
 
 	if (pathname.startsWith("/admin")) {
-		if (!role || !ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])) {
+		if (!role) {
 			return NextResponse.redirect(new URL("/login", req.url));
+		}
+		if (!ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])) {
+			return NextResponse.redirect(new URL("/manager", req.url));
 		}
 	}
 

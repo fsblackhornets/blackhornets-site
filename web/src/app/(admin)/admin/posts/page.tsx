@@ -62,7 +62,6 @@ export default async function PostsPage() {
 							>
 								<Switch
 									checked={post.status === "published"}
-									onCheckedChange={() => {}}
 									label={`Toggle ${resolvePostTitle(post)}`}
 								/>
 								<button type="submit" className="sr-only">
