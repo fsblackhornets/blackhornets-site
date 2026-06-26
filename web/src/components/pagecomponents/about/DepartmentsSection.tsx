@@ -12,15 +12,12 @@ export function DepartmentsSection() {
 				</div>
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-					{DEPARTMENTS.map(({ icon, title, description }) => (
+					{DEPARTMENTS.map(({ Icon, title, description }) => (
 						<div
 							key={title}
 							className="bg-bg-dark rounded-xl border border-gray-mid p-6 flex flex-col items-center text-center gap-3 hover:-translate-y-1 hover:border-primary/40 transition-all duration-200"
 						>
-							<i
-								className={`${icon} text-3xl text-primary`}
-								aria-hidden="true"
-							/>
+							<Icon className="w-8 h-8 text-primary" />
 							<h3 className="font-heading text-sm tracking-widest text-primary uppercase">
 								{title}
 							</h3>

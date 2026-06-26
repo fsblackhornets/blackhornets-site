@@ -1,52 +1,73 @@
+import { BoltIcon } from "@/components/icons/BoltIcon";
+import { BullhornIcon } from "@/components/icons/BullhornIcon";
+import { CarIcon } from "@/components/icons/CarIcon";
+import { ExcellenceIcon } from "@/components/icons/ExcellenceIcon";
+import { GearIcon } from "@/components/icons/GearIcon";
+import { GearsIcon } from "@/components/icons/GearsIcon";
+import { GraduationCapIcon } from "@/components/icons/GraduationCapIcon";
+import { HandshakeIcon } from "@/components/icons/HandshakeIcon";
+import { InnovationIcon } from "@/components/icons/InnovationIcon";
+import { ManagementIcon } from "@/components/icons/ManagementIcon";
+import { MicrochipIcon } from "@/components/icons/MicrochipIcon";
+import { SpeedIcon } from "@/components/icons/SpeedIcon";
+import { TrophyIcon } from "@/components/icons/TrophyIcon";
+import { UsersIcon } from "@/components/icons/UsersIcon";
+
 export const HERO_BADGES = [
-	{ icon: "fas fa-tachometer-alt", label: "Speed" },
-	{ icon: "fas fa-cog", label: "Innovation" },
-	{ icon: "fas fa-star", label: "Excellence" },
+	{ Icon: SpeedIcon, label: "Speed" },
+	{ Icon: InnovationIcon, label: "Innovation" },
+	{ Icon: ExcellenceIcon, label: "Excellence" },
+] as const;
+
+export const STAT_ITEMS = [
+	{ Icon: UsersIcon, label: "Team Members" },
+	{ Icon: GraduationCapIcon, label: "Departments" },
+	{ Icon: TrophyIcon, label: "Awards" },
 ] as const;
 
 export const DEPARTMENTS = [
 	{
-		icon: "fas fa-bullhorn",
+		Icon: BullhornIcon,
 		title: "Marketing",
 		description:
 			"Team promotion, content creation, and social media management.",
 	},
 	{
-		icon: "fas fa-handshake",
+		Icon: HandshakeIcon,
 		title: "Sponsorships",
 		description:
 			"Partner communication, negotiations, and sponsor relationship management.",
 	},
 	{
-		icon: "fas fa-users-cog",
+		Icon: ManagementIcon,
 		title: "Management",
 		description:
 			"Team organization, project coordination, and resource management.",
 	},
 	{
-		icon: "fas fa-car",
+		Icon: CarIcon,
 		title: "Chassis & Aerodynamics",
 		description:
 			"Chassis design, structural analysis, and aerodynamic optimization.",
 	},
 	{
-		icon: "fas fa-cog",
+		Icon: GearIcon,
 		title: "Suspension & Steering",
 		description: "Suspension systems, steering geometry, and vehicle dynamics.",
 	},
 	{
-		icon: "fas fa-cogs",
+		Icon: GearsIcon,
 		title: "Transmission & Braking",
 		description: "Drivetrain components, braking systems, and power delivery.",
 	},
 	{
-		icon: "fas fa-bolt",
+		Icon: BoltIcon,
 		title: "High Voltage",
 		description:
 			"Battery systems, high voltage distribution, and energy management.",
 	},
 	{
-		icon: "fas fa-microchip",
+		Icon: MicrochipIcon,
 		title: "Low Voltage",
 		description:
 			"Control electronics, sensors, CAN communication, and low voltage systems.",
