@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { auth } from "@/auth";
-import { REQUEST_STATUS_COLORS, REQUEST_TYPE_ICONS } from "@/constants/requests";
+import {
+	REQUEST_STATUS_COLORS,
+	REQUEST_TYPE_ICONS,
+} from "@/constants/requests";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchRequests } from "@/lib/api/requests";
 

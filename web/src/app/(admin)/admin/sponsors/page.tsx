@@ -3,7 +3,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/components/Button";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchAdminBrochure, fetchAdminSponsors } from "@/lib/api/admin";
-import { buildBrochureUrl, buildSponsorLogoUrl, formatDate } from "@/lib/utils/utils";
+import {
+	buildBrochureUrl,
+	buildSponsorLogoUrl,
+	formatDate,
+} from "@/lib/utils/utils";
 import { BrochureUploadForm } from "./BrochureUploadForm";
 import { SponsorDeleteButton } from "./SponsorDeleteButton";
 
@@ -101,10 +105,7 @@ export default async function SponsorsAdminPage() {
 			{/* Brochure section */}
 			<div className="bg-[#111] border border-primary/12 rounded-2xl p-6">
 				<div className="flex items-center gap-3 mb-5">
-					<i
-						className="fas fa-file-pdf text-red-400"
-						aria-hidden="true"
-					/>
+					<i className="fas fa-file-pdf text-red-400" aria-hidden="true" />
 					<h2 className="font-heading text-sm tracking-widest text-primary uppercase">
 						Partner Brochure
 					</h2>

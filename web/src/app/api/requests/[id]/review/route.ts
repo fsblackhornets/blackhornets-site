@@ -1,0 +1,183 @@
+import bcrypt from "bcryptjs";
+import { eq, sql } from "drizzle-orm";
+import { NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { db } from "@/lib/db";
+import {
+	contentRequests,
+	posts,
+	projects,
+	sponsors,
+	teamMembers,
+	users,
+} from "@/lib/db/schema";
+
+type ReviewBody = {
+	action: "approve" | "decline";
+	notes?: string;
+	editedData?: Record<string, unknown>;
+	reviewed_by?: number;
+};
+
+async function insertContent(
+	tx: typeof db,
+	type: string,
+	data: Record<string, unknown>,
+) {
+	if (type === "project") {
+		await tx.insert(projects).values({
+			name: String(data.name ?? ""),
+			description: String(data.description ?? ""),
+			status: String(data.status ?? "Active"),
+			progress: Number(data.progress ?? 0),
+			due_date: (data.due_date as string) ?? null,
+			duration: (data.duration as string) ?? null,
+			image: (data.image as string) ?? null,
+			image_position: String(data.image_position ?? "50% 50%"),
+		});
+	} else if (type === "post") {
+		await tx.insert(posts).values({
+			title: String(data.title_sr ?? ""),
+			title_sr: String(data.title_sr ?? ""),
+			title_en: (data.title_en as string) ?? null,
+			content: String(data.content_sr ?? ""),
+			content_sr: String(data.content_sr ?? ""),
+			content_en: (data.content_en as string) ?? null,
+			author: String(data.author ?? "Manager"),
+			category: (data.category as string) ?? null,
+			image: (data.image as string) ?? null,
+			image_position: String(data.image_position ?? "50% 50%"),
+			status: "published",
+		});
+	} else if (type === "sponsor") {
+		await tx.insert(sponsors).values({
+			name: String(data.name ?? ""),
+			tier: String(data.tier ?? ""),
+			website: (data.website as string) ?? null,
+			description: String(data.description_sr ?? ""),
+			description_en: (data.description_en as string) ?? null,
+			logo: (data.logo as string) ?? null,
+			image_position: String(data.image_position ?? "50% 50%"),
+		});
+	} else if (type === "member") {
+		const fullName = String(data.full_name ?? "");
+		const base = fullName
+			.toLowerCase()
+			.replace(/[^a-z0-9]/g, "_")
+			.replace(/_+/g, "_")
+			.replace(/^_|_$/g, "");
+		let username = base;
+		let suffix = 1;
+		while (true) {
+			const [existing] = await tx
+				.select({ id: users.id })
+				.from(users)
+				.where(eq(users.username, username));
+			if (!existing) break;
+			username = `${base}_${suffix++}`;
+		}
+		const hash = await bcrypt.hash(Math.random().toString(36), 10);
+		const [inserted] = await tx
+			.insert(users)
+			.values({
+				username,
+				password: hash,
+				email: String(data.email ?? ""),
+				full_name: fullName,
+				role: (data.role as "team_member") ?? "team_member",
+				team: (data.team as string) ?? null,
+				department: (data.department as string) ?? null,
+				phone: (data.phone as string) ?? null,
+				status: "active",
+			})
+			.$returningId();
+
+		await tx.insert(teamMembers).values({
+			user_id: inserted.id,
+			position: (data.position as string) ?? null,
+			profile_picture: (data.profile_picture as string) ?? "default.jpg",
+			image_position: String(data.image_position ?? "50% 50%"),
+			faculty: (data.faculty as string) ?? null,
+			study_field: (data.study_field as string) ?? null,
+			academic_year: (data.academic_year as string) ?? null,
+			department: (data.department as string) ?? null,
+			team: (data.team as string) ?? null,
+		});
+	}
+}
+
+export async function POST(
+	req: Request,
+	{ params }: { params: Promise<{ id: string }> },
+) {
+	try {
+		const session = await auth();
+		if (session?.user?.role !== "admin")
+			return NextResponse.json({}, { status: 403 });
+
+		const { id } = await params;
+		const numId = Number(id);
+		const body = (await req.json()) as ReviewBody;
+		const { action, notes, editedData, reviewed_by } = body;
+
+		if (!["approve", "decline"].includes(action)) {
+			return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+		}
+
+		const [request] = await db
+			.select()
+			.from(contentRequests)
+			.where(
+				sql`${contentRequests.id} = ${numId} AND ${contentRequests.status} = 'pending'`,
+			);
+
+		if (!request) {
+			return NextResponse.json(
+				{ error: "Request not found or already reviewed" },
+				{ status: 404 },
+			);
+		}
+
+		const reviewerId = reviewed_by ?? Number(session.user.id);
+
+		if (action === "approve") {
+			const dataToInsert = (editedData ?? request.data) as Record<
+				string,
+				unknown
+			>;
+			await db.transaction(async (tx) => {
+				await insertContent(
+					tx as unknown as typeof db,
+					request.type,
+					dataToInsert,
+				);
+				await tx
+					.update(contentRequests)
+					.set({
+						status: "approved",
+						admin_notes: notes ?? null,
+						reviewed_by: reviewerId,
+						reviewed_at: new Date(),
+					})
+					.where(eq(contentRequests.id, numId));
+			});
+		} else {
+			await db
+				.update(contentRequests)
+				.set({
+					status: "declined",
+					admin_notes: notes ?? null,
+					reviewed_by: reviewerId,
+					reviewed_at: new Date(),
+				})
+				.where(eq(contentRequests.id, numId));
+		}
+
+		return NextResponse.json({ success: true });
+	} catch {
+		return NextResponse.json(
+			{ success: false, message: "Server error" },
+			{ status: 500 },
+		);
+	}
+}

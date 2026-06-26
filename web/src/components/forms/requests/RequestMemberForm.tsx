@@ -1,12 +1,12 @@
 "use client";
 
 import { useActionState } from "react";
-import { MEMBER_ROLE_OPTIONS, MEMBER_TEAM_OPTIONS } from "@/types/member";
-import { useRequestMemberPreview } from "@/hooks/useRequestPreview";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
+import { useRequestMemberPreview } from "@/hooks/useRequestPreview";
+import { MEMBER_ROLE_OPTIONS, MEMBER_TEAM_OPTIONS } from "@/types/member";
 
 interface Props {
 	action: (
@@ -17,8 +17,16 @@ interface Props {
 
 export function RequestMemberForm({ action }: Props) {
 	const [state, formAction, pending] = useActionState(action, {});
-	const { fullName, setFullName, position, setPosition, team, setTeam, imageFile, setImageFile } =
-		useRequestMemberPreview();
+	const {
+		fullName,
+		setFullName,
+		position,
+		setPosition,
+		team,
+		setTeam,
+		imageFile,
+		setImageFile,
+	} = useRequestMemberPreview();
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
@@ -89,7 +97,11 @@ export function RequestMemberForm({ action }: Props) {
 						/>
 					</Field>
 					<Field label="Department" htmlFor="department">
-						<Input id="department" name="department" placeholder="e.g. Marketing" />
+						<Input
+							id="department"
+							name="department"
+							placeholder="e.g. Marketing"
+						/>
 					</Field>
 				</div>
 
@@ -103,7 +115,11 @@ export function RequestMemberForm({ action }: Props) {
 				</div>
 
 				<Field label="Academic Year" htmlFor="academic_year">
-					<Input id="academic_year" name="academic_year" placeholder="e.g. 3rd year" />
+					<Input
+						id="academic_year"
+						name="academic_year"
+						placeholder="e.g. 3rd year"
+					/>
 				</Field>
 
 				<Field label="Profile Picture" htmlFor="profile_picture">

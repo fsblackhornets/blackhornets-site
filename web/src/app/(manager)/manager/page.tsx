@@ -39,7 +39,9 @@ export default async function ManagerDashboard() {
 						key={label}
 						className="bg-[#111] border border-primary/10 rounded-xl p-4"
 					>
-						<p className={`font-heading text-2xl font-bold ${color}`}>{value}</p>
+						<p className={`font-heading text-2xl font-bold ${color}`}>
+							{value}
+						</p>
 						<p className="text-text-gray text-xs mt-1">{label} requests</p>
 					</div>
 				))}
@@ -56,10 +58,7 @@ export default async function ManagerDashboard() {
 						href={href}
 						className="bg-[#111] border border-primary/10 hover:border-primary/30 rounded-xl p-4 flex flex-col gap-2 transition-colors group"
 					>
-						<i
-							className={`${icon} text-primary text-lg`}
-							aria-hidden="true"
-						/>
+						<i className={`${icon} text-primary text-lg`} aria-hidden="true" />
 						<p className="text-text-light text-sm font-semibold group-hover:text-primary transition-colors">
 							{label}
 						</p>

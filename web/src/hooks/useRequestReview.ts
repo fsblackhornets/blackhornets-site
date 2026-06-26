@@ -8,9 +8,9 @@ export function useRequestReview(request: ContentRequest) {
 	const [isPending, startTransition] = useTransition();
 	const [notes, setNotes] = useState("");
 	const [error, setError] = useState<string | null>(null);
-	const [editedData, setEditedData] = useState<Record<string, unknown>>(
-		() => ({ ...request.data }),
-	);
+	const [editedData, setEditedData] = useState<Record<string, unknown>>(() => ({
+		...request.data,
+	}));
 
 	function updateField(key: string, value: unknown) {
 		setEditedData((prev) => ({ ...prev, [key]: value }));
@@ -29,5 +29,13 @@ export function useRequestReview(request: ContentRequest) {
 		});
 	}
 
-	return { isPending, notes, setNotes, error, editedData, updateField, handleAction };
+	return {
+		isPending,
+		notes,
+		setNotes,
+		error,
+		editedData,
+		updateField,
+		handleAction,
+	};
 }
