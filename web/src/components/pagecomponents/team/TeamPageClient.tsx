@@ -1,6 +1,5 @@
 "use client";
 
-import { LeaderCard } from "@/components/members/LeaderCard";
 import { MemberCard } from "@/components/members/MemberCard";
 import { useTeamState } from "@/hooks/team/useTeamState";
 import type { TeamData } from "@/types/team";
@@ -31,7 +30,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 					{/* Team Leader */}
 					{data.team_leader && (
 						<div className="flex justify-center mb-10">
-							<LeaderCard
+							<MemberCard
 								member={data.team_leader}
 								position="Team Leader"
 								onClick={openMember}
@@ -66,7 +65,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 
 										{pl && (
 											<div className="flex justify-center">
-												<LeaderCard
+												<MemberCard
 													member={pl}
 													position="Project Leader"
 													onClick={openMember}
@@ -77,7 +76,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 										<div className="flex flex-wrap gap-2 justify-center">
 											{info.departments.map((dept) => (
 												<button
-													key={dept}
+													key={`${key}-${dept}`}
 													type="button"
 													onClick={() => selectTeam(key, dept)}
 													className="text-xs px-3 py-1 rounded-full border border-gray-mid text-text-gray hover:border-primary hover:text-primary transition-colors"
@@ -124,9 +123,9 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								</p>
 							) : (
 								<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-									{filteredMembers.map((member) => (
+									{filteredMembers.map((member, i) => (
 										<MemberCard
-											key={member.id}
+											key={member.id ?? i}
 											member={member}
 											onClick={openMember}
 										/>
