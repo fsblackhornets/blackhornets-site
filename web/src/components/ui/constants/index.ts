@@ -11,7 +11,7 @@ export type SpinnerSize = "sm" | "md" | "lg";
 
 export const BUTTON_VARIANT_CLASSES: Record<ButtonVariant, string> = {
 	primary:
-		"bg-primary text-bg-dark font-semibold hover:bg-yellow-300 disabled:opacity-60",
+		"bg-primary text-black font-semibold hover:bg-yellow-300 hover:text-black disabled:opacity-60",
 	secondary:
 		"border-2 border-primary text-primary hover:bg-primary/15 disabled:opacity-60",
 	ghost: "text-primary hover:bg-primary/10 disabled:opacity-60",
