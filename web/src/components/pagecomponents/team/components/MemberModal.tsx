@@ -1,5 +1,6 @@
-import Image from "next/image";
-import { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamMember } from "@/types/team";
 
@@ -11,6 +12,7 @@ interface MemberModalProps {
 export function MemberModal({ member, onClose }: MemberModalProps) {
 	const imageUrl = buildProfileImageUrl(member.profile_picture);
 	const dialogRef = useRef<HTMLDialogElement>(null);
+	const [imgError, setImgError] = useState(false);
 
 	useEffect(() => {
 		dialogRef.current?.showModal();
@@ -42,19 +44,19 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 			</button>
 
 			<div className="flex gap-6 items-start">
-				<div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-primary/50 shrink-0">
-					{imageUrl ? (
-						<Image
+				<div className="w-24 h-24 rounded-full overflow-hidden border-2 border-primary/50 shrink-0 bg-primary/20 flex items-center justify-center">
+					{imageUrl && !imgError ? (
+						// eslint-disable-next-line @next/next/no-img-element
+						<img
 							src={imageUrl}
 							alt={member.full_name}
-							fill
-							sizes="96px"
-							className="object-cover"
+							className="w-full h-full object-cover"
+							onError={() => setImgError(true)}
 						/>
 					) : (
-						<div className="w-full h-full bg-primary/20 flex items-center justify-center text-primary font-heading text-3xl font-bold">
+						<span className="text-primary font-heading text-3xl font-bold">
 							{member.full_name.charAt(0)}
-						</div>
+						</span>
 					)}
 				</div>
 
@@ -69,42 +71,22 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 			</div>
 
 			<div className="mt-6 flex flex-col gap-3">
-				{member.department && (
+				{member.department_name && (
 					<div className="flex items-center gap-3 text-sm text-text-gray">
 						<i className="fas fa-sitemap text-primary w-4" aria-hidden="true" />
-						{member.department}
+						{member.department_name}
 					</div>
 				)}
 				{member.faculty && (
 					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i
-							className="fas fa-university text-primary w-4"
-							aria-hidden="true"
-						/>
+						<i className="fas fa-university text-primary w-4" aria-hidden="true" />
 						{member.faculty}
 					</div>
 				)}
 				{member.study_field && (
 					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i
-							className="fas fa-graduation-cap text-primary w-4"
-							aria-hidden="true"
-						/>
+						<i className="fas fa-graduation-cap text-primary w-4" aria-hidden="true" />
 						{member.study_field}
-					</div>
-				)}
-				{member.email && (
-					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i
-							className="fas fa-envelope text-primary w-4"
-							aria-hidden="true"
-						/>
-						<a
-							href={`mailto:${member.email}`}
-							className="hover:text-primary transition-colors"
-						>
-							{member.email}
-						</a>
 					</div>
 				)}
 			</div>

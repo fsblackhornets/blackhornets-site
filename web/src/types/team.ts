@@ -9,6 +9,7 @@ export interface TeamMember {
 		| "project_leader";
 	team: string | null;
 	department: string | null;
+	department_name?: string | null;
 	email: string;
 	study_field: string | null;
 	phone: string | null;
