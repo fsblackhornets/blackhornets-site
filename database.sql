@@ -1,17 +1,17 @@
 -- ================================================================
--- Black Hornets - Production Database
--- Generated: 2026-03-19
--- Compatible with: MariaDB 10.4+ / MySQL 5.7+
+-- Black Hornets Racing — Database Setup
+-- Updated: 2026-06-26
+-- Compatible with: MySQL 5.7+ / MariaDB 10.4+
 -- ================================================================
 --
--- Import this file via phpMyAdmin:
---   1. Select your database (e.g. fsblackh_production)
---   2. Go to "Import" tab
---   3. Choose this file and click "Go"
+-- Import:
+--   mysql -u root blackhornets < database.sql
 --
 -- Default admin credentials:
---   Username: markazvaka23
---   Password: M@rakuja_!1
+--   Username: admin
+--   Password: BlackHornets2025!
+--
+-- Change the password immediately after first login.
 -- ================================================================
 
 SET NAMES utf8mb4;
@@ -20,13 +20,11 @@ SET time_zone = '+00:00';
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- --------------------------------------------------------
--- Drop all tables (children first, then parents)
+-- Drop tables (children first)
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `post_comments`;
-DROP TABLE IF EXISTS `team_reports`;
+DROP TABLE IF EXISTS `content_requests`;
 DROP TABLE IF EXISTS `gallery_images`;
-DROP TABLE IF EXISTS `member_roles`;
 DROP TABLE IF EXISTS `team_members`;
 DROP TABLE IF EXISTS `posts`;
 DROP TABLE IF EXISTS `projects`;
@@ -37,7 +35,7 @@ DROP TABLE IF EXISTS `site_settings`;
 DROP TABLE IF EXISTS `users`;
 
 -- --------------------------------------------------------
--- Table: users (no FK dependencies — create first)
+-- Table: users
 -- --------------------------------------------------------
 
 CREATE TABLE `users` (
@@ -46,22 +44,25 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `full_name` varchar(100) NOT NULL,
-  `role` enum('admin','team_member','sub_leader','team_leader','project_leader') DEFAULT 'team_member',
+  `role` enum('admin','manager','team_member','sub_leader','team_leader','project_leader') DEFAULT 'team_member',
   `team` varchar(50) DEFAULT NULL,
   `department` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
+  `study_field` varchar(100) DEFAULT NULL,
+  `position` varchar(100) DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT 'default.jpg',
   `status` enum('active','inactive') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Default admin user (password: M@rakuja_!1)
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `full_name`, `role`, `status`, `created_at`) VALUES
-(1, 'markazvaka23', '$2y$10$5oNUsUDW5mfqMMqBa.XZAOONvE8wIrC6H8oCEEn4PQHStQBIwqm2G', 'admin@blackhornets.local', 'Admin', 'admin', 'active', NOW());
+-- Default admin user (password: BlackHornets2025!)
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `full_name`, `role`, `status`) VALUES
+(1, 'admin', '$2b$10$TMl2pw3XsiYe6YkwJ.gquOAp8HtK0fbZX5/8hZJbUiaSYXyyEBbZ6', 'admin@blackhornets.local', 'Administrator', 'admin', 'active');
 
 -- --------------------------------------------------------
--- Table: team_members (FK -> users)
+-- Table: team_members
 -- --------------------------------------------------------
 
 CREATE TABLE `team_members` (
@@ -77,6 +78,7 @@ CREATE TABLE `team_members` (
   `age` int(11) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `profile_picture` varchar(255) DEFAULT NULL,
+  `image_position` varchar(50) DEFAULT '50% 50%',
   `motivation` text DEFAULT NULL,
   `skills` text DEFAULT NULL,
   `projects` text DEFAULT NULL,
@@ -85,40 +87,6 @@ CREATE TABLE `team_members` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `team_members_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
--- Table: member_roles
--- --------------------------------------------------------
-
-CREATE TABLE `member_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `role` varchar(50) NOT NULL,
-  `team` varchar(50) DEFAULT NULL,
-  `department` varchar(50) DEFAULT NULL,
-  `position` varchar(255) DEFAULT NULL,
-  `position_en` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `idx_member_roles_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
--- Table: team_reports (FK -> users)
--- --------------------------------------------------------
-
-CREATE TABLE `team_reports` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `team` varchar(50) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `attachment` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `team_reports_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -134,33 +102,15 @@ CREATE TABLE `posts` (
   `content_sr` text DEFAULT NULL,
   `content_en` text DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `image_position` varchar(50) DEFAULT '50% 50%',
   `category` varchar(100) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `featured` tinyint(1) DEFAULT 0,
   `views` int(11) DEFAULT 0,
   `status` enum('published','draft') DEFAULT 'published',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
--- Table: post_comments (FK -> posts, self-referencing)
--- --------------------------------------------------------
-
-CREATE TABLE `post_comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `comment` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` enum('approved','pending','spam') DEFAULT 'pending',
-  `parent_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`),
-  KEY `parent_id` (`parent_id`),
-  CONSTRAINT `post_comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `post_comments_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `post_comments` (`id`) ON DELETE CASCADE
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -176,12 +126,13 @@ CREATE TABLE `projects` (
   `duration` varchar(100) DEFAULT NULL,
   `progress` int(11) DEFAULT 0,
   `image` varchar(255) DEFAULT NULL,
+  `image_position` varchar(50) DEFAULT '50% 50%',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
--- Table: gallery_images (FK -> users)
+-- Table: gallery_images
 -- --------------------------------------------------------
 
 CREATE TABLE `gallery_images` (
@@ -213,6 +164,7 @@ CREATE TABLE `sponsors` (
   `tier` varchar(50) NOT NULL,
   `website` varchar(255) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
+  `image_position` varchar(50) DEFAULT '50% 50%',
   `tier_order` int(11) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
@@ -260,6 +212,26 @@ CREATE TABLE `contact_messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+-- Table: content_requests
+-- --------------------------------------------------------
+
+CREATE TABLE `content_requests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('member','post','project','sponsor') NOT NULL,
+  `data` json NOT NULL,
+  `submitted_by` int(11) NOT NULL,
+  `submitter_name` varchar(255) NOT NULL DEFAULT '',
+  `status` enum('pending','approved','declined') NOT NULL DEFAULT 'pending',
+  `admin_notes` text DEFAULT NULL,
+  `reviewed_by` int(11) DEFAULT NULL,
+  `reviewed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `submitted_by` (`submitted_by`),
+  CONSTRAINT `content_requests_ibfk_1` FOREIGN KEY (`submitted_by`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 -- Table: site_settings
 -- --------------------------------------------------------
 
@@ -273,12 +245,8 @@ CREATE TABLE `site_settings` (
   UNIQUE KEY `setting_key` (`setting_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
--- Re-enable foreign key checks
--- --------------------------------------------------------
-
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ================================================================
--- Import complete! 12 tables created, 1 admin user seeded.
+-- Setup complete. 10 tables created, 1 admin user seeded.
 -- ================================================================

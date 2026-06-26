@@ -1,6 +1,6 @@
 # Black Hornets Racing — Formula Student Team Platform
 
-[![Next.js](https://img.shields.io/badge/Next.js-15+-black.svg)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16+-black.svg)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Languages](https://img.shields.io/badge/Languages-EN%20%7C%20SR-orange.svg)](README.md)
@@ -14,10 +14,10 @@ blackhornets-site/
 ├── web/                        # Next.js application (single source of truth)
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── (public)/       # Public-facing pages (home, team, projects, sponsors…)
-│   │   │   ├── (admin)/admin/  # Admin panel (auth-guarded, role: admin)
-│   │   │   ├── (manager)/manager/ # Manager panel (auth-guarded, role: manager)
-│   │   │   ├── api/            # Next.js route handlers (REST API layer)
+│   │   │   ├── (public)/           # Public-facing pages (home, team, projects, sponsors…)
+│   │   │   ├── (admin)/admin/      # Admin panel (auth-guarded, role: admin)
+│   │   │   ├── (manager)/manager/  # Manager panel (auth-guarded, role: manager)
+│   │   │   ├── (backend)/api/      # Route handlers (REST API layer)
 │   │   │   └── login/
 │   │   ├── components/         # Reusable UI primitives + layout
 │   │   ├── lib/
@@ -29,16 +29,14 @@ blackhornets-site/
 │   ├── public/uploads/         # Uploaded files (images, PDFs, resumes)
 │   ├── drizzle.config.ts
 │   └── next.config.ts
-├── playwright/                 # End-to-end tests
-├── uploads/                    # Legacy uploaded files (copy to web/public/uploads/ on cutover)
-└── blackhornets_full_dump.sql  # Database snapshot
+└── database.sql                # Database schema + seed
 ```
 
 ## Stack
 
 | Concern | Technology |
 |---|---|
-| Framework | Next.js 15 (App Router, RSC, Server Actions) |
+| Framework | Next.js 16 (App Router, RSC) |
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS + CSS variables |
 | Database | MySQL via Drizzle ORM + mysql2 |
@@ -52,22 +50,22 @@ blackhornets-site/
 
 ```bash
 # 1. Import database
-mysql -u root blackhornets < blackhornets_full_dump.sql
+mysql -u root blackhornets < database.sql
 
 # 2. Install dependencies
 cd web && npm install
 
 # 3. Configure environment
-cp .env.local.example .env.local  # or create manually (see below)
+# Create web/.env.local (see below)
 
-# 4. Sync Drizzle schema (adds any missing columns)
+# 4. Sync Drizzle schema
 npm run db:push
 
 # 5. Dev server
 npm run dev           # → http://localhost:3000
 ```
 
-**.env.local**
+**web/.env.local**
 ```
 NEXT_PUBLIC_API_BASE=http://localhost:3000/api
 AUTH_SECRET=<generate with: openssl rand -base64 32>
@@ -86,7 +84,7 @@ DB_NAME=blackhornets
 
 **Change the admin password immediately after first login.**
 
-## Useful scripts
+## Scripts
 
 ```bash
 npm run dev          # Dev server (port 3000)
@@ -98,12 +96,7 @@ npm run db:studio    # Drizzle Studio (visual DB browser)
 
 ## File uploads
 
-New uploads (images, PDFs, resumes) are written to `web/public/uploads/{type}/` and served at `/uploads/{type}/filename`.
-
-If migrating from the legacy PHP app, copy existing files:
-```bash
-cp -r uploads/  web/public/uploads/
-```
+Uploads are written to `web/public/uploads/{type}/` and served at `/uploads/{type}/filename`.
 
 ## Roles & panels
 
@@ -114,7 +107,7 @@ cp -r uploads/  web/public/uploads/
 
 ## API
 
-All endpoints live under `/api/`. See `web/src/app/api/` for route handlers.
+All endpoints live under `/api/`. Route handlers are in `web/src/app/(backend)/api/`.
 
 Public: `GET /api/team`, `GET /api/posts`, `GET /api/projects`, `GET /api/sponsors`, `GET /api/gallery`, `GET /api/brochure`
 

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /manager/
+Disallow: /api/
+
+Sitemap: https://fsblackhornets.org.rs/sitemap.xml
