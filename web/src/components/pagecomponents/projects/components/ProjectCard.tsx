@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Calendar, Clock, Timer } from "lucide-react";
 import { Badge } from "@/components/ui/components/Badge";
 import {
 	buildProjectImageUrl,
@@ -14,7 +15,6 @@ export function ProjectCard({ project }: { project: Project }) {
 		? buildProjectImageUrl(project.image_url)
 		: null;
 	const progressColor = getProgressColor(project.progress);
-
 	const statusVariant = getProjectStatusVariant(project.status);
 
 	return (
@@ -54,28 +54,19 @@ export function ProjectCard({ project }: { project: Project }) {
 
 				<div className="flex gap-4 text-xs text-text-gray flex-wrap">
 					{project.due_date && (
-						<span>
-							<i
-								className="fas fa-calendar mr-1 text-primary"
-								aria-hidden="true"
-							/>
+						<span className="flex items-center gap-1.5">
+							<Calendar className="w-3 h-3 text-primary" />
 							{formatDate(project.due_date)}
 						</span>
 					)}
 					{project.duration && (
-						<span>
-							<i
-								className="fas fa-clock mr-1 text-primary"
-								aria-hidden="true"
-							/>
+						<span className="flex items-center gap-1.5">
+							<Clock className="w-3 h-3 text-primary" />
 							{project.duration}
 						</span>
 					)}
-					<span className={project.is_overdue ? "text-red-400" : ""}>
-						<i
-							className="fas fa-hourglass-half mr-1 text-primary"
-							aria-hidden="true"
-						/>
+					<span className={`flex items-center gap-1.5 ${project.is_overdue ? "text-red-400" : ""}`}>
+						<Timer className={`w-3 h-3 ${project.is_overdue ? "text-red-400" : "text-primary"}`} />
 						{project.is_overdue
 							? `${project.days_remaining} days overdue`
 							: `${project.days_remaining} days remaining`}
@@ -87,10 +78,7 @@ export function ProjectCard({ project }: { project: Project }) {
 					<div className="flex-1 h-1.5 bg-gray-mid rounded-full overflow-hidden">
 						<div
 							className="h-full rounded-full transition-all duration-500"
-							style={{
-								width: `${project.progress}%`,
-								backgroundColor: progressColor,
-							}}
+							style={{ width: `${project.progress}%`, backgroundColor: progressColor }}
 						/>
 					</div>
 					<span className="text-xs text-text-gray shrink-0">
