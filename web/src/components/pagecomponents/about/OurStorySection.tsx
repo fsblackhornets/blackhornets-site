@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { fetchMemberCount } from "@/lib/api/team";
 import { StatItem } from "./components/StatItem";
+import { STAT_ITEMS } from "./constants";
 
 export async function OurStorySection() {
 	const memberCount = await fetchMemberCount();
+	const statValues = [memberCount ?? "—", 8, 0];
 
 	return (
 		<section className="py-20 px-4">
@@ -21,17 +23,9 @@ export async function OurStorySection() {
 					</div>
 
 					<div className="grid grid-cols-3 gap-6 bg-bg-panel rounded-2xl border border-gray-mid p-8">
-						<StatItem
-							icon="fas fa-users"
-							value={memberCount ?? "—"}
-							label="Team Members"
-						/>
-						<StatItem
-							icon="fas fa-graduation-cap"
-							value={8}
-							label="Departments"
-						/>
-						<StatItem icon="fas fa-trophy" value={0} label="Awards" />
+						{STAT_ITEMS.map(({ Icon, label }, i) => (
+							<StatItem key={label} Icon={Icon} value={statValues[i]} label={label} />
+						))}
 					</div>
 				</div>
 

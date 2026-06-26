@@ -1,31 +1,6 @@
+import { Loader2 } from "lucide-react";
 import type { SVGProps } from "react";
 
-export function SpinnerIcon({
-	className = "",
-	...props
-}: SVGProps<SVGSVGElement>) {
-	return (
-		<svg
-			aria-label="Loading"
-			role="status"
-			className={className}
-			fill="none"
-			viewBox="0 0 24 24"
-			{...props}
-		>
-			<circle
-				className="opacity-25"
-				cx="12"
-				cy="12"
-				r="10"
-				stroke="currentColor"
-				strokeWidth="4"
-			/>
-			<path
-				className="opacity-75"
-				fill="currentColor"
-				d="M4 12a8 8 0 018-8v8H4z"
-			/>
-		</svg>
-	);
+export function SpinnerIcon({ className = "", ...props }: SVGProps<SVGSVGElement>) {
+	return <Loader2 aria-label="Loading" role="status" className={`animate-spin ${className}`} {...(props as object)} />;
 }
