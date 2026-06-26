@@ -1,6 +1,6 @@
 export function TeamHero() {
 	return (
-		<section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black to-bg-panel overflow-hidden">
+		<section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-black to-bg-panel overflow-hidden">
 			{/* Background */}
 			<div
 				className="absolute inset-0 z-[1]"

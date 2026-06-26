@@ -49,7 +49,7 @@ export default async function ProjectsPage() {
 				</div>
 			</section>
 
-			<section className="py-20 px-4 max-w-[1100px] mx-auto">
+			<section className="py-20 px-4 max-w-7xl mx-auto">
 				{projects.length === 0 ? (
 					<div className="min-h-[40vh] flex items-center justify-center">
 						<div className="text-center bg-bg-panel border border-primary rounded-2xl p-12 max-w-lg w-full shadow-[0_0_30px_rgba(255,215,0,0.1)]">

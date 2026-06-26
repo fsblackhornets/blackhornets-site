@@ -3,7 +3,7 @@ import { DEPARTMENTS } from "./constants";
 export function DepartmentsSection() {
 	return (
 		<section className="py-20 px-4 bg-bg-panel">
-			<div className="max-w-[900px] mx-auto">
+			<div className="max-w-7xl mx-auto">
 				<div className="text-center mb-12">
 					<h2 className="font-heading text-[clamp(2rem,5vw,3rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
 						Our Departments

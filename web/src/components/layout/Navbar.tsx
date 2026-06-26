@@ -4,16 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useScrolled } from "@/hooks/useScrolled";
 import { ApplyButton } from "./components/ApplyButton";
 import { NAV_LINKS } from "./constants";
 
 export function Navbar() {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
+	const scrolled = useScrolled(20);
 
 	return (
-		<header className="main-header sticky top-0 z-50 bg-bg-dark/90 backdrop-blur border-b border-gray-mid">
-			<nav className="navbar max-w-7xl mx-auto px-4 h-[70px] flex items-center justify-between gap-4">
+		<header className={`main-header sticky top-0 z-50 backdrop-blur border-b border-gray-mid transition-all duration-300 ${scrolled ? "bg-bg-dark/95 shadow-lg" : "bg-bg-dark/90"}`}>
+			<nav className={`navbar max-w-7xl mx-auto px-4 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[70px]"}`}>
 				{/* Brand */}
 				<Link
 					href="/"
@@ -73,8 +75,11 @@ export function Navbar() {
 			</nav>
 
 			{/* Mobile menu */}
-			{open && (
-				<div className="md:hidden bg-bg-panel border-t border-gray-mid px-4 py-4 flex flex-col gap-2">
+			<div
+				className="md:hidden overflow-hidden transition-all duration-300"
+				style={{ maxHeight: open ? "400px" : "0px" }}
+			>
+				<div className="bg-bg-panel border-t border-gray-mid px-4 py-4 flex flex-col gap-2">
 					{NAV_LINKS.map(({ href, label, Icon }) => (
 						<Link
 							key={href}
@@ -92,7 +97,7 @@ export function Navbar() {
 						onClick={() => setOpen(false)}
 					/>
 				</div>
-			)}
+			</div>
 		</header>
 	);
 }

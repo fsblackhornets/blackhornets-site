@@ -1,6 +1,6 @@
 "use client";
 
-import { YEAR_OPTIONS } from "@/components/pagecomponents/apply/constants";
+import { POSITION_OPTIONS, YEAR_OPTIONS } from "@/components/pagecomponents/apply/constants";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { SectionTitle } from "@/components/ui/components/SectionTitle";
@@ -18,6 +18,8 @@ export function ApplyForm() {
 		setFileName,
 		academicYear,
 		setAcademicYear,
+		position,
+		setPosition,
 		formRef,
 		handleReset,
 	} = useApplyForm();
@@ -155,12 +157,14 @@ export function ApplyForm() {
 						htmlFor="position"
 						error={state.errors?.position}
 					>
-						<Input
+						<Select
 							id="position"
-							type="text"
 							name="position"
+							options={POSITION_OPTIONS}
+							placeholder="Select department"
+							value={position}
+							onChange={setPosition}
 							required
-							placeholder="e.g. Suspension Engineer, Marketing Coordinator"
 						/>
 					</Field>
 					<Field

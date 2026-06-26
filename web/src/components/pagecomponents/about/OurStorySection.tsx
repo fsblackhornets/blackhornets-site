@@ -9,7 +9,7 @@ export async function OurStorySection() {
 
 	return (
 		<section className="py-20 px-4">
-			<div className="max-w-[900px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+			<div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 				<div className="flex flex-col gap-8">
 					<div>
 						<h2 className="font-heading text-[clamp(2rem,5vw,3rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent mb-4">

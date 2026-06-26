@@ -8,6 +8,7 @@ export function useApplyForm() {
 	const [state, action, pending] = useActionState(applyAction, INITIAL_STATE);
 	const [fileName, setFileName] = useState("No file chosen");
 	const [academicYear, setAcademicYear] = useState("");
+	const [position, setPosition] = useState("");
 	const formRef = useRef<HTMLFormElement>(null);
 
 	useEffect(() => {
@@ -20,6 +21,7 @@ export function useApplyForm() {
 	const handleReset = () => {
 		setFileName("No file chosen");
 		setAcademicYear("");
+		setPosition("");
 	};
 
 	return {
@@ -30,6 +32,8 @@ export function useApplyForm() {
 		setFileName,
 		academicYear,
 		setAcademicYear,
+		position,
+		setPosition,
 		formRef,
 		handleReset,
 	};

@@ -48,7 +48,7 @@ export function HeroSection() {
 				<div className="flex gap-6 justify-center mt-8 flex-wrap">
 					<Link
 						href="/about"
-						className="inline-flex items-center gap-2 px-10 py-4 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-black transition-colors duration-300"
+						className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-primary text-black font-heading font-bold tracking-widest hover:bg-primary/90 transition-colors duration-300"
 					>
 						Discover More
 						<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>

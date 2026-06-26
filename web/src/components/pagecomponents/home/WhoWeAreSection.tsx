@@ -1,6 +1,6 @@
 export function WhoWeAreSection() {
 	return (
-		<section className="my-20 max-w-[1050px] mx-auto px-4">
+		<section className="my-20 max-w-7xl mx-auto px-4">
 			<div className="text-center mb-12">
 				<h2 className="font-heading text-[clamp(2rem,6vw,3.5rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
 					Who Are The Black Hornets

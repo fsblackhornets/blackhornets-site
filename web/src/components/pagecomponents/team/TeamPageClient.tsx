@@ -22,7 +22,7 @@ function LeaderHeroCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className="w-full bg-bg-panel rounded-2xl border border-primary/50 p-8 flex flex-col sm:flex-row gap-8 items-center hover:border-primary transition-colors duration-300 text-left"
+			className="w-full bg-bg-panel rounded-2xl border border-primary/50 p-8 flex flex-col sm:flex-row gap-8 items-center justify-center hover:border-primary transition-colors duration-300 text-left"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
 			{/* Photo */}
@@ -45,7 +45,7 @@ function LeaderHeroCard({
 			{/* Info */}
 			<div>
 				<p className="font-heading text-xs tracking-[4px] text-primary/60 uppercase mb-2">
-					Team Leader
+					Project Leader
 				</p>
 				<h3 className="font-heading text-[clamp(1.5rem,4vw,2.5rem)] text-primary font-bold">
 					{member.full_name}
@@ -82,14 +82,14 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 		<>
 			{/* Leadership */}
 			<section className="py-16 px-4">
-				<div className="max-w-[900px] mx-auto">
+				<div className="max-w-7xl mx-auto">
 					<h2 className="font-heading text-[clamp(1.5rem,4vw,2.5rem)] uppercase tracking-[3px] text-center bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent mb-12">
 						Team Leadership
 					</h2>
 
 					{/* Team Leader — big horizontal card */}
 					{data.team_leader && (
-						<div className="mb-12">
+						<div className="mb-12 max-w-3xl mx-auto">
 							<LeaderHeroCard member={data.team_leader} onClick={openMember} />
 						</div>
 					)}
@@ -115,7 +115,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 										key={key}
 										className={`bg-bg-panel rounded-2xl border p-6 flex flex-col gap-4 transition-colors ${info.accent}`}
 									>
-										<h3 className="font-heading text-primary text-sm tracking-widest uppercase text-center">
+										<h3 className="font-heading text-primary text-base font-bold tracking-wider uppercase text-center whitespace-nowrap">
 											{info.name}
 										</h3>
 
@@ -123,13 +123,13 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 											<div className="flex justify-center">
 												<MemberCard
 													member={pl}
-													position="Project Leader"
+													position="Department Leader"
 													onClick={openMember}
 												/>
 											</div>
 										)}
 
-										<div className="flex flex-wrap gap-2 justify-center">
+										<div className="flex flex-col gap-2 items-center">
 											{info.departments.map((dept) => (
 												<button
 													key={`${key}-${dept}`}
@@ -173,6 +173,29 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								</h3>
 							</div>
 
+							{(() => {
+								const pl = selectedTeam === "mechanical"
+									? data.mechanical_project_leader
+									: selectedTeam === "electrical"
+										? data.electrical_project_leader
+										: data.business_project_leader;
+								return pl ? (
+									<div className="mb-8">
+										<p className="font-heading text-xs tracking-[4px] text-primary/60 uppercase mb-4 text-center">
+											Department Leader
+										</p>
+										<div className="flex justify-center">
+											<MemberCard
+												member={pl}
+												position="Department Leader"
+												onClick={openMember}
+												size="lg"
+											/>
+										</div>
+									</div>
+								) : null;
+							})()}
+
 							{filteredMembers.length === 0 ? (
 								<p className="text-center text-text-gray py-12">
 									No members found.
@@ -185,14 +208,14 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 										{subLeaders.length > 0 && (
 											<div className="mb-8">
 												<p className="font-heading text-xs tracking-[4px] text-primary/60 uppercase mb-4 text-center">
-													Department Lead
+													Team Leader
 												</p>
 												<div className="flex flex-wrap gap-4 justify-center">
 													{subLeaders.map((member, i) => (
 														<MemberCard
 															key={`sub-${member.id}-${i}`}
 															member={member}
-															position="Sub Leader"
+															position="Team Leader"
 															onClick={openMember}
 															size="lg"
 														/>

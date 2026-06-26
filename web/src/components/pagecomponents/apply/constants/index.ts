@@ -1,3 +1,14 @@
+export const POSITION_OPTIONS = [
+	{ value: "Chassis & Aerodynamics", label: "Chassis & Aerodynamics" },
+	{ value: "Suspension & Steering", label: "Suspension & Steering" },
+	{ value: "Transmission & Braking", label: "Transmission & Braking" },
+	{ value: "High Voltage", label: "High Voltage" },
+	{ value: "Low Voltage", label: "Low Voltage" },
+	{ value: "Marketing", label: "Marketing" },
+	{ value: "Sponsorships", label: "Sponsorships" },
+	{ value: "Management", label: "Management" },
+] as const;
+
 export const YEAR_OPTIONS = [
 	{ value: "1", label: "First Year" },
 	{ value: "2", label: "Second Year" },

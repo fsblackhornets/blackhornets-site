@@ -1,42 +1,49 @@
+import {
+	FileText,
+	Handshake,
+	Home,
+	Images,
+	Inbox,
+	Mail,
+	Network,
+	Newspaper,
+	Users,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import type { DashboardStats } from "@/lib/api/admin";
 
-export const ADMIN_NAV = [
+export const ADMIN_NAV: {
+	section: string;
+	items: { href: string; Icon: LucideIcon; label: string }[];
+}[] = [
 	{
 		section: "Overview",
-		items: [{ href: "/admin", icon: "fas fa-home", label: "Dashboard" }],
+		items: [{ href: "/admin", Icon: Home, label: "Dashboard" }],
 	},
 	{
 		section: "Content",
 		items: [
-			{ href: "/admin/posts", icon: "fas fa-newspaper", label: "Posts" },
-			{ href: "/admin/gallery", icon: "fas fa-images", label: "Gallery" },
-			{ href: "/admin/sponsors", icon: "fas fa-handshake", label: "Sponsors" },
-			{
-				href: "/admin/projects",
-				icon: "fas fa-project-diagram",
-				label: "Projects",
-			},
+			{ href: "/admin/posts", Icon: Newspaper, label: "Posts" },
+			{ href: "/admin/gallery", Icon: Images, label: "Gallery" },
+			{ href: "/admin/sponsors", Icon: Handshake, label: "Sponsors" },
+			{ href: "/admin/projects", Icon: Network, label: "Projects" },
 		],
 	},
 	{
 		section: "Team",
 		items: [
-			{ href: "/admin/members", icon: "fas fa-users", label: "Members" },
-			{
-				href: "/admin/applications",
-				icon: "fas fa-file-alt",
-				label: "Applications",
-			},
+			{ href: "/admin/members", Icon: Users, label: "Members" },
+			{ href: "/admin/applications", Icon: FileText, label: "Applications" },
 		],
 	},
 	{
 		section: "Communication",
 		items: [
-			{ href: "/admin/messages", icon: "fas fa-envelope", label: "Messages" },
-			{ href: "/admin/requests", icon: "fas fa-inbox", label: "Requests" },
+			{ href: "/admin/messages", Icon: Mail, label: "Messages" },
+			{ href: "/admin/requests", Icon: Inbox, label: "Requests" },
 		],
 	},
-] as const;
+];
 
 export const TEAM_BREAKDOWN: {
 	key: keyof DashboardStats["team_members"];
