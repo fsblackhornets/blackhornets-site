@@ -26,7 +26,6 @@ export function ApplyForm() {
 		<form
 			ref={formRef}
 			action={action}
-			encType="multipart/form-data"
 			onReset={handleReset}
 			className="flex flex-col gap-8"
 		>

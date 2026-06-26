@@ -48,6 +48,7 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 							src={imageUrl}
 							alt={member.full_name}
 							fill
+							sizes="96px"
 							className="object-cover"
 						/>
 					) : (

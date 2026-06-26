@@ -53,12 +53,41 @@ export async function GET() {
 				asc(users.full_name),
 			);
 
-		const data = rows.map((r) => ({
+		const members = rows.map((r) => ({
 			...r,
 			profile_picture: r.profile_picture ?? "default.jpg",
 		}));
 
-		return NextResponse.json({ success: true, data });
+		const organized_data: Record<string, typeof members> = {
+			operating_business: members.filter((m) => m.team === "operating_business"),
+			mechanical: members.filter((m) => m.team === "mechanical"),
+			electrical: members.filter((m) => m.team === "electrical"),
+		};
+
+		const team_leader = members.find((m) => m.role === "team_leader") ?? null;
+		const mechanical_project_leader =
+			members.find(
+				(m) => m.role === "project_leader" && m.team === "mechanical",
+			) ?? null;
+		const electrical_project_leader =
+			members.find(
+				(m) => m.role === "project_leader" && m.team === "electrical",
+			) ?? null;
+		const business_project_leader =
+			members.find(
+				(m) =>
+					m.role === "project_leader" && m.team === "operating_business",
+			) ?? null;
+
+		return NextResponse.json({
+			success: true,
+			members,
+			organized_data,
+			team_leader,
+			mechanical_project_leader,
+			electrical_project_leader,
+			business_project_leader,
+		});
 	} catch {
 		return NextResponse.json(
 			{ success: false, message: "Server error" },

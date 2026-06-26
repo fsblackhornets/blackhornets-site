@@ -8,6 +8,7 @@ import { RequestReviewClient } from "./RequestReviewClient";
 interface Props {
 	params: Promise<{ id: string }>;
 }
+1;
 
 export async function generateMetadata({ params }: Props) {
 	const { id } = await params;

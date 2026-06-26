@@ -1,11 +1,12 @@
 "use client";
 
 import * as RadixSwitch from "@radix-ui/react-switch";
+import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface SwitchProps {
 	checked: boolean;
-	onCheckedChange: (checked: boolean) => void;
+	onCheckedChange?: (checked: boolean) => void;
 	disabled?: boolean;
 	className?: string;
 	label?: string;
@@ -18,10 +19,19 @@ export function Switch({
 	className,
 	label,
 }: SwitchProps) {
+	const ref = useRef<HTMLButtonElement>(null);
+
 	return (
 		<RadixSwitch.Root
+			ref={ref}
 			checked={checked}
-			onCheckedChange={onCheckedChange}
+			onCheckedChange={(val) => {
+				if (onCheckedChange) {
+					onCheckedChange(val);
+				} else {
+					ref.current?.closest("form")?.requestSubmit();
+				}
+			}}
 			disabled={disabled}
 			aria-label={label}
 			className={cn(

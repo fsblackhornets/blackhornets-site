@@ -40,6 +40,7 @@ export async function OurStorySection() {
 						src="/images/team-photo.jpg"
 						alt="Black Hornets Team"
 						fill
+						sizes="(max-width: 1024px) 100vw, 50vw"
 						className="object-cover"
 					/>
 				</div>

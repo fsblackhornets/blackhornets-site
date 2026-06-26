@@ -26,6 +26,7 @@ export function MemberCard({ member, onClick }: MemberCardProps) {
 								src={imageUrl}
 								alt={member.full_name}
 								fill
+								sizes="64px"
 								className="object-cover"
 							/>
 						) : (

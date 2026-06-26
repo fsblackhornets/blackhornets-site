@@ -1,4 +1,6 @@
-import { apiGet } from "@/lib/api-client";
+import { and, desc, eq } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { contentRequests } from "@/lib/db/schema";
 import type { ContentRequest } from "@/types/request";
 
 export async function fetchRequests(options: {
@@ -8,17 +10,35 @@ export async function fetchRequests(options: {
 	type?: string;
 }): Promise<ContentRequest[]> {
 	try {
-		const params = new URLSearchParams();
-		if (options.userId) params.set("_user_id", String(options.userId));
-		if (options.role) params.set("_role", options.role);
-		if (options.status) params.set("status", options.status);
-		if (options.type) params.set("type", options.type);
-		const query = params.toString();
-		const res = await apiGet<{ success: boolean; data: ContentRequest[] }>(
-			`requests${query ? `?${query}` : ""}`,
-			{ cache: "no-store" },
-		);
-		return res.data ?? [];
+		const conditions = [];
+
+		if (options.role !== "admin" && options.userId) {
+			conditions.push(eq(contentRequests.submitted_by, options.userId));
+		}
+		if (options.status && options.status !== "all") {
+			conditions.push(
+				eq(
+					contentRequests.status,
+					options.status as "pending" | "approved" | "declined",
+				),
+			);
+		}
+		if (options.type && options.type !== "all") {
+			conditions.push(
+				eq(
+					contentRequests.type,
+					options.type as "post" | "project" | "sponsor" | "member",
+				),
+			);
+		}
+
+		const rows = await db
+			.select()
+			.from(contentRequests)
+			.where(conditions.length ? and(...conditions) : undefined)
+			.orderBy(desc(contentRequests.created_at));
+
+		return rows as unknown as ContentRequest[];
 	} catch {
 		return [];
 	}
@@ -26,11 +46,12 @@ export async function fetchRequests(options: {
 
 export async function fetchRequest(id: number): Promise<ContentRequest | null> {
 	try {
-		const res = await apiGet<{ success: boolean; data: ContentRequest }>(
-			`requests/${id}`,
-			{ cache: "no-store" },
-		);
-		return res.data ?? null;
+		const [row] = await db
+			.select()
+			.from(contentRequests)
+			.where(eq(contentRequests.id, id))
+			.limit(1);
+		return (row as unknown as ContentRequest) ?? null;
 	} catch {
 		return null;
 	}

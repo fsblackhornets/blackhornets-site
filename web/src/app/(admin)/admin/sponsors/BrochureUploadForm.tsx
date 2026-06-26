@@ -14,7 +14,6 @@ export function BrochureUploadForm() {
 	return (
 		<form
 			action={action}
-			encType="multipart/form-data"
 			className="flex flex-col gap-4"
 		>
 			{state.error && (

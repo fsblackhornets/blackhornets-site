@@ -39,34 +39,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			async authorize(credentials) {
 				if (!credentials?.username || !credentials?.password) return null;
 
-				try {
-					const [user] = await db
-						.select()
-						.from(users)
-						.where(eq(users.username, credentials.username as string))
-						.limit(1);
+				const [user] = await db
+					.select()
+					.from(users)
+					.where(eq(users.username, credentials.username as string))
+					.limit(1);
 
-					if (!user) return null;
-					if (user.status !== "active") return null;
-					if (!["admin", "manager"].includes(user.role ?? "")) return null;
+				if (!user) return null;
+				if (user.status !== "active") return null;
+				if (!["admin", "manager"].includes(user.role ?? "")) return null;
 
-					const valid = await bcrypt.compare(
-						credentials.password as string,
-						user.password,
-					);
-					if (!valid) return null;
+				const valid = await bcrypt.compare(
+					credentials.password as string,
+					user.password,
+				);
+				if (!valid) return null;
 
-					return {
-						id: String(user.id),
-						name: user.full_name,
-						email: user.email,
-						role: user.role as UserRole,
-						full_name: user.full_name,
-						username: user.username,
-					};
-				} catch {
-					return null;
-				}
+				return {
+					id: String(user.id),
+					name: user.full_name,
+					email: user.email,
+					role: user.role as UserRole,
+					full_name: user.full_name,
+					username: user.username,
+				};
 			},
 		}),
 	],

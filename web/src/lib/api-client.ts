@@ -15,7 +15,7 @@ type FetchInit = RequestInit & {
 };
 
 export async function apiGet<T>(path: string, init?: FetchInit): Promise<T> {
-	const res = await fetch(`${BASE}/${path}`, { cache: "no-store", ...init });
+	const res = await fetch(`${BASE}/${path}`, init);
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;
 }

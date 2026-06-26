@@ -33,8 +33,9 @@ export function resolvePostContent(post: {
 	return post.content_en ?? post.content_sr ?? post.content ?? "";
 }
 
-export function formatDate(dateStr: string, locale = "en-US"): string {
-	return new Date(dateStr.replace(" ", "T")).toLocaleDateString(locale, {
+export function formatDate(dateStr: string | Date, locale = "en-US"): string {
+	const d = dateStr instanceof Date ? dateStr : new Date(dateStr.replace(" ", "T"));
+	return d.toLocaleDateString(locale, {
 		year: "numeric",
 		month: "long",
 		day: "numeric",

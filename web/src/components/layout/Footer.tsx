@@ -10,7 +10,7 @@ export function Footer() {
 					{/* Brand */}
 					<div className="footer-section brand flex flex-col gap-4">
 						<Image
-							src="/images/logo-text.png"
+							src="/images/logo.png"
 							alt="Black Hornets"
 							width={160}
 							height={48}

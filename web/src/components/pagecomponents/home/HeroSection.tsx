@@ -31,7 +31,7 @@ export function HeroSection() {
 						alt="Black Hornets Logo"
 						width={160}
 						height={160}
-						className="w-40 h-auto drop-shadow-[0_0_20px_rgba(255,215,0,0.4)] hover:scale-105 transition-transform duration-300"
+						className="drop-shadow-[0_0_20px_rgba(255,215,0,0.4)] hover:scale-105 transition-transform duration-300"
 						priority
 					/>
 				</div>
