@@ -125,7 +125,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 									{filteredMembers.map((member, i) => (
 										<MemberCard
-											key={member.id ?? i}
+											key={`${member.id}-${i}`}
 											member={member}
 											onClick={openMember}
 										/>
