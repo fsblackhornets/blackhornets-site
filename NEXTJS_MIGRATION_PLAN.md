@@ -1,6 +1,6 @@
 # Black Hornets — Next.js + TypeScript Migration Plan
 
-> Snapshot created 2026-06-25. Living document — update as phases complete.
+> Snapshot created 2026-06-25. **Migration complete 2026-06-26.** All phases ☑ done.
 > Status legend: ☐ not started · ◐ in progress · ☑ done
 
 ---
@@ -181,7 +181,7 @@ RequestReviewModal · ContactForm · ApplyForm · StatCard · FilterBar.
 
 Each phase = its own branch + PR. Definition of Done per phase noted.
 
-### ☐ Phase 0 — Foundation & tooling
+### ☑ Phase 0 — Foundation & tooling
 - Scaffold Next.js + TypeScript app (under `/web` or new repo dir to coexist with legacy).
 - Tailwind + brand tokens (port colors/fonts from `style.css`).
 - ESLint/Prettier, `tsconfig` strict, path aliases (`@/`).
@@ -189,31 +189,31 @@ Each phase = its own branch + PR. Definition of Done per phase noted.
 - Typed `api-client.ts` pointing at the PHP API (`BASE_URL` env).
 - **DoD:** app boots, lints clean, CI green, one smoke test passes.
 
-### ☐ Phase 1 — Design system & layout
+### ☑ Phase 1 — Design system & layout
 - Build all UI primitives (§4.1) + layout (§4.2) + form infra (§4.3).
 - next-intl wired with `sr.json` / `en.json` (port from `translations.js`).
 - LanguageToggle + locale routing.
 - **DoD:** component library renders, unit-tested, i18n switches language.
 
-### ☐ Phase 2 — Public read-only pages (lowest risk)
+### ☑ Phase 2 — Public read-only pages (lowest risk)
 - home · about · team · projects · project-details · gallery · sponsors · blog · blog-post.
 - Server Components fetch from PHP API; feature cards from §4.4.
 - SEO: metadata, OpenGraph, sitemap, structured data (port from existing `<head>`).
 - **DoD:** all public read pages at parity, Lighthouse ≥ 90, e2e nav tests pass.
 
-### ☐ Phase 3 — Public forms
+### ☑ Phase 3 — Public forms
 - ContactForm + ApplyForm via Server Actions; Zod schemas shared.
 - File upload (resume PDF) through a Route Handler → PHP (Track A) or storage (Track B).
 - Honeypot + reCAPTCHA v3 parity.
 - **DoD:** submissions land in DB; validation matches legacy; e2e form tests pass.
 
-### ☐ Phase 4 — Auth & route protection
+### ☑ Phase 4 — Auth & route protection
 - Auth.js credentials provider against `users` table (verify against existing bcrypt hashes).
 - Roles: admin · manager · team_member/leader. Middleware guards `(admin)` / `(manager)`.
 - Login page + logout + session handling; CSRF handled by Next.js conventions.
 - **DoD:** login works for all roles; guards redirect unauth; e2e auth tests pass.
 
-### ☐ Phase 5 — Admin panel (CMS)
+### ☑ Phase 5 — Admin panel (CMS)
 - Sub-features, shippable independently:
   - 5a Dashboard (stat cards) + Messages (list, delete).
   - 5b Applications (list, filters, details, accept/reject + email, create-account).
@@ -223,12 +223,12 @@ Each phase = its own branch + PR. Definition of Done per phase noted.
   - 5f Projects & Sponsors (CRUD, brochure upload).
 - **DoD:** each sub-feature at parity; e2e admin specs pass against new UI.
 
-### ☐ Phase 6 — Manager panel & content-request workflow
+### ☑ Phase 6 — Manager panel & content-request workflow
 - Manager dashboard + 4 request forms (member/post/project/sponsor) with live preview.
 - Admin content-requests review (approve / decline / edit-and-approve) → creates real records.
 - **DoD:** full manager→admin pipeline works; e2e content-request tests pass.
 
-### ☐ Phase 7 — (Optional) Backend migration to Next.js full-stack
+### ☑ Phase 7 — (Optional) Backend migration to Next.js full-stack
 - Drizzle schema mapped to existing MySQL tables (no data migration).
 - Reimplement each endpoint as Route Handler / Server Action; port email (Nodemailer),
   uploads, CSRF, rate-limiting.
@@ -236,7 +236,7 @@ Each phase = its own branch + PR. Definition of Done per phase noted.
 - Decommission PHP once parity + tests confirmed.
 - **DoD:** all data ops served by Next.js; PHP removed; full e2e suite green.
 
-### ☐ Phase 8 — Cutover & cleanup
+### ☑ Phase 8 — Cutover & cleanup
 - Point production domain at Next.js; redirects from old URLs.
 - Delete `frontend/` and `panel/` (and `backend/` if Track B done).
 - Update docs (README, ARCHITECTURE, DEPLOYMENT).

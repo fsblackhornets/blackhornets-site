@@ -1,5 +1,0 @@
--- Run this to create a test manager account
--- Then run: php backend/database/seed_manager.php
--- Login at: /frontend/admin/login.php
--- Username: manager
--- Password: Manager123!
