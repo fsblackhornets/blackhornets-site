@@ -15,9 +15,10 @@ export function ApplyButton({ className = "", onClick }: ApplyButtonProps) {
 	return (
 		<Button
 			variant="secondary"
+			size="sm"
 			href="/apply"
 			onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
-			className={`${isActive ? "bg-primary text-bg-dark active" : ""} ${className}`}
+			className={`${isActive ? "bg-primary/20 active" : ""} ${className}`}
 		>
 			<i className="fas fa-user-plus" aria-hidden="true" />
 			Apply

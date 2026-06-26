@@ -26,13 +26,14 @@ export function Navbar() {
 						width={48}
 						height={48}
 						className="nav-logo h-10 w-auto"
+						style={{ filter: "brightness(0) saturate(100%) invert(87%) sepia(69%) saturate(1009%) hue-rotate(356deg) brightness(104%) contrast(101%)" }}
 						priority
 					/>
 				</Link>
 
 				{/* Desktop links */}
 				<div className="nav-links hidden md:flex items-center gap-1">
-					{NAV_LINKS.map(({ href, label, icon }) => (
+					{NAV_LINKS.map(({ href, label, Icon }) => (
 						<Link
 							key={href}
 							href={href}
@@ -43,14 +44,14 @@ export function Navbar() {
 										: "text-text-light hover:text-primary hover:bg-primary/5"
 								}`}
 						>
-							<i className={icon} aria-hidden="true" />
+							<Icon className="w-4 h-4 shrink-0" />
 							{label}
 						</Link>
 					))}
 				</div>
 
 				{/* Apply CTA */}
-				<ApplyButton className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm shrink-0" />
+				<ApplyButton className="hidden md:flex shrink-0" />
 
 				{/* Mobile toggle */}
 				<button
@@ -74,7 +75,7 @@ export function Navbar() {
 			{/* Mobile menu */}
 			{open && (
 				<div className="md:hidden bg-bg-panel border-t border-gray-mid px-4 py-4 flex flex-col gap-2">
-					{NAV_LINKS.map(({ href, label, icon }) => (
+					{NAV_LINKS.map(({ href, label, Icon }) => (
 						<Link
 							key={href}
 							href={href}
@@ -82,7 +83,7 @@ export function Navbar() {
 							className={`nav-link px-3 py-2 rounded-lg font-body flex items-center gap-2
                 ${pathname.startsWith(href) ? "text-primary bg-primary/10" : "text-text-light"}`}
 						>
-							<i className={icon} aria-hidden="true" />
+							<Icon className="w-4 h-4 shrink-0" />
 							{label}
 						</Link>
 					))}
