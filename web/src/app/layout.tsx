@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Michroma, Poppins, Rajdhani } from "next/font/google";
 import { Toaster } from "sonner";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 
 const michroma = Michroma({

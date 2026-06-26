@@ -13,7 +13,7 @@ export const BUTTON_VARIANT_CLASSES: Record<ButtonVariant, string> = {
 	primary:
 		"bg-primary text-bg-dark font-semibold hover:bg-yellow-300 disabled:opacity-60",
 	secondary:
-		"border-2 border-primary text-primary hover:bg-primary hover:text-bg-dark disabled:opacity-60",
+		"border-2 border-primary text-primary hover:bg-primary/15 disabled:opacity-60",
 	ghost: "text-primary hover:bg-primary/10 disabled:opacity-60",
 	danger:
 		"bg-red-600 text-white font-semibold hover:bg-red-700 disabled:opacity-60",
