@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { SearchIcon } from "@/components/icons/SearchIcon";
 import { useBlogFilter } from "@/hooks/blog/useBlogFilter";
 import type { Post } from "@/types/post";
 import { BlogPostCard } from "./components/BlogPostCard";
@@ -32,21 +33,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 					className="flex bg-bg-panel border border-[#242424] overflow-hidden"
 				>
 					<div className="flex items-center gap-3 flex-1 px-4">
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="rgba(255,215,0,.35)"
-							strokeWidth={2}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-							className="shrink-0"
-						>
-							<circle cx="11" cy="11" r="8" />
-							<line x1="21" y1="21" x2="16.65" y2="16.65" />
-						</svg>
+						<SearchIcon className="w-[14px] h-[14px] shrink-0 text-[rgba(255,215,0,.35)]" />
 						<input
 							type="text"
 							value={search}

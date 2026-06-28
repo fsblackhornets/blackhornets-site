@@ -55,4 +55,4 @@ export const SPINNER_SIZE_CLASSES: Record<SpinnerSize, string> = {
 };
 
 export const INPUT_BASE_CLS =
-	"bg-bg-dark border border-gray-mid rounded-lg px-4 py-2.5 text-text-light placeholder:text-text-gray outline-none focus:border-primary transition-colors text-sm w-full";
+	"bg-[#0e0e0e] border border-[#2a2a2a] rounded-none px-3 py-2.5 text-[10px] font-body text-[#e0e0e0] placeholder:text-[#333] focus:border-primary focus:ring-1 focus:ring-primary/10 outline-none transition-colors w-full";

@@ -1,12 +1,9 @@
-import { cn } from "@/lib/utils";
-import { Button } from "./Button";
-import { Spinner } from "./Spinner";
+import { ParaButton } from "./ParaButton";
 
 interface SubmitButtonProps {
 	pending: boolean;
 	label: string;
 	pendingLabel?: string;
-	icon?: string;
 	className?: string;
 }
 
@@ -14,26 +11,43 @@ export function SubmitButton({
 	pending,
 	label,
 	pendingLabel = "Submitting…",
-	icon,
 	className,
 }: SubmitButtonProps) {
 	return (
-		<Button
+		<ParaButton
 			type="submit"
+			size="lg"
+			variant="solid"
 			disabled={pending}
-			className={cn("w-full", className)}
+			className={className}
 		>
 			{pending ? (
 				<>
-					<Spinner size="sm" />
+					<span
+						className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin"
+						aria-hidden="true"
+					/>
 					{pendingLabel}
 				</>
 			) : (
 				<>
-					{icon && <i className={icon} aria-hidden="true" />}
+					<svg
+						width="13"
+						height="13"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth={2}
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+					>
+						<line x1="22" y1="2" x2="11" y2="13" />
+						<polygon points="22 2 15 22 11 13 2 9 22 2" />
+					</svg>
 					{label}
 				</>
 			)}
-		</Button>
+		</ParaButton>
 	);
 }
