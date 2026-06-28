@@ -10,11 +10,24 @@ export async function CurrentSponsorsSection() {
 	return (
 		<section className="py-20 px-4">
 			<div className="max-w-screen-2xl mx-auto">
-				<div className="text-center mb-12">
-					<h2 className="font-heading text-[clamp(2rem,5vw,3rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-						Our Sponsors
+				{/* Section header */}
+				<div className="mb-12">
+					<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary block mb-2">
+						Partners
+					</span>
+					<h2 className="font-heading font-black text-white text-2xl leading-tight">
+						Our{" "}
+						<span
+							style={{
+								background: "linear-gradient(90deg, #ffd700, #ffc107)",
+								WebkitBackgroundClip: "text",
+								WebkitTextFillColor: "transparent",
+								backgroundClip: "text",
+							}}
+						>
+							Sponsors
+						</span>
 					</h2>
-					<div className="w-16 h-0.5 bg-primary mx-auto mt-3" />
 				</div>
 
 				{hasSponsors ? (
@@ -22,15 +35,28 @@ export async function CurrentSponsorsSection() {
 						<TierGroup key={tier} tier={tier} sponsors={grouped[tier]} />
 					))
 				) : (
-					<div className="text-center py-16 text-text-gray">
-						<i
-							className="fas fa-clock text-4xl text-primary mb-4 block"
+					<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 text-center">
+						<svg
+							width="40"
+							height="40"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="rgba(255,215,0,.4)"
+							strokeWidth={1.5}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							className="mx-auto mb-4"
 							aria-hidden="true"
-						/>
-						<h3 className="font-heading text-xl text-primary mb-2">
+						>
+							<circle cx="12" cy="12" r="10" />
+							<polyline points="12 6 12 12 16 14" />
+						</svg>
+						<p className="font-heading text-[13px] tracking-[3px] uppercase text-primary mb-2">
 							Coming Soon
-						</h3>
-						<p>Partnerships being confirmed. Stay tuned!</p>
+						</p>
+						<p className="font-body text-text-gray text-sm">
+							Partnerships being confirmed. Stay tuned!
+						</p>
 					</div>
 				)}
 			</div>
