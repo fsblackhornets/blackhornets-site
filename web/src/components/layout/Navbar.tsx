@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useScrolled } from "@/hooks/useScrolled";
-import { ApplyButton } from "./components/ApplyButton";
 import { NAV_LINKS } from "./constants";
 
 export function Navbar() {
@@ -14,51 +13,88 @@ export function Navbar() {
 	const scrolled = useScrolled(20);
 
 	return (
-		<header className={`main-header sticky top-0 z-50 backdrop-blur border-b border-gray-mid transition-all duration-300 ${scrolled ? "bg-bg-dark/95 shadow-lg" : "bg-bg-dark/90"}`}>
-			<nav className={`navbar max-w-screen-2xl mx-auto px-4 flex items-center justify-between gap-4 transition-all duration-300 ${scrolled ? "h-[52px]" : "h-[70px]"}`}>
+		<header
+			className="sticky top-0 z-50 backdrop-blur transition-all duration-300"
+			style={{
+				background: scrolled ? "rgba(17,17,17,0.97)" : "rgba(17,17,17,0.90)",
+				borderBottom: "1px solid #2c2c2c",
+			}}
+		>
+			{/* Racing stripe */}
+			<div className="flex w-full" style={{ height: "3px" }}>
+				<div style={{ flex: 1, background: "#ffd700" }} />
+				<div style={{ flex: 0.12, background: "#080808" }} />
+				<div style={{ flex: 0.05, background: "#ffd700" }} />
+			</div>
+
+			<nav
+				className={`max-w-screen-2xl mx-auto px-4 flex items-center justify-between gap-4 transition-all duration-300 ${
+					scrolled ? "h-[48px]" : "h-[64px]"
+				}`}
+			>
 				{/* Brand */}
 				<Link
 					href="/"
-					className="nav-brand shrink-0"
+					className="shrink-0"
 					onClick={() => setOpen(false)}
 				>
 					<Image
-						src="/images/logo.png"
+						src="/images/stiker.png"
 						alt="Black Hornets Logo"
 						width={48}
 						height={48}
-						className="nav-logo h-10 w-auto"
-						style={{ filter: "brightness(0) saturate(100%) invert(87%) sepia(69%) saturate(1009%) hue-rotate(356deg) brightness(104%) contrast(101%)" }}
+						className="h-10 w-auto drop-shadow-[0_0_12px_rgba(255,215,0,0.35)] hover:scale-105 transition-transform duration-300"
 						priority
 					/>
 				</Link>
 
 				{/* Desktop links */}
-				<div className="nav-links hidden md:flex items-center gap-1">
-					{NAV_LINKS.map(({ href, label, Icon }) => (
-						<Link
-							key={href}
-							href={href}
-							className={`nav-link px-3 py-1.5 rounded-lg text-sm font-body font-medium transition-colors flex items-center gap-1.5
-                ${
-									pathname.startsWith(href)
-										? "text-primary bg-primary/10 active"
-										: "text-text-light hover:text-primary hover:bg-primary/5"
-								}`}
-						>
-							<Icon className="w-4 h-4 shrink-0" />
-							{label}
-						</Link>
-					))}
+				<div className="hidden md:flex items-center gap-6">
+					<Link
+						href="/"
+						className="font-body text-sm transition-colors pb-0.5"
+						style={{
+							color: pathname === "/" ? "#ffd700" : "#aaaaaa",
+							borderBottom: pathname === "/" ? "1.5px solid #ffd700" : "1.5px solid transparent",
+						}}
+					>
+						Home
+					</Link>
+					{NAV_LINKS.map(({ href, label }) => {
+						const active = pathname.startsWith(href);
+						return (
+							<Link
+								key={href}
+								href={href}
+								className="font-body text-sm transition-colors pb-0.5"
+								style={{
+									color: active ? "#ffd700" : "#aaaaaa",
+									borderBottom: active
+										? "1.5px solid #ffd700"
+										: "1.5px solid transparent",
+								}}
+							>
+								{label}
+							</Link>
+						);
+					})}
 				</div>
 
-				{/* Apply CTA */}
-				<ApplyButton className="hidden md:flex shrink-0" />
+				{/* CTA */}
+				<Link
+					href="/apply"
+					className="hidden md:inline-flex items-center px-6 py-2 font-heading font-bold text-black text-xs tracking-widest bg-primary shrink-0 hover:bg-yellow-400 transition-colors duration-300 ml-6"
+					style={{
+						clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+					}}
+				>
+					Apply Now
+				</Link>
 
 				{/* Mobile toggle */}
 				<button
 					type="button"
-					className="mobile-toggle md:hidden flex flex-col gap-1.5 p-2"
+					className="md:hidden flex flex-col gap-1.5 p-2"
 					aria-label={open ? "Close menu" : "Open menu"}
 					onClick={() => setOpen((v) => !v)}
 				>
@@ -77,25 +113,56 @@ export function Navbar() {
 			{/* Mobile menu */}
 			<div
 				className="md:hidden overflow-hidden transition-all duration-300"
-				style={{ maxHeight: open ? "400px" : "0px" }}
+				style={{ maxHeight: open ? "500px" : "0px" }}
 			>
-				<div className="bg-bg-panel border-t border-gray-mid px-4 py-4 flex flex-col gap-2">
-					{NAV_LINKS.map(({ href, label, Icon }) => (
-						<Link
-							key={href}
-							href={href}
-							onClick={() => setOpen(false)}
-							className={`nav-link px-3 py-2 rounded-lg font-body flex items-center gap-2
-                ${pathname.startsWith(href) ? "text-primary bg-primary/10" : "text-text-light"}`}
-						>
-							<Icon className="w-4 h-4 shrink-0" />
-							{label}
-						</Link>
-					))}
-					<ApplyButton
-						className="mt-2 px-3 py-2 text-center"
+				<div
+					className="px-4 py-4 flex flex-col gap-1"
+					style={{ background: "#1a1a1a", borderTop: "1px solid #2c2c2c" }}
+				>
+					<Link
+						href="/"
 						onClick={() => setOpen(false)}
-					/>
+						className="flex items-center justify-between py-2.5 font-body text-sm transition-colors"
+						style={{
+							color: pathname === "/" ? "#ffd700" : "#aaaaaa",
+							borderLeft: pathname === "/" ? "2px solid #ffd700" : "2px solid transparent",
+							paddingLeft: "12px",
+						}}
+					>
+						Home
+						<span style={{ color: "#ffd700", fontSize: "1rem" }}>›</span>
+					</Link>
+					{NAV_LINKS.map(({ href, label }) => {
+						const active = pathname.startsWith(href);
+						return (
+							<Link
+								key={href}
+								href={href}
+								onClick={() => setOpen(false)}
+								className="flex items-center justify-between py-2.5 font-body text-sm transition-colors"
+								style={{
+									color: active ? "#ffd700" : "#aaaaaa",
+									borderLeft: active
+										? "2px solid #ffd700"
+										: "2px solid transparent",
+									paddingLeft: "12px",
+								}}
+							>
+								{label}
+								<span style={{ color: "#ffd700", fontSize: "1rem" }}>›</span>
+							</Link>
+						);
+					})}
+					<Link
+						href="/apply"
+						onClick={() => setOpen(false)}
+						className="mt-3 flex items-center justify-center py-3 font-heading font-bold text-black text-xs tracking-widest bg-primary hover:bg-yellow-400 transition-colors duration-300"
+						style={{
+							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+						}}
+					>
+						Apply Now
+					</Link>
 				</div>
 			</div>
 		</header>

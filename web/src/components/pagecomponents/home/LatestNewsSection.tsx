@@ -5,27 +5,47 @@ import { NewsListSkeleton } from "./components/NewsListSkeleton";
 
 export function LatestNewsSection() {
 	return (
-		<section className="my-20 py-10 px-10 bg-bg-panel rounded-3xl max-w-screen-2xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-			<div className="text-center mb-8">
-				<h2 className="font-heading text-[clamp(2rem,6vw,3.5rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-					Latest News
-				</h2>
-				<div className="w-16 h-0.5 bg-primary mx-auto mt-3" />
-			</div>
+		<section
+			className="my-20 max-w-screen-2xl mx-auto"
+			style={{ borderTop: "3px solid #ffd700" }}
+		>
+			<div className="py-10">
+				<div className="mb-10">
+					<h2
+						className="font-heading uppercase text-text-light"
+						style={{
+							fontSize: "clamp(2rem, 6vw, 3.5rem)",
+							letterSpacing: "0.2em",
+						}}
+					>
+						Latest News
+					</h2>
+					<div
+						style={{
+							width: "64px",
+							height: "2px",
+							background: "#ffd700",
+							marginTop: "12px",
+						}}
+					/>
+				</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 				<Suspense fallback={<NewsListSkeleton />}>
 					<NewsList />
 				</Suspense>
-			</div>
 
-			<div className="text-center mt-8">
-				<Link
-					href="/blog"
-					className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-bg-dark transition-colors duration-300"
-				>
-					More News
-				</Link>
+				<div className="text-center mt-10">
+					<Link
+						href="/blog"
+						className="inline-flex items-center gap-2 px-8 py-3 font-heading font-bold tracking-widest text-primary hover:bg-primary hover:text-black transition-colors duration-300"
+						style={{
+							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+							border: "2px solid #ffd700",
+						}}
+					>
+						More News
+					</Link>
+				</div>
 			</div>
 		</section>
 	);
