@@ -1,9 +1,14 @@
-import { cn } from "@/lib/utils";
-import {
-	BADGE_VARIANT_CLASSES,
-	type BadgeVariant,
-	STATUS_VARIANT_MAP,
-} from "../constants";
+import { type BadgeVariant, STATUS_VARIANT_MAP } from "../constants";
+import { ParaBadge, type ParaBadgeVariant } from "./ParaBadge";
+
+const VARIANT_MAP: Record<BadgeVariant, ParaBadgeVariant> = {
+	default: "gray",
+	success: "green",
+	warning: "orange",
+	danger: "gray",
+	info: "blue",
+	gold: "gold",
+};
 
 interface BadgeProps {
 	children: React.ReactNode;
@@ -17,15 +22,9 @@ export function Badge({
 	className,
 }: BadgeProps) {
 	return (
-		<span
-			className={cn(
-				"inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide",
-				BADGE_VARIANT_CLASSES[variant],
-				className,
-			)}
-		>
+		<ParaBadge variant={VARIANT_MAP[variant]} className={className}>
 			{children}
-		</span>
+		</ParaBadge>
 	);
 }
 
