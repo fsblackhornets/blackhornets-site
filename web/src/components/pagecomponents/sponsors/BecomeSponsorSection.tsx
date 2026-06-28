@@ -1,33 +1,81 @@
 export function BecomeSponsorSection() {
 	return (
-		<section className="py-20 px-4 bg-bg-panel">
-			<div className="max-w-screen-2xl mx-auto text-center flex flex-col items-center gap-8">
-				<div>
-					<h2 className="font-heading text-[clamp(2rem,5vw,3rem)] uppercase tracking-[3px] bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent mb-4">
-						Become a Sponsor
+		<section className="py-20 px-4 bg-[#0b0b0b] border-t-[3px] border-primary">
+			<div className="max-w-screen-2xl mx-auto flex flex-col items-center gap-8">
+				{/* Section header */}
+				<div className="text-center">
+					<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary block mb-2">
+						Partnership
+					</span>
+					<h2 className="font-heading font-black text-white text-2xl leading-tight">
+						Become a{" "}
+						<span
+							style={{
+								background: "linear-gradient(90deg, #ffd700, #ffc107)",
+								WebkitBackgroundClip: "text",
+								WebkitTextFillColor: "transparent",
+								backgroundClip: "text",
+							}}
+						>
+							Sponsor
+						</span>
 					</h2>
-					<p className="text-text-gray leading-relaxed max-w-2xl mx-auto">
-						If you want to share our vision and invest in the potential of young
-						ambitious people, in our partner brochure you can find out how to
-						become a sponsor.
-					</p>
 				</div>
+
+				<p className="font-body text-[10px] leading-[1.9] text-[#666] max-w-2xl mx-auto text-center">
+					If you want to share our vision and invest in the potential of young
+					ambitious people, in our partner brochure you can find out how to
+					become a sponsor.
+				</p>
 
 				<div className="flex gap-4 flex-wrap justify-center">
 					<a
 						href="/files/brochure.pdf"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-bg-dark font-heading font-bold tracking-widest border-2 border-primary hover:bg-transparent hover:text-primary transition-colors duration-300"
+						style={{
+							clipPath: "polygon(0 0, calc(100% - 9px) 0, 100% 100%, 9px 100%)",
+						}}
+						className="inline-flex items-center gap-2 px-8 py-3.5 bg-primary text-bg-dark font-heading text-[9px] tracking-[3px] uppercase hover:bg-yellow-300 transition-colors"
 					>
-						<i className="fas fa-download" aria-hidden="true" />
+						<svg
+							width="12"
+							height="12"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth={2}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+							<polyline points="7 10 12 15 17 10" />
+							<line x1="12" y1="15" x2="12" y2="3" />
+						</svg>
 						Partner Brochure
 					</a>
 					<a
 						href="mailto:formulastudentftn@gmail.com"
-						className="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-heading font-bold tracking-widest hover:bg-primary hover:text-bg-dark transition-colors duration-300"
+						style={{
+							clipPath: "polygon(0 0, calc(100% - 9px) 0, 100% 100%, 9px 100%)",
+						}}
+						className="inline-flex items-center gap-2 px-8 py-3.5 border border-primary text-primary font-heading text-[9px] tracking-[3px] uppercase hover:bg-primary hover:text-bg-dark transition-colors"
 					>
-						<i className="fas fa-envelope" aria-hidden="true" />
+						<svg
+							width="12"
+							height="12"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth={2}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
+						>
+							<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+							<polyline points="22,6 12,13 2,6" />
+						</svg>
 						Contact Us
 					</a>
 				</div>
