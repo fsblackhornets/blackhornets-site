@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import type { Project } from "@/types/project";
 import { ProjectCard } from "./ProjectCard";
@@ -35,17 +34,23 @@ export function PaginatedProjects({ projects }: { projects: Project[] }) {
 		<div ref={sectionRef}>
 			{/* Divider */}
 			<div className="flex items-center gap-4 mb-8">
-				<div className="flex-1 h-px bg-gray-mid" />
-				<span className="font-heading text-xs tracking-[4px] text-text-gray uppercase">
+				<div className="flex-1 h-px bg-[#1c1c1c]" />
+				<span
+					className="font-heading text-xs tracking-[4px] uppercase"
+					style={{ color: "#333" }}
+				>
 					More Projects
 				</span>
-				<div className="flex-1 h-px bg-gray-mid" />
+				<div className="flex-1 h-px bg-[#1c1c1c]" />
 			</div>
 
 			{/* Grid with fade */}
 			<div
 				className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-200"
-				style={{ opacity: fading ? 0 : 1, transform: fading ? "translateY(8px)" : "translateY(0)" }}
+				style={{
+					opacity: fading ? 0 : 1,
+					transform: fading ? "translateY(8px)" : "translateY(0)",
+				}}
 			>
 				{visible.map((project) => (
 					<ProjectCard key={project.id} project={project} />
@@ -55,37 +60,67 @@ export function PaginatedProjects({ projects }: { projects: Project[] }) {
 			{/* Pagination */}
 			{totalPages > 1 && (
 				<div className="flex items-center justify-center gap-2 mt-10">
+					{/* Prev */}
 					<button
 						type="button"
 						onClick={() => goTo(page - 1)}
 						disabled={page === 1}
-						className="p-2 rounded-lg border border-gray-mid text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+						className="w-[30px] h-[30px] flex items-center justify-center border border-[#222] text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
 					>
-						<ChevronLeft className="w-4 h-4" />
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth={2.5}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
+						>
+							<polyline points="15 18 9 12 15 6" />
+						</svg>
 					</button>
 
+					{/* Page numbers */}
 					{pages.map((p) => (
 						<button
 							key={p}
 							type="button"
 							onClick={() => goTo(p)}
-							className={`w-9 h-9 flex items-center justify-center rounded-lg border text-sm font-heading transition-colors ${
-								p === page
-									? "border-primary bg-primary/10 text-primary"
-									: "border-gray-mid text-text-gray hover:border-primary hover:text-primary"
-							}`}
+							className="w-9 h-9 flex items-center justify-center text-sm font-heading transition-colors"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+								background: p === page ? "rgba(255,215,0,0.10)" : "transparent",
+								border: `1px solid ${p === page ? "#ffd700" : "#222"}`,
+								color: p === page ? "#ffd700" : "#555",
+							}}
 						>
 							{p}
 						</button>
 					))}
 
+					{/* Next */}
 					<button
 						type="button"
 						onClick={() => goTo(page + 1)}
 						disabled={page === totalPages}
-						className="p-2 rounded-lg border border-gray-mid text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
+						className="w-[30px] h-[30px] flex items-center justify-center border border-[#222] text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
 					>
-						<ChevronRight className="w-4 h-4" />
+						<svg
+							width="14"
+							height="14"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth={2.5}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
+						>
+							<polyline points="9 18 15 12 9 6" />
+						</svg>
 					</button>
 				</div>
 			)}
