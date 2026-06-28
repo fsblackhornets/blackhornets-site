@@ -32,63 +32,124 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 			onKeyDown={(e) => {
 				if (e.key === "Escape") onClose();
 			}}
-			className="fixed inset-0 z-50 m-auto bg-bg-panel rounded-2xl border border-gray-mid max-w-lg w-full p-8 backdrop:bg-black/80 backdrop:backdrop-blur-sm"
+			className="fixed inset-0 z-50 m-auto bg-bg-panel rounded-sm border border-gray-mid max-w-lg w-full p-0 backdrop:bg-black/80 backdrop:backdrop-blur-sm overflow-hidden"
 		>
-			<button
-				type="button"
-				onClick={onClose}
-				className="absolute top-4 right-4 text-text-gray hover:text-primary transition-colors"
-				aria-label="Close"
-			>
-				<i className="fas fa-times text-xl" aria-hidden="true" />
-			</button>
-
-			<div className="flex gap-6 items-start">
-				<div className="w-24 h-24 rounded-full overflow-hidden border-2 border-primary/50 shrink-0 bg-primary/20 flex items-center justify-center">
-					{imageUrl && !imgError ? (
-						// eslint-disable-next-line @next/next/no-img-element
-						<img
-							src={imageUrl}
-							alt={member.full_name}
-							className="w-full h-full object-cover"
-							onError={() => setImgError(true)}
-						/>
-					) : (
-						<span className="text-primary font-heading text-3xl font-bold">
-							{member.full_name.charAt(0)}
-						</span>
-					)}
-				</div>
-
-				<div className="flex flex-col gap-1">
-					<h2 className="font-heading text-xl text-primary">
-						{member.full_name}
-					</h2>
-					<p className="text-text-gray text-sm capitalize">
-						{member.role.replace(/_/g, " ")}
-					</p>
-				</div>
+			{/* Racing stripe */}
+			<div className="flex h-[3px]">
+				<div className="flex-1 bg-primary" />
+				<div className="w-12 bg-bg-dark" />
+				<div className="w-5 bg-primary" />
 			</div>
 
-			<div className="mt-6 flex flex-col gap-3">
-				{member.department_name && (
-					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i className="fas fa-sitemap text-primary w-4" aria-hidden="true" />
-						{member.department_name}
+			<div className="p-8 relative">
+				{/* Close button */}
+				<button
+					type="button"
+					onClick={onClose}
+					className="absolute top-4 right-4 w-[26px] h-[26px] rounded-full border border-gray-dark flex items-center justify-center text-text-gray hover:text-primary hover:border-primary transition-colors"
+					aria-label="Close"
+				>
+					<i className="fas fa-times text-xs" aria-hidden="true" />
+				</button>
+
+				{/* Photo + name */}
+				<div className="flex gap-5 items-center">
+					<div className="w-20 h-20 rounded-full overflow-hidden border border-primary/50 shrink-0 bg-primary/20 flex items-center justify-center">
+						{imageUrl && !imgError ? (
+							// biome-ignore lint/performance/noImgElement: onError handler required
+							<img
+								src={imageUrl}
+								alt={member.full_name}
+								className="w-full h-full object-cover"
+								onError={() => setImgError(true)}
+							/>
+						) : (
+							<span className="text-primary font-heading text-2xl font-bold">
+								{member.full_name.charAt(0)}
+							</span>
+						)}
 					</div>
-				)}
-				{member.faculty && (
-					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i className="fas fa-university text-primary w-4" aria-hidden="true" />
-						{member.faculty}
+					<div className="flex flex-col gap-2">
+						<h2 className="font-heading text-lg text-primary">
+							{member.full_name}
+						</h2>
+						<span
+							className="inline-flex self-start px-2.5 py-1 font-heading text-[7px] tracking-[2px] uppercase text-primary bg-primary/10"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
+						>
+							{member.role.replace(/_/g, " ")}
+						</span>
 					</div>
-				)}
-				{member.study_field && (
-					<div className="flex items-center gap-3 text-sm text-text-gray">
-						<i className="fas fa-graduation-cap text-primary w-4" aria-hidden="true" />
-						{member.study_field}
-					</div>
-				)}
+				</div>
+
+				{/* Gold divider */}
+				<div
+					className="h-px mt-6 mb-6"
+					style={{
+						background: "linear-gradient(90deg, #ffd700, rgba(255,215,0,0.1))",
+					}}
+				/>
+
+				{/* Detail rows */}
+				<div className="flex flex-col gap-4">
+					{member.department_name && (
+						<div className="flex items-center gap-4">
+							<div className="w-7 h-7 rounded-full border border-primary/20 flex items-center justify-center shrink-0">
+								<i
+									className="fas fa-sitemap text-primary text-xs"
+									aria-hidden="true"
+								/>
+							</div>
+							<div>
+								<p className="font-heading text-[7px] tracking-[2px] uppercase text-text-gray mb-0.5">
+									Department
+								</p>
+								<p className="font-body text-sm text-text-light">
+									{member.department_name}
+								</p>
+							</div>
+						</div>
+					)}
+					{member.faculty && (
+						<div className="flex items-center gap-4">
+							<div className="w-7 h-7 rounded-full border border-primary/20 flex items-center justify-center shrink-0">
+								<i
+									className="fas fa-university text-primary text-xs"
+									aria-hidden="true"
+								/>
+							</div>
+							<div>
+								<p className="font-heading text-[7px] tracking-[2px] uppercase text-text-gray mb-0.5">
+									Faculty
+								</p>
+								<p className="font-body text-sm text-text-light">
+									{member.faculty}
+								</p>
+							</div>
+						</div>
+					)}
+					{member.study_field && (
+						<div className="flex items-center gap-4">
+							<div className="w-7 h-7 rounded-full border border-primary/20 flex items-center justify-center shrink-0">
+								<i
+									className="fas fa-graduation-cap text-primary text-xs"
+									aria-hidden="true"
+								/>
+							</div>
+							<div>
+								<p className="font-heading text-[7px] tracking-[2px] uppercase text-text-gray mb-0.5">
+									Study Field
+								</p>
+								<p className="font-body text-sm text-text-light">
+									{member.study_field}
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		</dialog>
 	);

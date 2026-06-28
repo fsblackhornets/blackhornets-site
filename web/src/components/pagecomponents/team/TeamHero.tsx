@@ -1,37 +1,81 @@
 export function TeamHero() {
 	return (
-		<section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-black to-bg-panel overflow-hidden">
-			{/* Background */}
+		<section
+			className="relative min-h-[50vh] flex flex-col items-center justify-center overflow-hidden"
+			style={{ background: "#080808" }}
+		>
+			{/* Racing stripe */}
+			<div className="absolute top-0 left-0 right-0 z-20 flex h-[3px]">
+				<div className="flex-1 bg-primary" />
+				<div className="w-[80px] bg-bg-dark" />
+				<div className="w-[30px] bg-primary" />
+			</div>
+
+			{/* TEAM watermark */}
 			<div
-				className="absolute inset-0 z-[1]"
-				style={{
-					background:
-						"radial-gradient(circle at center, rgba(255,215,0,0.06) 0%, transparent 70%)",
-				}}
-			/>
-			<div className="hero-grid-overlay absolute inset-0 z-[1]" />
+				className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[1]"
+				aria-hidden="true"
+			>
+				<span
+					className="font-heading font-black text-white"
+					style={{
+						fontSize: "220px",
+						opacity: 0.03,
+						letterSpacing: "0.1em",
+						lineHeight: 1,
+					}}
+				>
+					TEAM
+				</span>
+			</div>
 
 			{/* Content */}
-			<div className="relative z-10 text-center px-8">
-				<p className="font-heading text-xs tracking-[6px] text-primary/60 uppercase mb-6">
-					Formula Student Novi Sad
-				</p>
-				<h1 className="font-heading text-[clamp(3rem,9vw,6rem)] font-black tracking-[6px] text-primary drop-shadow-[0_0_40px_rgba(255,215,0,0.35)]">
-					Our Team
+			<div className="relative z-10 text-center px-8 flex flex-col items-center">
+				<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
+					<span className="block text-white">Our</span>
+					<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
+						Team
+					</span>
 				</h1>
-				<div className="w-24 h-0.5 bg-primary mx-auto mt-6 mb-6" />
-				<p className="text-text-light text-lg tracking-widest max-w-xl mx-auto">
-					Meet the innovators behind Black Hornets Racing.
+
+				{/* Speed lines */}
+				<div className="flex gap-1.5 items-center my-5">
+					<div
+						style={{
+							width: "52px",
+							height: "2px",
+							background: "#ffd700",
+							opacity: 0.9,
+						}}
+					/>
+					<div
+						style={{
+							width: "16px",
+							height: "1.5px",
+							background: "#ffd700",
+							opacity: 0.5,
+						}}
+					/>
+					<div
+						style={{
+							width: "8px",
+							height: "1px",
+							background: "#ffd700",
+							opacity: 0.2,
+						}}
+					/>
+				</div>
+
+				<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
+					Meet the innovators behind Black Hornets Racing
 				</p>
 			</div>
 
-			{/* Scroll indicator */}
-			<div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center text-text-gray font-heading z-10">
-				<div className="w-[30px] h-[50px] border-2 border-text-gray rounded-[25px] mx-auto mb-2 flex justify-center pt-2">
-					<div className="w-1.5 h-1.5 bg-primary rounded-full animate-scroll-mouse" />
-				</div>
-				<span className="text-xs tracking-widest">Scroll Down</span>
-			</div>
+			{/* Gold bottom border */}
+			<div
+				className="absolute bottom-0 left-0 right-0 z-20"
+				style={{ height: "3px", background: "#ffd700" }}
+			/>
 		</section>
 	);
 }
