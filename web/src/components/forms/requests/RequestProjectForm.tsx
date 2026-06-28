@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
-import { SubmitButton } from "@/components/ui/components/SubmitButton";
 import { Textarea } from "@/components/ui/components/Textarea";
 import type { ProjectStatus } from "@/constants/projects";
 import {
@@ -36,155 +36,266 @@ export function RequestProjectForm({ action }: Props) {
 	} = useRequestProjectPreview();
 
 	return (
-		<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
-			<form
-				action={formAction}
-				className="flex flex-col gap-5"
-			>
-				{state.error && (
-					<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm">
-						{state.error}
-					</div>
-				)}
-				{state.success && (
-					<div className="bg-green-500/10 border border-green-500/30 rounded-xl p-3 text-green-400 text-sm">
-						{state.success}
-					</div>
-				)}
+		<div>
+			{/* Breadcrumb */}
+			<div className="flex items-center gap-2 mb-6">
+				<Link
+					href="/manager"
+					className="text-primary hover:text-primary/70 transition-colors"
+					aria-label="Back to Dashboard"
+				>
+					<svg
+						width="13"
+						height="13"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth={2}
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+					>
+						<line x1="19" y1="12" x2="5" y2="12" />
+						<polyline points="12 19 5 12 12 5" />
+					</svg>
+				</Link>
+				<span className="font-heading text-[8px] tracking-[2px] uppercase text-[#333]">
+					Dashboard
+				</span>
+				<span className="text-[#2a2a2a]">›</span>
+				<span className="font-heading text-[8px] tracking-[2px] uppercase text-primary">
+					Request Project
+				</span>
+			</div>
 
-				<input type="hidden" name="type" value="project" />
-
-				<Field label="Project Name *" htmlFor="name">
-					<Input
-						id="name"
-						name="name"
-						required
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-				</Field>
-
-				<Field label="Description" htmlFor="description">
-					<Textarea
-						id="description"
-						name="description"
-						rows={5}
-						value={description}
-						onChange={(e) => setDescription(e.target.value)}
-					/>
-				</Field>
-
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-					<Field label="Status *" htmlFor="status">
-						<NativeSelect
-							id="status"
-							name="status"
-							options={PROJECT_STATUS_OPTIONS}
-							required
-							value={status}
-							onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-						/>
-					</Field>
-					<Field label="Due Date *" htmlFor="due_date">
-						<Input id="due_date" name="due_date" type="date" required />
-					</Field>
-				</div>
-
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-					<Field label="Duration *" htmlFor="duration">
-						<Input
-							id="duration"
-							name="duration"
-							placeholder="e.g. 6 months"
-							required
-						/>
-					</Field>
-					<Field label={`Progress: ${progress}%`} htmlFor="progress">
-						<input
-							id="progress"
-							name="progress"
-							type="range"
-							min={0}
-							max={100}
-							value={progress}
-							onChange={(e) => setProgress(Number(e.target.value))}
-							className="w-full accent-primary"
-						/>
-					</Field>
-				</div>
-
-				<Field label="Image" htmlFor="image">
-					<div className="flex items-center gap-2">
-						<label
-							htmlFor="image"
-							className="cursor-pointer px-3 py-2 rounded-lg border border-primary text-primary text-xs font-heading tracking-widest hover:bg-primary hover:text-bg-dark transition-colors shrink-0"
+			<div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+				{/* Form card */}
+				<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5">
+					{/* Card header */}
+					<div className="flex items-center gap-2 pb-2.5 mb-4 border-b border-[#1e1e1e]">
+						<svg
+							width="13"
+							height="13"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#ffd700"
+							strokeWidth={1.5}
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
 						>
-							Choose
-						</label>
-						<span className="text-text-gray text-xs truncate">
-							{imageFile ?? "No file chosen"}
+							<circle cx="12" cy="12" r="3" />
+							<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+						</svg>
+						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
+							Project Details
 						</span>
 					</div>
-					<input
-						id="image"
-						type="file"
-						name="image"
-						accept="image/*"
-						className="sr-only"
-						onChange={(e) => setImageFile(e.target.files?.[0]?.name ?? null)}
-					/>
-				</Field>
 
-				<SubmitButton
-					pending={pending}
-					label="Submit for Review"
-					pendingLabel="Submitting…"
-					icon="fas fa-paper-plane"
-					className="self-start px-8"
-				/>
-			</form>
-
-			{/* Live preview */}
-			<div className="sticky top-[80px]">
-				<p className="text-[10px] tracking-[3px] uppercase text-text-gray/50 font-semibold mb-3">
-					Live Preview
-				</p>
-				<div className="bg-[#111] border border-primary/10 rounded-xl overflow-hidden">
-					{imageFile ? (
-						<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-primary/10">
-							<i className="fas fa-image text-primary/30 text-3xl" />
-						</div>
-					) : null}
-					<div className="p-5">
-						<div className="flex items-center justify-between gap-2 mb-3">
-							<h3 className="font-heading text-lg text-text-light leading-snug">
-								{name || (
-									<span className="text-text-gray/40 italic">
-										Project name…
-									</span>
-								)}
-							</h3>
-							<span
-								className={`text-[10px] tracking-[2px] uppercase font-heading border rounded-full px-2.5 py-0.5 shrink-0 ${PROJECT_STATUS_COLORS[status]}`}
-							>
-								{status}
-							</span>
-						</div>
-						<p className="text-text-gray text-sm leading-relaxed mb-4 line-clamp-3">
-							{description || (
-								<span className="italic">Project description…</span>
-							)}
-						</p>
-						<div>
-							<div className="flex justify-between text-xs text-text-gray mb-1">
-								<span>Progress</span>
-								<span>{progress}%</span>
+					<form action={formAction} className="flex flex-col gap-5">
+						{state.error && (
+							<div className="bg-red-500/10 border border-red-500/30 rounded-none p-3 text-red-400 text-[10px]">
+								{state.error}
 							</div>
-							<div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-								<div
-									className="h-full bg-primary rounded-full transition-all"
-									style={{ width: `${progress}%` }}
+						)}
+						{state.success && (
+							<div className="bg-green-500/10 border border-green-500/30 rounded-none p-3 text-green-400 text-[10px]">
+								{state.success}
+							</div>
+						)}
+
+						<input type="hidden" name="type" value="project" />
+
+						<Field label="Project Name *" htmlFor="name">
+							<Input
+								id="name"
+								name="name"
+								required
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+							/>
+						</Field>
+
+						<Field label="Description" htmlFor="description">
+							<Textarea
+								id="description"
+								name="description"
+								rows={5}
+								value={description}
+								onChange={(e) => setDescription(e.target.value)}
+							/>
+						</Field>
+
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+							<Field label="Status *" htmlFor="status">
+								<NativeSelect
+									id="status"
+									name="status"
+									options={PROJECT_STATUS_OPTIONS}
+									required
+									value={status}
+									onChange={(e) => setStatus(e.target.value as ProjectStatus)}
 								/>
+							</Field>
+							<Field label="Due Date *" htmlFor="due_date">
+								<Input id="due_date" name="due_date" type="date" required />
+							</Field>
+						</div>
+
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+							<Field label="Duration *" htmlFor="duration">
+								<Input
+									id="duration"
+									name="duration"
+									placeholder="e.g. 6 months"
+									required
+								/>
+							</Field>
+							<Field label={`Progress: ${progress}%`} htmlFor="progress">
+								<div className="flex items-center gap-3">
+									<input
+										id="progress"
+										name="progress"
+										type="range"
+										min={0}
+										max={100}
+										value={progress}
+										onChange={(e) => setProgress(Number(e.target.value))}
+										className="flex-1 accent-primary"
+									/>
+									<span className="font-heading text-[11px] text-primary shrink-0 w-8 text-right">
+										{progress}%
+									</span>
+								</div>
+							</Field>
+						</div>
+
+						<Field label="Image" htmlFor="image">
+							<div className="flex items-center gap-2">
+								<label
+									htmlFor="image"
+									className="cursor-pointer border border-primary/40 text-primary font-heading text-[7px] tracking-[2px] uppercase px-3 py-2 transition-colors hover:bg-primary/10 shrink-0"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+									}}
+								>
+									Choose
+								</label>
+								<span className="text-[#555] text-[9px] truncate">
+									{imageFile ?? "No file chosen"}
+								</span>
+							</div>
+							<input
+								id="image"
+								type="file"
+								name="image"
+								accept="image/*"
+								className="sr-only"
+								onChange={(e) =>
+									setImageFile(e.target.files?.[0]?.name ?? null)
+								}
+							/>
+						</Field>
+
+						<button
+							type="submit"
+							disabled={pending}
+							className="bg-primary text-black font-heading text-[9px] tracking-[3px] uppercase py-3 px-6 flex items-center gap-2 self-start transition-opacity disabled:opacity-50"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+							}}
+						>
+							{pending ? (
+								<>
+									<span
+										className="w-3 h-3 border-2 border-black border-t-transparent rounded-full animate-spin"
+										aria-hidden="true"
+									/>
+									Submitting…
+								</>
+							) : (
+								<>
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth={2}
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										aria-hidden="true"
+									>
+										<line x1="22" y1="2" x2="11" y2="13" />
+										<polygon points="22 2 15 22 11 13 2 9 22 2" />
+									</svg>
+									Submit for Review
+								</>
+							)}
+						</button>
+					</form>
+				</div>
+
+				{/* Live preview */}
+				<div className="sticky top-[80px]">
+					<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333] mb-3">
+						Live Preview
+					</p>
+					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
+						{imageFile ? (
+							<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
+								<svg
+									width="28"
+									height="28"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="rgba(255,215,0,0.2)"
+									strokeWidth={1.5}
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									aria-hidden="true"
+								>
+									<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+									<circle cx="8.5" cy="8.5" r="1.5" />
+									<polyline points="21 15 16 10 5 21" />
+								</svg>
+							</div>
+						) : null}
+						<div className="p-5">
+							<div className="flex items-center justify-between gap-2 mb-3">
+								<h3 className="font-heading text-base text-text-light leading-snug">
+									{name || (
+										<span className="text-[#444] italic">Project name…</span>
+									)}
+								</h3>
+								<span
+									className={`font-heading text-[7px] tracking-[2px] uppercase border px-2.5 py-1 shrink-0 ${PROJECT_STATUS_COLORS[status]}`}
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
+									}}
+								>
+									{status}
+								</span>
+							</div>
+							<p className="font-body text-[10px] text-[#666] leading-relaxed mb-4 line-clamp-3">
+								{description || (
+									<span className="italic">Project description…</span>
+								)}
+							</p>
+							<div>
+								<div className="flex justify-between font-heading text-[7px] tracking-[2px] uppercase text-[#555] mb-1.5">
+									<span>Progress</span>
+									<span className="text-primary">{progress}%</span>
+								</div>
+								<div className="h-[5px] bg-[#1e1e1e] rounded-none overflow-hidden">
+									<div
+										className="h-full bg-primary transition-all"
+										style={{ width: `${progress}%` }}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>

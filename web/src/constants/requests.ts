@@ -11,4 +11,5 @@ export const REQUEST_TYPE_ICONS: Record<RequestType, string> = {
 	project: "fas fa-project-diagram",
 	sponsor: "fas fa-handshake",
 	member: "fas fa-user-plus",
+	gallery: "fas fa-image",
 };
