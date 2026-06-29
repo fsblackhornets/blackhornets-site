@@ -80,7 +80,9 @@ export function AboutHero() {
 
 				{/* Speed lines */}
 				<div className="flex flex-col items-center gap-1.5 my-6">
-					<div style={{ width: "60px", height: "2px", background: "#ffd700" }} />
+					<div
+						style={{ width: "60px", height: "2px", background: "#ffd700" }}
+					/>
 					<div
 						style={{
 							width: "40px",

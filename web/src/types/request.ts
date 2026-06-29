@@ -1,4 +1,4 @@
-export type RequestType = "post" | "project" | "sponsor" | "member";
+export type RequestType = "post" | "project" | "sponsor" | "member" | "gallery";
 export type RequestStatus = "pending" | "approved" | "declined";
 
 export interface ContentRequest {

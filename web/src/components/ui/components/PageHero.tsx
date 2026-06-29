@@ -76,7 +76,9 @@ export function PageHero({
 							background: "rgba(255,215,0,0.2)",
 						}}
 					/>
-					<div style={{ width: "16px", height: "1px", background: "#ffd700" }} />
+					<div
+						style={{ width: "16px", height: "1px", background: "#ffd700" }}
+					/>
 					<div
 						style={{
 							width: "8px",

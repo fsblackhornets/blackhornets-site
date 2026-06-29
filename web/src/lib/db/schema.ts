@@ -155,7 +155,13 @@ export const contactMessages = mysqlTable("contact_messages", {
 
 export const contentRequests = mysqlTable("content_requests", {
 	id: int("id").autoincrement().primaryKey(),
-	type: mysqlEnum("type", ["member", "post", "project", "sponsor"]).notNull(),
+	type: mysqlEnum("type", [
+		"member",
+		"post",
+		"project",
+		"sponsor",
+		"gallery",
+	]).notNull(),
 	data: json("data").notNull(),
 	submitted_by: int("submitted_by").notNull(),
 	submitter_name: varchar("submitter_name", { length: 255 })

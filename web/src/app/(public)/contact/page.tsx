@@ -72,14 +72,39 @@ export default function ContactPage() {
 
 					{/* Speed lines */}
 					<div className="flex flex-col items-center gap-1.5 my-5">
-						<div style={{ width: "52px", height: "2px", background: "#ffd700", opacity: 0.9 }} />
-						<div style={{ width: "16px", height: "1.5px", background: "#ffd700", opacity: 0.5 }} />
-						<div style={{ width: "8px", height: "1px", background: "#ffd700", opacity: 0.2 }} />
+						<div
+							style={{
+								width: "52px",
+								height: "2px",
+								background: "#ffd700",
+								opacity: 0.9,
+							}}
+						/>
+						<div
+							style={{
+								width: "16px",
+								height: "1.5px",
+								background: "#ffd700",
+								opacity: 0.5,
+							}}
+						/>
+						<div
+							style={{
+								width: "8px",
+								height: "1px",
+								background: "#ffd700",
+								opacity: 0.2,
+							}}
+						/>
 					</div>
 
 					<p
 						className="font-body font-light text-text-light"
-						style={{ fontSize: "0.7rem", letterSpacing: "4px", textTransform: "uppercase" }}
+						style={{
+							fontSize: "0.7rem",
+							letterSpacing: "4px",
+							textTransform: "uppercase",
+						}}
 					>
 						We&apos;d love to hear from you
 					</p>
@@ -118,14 +143,21 @@ export default function ContactPage() {
 								className="flex gap-4 items-start p-5 bg-bg-dark border border-gray-dark border-l-2 border-l-primary rounded-sm hover:border-l-yellow-400 transition-colors"
 							>
 								<div className="w-9 h-9 rounded-full border border-primary/25 flex items-center justify-center bg-primary/5 shrink-0">
-									<i className="fas fa-map-marker-alt text-primary text-sm" aria-hidden="true" />
+									<i
+										className="fas fa-map-marker-alt text-primary text-sm"
+										aria-hidden="true"
+									/>
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
 										Location
 									</p>
-									<p className="font-body text-text-gray text-sm">University of Novi Sad, Serbia</p>
-									<p className="font-body text-text-gray text-xs mt-0.5">Faculty of Technical Sciences</p>
+									<p className="font-body text-text-gray text-sm">
+										University of Novi Sad, Serbia
+									</p>
+									<p className="font-body text-text-gray text-xs mt-0.5">
+										Faculty of Technical Sciences
+									</p>
 								</div>
 							</a>
 
@@ -135,13 +167,18 @@ export default function ContactPage() {
 								className="flex gap-4 items-start p-5 bg-bg-dark border border-gray-dark border-l-2 border-l-primary rounded-sm hover:border-l-yellow-400 transition-colors"
 							>
 								<div className="w-9 h-9 rounded-full border border-primary/25 flex items-center justify-center bg-primary/5 shrink-0">
-									<i className="fas fa-envelope text-primary text-sm" aria-hidden="true" />
+									<i
+										className="fas fa-envelope text-primary text-sm"
+										aria-hidden="true"
+									/>
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
 										Email
 									</p>
-									<p className="font-body text-text-gray text-sm">formulastudentftn@gmail.com</p>
+									<p className="font-body text-text-gray text-sm">
+										formulastudentftn@gmail.com
+									</p>
 								</div>
 							</a>
 
@@ -151,13 +188,18 @@ export default function ContactPage() {
 								className="flex gap-4 items-start p-5 bg-bg-dark border border-gray-dark border-l-2 border-l-primary rounded-sm hover:border-l-yellow-400 transition-colors"
 							>
 								<div className="w-9 h-9 rounded-full border border-primary/25 flex items-center justify-center bg-primary/5 shrink-0">
-									<i className="fas fa-phone text-primary text-sm" aria-hidden="true" />
+									<i
+										className="fas fa-phone text-primary text-sm"
+										aria-hidden="true"
+									/>
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
 										Phone
 									</p>
-									<p className="font-body text-text-gray text-sm">+381 62 782 568</p>
+									<p className="font-body text-text-gray text-sm">
+										+381 62 782 568
+									</p>
 								</div>
 							</a>
 						</div>

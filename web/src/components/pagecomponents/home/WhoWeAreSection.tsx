@@ -5,7 +5,10 @@ export function WhoWeAreSection() {
 			<div className="text-center mb-12">
 				<h2
 					className="font-heading uppercase text-text-light"
-					style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", letterSpacing: "0.2em" }}
+					style={{
+						fontSize: "clamp(2rem, 6vw, 3.5rem)",
+						letterSpacing: "0.2em",
+					}}
 				>
 					Who We Are
 				</h2>

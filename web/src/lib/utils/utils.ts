@@ -34,7 +34,8 @@ export function resolvePostContent(post: {
 }
 
 export function formatDate(dateStr: string | Date, locale = "en-US"): string {
-	const d = dateStr instanceof Date ? dateStr : new Date(dateStr.replace(" ", "T"));
+	const d =
+		dateStr instanceof Date ? dateStr : new Date(dateStr.replace(" ", "T"));
 	return d.toLocaleDateString(locale, {
 		year: "numeric",
 		month: "long",

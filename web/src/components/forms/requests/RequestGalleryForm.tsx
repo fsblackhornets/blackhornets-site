@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
+import { GALLERY_SECTIONS } from "@/components/pagecomponents/gallery/constants";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
-import { useRequestMemberPreview } from "@/hooks/useRequestPreview";
-import { MEMBER_ROLE_OPTIONS, MEMBER_TEAM_OPTIONS } from "@/types/member";
+
+const CATEGORY_OPTIONS = GALLERY_SECTIONS.map((s) => ({
+	value: s.category,
+	label: s.title,
+}));
 
 interface Props {
 	action: (
@@ -15,18 +19,9 @@ interface Props {
 	) => Promise<{ error?: string; success?: string }>;
 }
 
-export function RequestMemberForm({ action }: Props) {
+export function RequestGalleryForm({ action }: Props) {
 	const [state, formAction, pending] = useActionState(action, {});
-	const {
-		fullName,
-		setFullName,
-		position,
-		setPosition,
-		team,
-		setTeam,
-		imageFile,
-		setImageFile,
-	} = useRequestMemberPreview();
+	const [fileCount, setFileCount] = useState(0);
 
 	return (
 		<div>
@@ -57,7 +52,7 @@ export function RequestMemberForm({ action }: Props) {
 				</span>
 				<span className="text-[#2a2a2a]">›</span>
 				<span className="font-heading text-[8px] tracking-[2px] uppercase text-primary">
-					Request Member
+					Request Gallery
 				</span>
 			</div>
 
@@ -77,13 +72,12 @@ export function RequestMemberForm({ action }: Props) {
 							strokeLinejoin="round"
 							aria-hidden="true"
 						>
-							<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-							<circle cx="9" cy="7" r="4" />
-							<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-							<path d="M16 3.13a4 4 0 0 1 0 7.75" />
+							<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+							<circle cx="8.5" cy="8.5" r="1.5" />
+							<polyline points="21 15 16 10 5 21" />
 						</svg>
 						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
-							Member Details
+							Gallery Upload
 						</span>
 					</div>
 
@@ -99,107 +93,59 @@ export function RequestMemberForm({ action }: Props) {
 							</div>
 						)}
 
-						<input type="hidden" name="type" value="member" />
+						<input type="hidden" name="type" value="gallery" />
 
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-							<Field label="Full Name *" htmlFor="full_name">
-								<Input
-									id="full_name"
-									name="full_name"
-									required
-									value={fullName}
-									onChange={(e) => setFullName(e.target.value)}
-								/>
-							</Field>
-							<Field label="Email *" htmlFor="email">
-								<Input id="email" name="email" type="email" required />
-							</Field>
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-							<Field label="Phone" htmlFor="phone">
-								<Input id="phone" name="phone" type="tel" />
-							</Field>
-							<Field label="Position" htmlFor="position">
-								<Input
-									id="position"
-									name="position"
-									value={position}
-									onChange={(e) => setPosition(e.target.value)}
-								/>
-							</Field>
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-							<Field label="Role" htmlFor="role">
-								<NativeSelect
-									id="role"
-									name="role"
-									options={MEMBER_ROLE_OPTIONS}
-									defaultValue="team_member"
-								/>
-							</Field>
-							<Field label="Team" htmlFor="team">
-								<NativeSelect
-									id="team"
-									name="team"
-									options={MEMBER_TEAM_OPTIONS}
-									placeholder="— None —"
-									value={team}
-									onChange={(e) => setTeam(e.target.value)}
-								/>
-							</Field>
-							<Field label="Department" htmlFor="department">
-								<Input
-									id="department"
-									name="department"
-									placeholder="e.g. Marketing"
-								/>
-							</Field>
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-							<Field label="Study Field" htmlFor="study_field">
-								<Input id="study_field" name="study_field" />
-							</Field>
-							<Field label="Faculty" htmlFor="faculty">
-								<Input id="faculty" name="faculty" />
-							</Field>
-						</div>
-
-						<Field label="Academic Year" htmlFor="academic_year">
-							<Input
-								id="academic_year"
-								name="academic_year"
-								placeholder="e.g. 3rd year"
+						<Field label="Category *" htmlFor="category">
+							<NativeSelect
+								id="category"
+								name="category"
+								options={CATEGORY_OPTIONS}
+								required
 							/>
 						</Field>
 
-						<Field label="Profile Picture" htmlFor="profile_picture">
+						<Field label="Title (optional)" htmlFor="title">
+							<Input
+								id="title"
+								name="title"
+								placeholder="e.g. Formula Student 2025"
+							/>
+						</Field>
+
+						<Field label="Images *" htmlFor="images">
 							<div className="flex items-center gap-2">
 								<label
-									htmlFor="profile_picture"
+									htmlFor="images"
 									className="cursor-pointer border border-primary/40 text-primary font-heading text-[7px] tracking-[2px] uppercase px-3 py-2 transition-colors hover:bg-primary/10 shrink-0"
 									style={{
 										clipPath:
 											"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
 									}}
 								>
-									Choose
+									Choose Files
 								</label>
 								<span className="text-[#555] text-[9px] truncate">
-									{imageFile ?? "No file chosen"}
+									{fileCount > 0
+										? `${fileCount} file${fileCount > 1 ? "s" : ""} selected`
+										: "No files chosen"}
 								</span>
 							</div>
 							<input
-								id="profile_picture"
+								id="images"
 								type="file"
-								name="profile_picture"
+								name="images"
 								accept="image/*"
+								multiple
 								className="sr-only"
-								onChange={(e) =>
-									setImageFile(e.target.files?.[0]?.name ?? null)
-								}
+								onChange={(e) => setFileCount(e.target.files?.length ?? 0)}
+							/>
+						</Field>
+
+						<Field label="Alt Text (optional)" htmlFor="alt_text">
+							<Input
+								id="alt_text"
+								name="alt_text"
+								placeholder="Brief description of the images"
 							/>
 						</Field>
 
@@ -248,33 +194,39 @@ export function RequestMemberForm({ action }: Props) {
 					<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333] mb-3">
 						Live Preview
 					</p>
-					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm p-5 flex items-center gap-4">
-						<div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 text-2xl font-heading font-bold text-primary">
-							{fullName ? fullName.charAt(0).toUpperCase() : "?"}
-						</div>
-						<div className="min-w-0">
-							<h3 className="font-heading text-base text-text-light leading-snug">
-								{fullName || (
-									<span className="text-[#444] italic">Full name…</span>
-								)}
-							</h3>
-							{position && (
-								<p className="font-body text-[10px] text-[#666] mt-0.5">
-									{position}
-								</p>
-							)}
-							{team && (
-								<span
-									className="inline-block font-heading text-[7px] tracking-[2px] uppercase text-primary bg-primary/10 px-2 py-1 mt-1.5"
-									style={{
-										clipPath:
-											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-									}}
+					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm p-4">
+						<p className="font-heading text-[7px] tracking-[2px] uppercase text-[#444] mb-3">
+							Gallery Tiles
+						</p>
+						<div className="grid grid-cols-2 gap-2">
+							{[0, 1, 2, 3].map((i) => (
+								<div
+									key={i}
+									className="aspect-square bg-[#0f0f0f] border border-[#1e1e1e] flex items-center justify-center"
 								>
-									{team.replace(/_/g, " ")}
-								</span>
-							)}
+									<svg
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="rgba(255,215,0,0.12)"
+										strokeWidth={1.5}
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										aria-hidden="true"
+									>
+										<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+										<circle cx="8.5" cy="8.5" r="1.5" />
+										<polyline points="21 15 16 10 5 21" />
+									</svg>
+								</div>
+							))}
 						</div>
+						<p className="font-body text-[8px] text-[#333] mt-3 text-center">
+							{fileCount > 0
+								? `${fileCount} image${fileCount > 1 ? "s" : ""} queued for review`
+								: "Select images to preview count"}
+						</p>
 					</div>
 				</div>
 			</div>

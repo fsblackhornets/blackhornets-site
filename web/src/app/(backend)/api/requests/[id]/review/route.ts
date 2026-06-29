@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import {
 	contentRequests,
+	galleryImages,
 	posts,
 	projects,
 	sponsors,
@@ -49,6 +50,24 @@ async function insertContent(
 			image_position: String(data.image_position ?? "50% 50%"),
 			status: "published",
 		});
+		if (Array.isArray(data.gallery_items)) {
+			for (const item of data.gallery_items as Array<{
+				src: string;
+				galleryCategory: string;
+				alt?: string;
+				caption?: string;
+			}>) {
+				if (item.galleryCategory && item.galleryCategory !== "none") {
+					await tx.insert(galleryImages).values({
+						image_path: item.src,
+						category: item.galleryCategory,
+						alt_text: item.alt ?? null,
+						title: item.caption ?? null,
+						is_active: 1,
+					});
+				}
+			}
+		}
 	} else if (type === "sponsor") {
 		await tx.insert(sponsors).values({
 			name: String(data.name ?? ""),
@@ -59,6 +78,23 @@ async function insertContent(
 			logo: (data.logo as string) ?? null,
 			image_position: String(data.image_position ?? "50% 50%"),
 		});
+	} else if (type === "gallery") {
+		const items =
+			(data.gallery_items as Array<{
+				src: string;
+				galleryCategory: string;
+				alt?: string;
+				caption?: string;
+			}>) ?? [];
+		for (const item of items) {
+			await tx.insert(galleryImages).values({
+				image_path: item.src,
+				category: item.galleryCategory || "team",
+				alt_text: item.alt ?? null,
+				title: item.caption ?? null,
+				is_active: 1,
+			});
+		}
 	} else if (type === "member") {
 		const fullName = String(data.full_name ?? "");
 		const base = fullName

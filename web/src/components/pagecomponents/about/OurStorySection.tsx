@@ -13,9 +13,7 @@ export async function OurStorySection() {
 				<div className="flex flex-col gap-8">
 					{/* Label + heading */}
 					<div className="flex flex-col gap-3">
-						<span
-							className="font-heading text-primary text-xs tracking-widest uppercase"
-						>
+						<span className="font-heading text-primary text-xs tracking-widest uppercase">
 							Our Story
 						</span>
 						<div
@@ -47,7 +45,8 @@ export async function OurStorySection() {
 						<p className="font-body text-text-gray leading-relaxed">
 							From concept to racetrack, every component we build reflects our
 							commitment to technical excellence, teamwork, and continuous
-							improvement — preparing the next generation of automotive engineers.
+							improvement — preparing the next generation of automotive
+							engineers.
 						</p>
 					</div>
 

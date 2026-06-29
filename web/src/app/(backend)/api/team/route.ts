@@ -64,7 +64,9 @@ export async function GET() {
 		}));
 
 		const organized_data: Record<string, typeof members> = {
-			operating_business: members.filter((m) => m.team === "operating_business"),
+			operating_business: members.filter(
+				(m) => m.team === "operating_business",
+			),
 			mechanical: members.filter((m) => m.team === "mechanical"),
 			electrical: members.filter((m) => m.team === "electrical"),
 		};
@@ -80,8 +82,7 @@ export async function GET() {
 			) ?? null;
 		const business_project_leader =
 			members.find(
-				(m) =>
-					m.role === "project_leader" && m.team === "operating_business",
+				(m) => m.role === "project_leader" && m.team === "operating_business",
 			) ?? null;
 
 		return NextResponse.json({

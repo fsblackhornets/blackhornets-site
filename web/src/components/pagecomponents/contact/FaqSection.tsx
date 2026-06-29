@@ -36,9 +36,7 @@ export function FaqSection() {
 						<summary className="flex items-center justify-between font-heading text-[10px] tracking-[1px] uppercase cursor-pointer list-none text-text-gray group-open:text-primary transition-colors">
 							{q}
 							{/* Chevron */}
-							<div
-								className="w-7 h-7 rounded-full border border-gray-dark bg-bg-dark flex items-center justify-center shrink-0 ml-4 transition-colors group-open:border-primary/25 group-open:bg-primary/8"
-							>
+							<div className="w-7 h-7 rounded-full border border-gray-dark bg-bg-dark flex items-center justify-center shrink-0 ml-4 transition-colors group-open:border-primary/25 group-open:bg-primary/8">
 								<svg
 									className="w-3.5 h-3.5 text-text-gray group-open:text-primary transition-transform group-open:rotate-180"
 									viewBox="0 0 24 24"
