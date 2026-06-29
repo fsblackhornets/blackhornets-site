@@ -1,4 +1,5 @@
 import { deleteMessageAction } from "@/app/actions/messages";
+import { Icon } from "@/components/ui/components/Icon";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchMessages } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";
@@ -112,22 +113,7 @@ export default async function MessagesPage({ searchParams }: Props) {
 										type="submit"
 										className="flex items-center gap-1.5 font-body text-[8.5px] text-[#444] hover:text-red-400 transition-colors"
 									>
-										<svg
-											width="12"
-											height="12"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth={2}
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											aria-hidden="true"
-										>
-											<polyline points="3 6 5 6 21 6" />
-											<path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-											<path d="M10 11v6M14 11v6" />
-											<path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-										</svg>
+										<Icon name="trash" size={12} strokeWidth={2} />
 										Delete
 									</button>
 								</form>

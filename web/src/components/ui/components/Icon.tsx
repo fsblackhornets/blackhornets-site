@@ -29,7 +29,8 @@ export type IconName =
 	| "clipboard"
 	| "sitemap"
 	| "bolt"
-	| "star";
+	| "star"
+	| "trash";
 
 interface IconProps {
 	name: IconName;
@@ -195,6 +196,14 @@ const PATHS: Record<IconName, React.ReactNode> = {
 			<rect x="14" y="3" width="7" height="7" />
 			<rect x="14" y="14" width="7" height="7" />
 			<rect x="3" y="14" width="7" height="7" />
+		</>
+	),
+	trash: (
+		<>
+			<polyline points="3 6 5 6 21 6" />
+			<path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+			<path d="M10 11v6M14 11v6" />
+			<path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
 		</>
 	),
 	bolt: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
