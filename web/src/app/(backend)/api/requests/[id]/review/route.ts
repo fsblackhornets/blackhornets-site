@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -9,6 +10,7 @@ import {
 	projects,
 	sponsors,
 	teamMembers,
+	users,
 } from "@/lib/db/schema";
 
 type ReviewBody = {
@@ -94,11 +96,32 @@ async function insertContent(
 			});
 		}
 	} else if (type === "member") {
+		const email =
+			(data.email as string) || `member_${Date.now()}@blackhornets.local`;
+		const username = email.split("@")[0] + `_${Date.now()}`;
+		const password = await bcrypt.hash(
+			Math.random().toString(36).slice(2, 10),
+			10,
+		);
+		const [{ id: userId }] = await tx
+			.insert(users)
+			.values({
+				username,
+				password,
+				email,
+				full_name: String(data.full_name ?? ""),
+				role: (data.role as "team_member") ?? "team_member",
+				team: (data.team as string) ?? null,
+				department: (data.department as string) ?? null,
+				phone: (data.phone as string) ?? null,
+				status: "active",
+				study_field: (data.study_field as string) ?? null,
+				position: (data.position as string) ?? null,
+				profile_picture: (data.profile_picture as string) ?? null,
+			})
+			.$returningId();
 		await tx.insert(teamMembers).values({
-			full_name: String(data.full_name ?? ""),
-			email: (data.email as string) ?? null,
-			phone: (data.phone as string) ?? null,
-			role: (data.role as "team_member") ?? "team_member",
+			user_id: userId,
 			team: (data.team as string) ?? null,
 			department: (data.department as string) ?? null,
 			study_field: (data.study_field as string) ?? null,
@@ -107,7 +130,6 @@ async function insertContent(
 			image_position: String(data.image_position ?? "50% 50%"),
 			faculty: (data.faculty as string) ?? null,
 			academic_year: (data.academic_year as string) ?? null,
-			status: "active",
 		});
 	}
 }

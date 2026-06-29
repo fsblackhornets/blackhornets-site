@@ -71,7 +71,8 @@ export async function fetchDashboardStats(): Promise<DashboardStats | null> {
 			db
 				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
 				.from(teamMembers)
-				.where(sql`${teamMembers.status} = 'active'`)
+				.innerJoin(users, eq(teamMembers.user_id, users.id))
+				.where(sql`${users.status} = 'active'`)
 				.groupBy(teamMembers.team),
 		]);
 
@@ -159,12 +160,39 @@ export async function fetchAdminGallery(): Promise<GalleryImage[]> {
 	}
 }
 
+const memberSelect = {
+	id: teamMembers.id,
+	user_id: teamMembers.user_id,
+	full_name: users.full_name,
+	email: users.email,
+	phone: users.phone,
+	role: users.role,
+	status: users.status,
+	position: teamMembers.position,
+	position_en: teamMembers.position_en,
+	academic_year: teamMembers.academic_year,
+	study_field: teamMembers.study_field,
+	faculty: teamMembers.faculty,
+	department: teamMembers.department,
+	team: teamMembers.team,
+	age: teamMembers.age,
+	date_of_birth: teamMembers.date_of_birth,
+	profile_picture: teamMembers.profile_picture,
+	image_position: teamMembers.image_position,
+	motivation: teamMembers.motivation,
+	skills: teamMembers.skills,
+	projects: teamMembers.projects,
+	achievements: teamMembers.achievements,
+	created_at: teamMembers.created_at,
+} as const;
+
 export async function fetchAdminMembers(): Promise<AdminMember[]> {
 	try {
 		const data = await db
-			.select()
+			.select(memberSelect)
 			.from(teamMembers)
-			.orderBy(asc(teamMembers.full_name));
+			.innerJoin(users, eq(teamMembers.user_id, users.id))
+			.orderBy(asc(users.full_name));
 		return data as unknown as AdminMember[];
 	} catch {
 		return [];
@@ -176,8 +204,9 @@ export async function fetchAdminMember(
 ): Promise<AdminMember | null> {
 	try {
 		const [row] = await db
-			.select()
+			.select(memberSelect)
 			.from(teamMembers)
+			.innerJoin(users, eq(teamMembers.user_id, users.id))
 			.where(eq(teamMembers.id, id))
 			.limit(1);
 		return (row as unknown as AdminMember) ?? null;
