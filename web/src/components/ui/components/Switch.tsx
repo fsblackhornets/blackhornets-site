@@ -37,7 +37,7 @@ export function Switch({
 			className={cn(
 				"relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent",
 				"transition-colors duration-200 outline-none",
-				"data-[state=checked]:bg-primary data-[state=unchecked]:bg-gray-mid",
+				"data-[state=checked]:bg-primary data-[state=unchecked]:bg-[#2a2a2a]",
 				"disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}

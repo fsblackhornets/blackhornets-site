@@ -20,7 +20,7 @@ export function GalleryUploadForm() {
 	return (
 		<form action={action} className="flex flex-col gap-4">
 			{state.error && (
-				<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm">
+				<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 text-red-400 text-[9px]">
 					{state.error}
 				</div>
 			)}
@@ -41,11 +41,17 @@ export function GalleryUploadForm() {
 					<div className="flex items-center gap-2">
 						<label
 							htmlFor="image"
-							className="cursor-pointer px-3 py-2 rounded-lg border border-primary text-primary text-xs font-heading tracking-widest hover:bg-primary hover:text-bg-dark transition-colors shrink-0"
+							className="cursor-pointer font-heading text-[7px] tracking-[2px] uppercase text-black bg-primary px-3 py-2 shrink-0 hover:bg-yellow-300 transition-colors"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
 						>
-							Choose
+							Choose File
 						</label>
-						<span className="text-text-gray text-xs truncate">{fileName}</span>
+						<span className="font-body text-[9px] text-[#444] truncate">
+							{fileName}
+						</span>
 					</div>
 					<input
 						id="image"
@@ -65,7 +71,6 @@ export function GalleryUploadForm() {
 				pending={pending}
 				label="Upload Image"
 				pendingLabel="Uploading…"
-				icon="fas fa-upload"
 				className="self-start"
 			/>
 		</form>

@@ -16,12 +16,14 @@ export default async function ApplicationsPage({ searchParams }: Props) {
 	return (
 		<div className="max-w-[1000px]">
 			<div className="flex items-center gap-3 mb-6">
-				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
+				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Applications
 				</h1>
 				<div className="flex-1 h-px bg-primary/12" />
 				{res && (
-					<span className="text-text-gray text-sm">{res.total} total</span>
+					<span className="font-body text-[8.5px] text-[#444]">
+						{res.total} total
+					</span>
 				)}
 			</div>
 			<ApplicationsClient res={res} currentStatus={status} currentPage={page} />

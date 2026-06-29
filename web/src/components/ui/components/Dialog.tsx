@@ -20,14 +20,26 @@ export function DialogContent({
 			<RadixDialog.Content
 				className={cn(
 					"fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg",
-					"bg-bg-panel border border-gray-mid rounded-2xl p-6 shadow-xl",
+					"bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-6 shadow-xl",
 					"data-[state=open]:animate-[fadeIn_150ms_ease]",
 					className,
 				)}
 			>
 				{children}
-				<RadixDialog.Close className="absolute top-4 right-4 text-text-gray hover:text-primary transition-colors">
-					<i className="fas fa-times" aria-hidden="true" />
+				<RadixDialog.Close className="absolute top-4 right-4 text-[#444] hover:text-primary transition-colors">
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth={2}
+						strokeLinecap="round"
+						aria-hidden="true"
+					>
+						<line x1="18" y1="6" x2="6" y2="18" />
+						<line x1="6" y1="6" x2="18" y2="18" />
+					</svg>
 					<span className="sr-only">Close</span>
 				</RadixDialog.Close>
 			</RadixDialog.Content>
@@ -55,7 +67,7 @@ export function DialogTitle({
 	return (
 		<RadixDialog.Title
 			className={cn(
-				"font-heading text-lg text-primary tracking-widest uppercase",
+				"font-heading text-[13px] text-white tracking-[2px] uppercase",
 				className,
 			)}
 		>
@@ -73,7 +85,7 @@ export function DialogDescription({
 }) {
 	return (
 		<RadixDialog.Description
-			className={cn("text-text-gray text-sm mt-1", className)}
+			className={cn("font-body text-[10px] text-[#555] mt-1", className)}
 		>
 			{children}
 		</RadixDialog.Description>
