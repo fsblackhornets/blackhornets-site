@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+
 import type { ContentRequest, RequestStatus } from "@/types/request";
 
 const STATUS_BORDER: Record<RequestStatus, string> = {
@@ -186,6 +187,33 @@ export function RequestsFilterClient({
 										</span>
 										{r.admin_notes}
 									</p>
+								</div>
+							)}
+
+							{r.status === "declined" && (
+								<div className="mt-3 pt-2.5 border-t border-[#1a1a1a]">
+									<Link
+										href={`/manager/requests/${r.id}/resubmit`}
+										className="inline-flex items-center gap-1.5 font-heading text-[7.5px] tracking-[2px] uppercase text-primary border border-primary/30 px-3 py-1.5 transition-colors hover:bg-primary/10"
+										style={{
+											clipPath:
+												"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+										}}
+									>
+										<svg
+											width="10"
+											height="10"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={2}
+											aria-hidden="true"
+										>
+											<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+											<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+										</svg>
+										Edit & Resubmit
+									</Link>
 								</div>
 							)}
 						</div>

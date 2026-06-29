@@ -18,10 +18,7 @@ export function GalleryUploadForm() {
 	const [fileName, setFileName] = useState("No file chosen");
 
 	return (
-		<form
-			action={action}
-			className="flex flex-col gap-4"
-		>
+		<form action={action} className="flex flex-col gap-4">
 			{state.error && (
 				<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm">
 					{state.error}

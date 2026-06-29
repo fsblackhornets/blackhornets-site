@@ -1,12 +1,11 @@
 "use client";
 
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
 import { ADMIN_NAV } from "./constants";
-
 
 export function AdminSidebar() {
 	const pathname = usePathname();

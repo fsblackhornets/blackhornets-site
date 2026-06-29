@@ -187,7 +187,9 @@ export async function fetchAdminMembers(): Promise<AdminMember[]> {
 	}
 }
 
-export async function fetchAdminMember(id: number): Promise<AdminMember | null> {
+export async function fetchAdminMember(
+	id: number,
+): Promise<AdminMember | null> {
 	try {
 		const [user] = await db
 			.select({
@@ -214,7 +216,9 @@ export async function fetchAdminMember(id: number): Promise<AdminMember | null> 
 	}
 }
 
-export async function fetchMessages(page = 1): Promise<MessagesResponse | null> {
+export async function fetchMessages(
+	page = 1,
+): Promise<MessagesResponse | null> {
 	try {
 		const limit = 10;
 		const offset = (page - 1) * limit;

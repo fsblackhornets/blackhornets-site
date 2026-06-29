@@ -1,9 +1,12 @@
 "use server";
 
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { apiPost } from "@/lib/api-client";
+import { db } from "@/lib/db";
+import { contentRequests } from "@/lib/db/schema";
 
 export async function submitRequestAction(
 	_prev: { error?: string; success?: string },
@@ -23,6 +26,54 @@ export async function submitRequestAction(
 	} catch {
 		return { error: "Failed to submit request. Please try again." };
 	}
+}
+
+export async function resubmitRequestAction(
+	originalId: number,
+	_prev: { error?: string; success?: string },
+	formData: FormData,
+): Promise<{ error?: string; success?: string }> {
+	try {
+		const session = await auth();
+		if (!session?.user) return { error: "Not authenticated." };
+
+		const [original] = await db
+			.select({ type: contentRequests.type })
+			.from(contentRequests)
+			.where(eq(contentRequests.id, originalId))
+			.limit(1);
+
+		if (!original) return { error: "Original request not found." };
+
+		const data: Record<string, unknown> = {};
+		for (const [key, val] of formData.entries()) {
+			if (!key.startsWith("_") && key !== "type") {
+				data[key] = val instanceof File ? val.name : val;
+			}
+		}
+
+		const galleryRaw = formData.get("gallery_items");
+		if (galleryRaw && typeof galleryRaw === "string") {
+			try {
+				data.gallery_items = JSON.parse(galleryRaw);
+			} catch {
+				/* ignore */
+			}
+		}
+
+		await db.insert(contentRequests).values({
+			type: original.type,
+			data,
+			submitted_by: Number(session.user.id),
+			submitter_name: session.user.full_name ?? "",
+			status: "pending",
+		});
+
+		revalidatePath("/manager/requests");
+	} catch {
+		return { error: "Failed to resubmit. Please try again." };
+	}
+	redirect("/manager/requests");
 }
 
 export async function reviewRequestAction(

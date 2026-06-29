@@ -22,7 +22,11 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS = [
 	{ href: "https://www.facebook.com", Icon: FacebookIcon, label: "Facebook" },
-	{ href: "https://www.instagram.com/blackhornets.ns/", Icon: InstagramIcon, label: "Instagram" },
+	{
+		href: "https://www.instagram.com/blackhornets.ns/",
+		Icon: InstagramIcon,
+		label: "Instagram",
+	},
 	{ href: "https://www.linkedin.com", Icon: LinkedInIcon, label: "LinkedIn" },
 	{ href: "https://www.youtube.com", Icon: YouTubeIcon, label: "YouTube" },
 ];

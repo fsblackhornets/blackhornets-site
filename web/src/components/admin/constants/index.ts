@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import {
 	FileText,
 	Handshake,
@@ -9,7 +10,6 @@ import {
 	Newspaper,
 	Users,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import type { DashboardStats } from "@/lib/api/admin";
 
 export const ADMIN_NAV: {

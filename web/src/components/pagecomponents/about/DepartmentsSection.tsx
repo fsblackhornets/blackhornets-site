@@ -44,9 +44,7 @@ export function DepartmentsSection() {
 							}}
 						>
 							<Icon className="w-6 h-6 text-primary" />
-							<h3
-								className="font-heading text-primary text-xs tracking-widest uppercase"
-							>
+							<h3 className="font-heading text-primary text-xs tracking-widest uppercase">
 								{title}
 							</h3>
 							<p

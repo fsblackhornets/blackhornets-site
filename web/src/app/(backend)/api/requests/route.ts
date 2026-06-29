@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 		const [result] = await db
 			.insert(contentRequests)
 			.values({
-				type: type as "post" | "project" | "sponsor" | "member",
+				type: type as "post" | "project" | "sponsor" | "member" | "gallery",
 				data,
 				submitted_by: userId,
 				submitter_name: submitterName,

@@ -23,7 +23,10 @@ export function ContactForm() {
 
 			{/* Full Name */}
 			<div className="flex flex-col gap-1.5">
-				<label htmlFor="name" className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray">
+				<label
+					htmlFor="name"
+					className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray"
+				>
 					Full Name
 				</label>
 				<input
@@ -41,7 +44,10 @@ export function ContactForm() {
 
 			{/* Email */}
 			<div className="flex flex-col gap-1.5">
-				<label htmlFor="email" className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray">
+				<label
+					htmlFor="email"
+					className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray"
+				>
 					Email Address
 				</label>
 				<input
@@ -59,7 +65,10 @@ export function ContactForm() {
 
 			{/* Subject */}
 			<div className="flex flex-col gap-1.5">
-				<label htmlFor="subject" className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray">
+				<label
+					htmlFor="subject"
+					className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray"
+				>
 					Subject
 				</label>
 				<input
@@ -77,7 +86,10 @@ export function ContactForm() {
 
 			{/* Message */}
 			<div className="flex flex-col gap-1.5">
-				<label htmlFor="message" className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray">
+				<label
+					htmlFor="message"
+					className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray"
+				>
 					Message
 				</label>
 				<textarea

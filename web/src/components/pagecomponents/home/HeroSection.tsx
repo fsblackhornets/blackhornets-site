@@ -66,7 +66,9 @@ export function HeroSection() {
 
 				{/* Speed lines */}
 				<div className="flex flex-col items-center gap-1.5 my-10">
-					<div style={{ width: "80px", height: "3px", background: "#ffd700" }} />
+					<div
+						style={{ width: "80px", height: "3px", background: "#ffd700" }}
+					/>
 					<div
 						style={{
 							width: "52px",

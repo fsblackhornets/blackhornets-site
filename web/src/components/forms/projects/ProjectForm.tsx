@@ -23,10 +23,7 @@ export function ProjectForm({ action, project }: ProjectFormProps) {
 	const [progress, setProgress] = useState(project?.progress ?? 0);
 
 	return (
-		<form
-			action={formAction}
-			className="flex flex-col gap-5 max-w-[720px]"
-		>
+		<form action={formAction} className="flex flex-col gap-5 max-w-[720px]">
 			{state.error && (
 				<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm">
 					{state.error}

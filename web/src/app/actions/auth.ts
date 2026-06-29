@@ -1,8 +1,8 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
 import { auth, signIn, signOut } from "@/auth";
-import { redirect } from "next/navigation";
 
 export async function loginAction(
 	_prev: { error?: string },

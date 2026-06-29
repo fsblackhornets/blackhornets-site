@@ -33,11 +33,7 @@ export function Navbar() {
 				}`}
 			>
 				{/* Brand */}
-				<Link
-					href="/"
-					className="shrink-0"
-					onClick={() => setOpen(false)}
-				>
+				<Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
 					<Image
 						src="/images/stiker.png"
 						alt="Black Hornets Logo"
@@ -55,7 +51,10 @@ export function Navbar() {
 						className="font-body text-sm transition-colors pb-0.5"
 						style={{
 							color: pathname === "/" ? "#ffd700" : "#aaaaaa",
-							borderBottom: pathname === "/" ? "1.5px solid #ffd700" : "1.5px solid transparent",
+							borderBottom:
+								pathname === "/"
+									? "1.5px solid #ffd700"
+									: "1.5px solid transparent",
 						}}
 					>
 						Home
@@ -125,7 +124,10 @@ export function Navbar() {
 						className="flex items-center justify-between py-2.5 font-body text-sm transition-colors"
 						style={{
 							color: pathname === "/" ? "#ffd700" : "#aaaaaa",
-							borderLeft: pathname === "/" ? "2px solid #ffd700" : "2px solid transparent",
+							borderLeft:
+								pathname === "/"
+									? "2px solid #ffd700"
+									: "2px solid transparent",
 							paddingLeft: "12px",
 						}}
 					>

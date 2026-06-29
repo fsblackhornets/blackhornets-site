@@ -3,7 +3,10 @@ interface RacingStripeProps {
 	className?: string;
 }
 
-export function RacingStripe({ height = 3, className = "" }: RacingStripeProps) {
+export function RacingStripe({
+	height = 3,
+	className = "",
+}: RacingStripeProps) {
 	return (
 		<div className={`flex ${className}`} style={{ height: `${height}px` }}>
 			<div className="flex-1 bg-primary" />
