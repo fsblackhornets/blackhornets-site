@@ -7,15 +7,28 @@ export const metadata = buildAdminMeta("Posts", "New Post");
 
 export default function NewPostPage() {
 	return (
-		<div className="max-w-[720px]">
+		<div className="max-w-none">
 			<div className="flex items-center gap-3 mb-6">
 				<Link
 					href="/admin/posts"
-					className="text-text-gray hover:text-primary transition-colors"
+					className="text-primary hover:text-primary/70 transition-colors"
+					aria-label="Back"
 				>
-					<i className="fas fa-arrow-left" aria-hidden="true" />
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#ffd700"
+						strokeWidth={2}
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+					>
+						<polyline points="15 18 9 12 15 6" />
+					</svg>
 				</Link>
-				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
+				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					New Post
 				</h1>
 			</div>
