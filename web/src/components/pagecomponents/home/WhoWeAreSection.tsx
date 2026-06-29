@@ -1,4 +1,8 @@
-export function WhoWeAreSection() {
+import { getTranslations } from "next-intl/server";
+
+export async function WhoWeAreSection() {
+	const t = await getTranslations("home.whoWeAre");
+
 	return (
 		<section className="my-20 max-w-screen-2xl mx-auto px-4">
 			{/* Heading */}
@@ -10,7 +14,7 @@ export function WhoWeAreSection() {
 						letterSpacing: "0.2em",
 					}}
 				>
-					Who We Are
+					{t("heading")}
 				</h2>
 				<div
 					style={{
@@ -53,25 +57,14 @@ export function WhoWeAreSection() {
 					className="font-body italic text-text-light leading-[1.9]"
 					style={{ fontSize: "1.15rem" }}
 				>
-					Mi ne gradimo samo automobile – mi gradimo budućnost trkanja.
+					{t("quote")}
 				</p>
 			</div>
 
 			{/* 2-col text grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-				<p className="font-body text-text-gray leading-[1.8]">
-					Black Hornets Racing je strastven tim studenata inženjerstva posvećen
-					pomeranju granica automobilske inovacije. Kombinujemo najsavremeniju
-					tehnologiju sa održivim praksama kako bismo stvorili trkačka vozila
-					visokih performansi koja predstavljaju budućnost auto-moto sporta.
-				</p>
-				<p className="font-body text-text-gray leading-[1.8]">
-					Naš tim okuplja raznolike talente iz oblasti mašinstva,
-					elektroinženjeringa, aerodinamike i analize podataka. Verujemo u
-					učenje kroz praktično iskustvo, takmičenje na međunarodnim
-					nadmetanjima i razvoj rešenja koja odgovaraju na realne izazove
-					automobilske industrije.
-				</p>
+				<p className="font-body text-text-gray leading-[1.8]">{t("p1")}</p>
+				<p className="font-body text-text-gray leading-[1.8]">{t("p2")}</p>
 			</div>
 		</section>
 	);

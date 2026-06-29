@@ -1,4 +1,8 @@
-export function TeamHero() {
+import { getTranslations } from "next-intl/server";
+
+export async function TeamHero() {
+	const t = await getTranslations("team.hero");
+
 	return (
 		<section
 			className="relative min-h-[50vh] flex flex-col items-center justify-center overflow-hidden"
@@ -32,9 +36,9 @@ export function TeamHero() {
 			{/* Content */}
 			<div className="relative z-10 text-center px-8 flex flex-col items-center">
 				<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-					<span className="block text-white">Our</span>
+					<span className="block text-white">{t("line1")}</span>
 					<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-						Team
+						{t("line2")}
 					</span>
 				</h1>
 
@@ -67,7 +71,7 @@ export function TeamHero() {
 				</div>
 
 				<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
-					Meet the innovators behind Black Hornets Racing
+					{t("subtitle")}
 				</p>
 			</div>
 

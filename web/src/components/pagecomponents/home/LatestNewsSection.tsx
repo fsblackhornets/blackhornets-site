@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { NewsList } from "./components/NewsList";
 import { NewsListSkeleton } from "./components/NewsListSkeleton";
 
-export function LatestNewsSection() {
+export async function LatestNewsSection() {
+	const t = await getTranslations("home.latestNews");
+
 	return (
 		<section
 			className="my-20 max-w-screen-2xl mx-auto"
@@ -18,7 +21,7 @@ export function LatestNewsSection() {
 							letterSpacing: "0.2em",
 						}}
 					>
-						Latest News
+						{t("heading")}
 					</h2>
 					<div
 						style={{
@@ -43,7 +46,7 @@ export function LatestNewsSection() {
 							border: "2px solid #ffd700",
 						}}
 					>
-						More News
+						{t("moreNews")}
 					</Link>
 				</div>
 			</div>

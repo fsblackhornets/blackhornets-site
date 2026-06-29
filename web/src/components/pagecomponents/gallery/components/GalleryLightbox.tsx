@@ -1,6 +1,6 @@
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { buildGalleryImageUrl } from "@/lib/utils/utils";
 import type { GalleryImage } from "@/types/gallery";
 
@@ -79,7 +79,12 @@ export function GalleryLightbox({
 					className="absolute left-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
 					aria-label="Previous image"
 				>
-					<ChevronLeft size={14} strokeWidth={2.5} stroke="rgba(255,215,0,.7)" aria-hidden="true" />
+					<ChevronLeft
+						size={14}
+						strokeWidth={2.5}
+						stroke="rgba(255,215,0,.7)"
+						aria-hidden="true"
+					/>
 				</button>
 
 				{/* Image */}
@@ -119,7 +124,12 @@ export function GalleryLightbox({
 					className="absolute right-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
 					aria-label="Next image"
 				>
-					<ChevronRight size={14} strokeWidth={2.5} stroke="rgba(255,215,0,.7)" aria-hidden="true" />
+					<ChevronRight
+						size={14}
+						strokeWidth={2.5}
+						stroke="rgba(255,215,0,.7)"
+						aria-hidden="true"
+					/>
 				</button>
 			</div>
 

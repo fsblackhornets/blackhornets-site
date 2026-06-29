@@ -1,21 +1,24 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { MemberCard } from "@/components/members/MemberCard";
+import { TEAM_STRUCTURE, type TeamKey } from "@/constants/team";
 import { useTeamState } from "@/hooks/team/useTeamState";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamData, TeamMember } from "@/types/team";
 import { MemberModal } from "./components/MemberModal";
-import { TEAM_STRUCTURE, type TeamKey } from "@/constants/team";
 
 // ── sub-components ───────────────────────────────────────────
 
 function LeaderHeroCard({
 	member,
 	onClick,
+	labels,
 }: {
 	member: TeamMember;
 	onClick: (m: TeamMember) => void;
+	labels: { projectLeader: string; viewProfile: string };
 }) {
 	const imageUrl = buildProfileImageUrl(member.profile_picture);
 	const [imgError, setImgError] = useState(false);
@@ -66,7 +69,7 @@ function LeaderHeroCard({
 			{/* Info */}
 			<div className="flex flex-col gap-1 relative z-10">
 				<p className="font-heading text-[7px] tracking-[4px] uppercase text-primary/50">
-					Project Leader
+					{labels.projectLeader}
 				</p>
 				<h3 className="font-heading text-xl text-primary tracking-wide">
 					{member.full_name}
@@ -78,7 +81,7 @@ function LeaderHeroCard({
 					<p className="text-text-gray text-xs opacity-70">{member.faculty}</p>
 				)}
 				<p className="font-heading text-[8px] tracking-[2px] uppercase text-primary/50 mt-3">
-					View Profile ›
+					{labels.viewProfile}
 				</p>
 			</div>
 		</button>
@@ -88,9 +91,11 @@ function LeaderHeroCard({
 function MiniLeaderCard({
 	member,
 	onClick,
+	deptLeader,
 }: {
 	member: TeamMember;
 	onClick: (m: TeamMember) => void;
+	deptLeader: string;
 }) {
 	const imageUrl = buildProfileImageUrl(member.profile_picture);
 	const [imgError, setImgError] = useState(false);
@@ -122,7 +127,7 @@ function MiniLeaderCard({
 					{member.full_name}
 				</p>
 				<p className="font-heading text-[6px] tracking-[2px] uppercase text-primary/50 mt-0.5">
-					Dept. Leader
+					{deptLeader}
 				</p>
 			</div>
 		</button>
@@ -171,6 +176,7 @@ function CompactMemberCard({
 // ── main ────────────────────────────────────────────────────
 
 export function TeamPageClient({ data }: { data: TeamData }) {
+	const t = useTranslations("team");
 	const {
 		selectedTeam,
 		selectedDepartment,
@@ -187,6 +193,11 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 		(typeof TEAM_STRUCTURE)[TeamKey],
 	][];
 
+	const leaderLabels = {
+		projectLeader: t("projectLeader"),
+		viewProfile: t("viewProfile"),
+	};
+
 	return (
 		<>
 			<section className="py-16 px-4">
@@ -194,7 +205,11 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 					{/* Project Leader */}
 					{data.team_leader && (
 						<div className="mb-10 max-w-3xl mx-auto">
-							<LeaderHeroCard member={data.team_leader} onClick={openMember} />
+							<LeaderHeroCard
+								member={data.team_leader}
+								onClick={openMember}
+								labels={leaderLabels}
+							/>
 						</div>
 					)}
 
@@ -226,7 +241,13 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 											{info.name}
 										</h3>
 
-										{pl && <MiniLeaderCard member={pl} onClick={openMember} />}
+										{pl && (
+											<MiniLeaderCard
+												member={pl}
+												onClick={openMember}
+												deptLeader={t("deptLeader")}
+											/>
+										)}
 
 										<div className="flex flex-col gap-2 items-center">
 											{info.departments.map((dept) => (
@@ -267,7 +288,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 														}
 											}
 										>
-											See Team Members
+											{t("seeTeamMembers")}
 										</button>
 									</div>
 								);
@@ -286,10 +307,10 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 									className="font-heading text-primary text-[9px] tracking-[2px] uppercase flex items-center gap-1.5 hover:underline"
 								>
 									<i className="fas fa-arrow-left" aria-hidden="true" />
-									Back to Teams
+									{t("backToTeams")}
 								</button>
 								<span className="text-text-gray/40">›</span>
-								<span>Our Team</span>
+								<span>{t("ourTeam")}</span>
 								<span className="text-text-gray/40">›</span>
 								<span className="text-primary">
 									{TEAM_STRUCTURE[selectedTeam].name}
@@ -301,7 +322,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								{/* Sector heading */}
 								<div>
 									<span className="font-heading text-[8px] tracking-[3px] uppercase text-text-gray block mb-1">
-										Sector
+										{t("sector")}
 									</span>
 									<h2 className="font-heading font-black text-white leading-tight text-2xl">
 										{(() => {
@@ -349,7 +370,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 												color: !selectedDepartment ? "#ffd700" : "#555",
 											}}
 										>
-											All
+											{t("all")}
 										</button>
 										{TEAM_STRUCTURE[selectedTeam].departments.map((dept) => (
 											<button
@@ -390,12 +411,12 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 								return pl ? (
 									<div className="mb-10">
 										<p className="font-heading text-[8px] tracking-[3px] uppercase text-primary/60 text-center mb-4">
-											Department Leader
+											{t("departmentLeader")}
 										</p>
 										<div className="flex justify-center">
 											<MemberCard
 												member={pl}
-												position="Department Leader"
+												position={t("departmentLeader")}
 												onClick={openMember}
 												size="lg"
 											/>
@@ -407,7 +428,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 							{/* Members */}
 							{filteredMembers.length === 0 ? (
 								<p className="text-center text-text-gray py-12">
-									No members found.
+									{t("noMembersFound")}
 								</p>
 							) : (
 								(() => {
@@ -424,7 +445,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 													<div className="flex items-center gap-4 mb-6">
 														<div className="flex-1 h-px bg-primary/40" />
 														<span className="font-heading text-[8px] tracking-[4px] text-primary/40 uppercase">
-															Team Leaders
+															{t("teamLeaders")}
 														</span>
 														<div className="flex-1 h-px bg-primary/40" />
 													</div>
@@ -433,7 +454,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 															<MemberCard
 																key={member.id}
 																member={member}
-																position="Team Leader"
+																position={t("teamLeaders")}
 																onClick={openMember}
 																size="lg"
 															/>
@@ -453,7 +474,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 															className="font-heading text-[8px] tracking-[4px] uppercase"
 															style={{ color: "#333" }}
 														>
-															Members
+															{t("members")}
 														</span>
 														<div
 															className="flex-1 h-px"

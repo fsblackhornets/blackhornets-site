@@ -1,10 +1,23 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { EmailIcon } from "@/components/icons/EmailIcon";
 import { LocationIcon } from "@/components/icons/LocationIcon";
 import { PhoneIcon } from "@/components/icons/PhoneIcon";
 import { QUICK_LINKS, SOCIAL_LINKS } from "@/constants/layout";
 
+const QUICK_LINK_KEYS: Record<string, string> = {
+	"/about": "about",
+	"/projects": "projects",
+	"/blog": "blog",
+	"/team": "team",
+	"/sponsors": "sponsors",
+	"/contact": "contact",
+};
+
 export function Footer() {
+	const t = useTranslations("footer");
+	const tn = useTranslations("nav");
+
 	return (
 		<footer className="mt-auto" style={{ background: "#111111" }}>
 			{/* Racing stripe */}
@@ -52,7 +65,7 @@ export function Footer() {
 								<span className="block text-white">Racing</span>
 							</div>
 							<p className="font-body text-text-gray text-sm leading-relaxed">
-								Pioneering electric racing innovation
+								{t("tagline")}
 							</p>
 							<div className="flex gap-2.5">
 								{SOCIAL_LINKS.map(({ href, Icon, label }) => (
@@ -74,34 +87,37 @@ export function Footer() {
 						{/* Quick Links */}
 						<div>
 							<h3 className="font-heading text-xs tracking-widest uppercase text-primary mb-5">
-								Quick Links
+								{t("quickLinks")}
 							</h3>
 							<div className="flex flex-col gap-2.5">
-								{QUICK_LINKS.map(({ href, label }) => (
-									<Link
-										key={href}
-										href={href}
-										className="font-body text-sm text-text-gray hover:text-primary transition-colors flex items-center gap-2"
-									>
-										<span style={{ color: "#ffd700", fontSize: "0.75rem" }}>
-											—
-										</span>
-										{label}
-									</Link>
-								))}
+								{QUICK_LINKS.map(({ href }) => {
+									const key = QUICK_LINK_KEYS[href];
+									return (
+										<Link
+											key={href}
+											href={href}
+											className="font-body text-sm text-text-gray hover:text-primary transition-colors flex items-center gap-2"
+										>
+											<span style={{ color: "#ffd700", fontSize: "0.75rem" }}>
+												—
+											</span>
+											{key ? tn(key as Parameters<typeof tn>[0]) : href}
+										</Link>
+									);
+								})}
 							</div>
 						</div>
 
 						{/* Get Involved */}
 						<div>
 							<h3 className="font-heading text-xs tracking-widest uppercase text-primary mb-5">
-								Get Involved
+								{t("getInvolved")}
 							</h3>
 							<div className="flex flex-col gap-2.5 mb-5">
 								{[
-									{ href: "/apply", label: "Apply to Team" },
-									{ href: "/sponsors", label: "Become a Sponsor" },
-									{ href: "/gallery", label: "Gallery" },
+									{ href: "/apply", label: t("applyToTeam") },
+									{ href: "/sponsors", label: t("becomeSponsor") },
+									{ href: "/gallery", label: t("gallery") },
 								].map(({ href, label }) => (
 									<Link
 										key={href}
@@ -123,14 +139,14 @@ export function Footer() {
 										"polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
 								}}
 							>
-								Apply Now
+								{t("applyNow")}
 							</Link>
 						</div>
 
 						{/* Contact */}
 						<div>
 							<h3 className="font-heading text-xs tracking-widest uppercase text-primary mb-5">
-								Contact Us
+								{t("contactUs")}
 							</h3>
 							<div className="flex flex-col gap-3.5">
 								<a
@@ -140,7 +156,7 @@ export function Footer() {
 									className="font-body text-text-gray text-sm flex items-start gap-3 hover:text-primary transition-colors"
 								>
 									<LocationIcon className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
-									University of Novi Sad, Serbia
+									{t("location")}
 								</a>
 								<a
 									href="mailto:formulastudentftn@gmail.com"
@@ -169,7 +185,7 @@ export function Footer() {
 							&copy; {new Date().getFullYear()} Black Hornets Racing
 						</p>
 						<p className="font-body text-xs" style={{ color: "#555555" }}>
-							Privacy Policy · Powered by CodeHive
+							{t("privacyPolicy")}
 						</p>
 					</div>
 				</div>

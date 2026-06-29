@@ -1,7 +1,10 @@
 import { ChevronDown } from "lucide-react";
-import { FAQS } from "@/constants/contact";
+import { getTranslations } from "next-intl/server";
 
-export function FaqSection() {
+export async function FaqSection() {
+	const t = await getTranslations("contact.faq");
+	const rawItems = t.raw("items") as { q: string; a: string }[];
+
 	return (
 		<section
 			className="py-20 px-4 max-w-screen-2xl mx-auto"
@@ -10,13 +13,13 @@ export function FaqSection() {
 			{/* Header */}
 			<div className="mb-10">
 				<span className="font-heading text-primary text-xs tracking-[5px] uppercase block mb-3">
-					FAQ
+					{t("label")}
 				</span>
 				<h2
 					className="font-heading font-black text-white leading-tight"
 					style={{ fontSize: "clamp(1.8rem, 4vw, 2.5rem)" }}
 				>
-					Frequently Asked{" "}
+					{t("heading")}{" "}
 					<span
 						style={{
 							background: "linear-gradient(90deg, #ffd700, #ffc107)",
@@ -25,14 +28,14 @@ export function FaqSection() {
 							backgroundClip: "text",
 						}}
 					>
-						Questions
+						{t("headingGold")}
 					</span>
 				</h2>
 			</div>
 
 			{/* FAQ items */}
 			<div>
-				{FAQS.map(({ q, a }) => (
+				{rawItems.map(({ q, a }) => (
 					<details key={q} className="group border-t border-gray-dark py-4">
 						<summary className="flex items-center justify-between font-heading text-[10px] tracking-[1px] uppercase cursor-pointer list-none text-text-gray group-open:text-primary transition-colors">
 							{q}

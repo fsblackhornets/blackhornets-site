@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { ApplyForm } from "@/components/forms/apply/ApplyForm";
 import {
 	DEPARTMENTS,
@@ -19,7 +20,10 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function ApplyPage() {
+export default async function ApplyPage() {
+	const t = await getTranslations("apply");
+	const requirementItems = t.raw("requirementItems") as { title: string; desc: string }[];
+
 	return (
 		<>
 			{/* Hero */}
@@ -68,9 +72,9 @@ export default function ApplyPage() {
 				{/* Content */}
 				<div className="relative z-20 text-center px-8 flex flex-col items-center">
 					<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-						<span className="block text-white">Join</span>
+						<span className="block text-white">{t("hero.line1")}</span>
 						<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-							Our Team
+							{t("hero.line2")}
 						</span>
 					</h1>
 
@@ -103,7 +107,7 @@ export default function ApplyPage() {
 					</div>
 
 					<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
-						Be part of something extraordinary
+						{t("hero.subtitle")}
 					</p>
 				</div>
 
@@ -138,28 +142,31 @@ export default function ApplyPage() {
 									<path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
 								</svg>
 								<span className="font-heading text-[9px] tracking-[4px] uppercase text-primary">
-									Requirements
+									{t("requirements")}
 								</span>
 							</div>
 							<div className="flex flex-col gap-5">
-								{REQUIREMENTS.map(({ icon, title, desc }) => (
-									<div key={title} className="flex gap-3">
-										<div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-											<i
-												className={`${icon} text-primary text-xs`}
-												aria-hidden="true"
-											/>
+								{REQUIREMENTS.map(({ icon }, i) => {
+									const item = requirementItems[i];
+									return (
+										<div key={item?.title ?? i} className="flex gap-3">
+											<div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+												<i
+													className={`${icon} text-primary text-xs`}
+													aria-hidden="true"
+												/>
+											</div>
+											<div>
+												<p className="font-heading text-[9px] tracking-[2px] uppercase text-[#e0e0e0] mb-0.5">
+													{item?.title}
+												</p>
+												<p className="font-body text-[11px] text-text-gray leading-relaxed">
+													{item?.desc}
+												</p>
+											</div>
 										</div>
-										<div>
-											<p className="font-heading text-[9px] tracking-[2px] uppercase text-[#e0e0e0] mb-0.5">
-												{title}
-											</p>
-											<p className="font-body text-[11px] text-text-gray leading-relaxed">
-												{desc}
-											</p>
-										</div>
-									</div>
-								))}
+									);
+								})}
 							</div>
 						</div>
 
@@ -184,7 +191,7 @@ export default function ApplyPage() {
 									<rect x="3" y="14" width="7" height="7" />
 								</svg>
 								<span className="font-heading text-[9px] tracking-[4px] uppercase text-primary">
-									Departments
+									{t("departments")}
 								</span>
 							</div>
 							<div className="flex flex-col gap-5">

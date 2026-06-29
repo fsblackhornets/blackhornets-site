@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SITE_NAME } from "@/constants/site";
 import { fetchAllPosts, fetchPost } from "@/lib/api/posts";
 import {
@@ -18,25 +19,30 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { id } = await params;
-	const post = await fetchPost(Number(id));
+	const [post, locale] = await Promise.all([
+		fetchPost(Number(id)),
+		getLocale(),
+	]);
 	if (!post) return { title: `Post — ${SITE_NAME}` };
 
 	return {
-		title: `${resolvePostTitle(post)} — ${SITE_NAME}`,
-		description: resolvePostContent(post).slice(0, 160) || undefined,
+		title: `${resolvePostTitle(post, locale)} — ${SITE_NAME}`,
+		description: resolvePostContent(post, locale).slice(0, 160) || undefined,
 	};
 }
 
 export default async function BlogPostPage({ params }: Props) {
 	const { id } = await params;
-	const [post, allPosts] = await Promise.all([
+	const [post, allPosts, locale, t] = await Promise.all([
 		fetchPost(Number(id)),
 		fetchAllPosts(),
+		getLocale(),
+		getTranslations("blogPost"),
 	]);
 	if (!post) notFound();
 
-	const title = resolvePostTitle(post);
-	const content = resolvePostContent(post);
+	const title = resolvePostTitle(post, locale);
+	const content = resolvePostContent(post, locale);
 	const imageUrl = buildImageUrl(post.image);
 	const readTime = Math.ceil(content.split(" ").length / 200);
 	const related = allPosts.filter((p) => p.id !== post.id).slice(0, 2);
@@ -58,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-7 hover:opacity-70 transition-opacity"
 			>
 				<ChevronLeft size={12} strokeWidth={2.5} stroke="#ffd700" aria-hidden="true" />
-				Back to Blog
+				{t("backToBlog")}
 			</Link>
 
 			<div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-0">
@@ -74,7 +80,7 @@ export default async function BlogPostPage({ params }: Props) {
 										"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
 								}}
 							>
-								Featured
+								{t("featured")}
 							</span>
 						)}
 						{post.category && (
@@ -108,7 +114,7 @@ export default async function BlogPostPage({ params }: Props) {
 								</span>
 							</div>
 							<span className="font-body text-xs text-text-gray">
-								{post.author ?? "Team Black Hornets"}
+								{post.author ?? t("teamBlackHornets")}
 							</span>
 						</div>
 
@@ -117,7 +123,7 @@ export default async function BlogPostPage({ params }: Props) {
 						{/* Date */}
 						<span className="flex items-center gap-1.5 font-body text-xs text-text-gray">
 							<Calendar size={11} strokeWidth={2} aria-hidden="true" />
-							{formatDate(post.created_at)}
+							{formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US")}
 						</span>
 
 						<div className="w-px h-6 bg-[#222]" />
@@ -125,7 +131,7 @@ export default async function BlogPostPage({ params }: Props) {
 						{/* Read time */}
 						<span className="flex items-center gap-1.5 font-body text-xs text-text-gray">
 							<Clock size={11} strokeWidth={2} aria-hidden="true" />
-							{readTime} min read
+							{t("minRead", { count: readTime })}
 						</span>
 
 						{post.views > 0 && (
@@ -180,7 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
 								className="font-heading text-[7px] tracking-[3px] uppercase"
 								style={{ color: "#444" }}
 							>
-								Tags:
+								{t("tags")}
 							</span>
 							{tags.map((tag) => (
 								<span
@@ -199,7 +205,7 @@ export default async function BlogPostPage({ params }: Props) {
 							{/* Facebook */}
 							<button
 								type="button"
-								aria-label="Share on Facebook"
+								aria-label={t("shareOnFacebook")}
 								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
 							>
 								<svg
@@ -215,7 +221,7 @@ export default async function BlogPostPage({ params }: Props) {
 							{/* Instagram */}
 							<button
 								type="button"
-								aria-label="Share on Instagram"
+								aria-label={t("shareOnInstagram")}
 								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
 							>
 								<svg
@@ -235,7 +241,7 @@ export default async function BlogPostPage({ params }: Props) {
 							{/* Copy link */}
 							<button
 								type="button"
-								aria-label="Copy link"
+								aria-label={t("copyLink")}
 								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
 							>
 								<Link2 size={12} strokeWidth={2} aria-hidden="true" />
@@ -252,13 +258,13 @@ export default async function BlogPostPage({ params }: Props) {
 									className="font-heading text-[7px] tracking-[4px] uppercase"
 									style={{ color: "#333" }}
 								>
-									More Articles
+									{t("moreArticles")}
 								</span>
 								<div className="flex-1 h-px bg-[#1a1a1a]" />
 							</div>
 							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 								{related.map((rel) => {
-									const relTitle = resolvePostTitle(rel);
+									const relTitle = resolvePostTitle(rel, locale);
 									const relImage = buildImageUrl(rel.image);
 									return (
 										<Link
@@ -278,7 +284,7 @@ export default async function BlogPostPage({ params }: Props) {
 											)}
 											<div className="p-3">
 												<p className="font-body text-[9px] text-text-gray mb-1">
-													{formatDate(rel.created_at)}
+													{formatDate(rel.created_at, locale === "sr" ? "sr-RS" : "en-US")}
 												</p>
 												<p className="font-heading text-[9px] tracking-[0.5px] text-[#e0e0e0] leading-snug line-clamp-2">
 													{relTitle}
@@ -308,7 +314,7 @@ export default async function BlogPostPage({ params }: Props) {
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[1px] text-[#e0e0e0]">
-										{post.author ?? "Team Black Hornets"}
+										{post.author ?? t("teamBlackHornets")}
 									</p>
 									<p className="font-body text-[8px] text-text-gray mt-0.5">
 										Black Hornets Racing
@@ -316,8 +322,7 @@ export default async function BlogPostPage({ params }: Props) {
 								</div>
 							</div>
 							<p className="font-body text-[9px] text-text-gray leading-relaxed">
-								Formula Student team dedicated to engineering excellence and
-								motorsport innovation.
+								{t("authorBio")}
 							</p>
 						</div>
 
@@ -325,7 +330,7 @@ export default async function BlogPostPage({ params }: Props) {
 						{headings.length > 0 && (
 							<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-4">
 								<p className="font-heading text-[7px] tracking-[4px] uppercase text-primary mb-3">
-									Contents
+									{t("contents")}
 								</p>
 								<div className="flex flex-col gap-2">
 									{headings.map((heading, i) => (
@@ -350,7 +355,7 @@ export default async function BlogPostPage({ params }: Props) {
 						{/* Share */}
 						<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-4">
 							<p className="font-heading text-[7px] tracking-[4px] uppercase text-primary mb-3">
-								Share
+								{t("share")}
 							</p>
 							<div className="flex flex-col gap-1">
 								{[
@@ -417,11 +422,10 @@ export default async function BlogPostPage({ params }: Props) {
 							style={{ background: "rgba(255,215,0,0.04)" }}
 						>
 							<p className="font-heading text-[9px] tracking-[3px] uppercase text-primary mb-2">
-								Join the Team
+								{t("joinTeam")}
 							</p>
 							<p className="font-body text-[9px] text-text-gray leading-relaxed mb-4">
-								Be part of Black Hornets Racing. Apply and build the future of
-								motorsport.
+								{t("joinTeamBody")}
 							</p>
 							<Link
 								href="/apply"
@@ -431,7 +435,7 @@ export default async function BlogPostPage({ params }: Props) {
 										"polygon(0 0, calc(100% - 7px) 0, 100% 100%, 7px 100%)",
 								}}
 							>
-								Apply Now
+								{t("applyNow")}
 							</Link>
 						</div>
 					</div>

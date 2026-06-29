@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { SITE_NAME } from "@/constants/site";
 import { fetchProject } from "@/lib/api/projects";
 import {
@@ -49,7 +50,10 @@ function badgeStyle(variant: string) {
 
 export default async function ProjectDetailPage({ params }: Props) {
 	const { id } = await params;
-	const project = await fetchProject(Number(id));
+	const [project, t] = await Promise.all([
+		fetchProject(Number(id)),
+		getTranslations("projects"),
+	]);
 	if (!project) notFound();
 
 	const imageUrl = project.image_url
@@ -66,7 +70,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-8"
 			>
 				<ChevronLeft size={14} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
-				Back to Projects
+				{t("backToProjects")}
 			</Link>
 
 			{/* Hero image */}
@@ -87,7 +91,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 			<div className="flex items-start justify-between gap-4 mb-4">
 				<div>
 					<p className="font-heading text-[9px] tracking-[5px] uppercase text-primary mb-2">
-						Project
+						{t("project")}
 					</p>
 					<h1 className="font-heading text-[clamp(1.6rem,4vw,2.4rem)] text-white uppercase tracking-[2px]">
 						{project.name}
@@ -120,7 +124,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
-								Due Date
+								{t("dueDate")}
 							</p>
 							<p className="font-body text-[10px] text-[#e0e0e0]">
 								{formatDate(project.due_date)}
@@ -135,7 +139,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
-								Duration
+								{t("duration")}
 							</p>
 							<p className="font-body text-[10px] text-[#e0e0e0]">
 								{project.duration}
@@ -149,14 +153,14 @@ export default async function ProjectDetailPage({ params }: Props) {
 					</div>
 					<div>
 						<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
-							Timeline
+							{t("timeline")}
 						</p>
 						<p
 							className={`font-body text-[10px] ${project.is_overdue ? "text-red-400" : "text-[#e0e0e0]"}`}
 						>
 							{project.is_overdue
-								? `${project.days_remaining} days overdue`
-								: `${project.days_remaining} days remaining`}
+								? t("daysOverdue", { count: project.days_remaining })
+								: t("daysRemaining", { count: project.days_remaining })}
 						</p>
 					</div>
 				</div>
@@ -166,7 +170,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 			<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary bg-bg-panel p-6">
 				<div className="flex justify-between items-center mb-3">
 					<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary">
-						Progress
+						{t("progress")}
 					</span>
 					<span className="font-heading text-[22px] text-primary font-black">
 						{project.progress}%
@@ -177,15 +181,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 						className="h-full rounded-none transition-all duration-700"
 						style={{
 							width: `${project.progress}%`,
-							background:
-								statusVariant === "in-progress"
-									? "linear-gradient(90deg, #ffd700, #ffc107)"
-									: progressColor,
+							background: progressColor,
 						}}
 					/>
 				</div>
 				<p className="text-right font-heading text-[7px] tracking-[2px] uppercase text-[#444] mt-1">
-					{project.progress}% complete
+					{t("percentComplete", { percent: project.progress })}
 				</p>
 			</div>
 		</div>

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import { CalendarIcon } from "@/components/icons/CalendarIcon";
 import { UserIcon } from "@/components/icons/UserIcon";
 import {
@@ -12,10 +15,11 @@ import {
 import type { Post } from "@/types/post";
 
 export function BlogPostCard({ post }: { post: Post }) {
-	const title = resolvePostTitle(post);
-	const body = resolvePostContent(post);
+	const locale = useLocale();
+	const title = resolvePostTitle(post, locale);
+	const body = resolvePostContent(post, locale);
 	const imageUrl = buildImageUrl(post.image);
-	const date = formatDate(post.created_at);
+	const date = formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US");
 
 	return (
 		<Link

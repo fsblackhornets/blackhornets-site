@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { ContactForm } from "@/components/forms/contact/ContactForm";
 import { SOCIAL_LINKS } from "@/constants/layout";
 import { FaqSection } from "@/components/pagecomponents/contact/FaqSection";
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+	const t = await getTranslations("contact");
+
 	return (
 		<>
 			{/* Hero */}
@@ -56,7 +59,7 @@ export default function ContactPage() {
 						className="font-heading font-black leading-[1.05]"
 						style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)" }}
 					>
-						<span className="block text-white">Get In</span>
+						<span className="block text-white">{t("hero.line1")}</span>
 						<span
 							className="block"
 							style={{
@@ -66,7 +69,7 @@ export default function ContactPage() {
 								backgroundClip: "text",
 							}}
 						>
-							Touch
+							{t("hero.line2")}
 						</span>
 					</h1>
 
@@ -106,7 +109,7 @@ export default function ContactPage() {
 							textTransform: "uppercase",
 						}}
 					>
-						We&apos;d love to hear from you
+						{t("hero.subtitle")}
 					</p>
 				</div>
 
@@ -123,7 +126,7 @@ export default function ContactPage() {
 					{/* Form column */}
 					<div>
 						<h2 className="font-heading text-sm text-primary tracking-widest uppercase mb-6">
-							Send a Message
+							{t("sendMessage")}
 						</h2>
 						<ContactForm />
 					</div>
@@ -131,7 +134,7 @@ export default function ContactPage() {
 					{/* Contact info column */}
 					<div className="flex flex-col gap-6">
 						<h2 className="font-heading text-sm text-primary tracking-widest uppercase">
-							Get in Touch
+							{t("getInTouch")}
 						</h2>
 
 						<div className="flex flex-col gap-3">
@@ -150,13 +153,13 @@ export default function ContactPage() {
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
-										Location
+										{t("location")}
 									</p>
 									<p className="font-body text-text-gray text-sm">
-										University of Novi Sad, Serbia
+										{t("locationName")}
 									</p>
 									<p className="font-body text-text-gray text-xs mt-0.5">
-										Faculty of Technical Sciences
+										{t("locationFaculty")}
 									</p>
 								</div>
 							</a>
@@ -174,7 +177,7 @@ export default function ContactPage() {
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
-										Email
+										{t("email")}
 									</p>
 									<p className="font-body text-text-gray text-sm">
 										formulastudentftn@gmail.com
@@ -195,7 +198,7 @@ export default function ContactPage() {
 								</div>
 								<div>
 									<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-light mb-1">
-										Phone
+										{t("phone")}
 									</p>
 									<p className="font-body text-text-gray text-sm">
 										+381 62 782 568
@@ -207,7 +210,7 @@ export default function ContactPage() {
 						{/* Follow Us */}
 						<div>
 							<p className="font-heading text-[9px] tracking-[2px] uppercase text-text-gray mb-3">
-								Follow Us
+								{t("followUs")}
 							</p>
 							<div className="flex gap-2.5">
 								{SOCIAL_LINKS.map(({ href, Icon, label }) => (

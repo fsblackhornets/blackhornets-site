@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Michroma, Poppins, Rajdhani } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import { Toaster } from "sonner";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
@@ -31,12 +32,13 @@ export const viewport: Viewport = {
 	themeColor: "#1a1a1a",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
+	const locale = await getLocale();
 	return (
 		<html
-			lang="en"
+			lang={locale}
 			className={`${michroma.variable} ${poppins.variable} ${rajdhani.variable} h-full antialiased`}
 		>
 			<body className="min-h-full flex flex-col bg-bg-dark text-text-light">

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+import Image from "next/image";
 import { buildSponsorLogoUrl } from "@/lib/utils/utils";
 import type { Sponsor } from "@/types/sponsor";
 

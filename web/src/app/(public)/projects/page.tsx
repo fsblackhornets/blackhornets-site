@@ -1,5 +1,6 @@
 import { Settings } from "lucide-react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { FeaturedProjectCard } from "@/components/pagecomponents/projects/components/FeaturedProjectCard";
 import { PaginatedProjects } from "@/components/pagecomponents/projects/components/PaginatedProjects";
 import { ProjectCard } from "@/components/pagecomponents/projects/components/ProjectCard";
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-	const projects = await fetchProjects();
+	const [projects, t] = await Promise.all([
+		fetchProjects(),
+		getTranslations("projects"),
+	]);
 
 	const featured = projects[0] ?? null;
 	const highlights = projects.slice(1, 3);
@@ -61,9 +65,9 @@ export default async function ProjectsPage() {
 				{/* Content */}
 				<div className="relative z-10 text-center px-8 flex flex-col items-center">
 					<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-						<span className="block text-white">Our</span>
+						<span className="block text-white">{t("hero.line1")}</span>
 						<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-							Projects
+							{t("hero.line2")}
 						</span>
 					</h1>
 
@@ -96,7 +100,7 @@ export default async function ProjectsPage() {
 					</div>
 
 					<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
-						Engineering innovation on and off the track
+						{t("hero.subtitle")}
 					</p>
 				</div>
 
@@ -125,10 +129,10 @@ export default async function ProjectsPage() {
 							</div>
 
 							<p className="font-heading text-[13px] tracking-[3px] text-primary uppercase">
-								Projects Coming Soon
+								{t("comingSoon")}
 							</p>
 							<p className="font-body text-[9px] text-text-gray text-center">
-								We&apos;re working on exciting new projects. Stay tuned!
+								{t("comingSoonDesc")}
 							</p>
 						</div>
 					</div>
@@ -138,10 +142,10 @@ export default async function ProjectsPage() {
 						<div className="flex items-end justify-between">
 							<div>
 								<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary block mb-2">
-									Engineering
+									{t("engineering")}
 								</span>
 								<h2 className="font-heading font-black text-white leading-tight text-2xl">
-									Most Recent{" "}
+									{t("mostRecent")}{" "}
 									<span
 										style={{
 											background: "linear-gradient(90deg, #ffd700, #ffc107)",
@@ -150,7 +154,7 @@ export default async function ProjectsPage() {
 											backgroundClip: "text",
 										}}
 									>
-										Projects
+										{t("projectsLabel")}
 									</span>
 								</h2>
 							</div>

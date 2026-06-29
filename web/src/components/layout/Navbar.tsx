@@ -3,14 +3,51 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { useScrolled } from "@/hooks/useScrolled";
+import { useLocale, useTranslations } from "next-intl";
+import { useState, useTransition } from "react";
+import { setLocale } from "@/app/actions/setLocale";
 import { NAV_LINKS } from "@/constants/layout";
+import { useScrolled } from "@/hooks/useScrolled";
+import type { Locale } from "@/i18n/routing";
+
+const NAV_KEYS: Record<string, string> = {
+	"/team": "team",
+	"/about": "about",
+	"/projects": "projects",
+	"/blog": "blog",
+	"/gallery": "gallery",
+	"/sponsors": "sponsors",
+	"/contact": "contact",
+};
+
+function LangSwitcher() {
+	const locale = useLocale() as Locale;
+	const [pending, startTransition] = useTransition();
+	const other: Locale = locale === "sr" ? "en" : "sr";
+
+	return (
+		<button
+			type="button"
+			disabled={pending}
+			onClick={() => startTransition(() => setLocale(other))}
+			className="font-heading text-[7px] tracking-[3px] uppercase px-3 py-1.5 border transition-colors duration-200 disabled:opacity-50"
+			style={{
+				clipPath: "polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+				border: "1px solid rgba(255,215,0,0.4)",
+				color: "#ffd700",
+				background: "transparent",
+			}}
+		>
+			{other.toUpperCase()}
+		</button>
+	);
+}
 
 export function Navbar() {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
 	const scrolled = useScrolled(20);
+	const t = useTranslations("nav");
 
 	return (
 		<header
@@ -57,10 +94,11 @@ export function Navbar() {
 									: "1.5px solid transparent",
 						}}
 					>
-						Home
+						{t("home")}
 					</Link>
-					{NAV_LINKS.map(({ href, label }) => {
+					{NAV_LINKS.map(({ href }) => {
 						const active = pathname.startsWith(href);
+						const key = NAV_KEYS[href] ?? "";
 						return (
 							<Link
 								key={href}
@@ -73,28 +111,31 @@ export function Navbar() {
 										: "1.5px solid transparent",
 								}}
 							>
-								{label}
+								{key ? t(key as Parameters<typeof t>[0]) : href}
 							</Link>
 						);
 					})}
 				</div>
 
-				{/* CTA */}
-				<Link
-					href="/apply"
-					className="hidden md:inline-flex items-center px-6 py-2 font-heading font-bold text-black text-xs tracking-widest bg-primary shrink-0 hover:bg-yellow-400 transition-colors duration-300 ml-6"
-					style={{
-						clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
-					}}
-				>
-					Apply Now
-				</Link>
+				{/* Right side: lang switcher + CTA */}
+				<div className="hidden md:flex items-center gap-3 ml-6 shrink-0">
+					<LangSwitcher />
+					<Link
+						href="/apply"
+						className="inline-flex items-center px-6 py-2 font-heading font-bold text-black text-xs tracking-widest bg-primary hover:bg-yellow-400 transition-colors duration-300"
+						style={{
+							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+						}}
+					>
+						{t("applyNow")}
+					</Link>
+				</div>
 
 				{/* Mobile toggle */}
 				<button
 					type="button"
 					className="md:hidden flex flex-col gap-1.5 p-2"
-					aria-label={open ? "Close menu" : "Open menu"}
+					aria-label={open ? t("closeMenu") : t("openMenu")}
 					onClick={() => setOpen((v) => !v)}
 				>
 					<span
@@ -112,7 +153,7 @@ export function Navbar() {
 			{/* Mobile menu */}
 			<div
 				className="md:hidden overflow-hidden transition-all duration-300"
-				style={{ maxHeight: open ? "500px" : "0px" }}
+				style={{ maxHeight: open ? "600px" : "0px" }}
 			>
 				<div
 					className="px-4 py-4 flex flex-col gap-1"
@@ -131,11 +172,12 @@ export function Navbar() {
 							paddingLeft: "12px",
 						}}
 					>
-						Home
+						{t("home")}
 						<span style={{ color: "#ffd700", fontSize: "1rem" }}>›</span>
 					</Link>
-					{NAV_LINKS.map(({ href, label }) => {
+					{NAV_LINKS.map(({ href }) => {
 						const active = pathname.startsWith(href);
+						const key = NAV_KEYS[href] ?? "";
 						return (
 							<Link
 								key={href}
@@ -150,11 +192,17 @@ export function Navbar() {
 									paddingLeft: "12px",
 								}}
 							>
-								{label}
+								{key ? t(key as Parameters<typeof t>[0]) : href}
 								<span style={{ color: "#ffd700", fontSize: "1rem" }}>›</span>
 							</Link>
 						);
 					})}
+
+					{/* Mobile lang switcher */}
+					<div className="mt-2 flex justify-start pl-3">
+						<LangSwitcher />
+					</div>
+
 					<Link
 						href="/apply"
 						onClick={() => setOpen(false)}
@@ -163,7 +211,7 @@ export function Navbar() {
 							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
 						}}
 					>
-						Apply Now
+						{t("applyNow")}
 					</Link>
 				</div>
 			</div>

@@ -1,4 +1,8 @@
-export function SponsorsHero() {
+import { getTranslations } from "next-intl/server";
+
+export async function SponsorsHero() {
+	const t = await getTranslations("sponsors.hero");
+
 	return (
 		<section className="relative h-[52vh] min-h-[360px] overflow-hidden flex items-center justify-center">
 			{/* Racing stripe */}
@@ -38,9 +42,9 @@ export function SponsorsHero() {
 			{/* Content */}
 			<div className="relative z-20 text-center px-8 flex flex-col items-center">
 				<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-					<span className="block text-white">Our</span>
+					<span className="block text-white">{t("line1")}</span>
 					<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-						Sponsors
+						{t("line2")}
 					</span>
 				</h1>
 
@@ -73,7 +77,7 @@ export function SponsorsHero() {
 				</div>
 
 				<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
-					Partners in innovation and excellence
+					{t("subtitle")}
 				</p>
 			</div>
 

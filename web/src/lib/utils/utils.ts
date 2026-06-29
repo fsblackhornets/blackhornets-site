@@ -17,19 +17,29 @@ export function excerpt(text: string, max = 150): string {
 	return plain.length > max ? `${plain.slice(0, max - 3)}...` : plain;
 }
 
-export function resolvePostTitle(post: {
-	title_en?: string | null;
-	title_sr?: string | null;
-	title?: string | null;
-}): string {
+export function resolvePostTitle(
+	post: {
+		title_en?: string | null;
+		title_sr?: string | null;
+		title?: string | null;
+	},
+	locale?: string,
+): string {
+	if (locale === "sr")
+		return post.title_sr ?? post.title_en ?? post.title ?? "Bez naslova";
 	return post.title_en ?? post.title_sr ?? post.title ?? "Untitled";
 }
 
-export function resolvePostContent(post: {
-	content_en?: string | null;
-	content_sr?: string | null;
-	content?: string | null;
-}): string {
+export function resolvePostContent(
+	post: {
+		content_en?: string | null;
+		content_sr?: string | null;
+		content?: string | null;
+	},
+	locale?: string,
+): string {
+	if (locale === "sr")
+		return post.content_sr ?? post.content_en ?? post.content ?? "";
 	return post.content_en ?? post.content_sr ?? post.content ?? "";
 }
 

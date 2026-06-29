@@ -1,4 +1,8 @@
-import { type SponsorTier, TIER_LABELS, TIER_STYLES } from "@/constants/sponsors";
+import {
+	type SponsorTier,
+	TIER_LABELS,
+	TIER_STYLES,
+} from "@/constants/sponsors";
 import type { Sponsor } from "@/types/sponsor";
 import { SponsorCard } from "./SponsorCard";
 
@@ -11,7 +15,12 @@ export function TierGroup({
 }) {
 	if (sponsors.length === 0) return null;
 
-	const { text: textCls, badgeBorder, badgeBg, border: borderCls } = TIER_STYLES[tier];
+	const {
+		text: textCls,
+		badgeBorder,
+		badgeBg,
+		border: borderCls,
+	} = TIER_STYLES[tier];
 
 	return (
 		<div className="mb-10">

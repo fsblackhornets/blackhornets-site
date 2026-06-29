@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { BlogIcon } from "@/components/icons/BlogIcon";
 import { ChevronRightIcon } from "@/components/icons/ChevronRightIcon";
 
-export function HeroSection() {
+export async function HeroSection() {
+	const t = await getTranslations("home.hero");
+
 	return (
 		<section
 			className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center"
@@ -40,7 +43,7 @@ export function HeroSection() {
 					className="font-heading text-text-gray text-xs uppercase mb-10"
 					style={{ letterSpacing: "0.4em" }}
 				>
-					Formula Student · Novi Sad
+					{t("subtitle")}
 				</p>
 
 				{/* 3-line title */}
@@ -96,7 +99,7 @@ export function HeroSection() {
 							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
 						}}
 					>
-						Discover More
+						{t("discoverMore")}
 						<ChevronRightIcon className="w-4 h-4" />
 					</Link>
 					<Link
@@ -108,7 +111,7 @@ export function HeroSection() {
 						}}
 					>
 						<BlogIcon className="w-4 h-4" />
-						Blog
+						{t("blog")}
 					</Link>
 				</div>
 			</div>
@@ -118,7 +121,7 @@ export function HeroSection() {
 				<div className="w-[30px] h-[50px] border-2 border-text-gray rounded-[25px] mx-auto mb-2 flex justify-center pt-2">
 					<div className="w-1.5 h-1.5 bg-primary rounded-full animate-scroll-mouse" />
 				</div>
-				<span className="text-xs tracking-widest">Scroll Down</span>
+				<span className="text-xs tracking-widest">{t("scrollDown")}</span>
 			</div>
 
 			{/* Gold bottom border */}

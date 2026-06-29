@@ -1,4 +1,8 @@
-export function GalleryHero() {
+import { getTranslations } from "next-intl/server";
+
+export async function GalleryHero() {
+	const t = await getTranslations("gallery.hero");
+
 	return (
 		<section className="relative h-[60vh] min-h-[400px] overflow-hidden flex items-center justify-center">
 			{/* Racing stripe */}
@@ -44,9 +48,9 @@ export function GalleryHero() {
 			{/* Content */}
 			<div className="relative z-20 text-center px-8 flex flex-col items-center">
 				<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-					<span className="block text-white">Our</span>
+					<span className="block text-white">{t("line1")}</span>
 					<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
-						Gallery
+						{t("line2")}
 					</span>
 				</h1>
 
@@ -79,7 +83,7 @@ export function GalleryHero() {
 				</div>
 
 				<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
-					Capturing our racing journey
+					{t("subtitle")}
 				</p>
 			</div>
 

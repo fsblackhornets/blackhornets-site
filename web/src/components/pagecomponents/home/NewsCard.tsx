@@ -13,14 +13,16 @@ import type { Post } from "@/types/post";
 export function NewsCard({
 	post,
 	variant = "small",
+	locale,
 }: {
 	post: Post;
 	variant?: "featured" | "small";
+	locale?: string;
 }) {
-	const title = resolvePostTitle(post);
-	const body = resolvePostContent(post);
+	const title = resolvePostTitle(post, locale);
+	const body = resolvePostContent(post, locale);
 	const imageUrl = buildImageUrl(post.image);
-	const date = formatDate(post.created_at);
+	const date = formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US");
 
 	if (variant === "featured") {
 		return (

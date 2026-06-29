@@ -1,7 +1,11 @@
+import { getTranslations } from "next-intl/server";
 import { MissionIcon } from "@/components/icons/MissionIcon";
 import { VisionIcon } from "@/components/icons/VisionIcon";
 
-export function MissionVisionSection() {
+export async function MissionVisionSection() {
+	const tm = await getTranslations("about.mission");
+	const tv = await getTranslations("about.vision");
+
 	return (
 		<section className="px-4 py-20" style={{ borderTop: "3px solid #ffd700" }}>
 			<div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2">
@@ -35,17 +39,16 @@ export function MissionVisionSection() {
 							<MissionIcon className="w-6 h-6 text-primary" />
 						</div>
 						<span className="font-heading text-primary text-xs tracking-widest uppercase">
-							Our Mission
+							{tm("label")}
 						</span>
 						<h3
 							className="font-heading font-black text-white leading-tight"
 							style={{ fontSize: "1.25rem" }}
 						>
-							Drive Innovation
+							{tm("heading")}
 						</h3>
 						<p className="font-body text-text-gray leading-relaxed">
-							Develop innovative racing solutions, providing students passionate
-							about motorsport with hands-on engineering experience.
+							{tm("body")}
 						</p>
 					</div>
 				</div>
@@ -77,17 +80,16 @@ export function MissionVisionSection() {
 							<VisionIcon className="w-6 h-6 text-primary" />
 						</div>
 						<span className="font-heading text-primary text-xs tracking-widest uppercase">
-							Our Vision
+							{tv("label")}
 						</span>
 						<h3
 							className="font-heading font-black text-white leading-tight"
 							style={{ fontSize: "1.25rem" }}
 						>
-							Lead the Future
+							{tv("heading")}
 						</h3>
 						<p className="font-body text-text-gray leading-relaxed">
-							Become the leading Formula Student team, known for technical
-							innovation and professional development of future engineers.
+							{tv("body")}
 						</p>
 					</div>
 				</div>

@@ -1,13 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { SearchIcon } from "@/components/icons/SearchIcon";
 import { useBlogFilter } from "@/hooks/blog/useBlogFilter";
 import type { Post } from "@/types/post";
 import { BlogPostCard } from "./components/BlogPostCard";
 
 export function BlogPageClient({ posts }: { posts: Post[] }) {
+	const t = useTranslations("blog");
 	const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
 	const categories = useMemo(() => {
@@ -39,7 +41,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 							type="text"
 							value={search}
 							onChange={(e) => handleSearch(e.target.value)}
-							placeholder="Search posts..."
+							placeholder={t("search.placeholder")}
 							className="flex-1 bg-transparent py-3 text-text-light placeholder:text-[#444] outline-none text-sm font-body"
 						/>
 					</div>
@@ -50,7 +52,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 							clipPath: "polygon(8px 0, 100% 0, 100% 100%, 0 100%)",
 						}}
 					>
-						Search
+						{t("search.button")}
 					</button>
 				</form>
 			</div>
@@ -88,10 +90,10 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 			<div className="flex items-end justify-between mb-8">
 				<div>
 					<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary block mb-2">
-						All Posts
+						{t("allPosts")}
 					</span>
 					<h2 className="font-heading font-black text-white leading-tight text-2xl">
-						Latest{" "}
+						{t("latest")}{" "}
 						<span
 							style={{
 								background: "linear-gradient(90deg, #ffd700, #ffc107)",
@@ -100,7 +102,7 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 								backgroundClip: "text",
 							}}
 						>
-							Articles
+							{t("articles")}
 						</span>
 					</h2>
 				</div>
@@ -117,12 +119,17 @@ export function BlogPageClient({ posts }: { posts: Post[] }) {
 			{pagePosts.length === 0 ? (
 				<div className="min-h-[30vh] flex items-center justify-center py-12">
 					<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 flex flex-col items-center gap-4 text-center max-w-sm w-full">
-						<FileText size={32} strokeWidth={1.5} stroke="rgba(255,215,0,0.3)" aria-hidden="true" />
+						<FileText
+							size={32}
+							strokeWidth={1.5}
+							stroke="rgba(255,215,0,0.3)"
+							aria-hidden="true"
+						/>
 						<p className="font-heading text-[11px] tracking-[3px] text-primary uppercase">
-							No posts found
+							{t("noPostsFound")}
 						</p>
 						<p className="font-body text-[10px] text-text-gray">
-							Try a different search term or category.
+							{t("noPostsTip")}
 						</p>
 					</div>
 				</div>

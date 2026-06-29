@@ -1,9 +1,15 @@
 import Image from "next/image";
-import { fetchMemberCount } from "@/lib/api/team";
+import { getTranslations } from "next-intl/server";
 import { STAT_ITEMS } from "@/constants/about";
+import { fetchMemberCount } from "@/lib/api/team";
+
+const STAT_KEYS = ["statTeamMembers", "statDepartments", "statAwards"] as const;
 
 export async function OurStorySection() {
-	const memberCount = await fetchMemberCount();
+	const [memberCount, t] = await Promise.all([
+		fetchMemberCount(),
+		getTranslations("about.story"),
+	]);
 	const statValues = [memberCount ?? "—", 8, 0];
 
 	return (
@@ -14,13 +20,13 @@ export async function OurStorySection() {
 					{/* Label + heading */}
 					<div className="flex flex-col gap-3">
 						<span className="font-heading text-primary text-xs tracking-widest uppercase">
-							Our Story
+							{t("label")}
 						</span>
 						<div
 							className="font-heading font-black leading-[1.05]"
 							style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)" }}
 						>
-							<span className="block text-white">Built from</span>
+							<span className="block text-white">{t("line1")}</span>
 							<span
 								className="block"
 								style={{
@@ -30,7 +36,7 @@ export async function OurStorySection() {
 									backgroundClip: "text",
 								}}
 							>
-								Passion
+								{t("line2")}
 							</span>
 						</div>
 					</div>
@@ -38,15 +44,10 @@ export async function OurStorySection() {
 					{/* Body text */}
 					<div className="flex flex-col gap-4">
 						<p className="font-body text-text-gray leading-relaxed">
-							Black Hornets Racing was founded by a group of passionate
-							engineering students. What started as a small project has grown
-							into one of the most dynamic Formula Student teams in the region.
+							{t("p1")}
 						</p>
 						<p className="font-body text-text-gray leading-relaxed">
-							From concept to racetrack, every component we build reflects our
-							commitment to technical excellence, teamwork, and continuous
-							improvement — preparing the next generation of automotive
-							engineers.
+							{t("p2")}
 						</p>
 					</div>
 
@@ -55,9 +56,9 @@ export async function OurStorySection() {
 						className="grid grid-cols-3"
 						style={{ border: "1px solid #1e1e1e" }}
 					>
-						{STAT_ITEMS.map(({ label }, i) => (
+						{STAT_ITEMS.map((_item, i) => (
 							<div
-								key={label}
+								key={STAT_KEYS[i]}
 								className="flex flex-col items-center gap-1 py-7 px-4"
 								style={{
 									borderRight: i < 2 ? "1px solid #1e1e1e" : "none",
@@ -70,7 +71,7 @@ export async function OurStorySection() {
 									{statValues[i]}
 								</span>
 								<span className="font-body text-text-gray text-xs tracking-widest uppercase text-center">
-									{label}
+									{t(STAT_KEYS[i])}
 								</span>
 							</div>
 						))}

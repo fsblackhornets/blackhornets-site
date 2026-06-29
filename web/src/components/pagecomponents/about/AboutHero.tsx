@@ -1,6 +1,9 @@
+import { getTranslations } from "next-intl/server";
 import { HeroBadges } from "./components/HeroBadges";
 
-export function AboutHero() {
+export async function AboutHero() {
+	const t = await getTranslations("about.hero");
+
 	return (
 		<section className="relative h-[70vh] min-h-[500px] overflow-hidden flex flex-col items-center justify-center">
 			{/* Video background */}
@@ -52,7 +55,7 @@ export function AboutHero() {
 					className="font-heading font-black leading-[1.05]"
 					style={{ fontSize: "clamp(2.5rem, 8vw, 5.5rem)" }}
 				>
-					<span className="block text-white">About</span>
+					<span className="block text-white">{t("line1")}</span>
 					<span
 						className="block"
 						style={{
@@ -62,7 +65,7 @@ export function AboutHero() {
 							backgroundClip: "text",
 						}}
 					>
-						The Team
+						{t("line2")}
 					</span>
 				</h1>
 
@@ -75,7 +78,7 @@ export function AboutHero() {
 						textTransform: "uppercase",
 					}}
 				>
-					Driving innovation in student racing
+					{t("subtitle")}
 				</p>
 
 				{/* Speed lines */}
