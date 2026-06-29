@@ -1,4 +1,8 @@
+import { Settings } from "lucide-react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { FeaturedProjectCard } from "@/components/pagecomponents/projects/components/FeaturedProjectCard";
+import { PaginatedProjects } from "@/components/pagecomponents/projects/components/PaginatedProjects";
 import { ProjectCard } from "@/components/pagecomponents/projects/components/ProjectCard";
 import { SITE_NAME, SITE_OG_IMAGE } from "@/constants/site";
 import { fetchProjects } from "@/lib/api/projects";
@@ -17,60 +21,162 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-	const projects = await fetchProjects();
+	const [projects, t] = await Promise.all([
+		fetchProjects(),
+		getTranslations("projects"),
+	]);
+
+	const featured = projects[0] ?? null;
+	const highlights = projects.slice(1, 3);
+	const remaining = projects.slice(3);
 
 	return (
 		<>
-			<section className="relative py-32 flex items-center justify-center bg-gradient-to-br from-black to-bg-panel overflow-hidden">
-				<div
-					className="absolute inset-0"
-					style={{
-						background:
-							"radial-gradient(circle at center, rgba(255,215,0,0.05) 0%, transparent 70%)",
-					}}
-				/>
-				<div className="relative z-10 text-center px-8">
-					<h1 className="font-heading text-[clamp(2.5rem,7vw,4.5rem)] font-black tracking-[4px] text-primary drop-shadow-[0_0_30px_rgba(255,215,0,0.4)]">
-						Our Projects
-					</h1>
-					<p className="text-text-light text-xl tracking-widest mt-4">
-						Discover our innovative racing solutions and engineering
-						achievements.
-					</p>
-					<div className="w-24 h-0.5 bg-primary mx-auto mt-4" />
+			{/* Hero */}
+			<section
+				className="relative min-h-[50vh] flex flex-col items-center justify-center overflow-hidden"
+				style={{ background: "#080808" }}
+			>
+				{/* Racing stripe */}
+				<div className="absolute top-0 left-0 right-0 z-20 flex h-[3px]">
+					<div className="flex-1 bg-primary" />
+					<div className="w-[80px] bg-bg-dark" />
+					<div className="w-[30px] bg-primary" />
 				</div>
+
+				{/* PROJECTS watermark */}
+				<div
+					className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[1]"
+					aria-hidden="true"
+				>
+					<span
+						className="font-heading font-black text-white"
+						style={{
+							fontSize: "180px",
+							opacity: 0.03,
+							letterSpacing: "-4px",
+							lineHeight: 1,
+						}}
+					>
+						PROJECTS
+					</span>
+				</div>
+
+				{/* Content */}
+				<div className="relative z-10 text-center px-8 flex flex-col items-center">
+					<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
+						<span className="block text-white">{t("hero.line1")}</span>
+						<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
+							{t("hero.line2")}
+						</span>
+					</h1>
+
+					{/* Speed lines */}
+					<div className="flex gap-1.5 items-center my-5">
+						<div
+							style={{
+								width: "52px",
+								height: "2px",
+								background: "#ffd700",
+								opacity: 0.9,
+							}}
+						/>
+						<div
+							style={{
+								width: "16px",
+								height: "1.5px",
+								background: "#ffd700",
+								opacity: 0.5,
+							}}
+						/>
+						<div
+							style={{
+								width: "8px",
+								height: "1px",
+								background: "#ffd700",
+								opacity: 0.2,
+							}}
+						/>
+					</div>
+
+					<p className="font-body font-light text-text-gray text-xs tracking-[4px] uppercase">
+						{t("hero.subtitle")}
+					</p>
+				</div>
+
+				{/* Gold bottom border */}
+				<div
+					className="absolute bottom-0 left-0 right-0 z-20"
+					style={{ height: "3px", background: "#ffd700" }}
+				/>
 			</section>
 
-			<section className="py-20 px-4 max-w-[1100px] mx-auto">
+			<section className="py-20 px-4 max-w-screen-2xl mx-auto">
 				{projects.length === 0 ? (
 					<div className="min-h-[40vh] flex items-center justify-center">
-						<div className="text-center bg-bg-panel border border-primary rounded-2xl p-12 max-w-lg w-full shadow-[0_0_30px_rgba(255,215,0,0.1)]">
-							<div className="flex justify-center gap-2 mb-6">
-								<i
-									className="fas fa-cog text-5xl text-primary animate-spin"
-									aria-hidden="true"
-								/>
-								<i
-									className="fas fa-cog text-4xl text-primary animate-[spin_3s_linear_infinite_reverse]"
-									aria-hidden="true"
-								/>
+						<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 flex flex-col items-center gap-4 max-w-lg w-full">
+							{/* Gear icons */}
+							<div className="flex gap-3 items-center">
+								<Settings size={40} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+								<Settings size={28} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 							</div>
-							<h2 className="font-heading text-2xl uppercase tracking-[3px] text-primary mb-4">
-								Projects Coming Soon
-							</h2>
-							<p className="text-text-gray">
-								We&apos;re working on exciting new projects. Stay tuned!
+
+							{/* Racing stripe divider */}
+							<div className="flex h-[2px] w-10">
+								<div className="flex-1 bg-primary" />
+								<div className="w-2 bg-bg-dark" />
+								<div className="w-1 bg-primary" />
+							</div>
+
+							<p className="font-heading text-[13px] tracking-[3px] text-primary uppercase">
+								{t("comingSoon")}
 							</p>
-							<div className="mt-6 h-1 bg-gray-mid rounded overflow-hidden">
-								<div className="h-full w-[30%] bg-primary animate-[progress_2s_ease-in-out_infinite]" />
-							</div>
+							<p className="font-body text-[9px] text-text-gray text-center">
+								{t("comingSoonDesc")}
+							</p>
 						</div>
 					</div>
 				) : (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						{projects.map((project) => (
-							<ProjectCard key={project.id} project={project} />
-						))}
+					<div className="flex flex-col gap-10">
+						{/* Section header */}
+						<div className="flex items-end justify-between">
+							<div>
+								<span className="font-heading text-[9px] tracking-[5px] uppercase text-primary block mb-2">
+									{t("engineering")}
+								</span>
+								<h2 className="font-heading font-black text-white leading-tight text-2xl">
+									{t("mostRecent")}{" "}
+									<span
+										style={{
+											background: "linear-gradient(90deg, #ffd700, #ffc107)",
+											WebkitBackgroundClip: "text",
+											WebkitTextFillColor: "transparent",
+											backgroundClip: "text",
+										}}
+									>
+										{t("projectsLabel")}
+									</span>
+								</h2>
+							</div>
+							<span className="font-heading text-[9px] tracking-[2px] text-text-gray uppercase">
+								{projects.length} project{projects.length !== 1 ? "s" : ""}
+							</span>
+						</div>
+
+						{/* Featured */}
+						{featured && <FeaturedProjectCard project={featured} />}
+
+						{/* Highlights */}
+						{highlights.length > 0 && (
+							<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+								{highlights.map((project) => (
+									<ProjectCard key={project.id} project={project} />
+								))}
+							</div>
+						)}
+
+						{/* Remaining — client-side paginated with fade */}
+						{remaining.length > 0 && <PaginatedProjects projects={remaining} />}
 					</div>
 				)}
 			</section>

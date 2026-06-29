@@ -1,0 +1,308 @@
+{
+  "nav": {
+    "home": "Home",
+    "team": "Team",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "gallery": "Gallery",
+    "sponsors": "Sponsors",
+    "contact": "Contact",
+    "applyNow": "Apply Now",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "tagline": "Pioneering electric racing innovation",
+    "quickLinks": "Quick Links",
+    "getInvolved": "Get Involved",
+    "applyToTeam": "Apply to Team",
+    "becomeSponsor": "Become a Sponsor",
+    "gallery": "Gallery",
+    "applyNow": "Apply Now",
+    "contactUs": "Contact Us",
+    "location": "University of Novi Sad, Serbia",
+    "privacyPolicy": "Privacy Policy · Powered by CodeHive"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Formula Student · Novi Sad",
+      "discoverMore": "Discover More",
+      "blog": "Blog",
+      "scrollDown": "Scroll Down"
+    },
+    "whoWeAre": {
+      "heading": "Who We Are",
+      "quote": "We don't just build cars – we build the future of racing.",
+      "p1": "Black Hornets Racing is a passionate team of engineering students dedicated to pushing the boundaries of automotive innovation. We combine cutting-edge technology with sustainable practices to create high-performance racing vehicles that represent the future of motorsport.",
+      "p2": "Our team brings together diverse talents from mechanical engineering, electrical engineering, aerodynamics, and data analysis. We believe in learning through hands-on experience, competing in international competitions, and developing solutions that address real-world challenges in the automotive industry."
+    },
+    "latestNews": {
+      "heading": "Latest News",
+      "moreNews": "More News"
+    }
+  },
+  "about": {
+    "hero": {
+      "line1": "About",
+      "line2": "The Team",
+      "subtitle": "Driving innovation in student racing"
+    },
+    "badges": {
+      "speed": "Speed",
+      "innovation": "Innovation",
+      "excellence": "Excellence"
+    },
+    "mission": {
+      "label": "Our Mission",
+      "heading": "Drive Innovation",
+      "body": "Develop innovative racing solutions, providing students passionate about motorsport with hands-on engineering experience."
+    },
+    "vision": {
+      "label": "Our Vision",
+      "heading": "Lead the Future",
+      "body": "Become the leading Formula Student team, known for technical innovation and professional development of future engineers."
+    },
+    "story": {
+      "label": "Our Story",
+      "line1": "Built from",
+      "line2": "Passion",
+      "p1": "Black Hornets Racing was founded by a group of passionate engineering students. What started as a small project has grown into one of the most dynamic Formula Student teams in the region.",
+      "p2": "From concept to racetrack, every component we build reflects our commitment to technical excellence, teamwork, and continuous improvement — preparing the next generation of automotive engineers.",
+      "statTeamMembers": "Team Members",
+      "statDepartments": "Departments",
+      "statAwards": "Awards"
+    },
+    "departments": {
+      "label": "Structure",
+      "heading": "Our",
+      "headingGold": "Departments",
+      "marketing": {
+        "title": "Marketing",
+        "description": "Team promotion, content creation, and social media management."
+      },
+      "sponsorships": {
+        "title": "Sponsorships",
+        "description": "Partner communication, negotiations, and sponsor relationship management."
+      },
+      "management": {
+        "title": "Management",
+        "description": "Team organization, project coordination, and resource management."
+      },
+      "chassis": {
+        "title": "Chassis & Aerodynamics",
+        "description": "Chassis design, structural analysis, and aerodynamic optimization."
+      },
+      "suspension": {
+        "title": "Suspension & Steering",
+        "description": "Suspension systems, steering geometry, and vehicle dynamics."
+      },
+      "transmission": {
+        "title": "Transmission & Braking",
+        "description": "Drivetrain components, braking systems, and power delivery."
+      },
+      "highVoltage": {
+        "title": "High Voltage",
+        "description": "Battery systems, high voltage distribution, and energy management."
+      },
+      "lowVoltage": {
+        "title": "Low Voltage",
+        "description": "Control electronics, sensors, CAN communication, and low voltage systems."
+      }
+    }
+  },
+  "sponsors": {
+    "hero": {
+      "line1": "Our",
+      "line2": "Sponsors",
+      "subtitle": "Partners in innovation and excellence"
+    },
+    "current": {
+      "label": "Partners",
+      "heading": "Our",
+      "headingGold": "Sponsors",
+      "comingSoon": "Coming Soon",
+      "comingSoonDesc": "Partnerships being confirmed. Stay tuned!"
+    },
+    "become": {
+      "label": "Partnership",
+      "heading": "Become a",
+      "headingGold": "Sponsor",
+      "body": "If you want to share our vision and invest in the potential of young ambitious people, in our partner brochure you can find out how to become a sponsor.",
+      "brochure": "Partner Brochure",
+      "contact": "Contact Us"
+    }
+  },
+  "team": {
+    "hero": {
+      "line1": "Our",
+      "line2": "Team",
+      "subtitle": "Meet the innovators behind Black Hornets Racing"
+    },
+    "projectLeader": "Project Leader",
+    "deptLeader": "Dept. Leader",
+    "viewProfile": "View Profile ›",
+    "seeTeamMembers": "See Team Members",
+    "backToTeams": "Back to Teams",
+    "ourTeam": "Our Team",
+    "sector": "Sector",
+    "departmentLeader": "Department Leader",
+    "all": "All",
+    "teamLeaders": "Team Leaders",
+    "members": "Members",
+    "noMembersFound": "No members found."
+  },
+  "blog": {
+    "hero": {
+      "label": "Latest",
+      "line1": "Latest",
+      "line2": "News",
+      "subtitle": "Race updates, technical insights, and team stories."
+    },
+    "search": {
+      "placeholder": "Search posts...",
+      "button": "Search"
+    },
+    "allPosts": "All Posts",
+    "latest": "Latest",
+    "articles": "Articles",
+    "noPostsFound": "No posts found",
+    "noPostsTip": "Try a different search term or category.",
+    "category": "Category"
+  },
+  "blogPost": {
+    "backToBlog": "Back to Blog",
+    "featured": "Featured",
+    "minRead": "{count} min read",
+    "moreArticles": "More Articles",
+    "tags": "Tags:",
+    "share": "Share",
+    "contents": "Contents",
+    "joinTeam": "Join the Team",
+    "joinTeamBody": "Be part of Black Hornets Racing. Apply and build the future of motorsport.",
+    "applyNow": "Apply Now",
+    "shareOnFacebook": "Share on Facebook",
+    "shareOnInstagram": "Share on Instagram",
+    "copyLink": "Copy link",
+    "authorBio": "Formula Student team dedicated to engineering excellence and motorsport innovation.",
+    "teamBlackHornets": "Team Black Hornets"
+  },
+  "projects": {
+    "hero": {
+      "line1": "Our",
+      "line2": "Projects",
+      "subtitle": "Engineering innovation on and off the track"
+    },
+    "engineering": "Engineering",
+    "mostRecent": "Most Recent",
+    "projectsLabel": "Projects",
+    "comingSoon": "Projects Coming Soon",
+    "comingSoonDesc": "We're working on exciting new projects. Stay tuned!",
+    "backToProjects": "Back to Projects",
+    "project": "Project",
+    "dueDate": "Due Date",
+    "duration": "Duration",
+    "timeline": "Timeline",
+    "daysOverdue": "{count} days overdue",
+    "daysRemaining": "{count} days remaining",
+    "progress": "Progress",
+    "percentComplete": "{percent}% complete"
+  },
+  "gallery": {
+    "hero": {
+      "line1": "Our",
+      "line2": "Gallery",
+      "subtitle": "Capturing our racing journey"
+    },
+    "category": "Category",
+    "noImages": "No Images Available",
+    "checkBackSoon": "Check back soon.",
+    "sections": {
+      "race_cars": {
+        "title": "Race Cars",
+        "description": "Black Hornets Racing showcases our cutting-edge Formula Student race cars. Each vehicle represents countless hours of innovation, precision engineering, and aerodynamic excellence."
+      },
+      "team": {
+        "title": "Our Team",
+        "description": "Meet the passionate minds behind our success. A diverse team of engineers, designers, and innovators working together to achieve excellence."
+      },
+      "events": {
+        "title": "Events & Competitions",
+        "description": "Witness our competitive spirit in action. From Formula Student competitions to engineering showcases, every event tells a story of determination."
+      },
+      "workshop": {
+        "title": "Workshop",
+        "description": "Step into our engineering sanctuary. Where ideas transform into reality, and innovation meets craftsmanship in our state-of-the-art facility."
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "line1": "Get In",
+      "line2": "Touch",
+      "subtitle": "We'd love to hear from you"
+    },
+    "sendMessage": "Send a Message",
+    "getInTouch": "Get in Touch",
+    "location": "Location",
+    "locationName": "University of Novi Sad, Serbia",
+    "locationFaculty": "Faculty of Technical Sciences",
+    "email": "Email",
+    "phone": "Phone",
+    "followUs": "Follow Us",
+    "faq": {
+      "label": "FAQ",
+      "heading": "Frequently Asked",
+      "headingGold": "Questions",
+      "items": [
+        {
+          "q": "How can I join the team?",
+          "a": "Visit the Apply page and fill out the application form. We review applications regularly and will contact qualifying candidates."
+        },
+        {
+          "q": "Do you offer sponsorship opportunities?",
+          "a": "Yes, we offer various sponsorship packages. Contact our sponsorships team for more information."
+        },
+        {
+          "q": "What is Formula Student?",
+          "a": "Formula Student is an international engineering competition where student teams design, build, and race a small formula-style car. Teams are judged on vehicle performance, engineering design, cost, and business presentation."
+        },
+        {
+          "q": "Which departments can I join?",
+          "a": "We have Mechanical, Electrical, and Business departments. Mechanical covers chassis, suspension, and drivetrain. Electrical covers electronics and software. Business covers marketing, sponsorships, and management."
+        },
+        {
+          "q": "When and where do you compete?",
+          "a": "We compete at Formula Student events across Europe, typically held between June and September. Our base is the Faculty of Technical Sciences, University of Novi Sad."
+        },
+        {
+          "q": "Can I visit your workshop?",
+          "a": "Yes! Students who want to join or learn more about our work are welcome to visit. Contact us via the form or social media to arrange a visit."
+        }
+      ]
+    }
+  },
+  "apply": {
+    "hero": {
+      "line1": "Join",
+      "line2": "Our Team",
+      "subtitle": "Be part of something extraordinary"
+    },
+    "requirements": "Requirements",
+    "departments": "Departments",
+    "requirementItems": [
+      {
+        "title": "Student Status",
+        "desc": "Active student at University of Novi Sad"
+      },
+      {
+        "title": "Passion",
+        "desc": "Enthusiasm for motorsports and engineering"
+      },
+      {
+        "title": "Team Spirit",
+        "desc": "Ability to work in a collaborative environment"
+      }
+    ]
+  }
+}

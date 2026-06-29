@@ -1,37 +1,28 @@
-# Sensitive configuration files
-includes/db_connect.php
-config.php
-.env.php
+# Next.js
+web/.next/
+web/out/
+web/build/
 
-# Upload directories with user content
-uploads/*
-!uploads/.gitkeep
-uploads/blog-images/*
-!uploads/blog-images/.gitkeep
-uploads/cv/*
-!uploads/cv/.gitkeep
-uploads/gallery/*
-!uploads/gallery/.gitkeep
-uploads/profiles/*
-!uploads/profiles/.gitkeep
-uploads/projects/*
-!uploads/projects/.gitkeep
-uploads/reports/*
-!uploads/reports/.gitkeep
-uploads/resumes/*
-!uploads/resumes/.gitkeep
-uploads/sponsors/*
-!uploads/sponsors/.gitkeep
+# Dependencies
+web/node_modules/
+node_modules/
 
-# Error logs
-error_log
-*.log
-admin/error_log
-api/*/error_log
-includes/error_log
-includes/email_log.txt
+# Environment variables
+web/.env.local
+web/.env.*.local
 
-# OS generated files
+# Uploads (runtime files, not source)
+web/public/uploads/*
+!web/public/uploads/.gitkeep
+
+# Drizzle
+web/drizzle/
+
+# TypeScript
+web/next-env.d.ts
+web/tsconfig.tsbuildinfo
+
+# OS
 .DS_Store
 .DS_Store?
 ._*
@@ -41,41 +32,17 @@ ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# PHP
-*.cache
+# Logs
+*.log
+npm-debug.log*
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-
-# Backup files
-*.bak
-*.backup
-*~
-
-# Node modules (if any)
-node_modules/
-
-# Playwright
-playwright/node_modules/
-playwright/playwright-report/
-playwright/test-results/
-
-# Composer
-vendor/
-composer.lock
-
+# Misc
+.vercel
 .claude/settings.local.json
-
-# Next.js app
-web/.next/
-web/node_modules/
-web/.env.local

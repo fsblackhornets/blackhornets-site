@@ -34,20 +34,29 @@ export function Select({
 			<RadixSelect.Root value={value} onValueChange={onChange}>
 				<RadixSelect.Trigger
 					id={id}
-					className="w-full flex items-center justify-between bg-bg-dark border border-gray-mid rounded-lg px-4 py-2.5 text-sm outline-none focus:border-primary data-[placeholder]:text-text-gray text-text-light transition-colors hover:border-primary/50"
+					className="w-full flex items-center justify-between bg-[#0e0e0e] border border-[#2a2a2a] rounded-none px-3 py-2.5 text-[10px] font-body text-[#e0e0e0] outline-none focus:border-primary data-[placeholder]:text-[#333] transition-colors appearance-none"
 				>
 					<RadixSelect.Value placeholder={placeholder} />
 					<RadixSelect.Icon>
-						<i
-							className="fas fa-chevron-down text-text-gray text-xs"
+						<svg
+							width="10"
+							height="10"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#444"
+							strokeWidth={2}
+							strokeLinecap="round"
+							strokeLinejoin="round"
 							aria-hidden="true"
-						/>
+						>
+							<polyline points="6 9 12 15 18 9" />
+						</svg>
 					</RadixSelect.Icon>
 				</RadixSelect.Trigger>
 
 				<RadixSelect.Portal>
 					<RadixSelect.Content
-						className="z-50 bg-bg-panel border border-gray-mid rounded-xl shadow-xl overflow-hidden"
+						className="z-50 bg-bg-panel border border-[#2a2a2a] rounded-sm shadow-xl overflow-hidden"
 						position="popper"
 						sideOffset={4}
 					>
@@ -56,16 +65,23 @@ export function Select({
 								<RadixSelect.Item
 									key={v}
 									value={v}
-									className="flex items-center justify-between px-4 py-2.5 text-sm text-text-light rounded-lg cursor-pointer outline-none
-										data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary
-										data-[state=checked]:text-primary"
+									className="flex items-center justify-between px-3 py-2 text-[10px] font-body text-[#e0e0e0] cursor-pointer outline-none data-[highlighted]:bg-primary/10 data-[highlighted]:text-primary data-[state=checked]:text-primary"
 								>
 									<RadixSelect.ItemText>{label}</RadixSelect.ItemText>
 									<RadixSelect.ItemIndicator>
-										<i
-											className="fas fa-check text-xs text-primary"
+										<svg
+											width="10"
+											height="10"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={2.5}
+											strokeLinecap="round"
+											strokeLinejoin="round"
 											aria-hidden="true"
-										/>
+										>
+											<polyline points="20 6 9 17 4 12" />
+										</svg>
 									</RadixSelect.ItemIndicator>
 								</RadixSelect.Item>
 							))}

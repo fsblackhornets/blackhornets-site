@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/components/Badge";
+import { useLocale } from "next-intl";
+import { CalendarIcon } from "@/components/icons/CalendarIcon";
+import { UserIcon } from "@/components/icons/UserIcon";
 import {
 	buildImageUrl,
 	excerpt,
@@ -11,45 +15,79 @@ import {
 import type { Post } from "@/types/post";
 
 export function BlogPostCard({ post }: { post: Post }) {
-	const title = resolvePostTitle(post);
-	const body = resolvePostContent(post);
+	const locale = useLocale();
+	const title = resolvePostTitle(post, locale);
+	const body = resolvePostContent(post, locale);
 	const imageUrl = buildImageUrl(post.image);
-	const date = formatDate(post.created_at);
+	const date = formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US");
 
 	return (
 		<Link
 			href={`/blog/${post.id}`}
-			className="group bg-bg-panel rounded-2xl border border-gray-mid overflow-hidden flex flex-col hover:border-primary/40 hover:-translate-y-1 transition-all duration-200"
+			className="group bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden flex flex-col hover:border-primary/60 transition-colors duration-200"
 		>
+			{/* Image */}
 			{imageUrl && (
-				<div className="relative h-48 overflow-hidden">
+				<div className="relative h-48 overflow-hidden shrink-0">
 					<Image
 						src={imageUrl}
 						alt={title}
 						fill
 						className="object-cover transition-transform duration-300 group-hover:scale-105"
 					/>
+					{/* Featured badge */}
+					{post.featured === 1 && (
+						<div className="absolute top-2 left-2">
+							<span
+								className="font-heading text-[6px] tracking-[2px] uppercase bg-primary text-black px-2 py-0.5"
+								style={{
+									clipPath:
+										"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+								}}
+							>
+								Featured
+							</span>
+						</div>
+					)}
+					{/* Category badge */}
+					{post.category && (
+						<div className="absolute bottom-2 left-2">
+							<span
+								className="font-body font-medium text-[6px] tracking-[1.5px] uppercase text-primary bg-primary/10 px-2 py-0.5"
+								style={{
+									clipPath:
+										"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+								}}
+							>
+								{post.category}
+							</span>
+						</div>
+					)}
 				</div>
 			)}
-			<div className="p-5 flex flex-col flex-1 gap-3">
-				<div className="flex gap-2 flex-wrap">
-					{post.featured === 1 && <Badge variant="gold">Featured</Badge>}
-					{post.category && <Badge variant="info">{post.category}</Badge>}
-				</div>
-				<h2 className="font-heading text-primary text-base tracking-wide leading-snug">
+
+			<div className="p-5 flex flex-col flex-1 gap-2.5">
+				<h2 className="font-heading text-[#e0e0e0] text-[10px] tracking-wide leading-snug">
 					{title}
 				</h2>
-				<p className="text-text-gray text-sm leading-relaxed flex-1 line-clamp-3">
+				<p className="text-text-gray text-[10px] leading-relaxed flex-1 line-clamp-3 font-body">
 					{excerpt(body)}
 				</p>
-				<div className="flex gap-4 text-xs text-text-gray">
-					<span>
-						<i className="fa-regular fa-calendar mr-1" aria-hidden="true" />
-						{date}
-					</span>
-					<span>
-						<i className="fa-regular fa-user mr-1" aria-hidden="true" />
-						{post.author ?? "Team Black Hornets"}
+
+				{/* Footer */}
+				<div className="flex items-center justify-between border-t border-[#1c1c1c] pt-2 mt-auto gap-2">
+					<div className="flex gap-3 text-[9px] text-text-gray font-body flex-wrap">
+						<span className="flex items-center gap-1">
+							<CalendarIcon className="w-[9px] h-[9px]" />
+							{date}
+						</span>
+						<span className="flex items-center gap-1">
+							<UserIcon className="w-[9px] h-[9px]" />
+							{post.author ?? "Team Black Hornets"}
+						</span>
+					</div>
+					<span className="font-heading text-[7px] tracking-[1px] text-primary/50 shrink-0">
+						Read ›
 					</span>
 				</div>
 			</div>

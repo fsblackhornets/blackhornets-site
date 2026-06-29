@@ -1,13 +1,22 @@
 "use client";
 
-import { YEAR_OPTIONS } from "@/components/pagecomponents/apply/constants";
-import { Field } from "@/components/ui/components/Field";
-import { Input } from "@/components/ui/components/Input";
-import { SectionTitle } from "@/components/ui/components/SectionTitle";
-import { Select } from "@/components/ui/components/Select";
-import { SubmitButton } from "@/components/ui/components/SubmitButton";
-import { Textarea } from "@/components/ui/components/Textarea";
+import {
+	POSITION_OPTIONS,
+	YEAR_OPTIONS,
+} from "@/constants/apply";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
+import {
+	AlertCircleIcon,
+	CheckCircleIcon,
+	SendIcon,
+	UploadIcon,
+} from "@/components/icons";
 import { useApplyForm } from "@/hooks/apply/useApplyForm";
+
+const inputCls =
+	"bg-[#0e0e0e] border border-[#2a2a2a] rounded-none text-[#e0e0e0] text-sm px-3 py-2.5 w-full focus:outline-none focus:border-primary/50 transition-colors";
+const labelCls =
+	"font-heading text-[8px] tracking-[2px] uppercase text-text-gray mb-1.5 block";
 
 export function ApplyForm() {
 	const {
@@ -18,6 +27,8 @@ export function ApplyForm() {
 		setFileName,
 		academicYear,
 		setAcademicYear,
+		position,
+		setPosition,
 		formRef,
 		handleReset,
 	} = useApplyForm();
@@ -26,85 +37,157 @@ export function ApplyForm() {
 		<form
 			ref={formRef}
 			action={action}
-			encType="multipart/form-data"
 			onReset={handleReset}
-			className="flex flex-col gap-8"
+			className="flex flex-col gap-6"
 		>
 			{state.status === "success" && (
-				<div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-green-400 text-sm flex items-center gap-2">
-					<i className="fas fa-check-circle" aria-hidden="true" />
+				<div className="border-l-2 border-l-green-500 bg-green-500/10 px-4 py-3 text-green-400 text-sm flex items-center gap-2">
+					<CheckCircleIcon size={14} />
 					{state.message}
 				</div>
 			)}
 			{state.status === "error" && (
-				<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-red-400 text-sm flex items-center gap-2">
-					<i className="fas fa-exclamation-circle" aria-hidden="true" />
+				<div className="border-l-2 border-l-red-500 bg-red-500/10 px-4 py-3 text-red-400 text-sm flex items-center gap-2">
+					<AlertCircleIcon size={14} />
 					{state.message}
 				</div>
 			)}
 
 			{/* Personal Info */}
-			<div className="bg-bg-panel rounded-2xl border border-gray-mid p-6">
-				<SectionTitle icon="fas fa-user" title="Personal Information" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Personal Information</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					<Field
-						label="First Name"
-						htmlFor="firstName"
-						error={state.errors?.firstName}
-					>
-						<Input id="firstName" type="text" name="firstName" required />
-					</Field>
-					<Field
-						label="Last Name"
-						htmlFor="lastName"
-						error={state.errors?.lastName}
-					>
-						<Input id="lastName" type="text" name="lastName" required />
-					</Field>
-					<Field
-						label="Email Address"
-						htmlFor="email"
-						error={state.errors?.email}
-					>
-						<Input id="email" type="email" name="email" required />
-					</Field>
-					<Field
-						label="Phone Number"
-						htmlFor="phone"
-						error={state.errors?.phone}
-					>
-						<Input id="phone" type="tel" name="phone" required />
-					</Field>
+					<div>
+						<label htmlFor="firstName" className={labelCls}>
+							First Name
+						</label>
+						<input
+							id="firstName"
+							type="text"
+							name="firstName"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.firstName && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.firstName}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="lastName" className={labelCls}>
+							Last Name
+						</label>
+						<input
+							id="lastName"
+							type="text"
+							name="lastName"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.lastName && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.lastName}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="email" className={labelCls}>
+							Email Address
+						</label>
+						<input
+							id="email"
+							type="email"
+							name="email"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.email && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.email}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="phone" className={labelCls}>
+							Phone Number
+						</label>
+						<input
+							id="phone"
+							type="tel"
+							name="phone"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.phone && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.phone}
+							</p>
+						)}
+					</div>
 				</div>
 			</div>
 
 			{/* Academic Info */}
-			<div className="bg-bg-panel rounded-2xl border border-gray-mid p-6">
-				<SectionTitle icon="fas fa-university" title="Academic Information" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Academic Information</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					<Field
-						label="Student ID"
-						htmlFor="studentId"
-						error={state.errors?.studentId}
-					>
-						<Input id="studentId" type="text" name="studentId" required />
-					</Field>
-					<Field
-						label="Faculty"
-						htmlFor="faculty"
-						error={state.errors?.faculty}
-					>
-						<Input id="faculty" type="text" name="faculty" required />
-					</Field>
-					<Field label="Major" htmlFor="major" error={state.errors?.major}>
-						<Input id="major" type="text" name="major" required />
-					</Field>
-					<Field
-						label="GPA (6.00 – 10.00)"
-						htmlFor="gpa"
-						error={state.errors?.gpa}
-					>
-						<Input
+					<div>
+						<label htmlFor="studentId" className={labelCls}>
+							Student ID
+						</label>
+						<input
+							id="studentId"
+							type="text"
+							name="studentId"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.studentId && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.studentId}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="faculty" className={labelCls}>
+							Faculty
+						</label>
+						<input
+							id="faculty"
+							type="text"
+							name="faculty"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.faculty && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.faculty}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="major" className={labelCls}>
+							Major
+						</label>
+						<input
+							id="major"
+							type="text"
+							name="major"
+							required
+							className={inputCls}
+						/>
+						{state.errors?.major && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.major}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="gpa" className={labelCls}>
+							GPA (6.00 – 10.00)
+						</label>
+						<input
 							id="gpa"
 							type="number"
 							name="gpa"
@@ -112,29 +195,46 @@ export function ApplyForm() {
 							min="6"
 							max="10"
 							required
+							className={inputCls}
 						/>
-					</Field>
-					<Field
-						label="Academic Year"
-						htmlFor="academic_year"
-						error={state.errors?.academic_year}
-					>
-						<Select
+						{state.errors?.gpa && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.gpa}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="academic_year" className={labelCls}>
+							Academic Year
+						</label>
+						<select
 							id="academic_year"
 							name="academic_year"
-							options={YEAR_OPTIONS}
-							placeholder="Select Year"
-							value={academicYear}
-							onChange={setAcademicYear}
 							required
-						/>
-					</Field>
-					<Field
-						label="Years Currently Studying"
-						htmlFor="years_studying"
-						error={state.errors?.years_studying}
-					>
-						<Input
+							value={academicYear}
+							onChange={(e) => setAcademicYear(e.target.value)}
+							className={`${inputCls} appearance-none`}
+						>
+							<option value="" disabled>
+								Select Year
+							</option>
+							{YEAR_OPTIONS.map(({ value, label }) => (
+								<option key={value} value={value}>
+									{label}
+								</option>
+							))}
+						</select>
+						{state.errors?.academic_year && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.academic_year}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="years_studying" className={labelCls}>
+							Years Currently Studying
+						</label>
+						<input
 							id="years_studying"
 							type="number"
 							name="years_studying"
@@ -142,61 +242,102 @@ export function ApplyForm() {
 							max="10"
 							placeholder="e.g. 3"
 							required
+							className={inputCls}
 						/>
-					</Field>
+						{state.errors?.years_studying && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.years_studying}
+							</p>
+						)}
+					</div>
 				</div>
 			</div>
 
 			{/* Team Preferences */}
-			<div className="bg-bg-panel rounded-2xl border border-gray-mid p-6">
-				<SectionTitle icon="fas fa-flag-checkered" title="Team Preferences" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Team Preferences</h2>
 				<div className="flex flex-col gap-4">
-					<Field
-						label="Desired Position"
-						htmlFor="position"
-						error={state.errors?.position}
-					>
-						<Input
+					<div>
+						<label htmlFor="position" className={labelCls}>
+							Desired Position
+						</label>
+						<select
 							id="position"
-							type="text"
 							name="position"
 							required
-							placeholder="e.g. Suspension Engineer, Marketing Coordinator"
+							value={position}
+							onChange={(e) => setPosition(e.target.value)}
+							className={`${inputCls} appearance-none`}
+						>
+							<option value="" disabled>
+								Select department
+							</option>
+							{POSITION_OPTIONS.map(({ value, label }) => (
+								<option key={value} value={value}>
+									{label}
+								</option>
+							))}
+						</select>
+						{state.errors?.position && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.position}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="experience" className={labelCls}>
+							Relevant Experience (optional)
+						</label>
+						<textarea
+							id="experience"
+							name="experience"
+							rows={3}
+							className={`${inputCls} resize-none`}
 						/>
-					</Field>
-					<Field
-						label="Relevant Experience (optional)"
-						htmlFor="experience"
-						error={state.errors?.experience}
-					>
-						<Textarea id="experience" name="experience" rows={3} />
-					</Field>
-					<Field
-						label="Why do you want to join our team?"
-						htmlFor="motivation"
-						error={state.errors?.motivation}
-					>
-						<Textarea id="motivation" name="motivation" rows={5} required />
-					</Field>
+						{state.errors?.experience && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.experience}
+							</p>
+						)}
+					</div>
+					<div>
+						<label htmlFor="motivation" className={labelCls}>
+							Why do you want to join our team?
+						</label>
+						<textarea
+							id="motivation"
+							name="motivation"
+							rows={5}
+							required
+							className={`${inputCls} resize-none`}
+						/>
+						{state.errors?.motivation && (
+							<p className="text-red-400 text-[10px] mt-1">
+								{state.errors.motivation}
+							</p>
+						)}
+					</div>
 				</div>
 			</div>
 
 			{/* Resume */}
-			<div className="bg-bg-panel rounded-2xl border border-gray-mid p-6">
-				<SectionTitle icon="fas fa-file-pdf" title="Resume / CV" />
-				<Field
-					label="Resume (PDF only · max 5MB)"
-					htmlFor="resume"
-					error={state.errors?.resume}
-				>
-					<div className="flex items-center gap-3">
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Resume / CV</h2>
+				<div>
+					<p className={labelCls}>Resume (PDF only · max 5MB)</p>
+					<div className="flex items-center gap-4 mt-1.5">
 						<label
 							htmlFor="resume"
-							className="cursor-pointer px-4 py-2.5 rounded-lg border border-primary text-primary text-sm font-heading tracking-widest hover:bg-primary hover:text-bg-dark transition-colors"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
+							className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 border border-primary/30 text-primary font-heading text-[9px] tracking-[3px] uppercase hover:bg-primary hover:text-bg-dark transition-colors"
 						>
+							<UploadIcon size={12} />
 							Choose File
 						</label>
-						<span className="text-text-gray text-sm">{fileName}</span>
+						<span className="font-body text-text-gray text-sm">{fileName}</span>
 					</div>
 					<input
 						id="resume"
@@ -209,7 +350,12 @@ export function ApplyForm() {
 							setFileName(e.target.files?.[0]?.name ?? "No file chosen")
 						}
 					/>
-				</Field>
+					{state.errors?.resume && (
+						<p className="text-red-400 text-[10px] mt-2">
+							{state.errors.resume}
+						</p>
+					)}
+				</div>
 			</div>
 
 			{/* Honeypot */}
@@ -222,12 +368,30 @@ export function ApplyForm() {
 				/>
 			</div>
 
-			<SubmitButton
-				pending={pending}
-				label="Submit Application"
-				pendingLabel="Submitting…"
-				icon="fas fa-paper-plane"
-			/>
+			{/* Submit */}
+			<button
+				type="submit"
+				disabled={pending}
+				style={{
+					clipPath: "polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+				}}
+				className="w-full bg-primary text-bg-dark font-heading text-[10px] tracking-[4px] uppercase py-4 flex items-center justify-center gap-3 transition-opacity disabled:opacity-60 hover:bg-yellow-300"
+			>
+				{pending ? (
+					<>
+						<span
+							className="inline-block w-4 h-4 border-2 border-bg-dark border-t-transparent rounded-full animate-spin"
+							aria-hidden="true"
+						/>
+						Submitting…
+					</>
+				) : (
+					<>
+						Submit Application
+						<SendIcon size={14} />
+					</>
+				)}
+			</button>
 		</form>
 	);
 }

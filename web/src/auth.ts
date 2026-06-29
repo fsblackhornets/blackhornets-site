@@ -1,15 +1,11 @@
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
 
-const PHP_BASE = process.env.PHP_BASE ?? "http://localhost:8080/backend";
-
-export type UserRole =
-	| "admin"
-	| "manager"
-	| "team_member"
-	| "sub_leader"
-	| "team_leader"
-	| "project_leader";
+export type UserRole = "admin" | "manager";
 
 declare module "next-auth" {
 	interface User {
@@ -37,38 +33,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 			async authorize(credentials) {
 				if (!credentials?.username || !credentials?.password) return null;
 
-				const body = new URLSearchParams({
-					username: credentials.username as string,
-					password: credentials.password as string,
-				});
+				const [user] = await db
+					.select()
+					.from(users)
+					.where(eq(users.username, credentials.username as string))
+					.limit(1);
 
-				try {
-					const res = await fetch(`${PHP_BASE}/process_login.php`, {
-						method: "POST",
-						headers: { "Content-Type": "application/x-www-form-urlencoded" },
-						body: body.toString(),
-					});
+				if (!user) return null;
+				if (user.status !== "active") return null;
+				if (!user.role || !["admin", "manager"].includes(user.role)) return null;
 
-					const data = (await res.json()) as {
-						status: string;
-						full_name?: string;
-						role?: string;
-						user_id?: number;
-					};
+				const valid = await bcrypt.compare(
+					credentials.password as string,
+					user.password,
+				);
+				if (!valid) return null;
 
-					if (data.status !== "success") return null;
-
-					return {
-						id: String(data.user_id ?? ""),
-						name: data.full_name ?? "",
-						email: `${credentials.username}@blackhornets.rs`,
-						role: (data.role ?? "admin") as UserRole,
-						full_name: data.full_name ?? "",
-						username: credentials.username as string,
-					};
-				} catch {
-					return null;
-				}
+				return {
+					id: String(user.id),
+					name: user.full_name,
+					email: user.email,
+					role: user.role as UserRole,
+					full_name: user.full_name,
+					username: user.username,
+				};
 			},
 		}),
 	],

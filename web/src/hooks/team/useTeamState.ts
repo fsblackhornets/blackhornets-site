@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { TeamKey } from "@/components/pagecomponents/team/constants";
+import type { TeamKey } from "@/constants/team";
 import type { TeamData, TeamMember } from "@/types/team";
 
 interface State {
@@ -19,7 +19,9 @@ export function useTeamState(data: TeamData) {
 		if (!state.selectedTeam) return [];
 		const teamMembers = data.organized_data[state.selectedTeam] ?? [];
 		if (!state.selectedDepartment) return teamMembers;
-		return teamMembers.filter((m) => m.department === state.selectedDepartment);
+		return teamMembers.filter(
+			(m) => (m.department_name ?? m.department) === state.selectedDepartment,
+		);
 	}, [data, state.selectedTeam, state.selectedDepartment]);
 
 	const selectTeam = (team: TeamKey, department?: string) =>

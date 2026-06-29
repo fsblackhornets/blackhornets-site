@@ -1,6 +1,6 @@
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
-import { NavArrow } from "@/components/ui/components/NavArrow";
 import { buildGalleryImageUrl } from "@/lib/utils/utils";
 import type { GalleryImage } from "@/types/gallery";
 
@@ -10,6 +10,7 @@ interface GalleryLightboxProps {
 	onClose: () => void;
 	onPrev: () => void;
 	onNext: () => void;
+	onGoTo: (index: number) => void;
 }
 
 export function GalleryLightbox({
@@ -18,8 +19,10 @@ export function GalleryLightbox({
 	onClose,
 	onPrev,
 	onNext,
+	onGoTo,
 }: GalleryLightboxProps) {
 	const image = images[index];
+	const category = image?.category ?? "";
 
 	useEffect(() => {
 		const onKey = (e: KeyboardEvent) => {
@@ -39,66 +42,123 @@ export function GalleryLightbox({
 
 	return (
 		<div
-			className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+			className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center"
 			role="dialog"
 			aria-modal="true"
 			aria-label="Image viewer"
 		>
-			{/* Close */}
-			<button
-				type="button"
-				onClick={onClose}
-				className="absolute top-4 right-4 text-text-gray hover:text-primary transition-colors z-10"
-				aria-label="Close"
-			>
-				<i className="fas fa-times text-2xl" aria-hidden="true" />
-			</button>
-
-			<NavArrow
-				direction="left"
-				onClick={onPrev}
-				disabled={index === 0}
-				label="Previous image"
-				className="absolute left-4 z-10"
-			/>
-
-			{/* Image */}
-			<div className="relative w-full max-w-4xl max-h-[80vh] mx-16">
-				<div className="relative aspect-video">
-					<Image
-						src={buildGalleryImageUrl(image.image_path)}
-						alt={image.alt_text ?? image.title ?? "Gallery image"}
-						fill
-						className="object-contain"
-						priority
-					/>
-				</div>
-				{(image.title || image.description_en || image.description) && (
-					<div className="mt-3 text-center">
-						{image.title && (
-							<p className="text-text-light font-semibold">{image.title}</p>
-						)}
-						{(image.description_en ?? image.description) && (
-							<p className="text-text-gray text-sm mt-1">
-								{image.description_en ?? image.description}
-							</p>
-						)}
-					</div>
-				)}
+			{/* Racing stripe */}
+			<div className="flex h-[2px] absolute top-0 inset-x-0 z-10">
+				<div className="flex-1 bg-primary" />
+				<div className="w-12 bg-transparent" />
+				<div className="w-5 bg-primary" />
 			</div>
 
-			<NavArrow
-				direction="right"
-				onClick={onNext}
-				disabled={index === images.length - 1}
-				label="Next image"
-				className="absolute right-4 z-10"
-			/>
+			{/* Top bar */}
+			<div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 pt-5 z-10">
+				<span className="font-heading text-[7px] tracking-[4px] uppercase text-primary/40">
+					{category.replace(/_/g, " ")} · {index + 1} / {images.length}
+				</span>
+				<button
+					type="button"
+					onClick={onClose}
+					className="w-[26px] h-[26px] rounded-full border border-[#2a2a2a] flex items-center justify-center text-text-gray hover:text-primary hover:border-primary transition-colors"
+					aria-label="Close"
+				>
+					<X size={10} strokeWidth={2.5} aria-hidden="true" />
+				</button>
+			</div>
 
-			{/* Counter */}
-			<p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-text-gray text-sm">
-				{index + 1} / {images.length}
-			</p>
+			{/* Main image + arrows */}
+			<div className="relative flex items-center justify-center w-full px-16 flex-1">
+				{/* Prev */}
+				<button
+					type="button"
+					onClick={onPrev}
+					disabled={index === 0}
+					className="absolute left-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
+					aria-label="Previous image"
+				>
+					<ChevronLeft
+						size={14}
+						strokeWidth={2.5}
+						stroke="rgba(255,215,0,.7)"
+						aria-hidden="true"
+					/>
+				</button>
+
+				{/* Image */}
+				<div className="relative w-full max-w-4xl max-h-[65vh]">
+					<div className="relative aspect-video">
+						<Image
+							src={buildGalleryImageUrl(image.image_path)}
+							alt={image.alt_text ?? image.title ?? "Gallery image"}
+							fill
+							className="object-contain"
+							priority
+						/>
+					</div>
+
+					{/* Caption */}
+					{(image.title || image.description_en || image.description) && (
+						<div className="mt-3 text-center">
+							{image.title && (
+								<p className="font-heading text-[10px] text-[#e0e0e0] tracking-wide">
+									{image.title}
+								</p>
+							)}
+							{(image.description_en ?? image.description) && (
+								<p className="font-body text-[9px] text-text-gray mt-1">
+									{image.description_en ?? image.description}
+								</p>
+							)}
+						</div>
+					)}
+				</div>
+
+				{/* Next */}
+				<button
+					type="button"
+					onClick={onNext}
+					disabled={index === images.length - 1}
+					className="absolute right-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
+					aria-label="Next image"
+				>
+					<ChevronRight
+						size={14}
+						strokeWidth={2.5}
+						stroke="rgba(255,215,0,.7)"
+						aria-hidden="true"
+					/>
+				</button>
+			</div>
+
+			{/* Thumbnail strip */}
+			{images.length > 1 && (
+				<div className="flex gap-1.5 pb-6 pt-3 overflow-x-auto max-w-full px-6">
+					{images.map((img, i) => (
+						<button
+							key={img.id}
+							type="button"
+							onClick={() => onGoTo(i)}
+							className={`relative w-9 h-7 shrink-0 bg-bg-panel border transition-all duration-150 ${
+								i === index
+									? "border-2 border-primary opacity-100"
+									: "border border-[#2a2a2a] opacity-50 hover:opacity-75"
+							}`}
+							aria-label={`Go to image ${i + 1}`}
+						>
+							<Image
+								src={buildGalleryImageUrl(img.image_path)}
+								alt=""
+								fill
+								className="object-cover"
+								sizes="36px"
+							/>
+						</button>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

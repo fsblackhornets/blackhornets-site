@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { type ButtonHTMLAttributes, forwardRef } from "react";
+import { cn } from "@/lib/utils";
 import { SpinnerIcon } from "../../icons/SpinnerIcon";
 import {
 	BUTTON_SIZE_CLASSES,
 	BUTTON_VARIANT_CLASSES,
 	type ButtonSize,
 	type ButtonVariant,
-} from "../constants";
+} from "@/constants/ui";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: ButtonVariant;
@@ -24,15 +25,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			disabled,
 			href,
 			children,
-			className = "",
+			className,
 			onClick,
 			...props
 		},
 		ref,
 	) => {
-		const cls = `inline-flex items-center justify-center rounded-lg cursor-pointer
-      transition-colors duration-200 font-body
-      ${BUTTON_VARIANT_CLASSES[variant]} ${BUTTON_SIZE_CLASSES[size]} ${className}`;
+		const cls = cn(
+			"inline-flex items-center justify-center rounded-lg cursor-pointer transition-colors duration-200 font-body",
+			BUTTON_VARIANT_CLASSES[variant],
+			BUTTON_SIZE_CLASSES[size],
+			className,
+		);
 
 		if (href) {
 			return (
@@ -58,7 +62,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			>
 				{loading && (
 					<SpinnerIcon
-						className="animate-spin w-4 h-4 shrink-0"
+						className="animate-spin w-4 h-4 shrink-0 mr-2"
 						aria-hidden="true"
 					/>
 				)}

@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://fsblackhornets.org.rs/sitemap.xml
-
-# Block admin area from indexing
-Disallow: /public/admin/
-Disallow: /src/
-Disallow: /public/api/

@@ -1,12 +1,8 @@
-const API_ORIGIN = (
-	process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8080/backend/api"
-).replace("/backend/api", "");
-
 export function buildImageUrl(image: string | null): string | null {
 	if (!image) return null;
-	let path = image.replace(/^\.\.\//, "").replace(/^\//, "");
-	if (!path.startsWith("uploads/")) path = `uploads/${path}`;
-	return `${API_ORIGIN}/frontend/${path}`;
+	let p = image.replace(/^\.\.\//, "").replace(/^\//, "");
+	if (!p.startsWith("uploads/")) p = `uploads/${p}`;
+	return `/${p}`;
 }
 
 export function stripHtml(html: string): string {
@@ -21,24 +17,36 @@ export function excerpt(text: string, max = 150): string {
 	return plain.length > max ? `${plain.slice(0, max - 3)}...` : plain;
 }
 
-export function resolvePostTitle(post: {
-	title_en?: string | null;
-	title_sr?: string | null;
-	title?: string | null;
-}): string {
+export function resolvePostTitle(
+	post: {
+		title_en?: string | null;
+		title_sr?: string | null;
+		title?: string | null;
+	},
+	locale?: string,
+): string {
+	if (locale === "sr")
+		return post.title_sr ?? post.title_en ?? post.title ?? "Bez naslova";
 	return post.title_en ?? post.title_sr ?? post.title ?? "Untitled";
 }
 
-export function resolvePostContent(post: {
-	content_en?: string | null;
-	content_sr?: string | null;
-	content?: string | null;
-}): string {
+export function resolvePostContent(
+	post: {
+		content_en?: string | null;
+		content_sr?: string | null;
+		content?: string | null;
+	},
+	locale?: string,
+): string {
+	if (locale === "sr")
+		return post.content_sr ?? post.content_en ?? post.content ?? "";
 	return post.content_en ?? post.content_sr ?? post.content ?? "";
 }
 
-export function formatDate(dateStr: string, locale = "en-US"): string {
-	return new Date(dateStr.replace(" ", "T")).toLocaleDateString(locale, {
+export function formatDate(dateStr: string | Date, locale = "en-US"): string {
+	const d =
+		dateStr instanceof Date ? dateStr : new Date(dateStr.replace(" ", "T"));
+	return d.toLocaleDateString(locale, {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
@@ -46,11 +54,29 @@ export function formatDate(dateStr: string, locale = "en-US"): string {
 }
 
 export function buildGalleryImageUrl(imagePath: string): string {
-	return `${API_ORIGIN}/panel/admin/${imagePath}`;
+	if (imagePath.startsWith("uploads/") || imagePath.startsWith("/"))
+		return `/${imagePath.replace(/^\//, "")}`;
+	return `/uploads/gallery/${imagePath}`;
 }
 
 export function buildProjectImageUrl(imageUrl: string): string {
-	return `${API_ORIGIN}/frontend/${imageUrl}`;
+	if (imageUrl.startsWith("uploads/") || imageUrl.startsWith("/"))
+		return `/${imageUrl.replace(/^\//, "")}`;
+	return `/uploads/projects/${imageUrl}`;
+}
+
+export function buildSponsorLogoUrl(
+	logo: string | null | undefined,
+): string | null {
+	if (!logo) return null;
+	if (logo.startsWith("uploads/") || logo.startsWith("/"))
+		return `/${logo.replace(/^\//, "")}`;
+	return `/uploads/sponsors/${logo}`;
+}
+
+export function buildBrochureUrl(pdfUrl: string): string {
+	if (pdfUrl.startsWith("/")) return pdfUrl;
+	return `/${pdfUrl}`;
 }
 
 export function getProjectStatusVariant(
@@ -71,5 +97,7 @@ export function getProgressColor(progress: number): string {
 
 export function buildProfileImageUrl(filename: string | null): string | null {
 	if (!filename || filename === "default.jpg") return null;
-	return `${API_ORIGIN}/uploads/profiles/${filename}`;
+	if (filename.startsWith("uploads/") || filename.startsWith("/"))
+		return `/${filename.replace(/^\//, "")}`;
+	return `/uploads/profiles/${filename}`;
 }
