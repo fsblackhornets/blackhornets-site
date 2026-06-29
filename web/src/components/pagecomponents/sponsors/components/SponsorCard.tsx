@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ExternalLink } from "lucide-react";
 import { buildSponsorLogoUrl } from "@/lib/utils/utils";
 import type { Sponsor } from "@/types/sponsor";
 
@@ -52,21 +53,7 @@ export function SponsorCard({
 							className="flex items-center gap-1.5 hover:underline font-heading text-[8px] tracking-[2px] uppercase text-primary"
 							onClick={(e) => e.stopPropagation()}
 						>
-							<svg
-								width="10"
-								height="10"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								aria-hidden="true"
-							>
-								<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-								<polyline points="15 3 21 3 21 9" />
-								<line x1="10" y1="14" x2="21" y2="3" />
-							</svg>
+							<ExternalLink size={10} strokeWidth={2} aria-hidden="true" />
 							Visit Website
 						</a>
 					)}

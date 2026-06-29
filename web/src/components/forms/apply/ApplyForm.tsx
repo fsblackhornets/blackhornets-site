@@ -3,24 +3,20 @@
 import {
 	POSITION_OPTIONS,
 	YEAR_OPTIONS,
-} from "@/components/pagecomponents/apply/constants";
+} from "@/constants/apply";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
+import {
+	AlertCircleIcon,
+	CheckCircleIcon,
+	SendIcon,
+	UploadIcon,
+} from "@/components/icons";
 import { useApplyForm } from "@/hooks/apply/useApplyForm";
 
 const inputCls =
 	"bg-[#0e0e0e] border border-[#2a2a2a] rounded-none text-[#e0e0e0] text-sm px-3 py-2.5 w-full focus:outline-none focus:border-primary/50 transition-colors";
 const labelCls =
 	"font-heading text-[8px] tracking-[2px] uppercase text-text-gray mb-1.5 block";
-
-function CardHeader({ label }: { label: string }) {
-	return (
-		<div className="flex items-center gap-2 mb-5 pb-3 border-b border-[#1e1e1e]">
-			<div className="w-[3px] h-4 bg-primary shrink-0" />
-			<span className="font-heading text-[9px] tracking-[4px] uppercase text-primary">
-				{label}
-			</span>
-		</div>
-	);
-}
 
 export function ApplyForm() {
 	const {
@@ -46,47 +42,20 @@ export function ApplyForm() {
 		>
 			{state.status === "success" && (
 				<div className="border-l-2 border-l-green-500 bg-green-500/10 px-4 py-3 text-green-400 text-sm flex items-center gap-2">
-					<svg
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-						<polyline points="22 4 12 14.01 9 11.01" />
-					</svg>
+					<CheckCircleIcon size={14} />
 					{state.message}
 				</div>
 			)}
 			{state.status === "error" && (
 				<div className="border-l-2 border-l-red-500 bg-red-500/10 px-4 py-3 text-red-400 text-sm flex items-center gap-2">
-					<svg
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<circle cx="12" cy="12" r="10" />
-						<line x1="12" y1="8" x2="12" y2="12" />
-						<line x1="12" y1="16" x2="12.01" y2="16" />
-					</svg>
+					<AlertCircleIcon size={14} />
 					{state.message}
 				</div>
 			)}
 
 			{/* Personal Info */}
-			<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary bg-bg-panel p-6">
-				<CardHeader label="Personal Information" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Personal Information</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					<div>
 						<label htmlFor="firstName" className={labelCls}>
@@ -160,8 +129,8 @@ export function ApplyForm() {
 			</div>
 
 			{/* Academic Info */}
-			<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-6">
-				<CardHeader label="Academic Information" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Academic Information</h2>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 					<div>
 						<label htmlFor="studentId" className={labelCls}>
@@ -285,8 +254,8 @@ export function ApplyForm() {
 			</div>
 
 			{/* Team Preferences */}
-			<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-6">
-				<CardHeader label="Team Preferences" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Team Preferences</h2>
 				<div className="flex flex-col gap-4">
 					<div>
 						<label htmlFor="position" className={labelCls}>
@@ -352,8 +321,8 @@ export function ApplyForm() {
 			</div>
 
 			{/* Resume */}
-			<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-6">
-				<CardHeader label="Resume / CV" />
+			<div className={SECTION_CARD}>
+				<h2 className={SECTION_HEAD}>Resume / CV</h2>
 				<div>
 					<p className={labelCls}>Resume (PDF only · max 5MB)</p>
 					<div className="flex items-center gap-4 mt-1.5">
@@ -365,21 +334,7 @@ export function ApplyForm() {
 							}}
 							className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 border border-primary/30 text-primary font-heading text-[9px] tracking-[3px] uppercase hover:bg-primary hover:text-bg-dark transition-colors"
 						>
-							<svg
-								width="12"
-								height="12"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								aria-hidden="true"
-							>
-								<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-								<polyline points="17 8 12 3 7 8" />
-								<line x1="12" y1="3" x2="12" y2="15" />
-							</svg>
+							<UploadIcon size={12} />
 							Choose File
 						</label>
 						<span className="font-body text-text-gray text-sm">{fileName}</span>
@@ -433,20 +388,7 @@ export function ApplyForm() {
 				) : (
 					<>
 						Submit Application
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<line x1="22" y1="2" x2="11" y2="13" />
-							<polygon points="22 2 15 22 11 13 2 9 22 2" />
-						</svg>
+						<SendIcon size={14} />
 					</>
 				)}
 			</button>

@@ -1,56 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-
-const GALLERY_CATS = [
-	{ value: "race_cars", label: "Race Cars" },
-	{ value: "team", label: "Our Team" },
-	{ value: "events", label: "Events" },
-	{ value: "workshop", label: "Workshop" },
-	{ value: "none", label: "Don't add to gallery" },
-];
-
-const ALIGNMENTS = [
-	{
-		value: "left",
-		label: "Left",
-		diagram: (
-			<div className="w-full h-8 flex gap-1">
-				<div className="w-5 h-full bg-[#333]" />
-				<div className="flex-1 flex flex-col gap-0.5 justify-center">
-					<div className="h-0.5 bg-[#2a2a2a] w-full" />
-					<div className="h-0.5 bg-[#2a2a2a] w-3/4" />
-					<div className="h-0.5 bg-[#2a2a2a] w-full" />
-				</div>
-			</div>
-		),
-	},
-	{
-		value: "center",
-		label: "Center",
-		diagram: (
-			<div className="w-full h-8 flex flex-col gap-0.5 items-center justify-center">
-				<div className="h-0.5 bg-[#2a2a2a] w-3/4" />
-				<div className="w-8 h-3 bg-[#333]" />
-				<div className="h-0.5 bg-[#2a2a2a] w-3/4" />
-			</div>
-		),
-	},
-	{
-		value: "right",
-		label: "Right",
-		diagram: (
-			<div className="w-full h-8 flex gap-1">
-				<div className="flex-1 flex flex-col gap-0.5 justify-center">
-					<div className="h-0.5 bg-[#2a2a2a] w-full" />
-					<div className="h-0.5 bg-[#2a2a2a] w-3/4 ml-auto" />
-					<div className="h-0.5 bg-[#2a2a2a] w-full" />
-				</div>
-				<div className="w-5 h-full bg-[#333]" />
-			</div>
-		),
-	},
-] as const;
+import { ImageIcon, XIcon } from "@/components/icons";
+import { ALIGNMENTS, GALLERY_CATS } from "./constants";
 
 interface Props {
 	onInsert: (attrs: {
@@ -96,19 +48,7 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 				{/* Header */}
 				<div className="flex items-center justify-between mb-5 pb-3 border-b border-[#1e1e1e]">
 					<div className="flex items-center gap-2">
-						<svg
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#ffd700"
-							strokeWidth={1.5}
-							aria-hidden="true"
-						>
-							<rect x="3" y="3" width="18" height="18" rx="2" />
-							<circle cx="8.5" cy="8.5" r="1.5" />
-							<polyline points="21 15 16 10 5 21" />
-						</svg>
+						<ImageIcon size={13} strokeWidth={1.5} className="text-primary" />
 						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
 							Insert Image
 						</span>
@@ -118,18 +58,7 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 						onClick={onClose}
 						className="text-[#444] hover:text-[#888] transition-colors"
 					>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							aria-hidden="true"
-						>
-							<line x1="18" y1="6" x2="6" y2="18" />
-							<line x1="6" y1="6" x2="18" y2="18" />
-						</svg>
+						<XIcon size={14} />
 					</button>
 				</div>
 
@@ -154,20 +83,11 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 						/>
 					) : (
 						<>
-							<svg
-								className="mx-auto mb-2"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="rgba(255,215,0,0.25)"
+							<ImageIcon
+								size={24}
 								strokeWidth={1.5}
-								aria-hidden="true"
-							>
-								<rect x="3" y="3" width="18" height="18" rx="2" />
-								<circle cx="8.5" cy="8.5" r="1.5" />
-								<polyline points="21 15 16 10 5 21" />
-							</svg>
+								className="mx-auto mb-2 text-primary/25"
+							/>
 							<p className="font-body text-[9px] text-[#444]">
 								Drag & drop or click to browse
 							</p>
@@ -281,19 +201,7 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 						clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
 					}}
 				>
-					<svg
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						aria-hidden="true"
-					>
-						<rect x="3" y="3" width="18" height="18" rx="2" />
-						<circle cx="8.5" cy="8.5" r="1.5" />
-						<polyline points="21 15 16 10 5 21" />
-					</svg>
+					<ImageIcon size={12} />
 					Insert Image into Post
 				</button>
 			</div>

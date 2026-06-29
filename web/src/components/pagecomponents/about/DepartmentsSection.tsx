@@ -1,4 +1,4 @@
-import { DEPARTMENTS } from "./constants";
+import { DEPARTMENTS } from "@/constants/about";
 
 export function DepartmentsSection() {
 	return (

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EmailIcon } from "@/components/icons/EmailIcon";
 import { LocationIcon } from "@/components/icons/LocationIcon";
 import { PhoneIcon } from "@/components/icons/PhoneIcon";
-import { QUICK_LINKS, SOCIAL_LINKS } from "./constants";
+import { QUICK_LINKS, SOCIAL_LINKS } from "@/constants/layout";
 
 export function Footer() {
 	return (

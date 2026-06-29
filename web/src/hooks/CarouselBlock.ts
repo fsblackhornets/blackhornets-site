@@ -1,6 +1,6 @@
 import { Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
-import { CarouselBlockView } from "./CarouselBlockView";
+import { CarouselBlockView } from "@/components/editor/CarouselBlockView";
 
 export interface CarouselSlide {
 	src: string;

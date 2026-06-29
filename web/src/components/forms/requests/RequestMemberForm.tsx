@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { ArrowLeftIcon, SendIcon, UsersIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
@@ -37,20 +38,7 @@ export function RequestMemberForm({ action }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back to Dashboard"
 				>
-					<svg
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<line x1="19" y1="12" x2="5" y2="12" />
-						<polyline points="12 19 5 12 12 5" />
-					</svg>
+					<ArrowLeftIcon size={13} />
 				</Link>
 				<span className="font-heading text-[8px] tracking-[2px] uppercase text-[#333]">
 					Dashboard
@@ -66,22 +54,7 @@ export function RequestMemberForm({ action }: Props) {
 				<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5">
 					{/* Card header */}
 					<div className="flex items-center gap-2 pb-2.5 mb-4 border-b border-[#1e1e1e]">
-						<svg
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#ffd700"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-							<circle cx="9" cy="7" r="4" />
-							<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-							<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-						</svg>
+						<UsersIcon size={13} strokeWidth={1.5} className="text-primary" />
 						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
 							Member Details
 						</span>
@@ -222,20 +195,7 @@ export function RequestMemberForm({ action }: Props) {
 								</>
 							) : (
 								<>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<line x1="22" y1="2" x2="11" y2="13" />
-										<polygon points="22 2 15 22 11 13 2 9 22 2" />
-									</svg>
+									<SendIcon size={12} />
 									Submit for Review
 								</>
 							)}

@@ -1,17 +1,14 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
+import { AlertCircleIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { Textarea } from "@/components/ui/components/Textarea";
 import { PROJECT_STATUS_OPTIONS } from "@/constants/projects";
 import type { Project } from "@/types/project";
-
-const SECTION_CARD =
-	"bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5 mb-4";
-const SECTION_HEAD =
-	"font-heading text-[8px] tracking-[4px] uppercase text-primary pb-2.5 mb-4 border-b border-[#1e1e1e]";
 
 interface ProjectFormProps {
 	action: (
@@ -38,20 +35,7 @@ export function ProjectForm({
 		<form action={formAction} className="flex flex-col max-w-[720px]">
 			{state.error && (
 				<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 flex items-center gap-2 text-red-400 text-[9px] mb-4">
-					<svg
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						aria-hidden="true"
-					>
-						<circle cx="12" cy="12" r="10" />
-						<line x1="12" y1="8" x2="12" y2="12" />
-						<line x1="12" y1="16" x2="12.01" y2="16" />
-					</svg>
+					<AlertCircleIcon size={12} />
 					{state.error}
 				</div>
 			)}
@@ -188,20 +172,7 @@ export function ProjectForm({
 					</>
 				) : (
 					<>
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							aria-hidden="true"
-						>
-							<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-							<polyline points="17 21 17 13 7 13 7 21" />
-							<polyline points="7 3 7 8 15 8" />
-						</svg>
+						<SaveIcon size={11} />
 						{submitLabel ?? defaultLabel}
 					</>
 				)}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState, useRef, useState } from "react";
+import { ArrowLeftIcon, ImageIcon, PencilIcon, SendIcon } from "@/components/icons";
 import {
 	extractGalleryItems,
 	RichTextEditor,
@@ -71,20 +72,7 @@ export function RequestPostForm({
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back to Dashboard"
 				>
-					<svg
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<line x1="19" y1="12" x2="5" y2="12" />
-						<polyline points="12 19 5 12 12 5" />
-					</svg>
+					<ArrowLeftIcon size={13} />
 				</Link>
 				<span className="font-heading text-[8px] tracking-[2px] uppercase text-[#333]">
 					Dashboard
@@ -100,20 +88,7 @@ export function RequestPostForm({
 				<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5">
 					{/* Card header */}
 					<div className="flex items-center gap-2 pb-2.5 mb-4 border-b border-[#1e1e1e]">
-						<svg
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#ffd700"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-							<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-						</svg>
+						<PencilIcon size={13} strokeWidth={1.5} className="text-primary" />
 						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
 							Post Details
 						</span>
@@ -244,19 +219,7 @@ export function RequestPostForm({
 
 						{galleryCount > 0 && (
 							<div className="flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-sm px-3 py-2">
-								<svg
-									width="11"
-									height="11"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="#ffd700"
-									strokeWidth={1.5}
-									aria-hidden="true"
-								>
-									<rect x="3" y="3" width="18" height="18" rx="2" />
-									<circle cx="8.5" cy="8.5" r="1.5" />
-									<polyline points="21 15 16 10 5 21" />
-								</svg>
+								<ImageIcon size={11} strokeWidth={1.5} className="text-primary" />
 								<span className="font-body text-[8px] text-primary/70">
 									{galleryCount} image{galleryCount !== 1 ? "s" : ""} will be
 									added to Gallery on approval
@@ -283,20 +246,7 @@ export function RequestPostForm({
 								</>
 							) : (
 								<>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<line x1="22" y1="2" x2="11" y2="13" />
-										<polygon points="22 2 15 22 11 13 2 9 22 2" />
-									</svg>
+									<SendIcon size={12} />
 									Submit for Review
 								</>
 							)}
@@ -337,19 +287,7 @@ export function RequestPostForm({
 						<div className="bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden">
 							{imageFile && (
 								<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-									<svg
-										width="28"
-										height="28"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,0.2)"
-										strokeWidth={1.5}
-										aria-hidden="true"
-									>
-										<rect x="3" y="3" width="18" height="18" rx="2" />
-										<circle cx="8.5" cy="8.5" r="1.5" />
-										<polyline points="21 15 16 10 5 21" />
-									</svg>
+									<ImageIcon size={28} strokeWidth={1.5} className="text-primary/20" />
 								</div>
 							)}
 							<div className="p-5">
@@ -398,19 +336,7 @@ export function RequestPostForm({
 							</div>
 							{galleryCount > 0 && (
 								<div className="border-t border-[#1e1e1e] px-5 py-3 flex items-center gap-2">
-									<svg
-										width="10"
-										height="10"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,0.4)"
-										strokeWidth={1.5}
-										aria-hidden="true"
-									>
-										<rect x="3" y="3" width="18" height="18" rx="2" />
-										<circle cx="8.5" cy="8.5" r="1.5" />
-										<polyline points="21 15 16 10 5 21" />
-									</svg>
+									<ImageIcon size={10} strokeWidth={1.5} className="text-primary/40" />
 									<span className="font-body text-[8px] text-[#333]">
 										Gallery: {galleryCount} image{galleryCount !== 1 ? "s" : ""}{" "}
 										queued

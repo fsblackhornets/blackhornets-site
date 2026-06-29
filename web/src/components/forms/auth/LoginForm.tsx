@@ -1,5 +1,7 @@
 "use client";
 
+import { Hexagon } from "lucide-react";
+import { AlertCircleIcon, ArrowRightIcon } from "@/components/icons";
 import { useLoginForm } from "@/hooks/auth/useLoginForm";
 
 export function LoginForm() {
@@ -39,19 +41,7 @@ export function LoginForm() {
 				<div className="bg-[#0e0e0e] border border-[#1e1e1e] border-t-[3px] border-t-primary rounded-sm px-8 py-10">
 					{/* Logo */}
 					<div className="w-12 h-12 rounded-full border-[1.5px] border-primary/40 bg-primary/5 flex items-center justify-center mx-auto">
-						<svg
-							width="22"
-							height="22"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#ffd700"
-							strokeWidth="1.5"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-						</svg>
+						<Hexagon size={22} strokeWidth={1.5} stroke="#ffd700" aria-hidden="true" />
 					</div>
 					<p className="font-heading text-[7px] tracking-[6px] uppercase text-primary/60 text-center mt-3">
 						Black Hornets Racing
@@ -74,21 +64,7 @@ export function LoginForm() {
 					<form action={action} className="flex flex-col gap-4">
 						{state.error && (
 							<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 flex items-center gap-2 text-red-400 text-[9px]">
-								<svg
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth={2}
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									aria-hidden="true"
-								>
-									<circle cx="12" cy="12" r="10" />
-									<line x1="12" y1="8" x2="12" y2="12" />
-									<line x1="12" y1="16" x2="12.01" y2="16" />
-								</svg>
+								<AlertCircleIcon size={12} />
 								{state.error}
 							</div>
 						)}
@@ -148,20 +124,7 @@ export function LoginForm() {
 								</>
 							) : (
 								<>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<line x1="5" y1="12" x2="19" y2="12" />
-										<polyline points="12 5 19 12 12 19" />
-									</svg>
+									<ArrowRightIcon size={12} />
 									Sign In
 								</>
 							)}

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 import { updatePostAction } from "@/app/actions/posts";
-import { PostForm } from "@/components/admin/PostForm";
+import { PostForm } from "@/components/forms/posts/PostForm";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchPost } from "@/lib/api/posts";
 import { resolvePostTitle } from "@/lib/utils/utils";
@@ -31,19 +32,7 @@ export default async function EditPostPage({ params }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back"
 				>
-					<svg
-						width="16"
-						height="16"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#ffd700"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<polyline points="15 18 9 12 15 6" />
-					</svg>
+					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
 				</Link>
 				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Edit Post

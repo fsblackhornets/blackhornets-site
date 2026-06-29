@@ -1,3 +1,4 @@
+import { FileEdit, Heart, Image as ImageIcon, Inbox, Settings, Users, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { QUICK_ACTIONS } from "@/components/manager/constants";
@@ -5,37 +6,12 @@ import { fetchRequests } from "@/lib/api/requests";
 
 export const metadata = { title: "Dashboard — Manager Panel" };
 
-const QUICK_ACTION_ICONS: Record<string, React.ReactNode> = {
-	edit: (
-		<>
-			<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-			<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-		</>
-	),
-	gear: (
-		<>
-			<circle cx="12" cy="12" r="3" />
-			<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-		</>
-	),
-	heart: (
-		<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-	),
-	users: (
-		<>
-			<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-			<circle cx="9" cy="7" r="4" />
-			<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-			<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-		</>
-	),
-	image: (
-		<>
-			<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-			<circle cx="8.5" cy="8.5" r="1.5" />
-			<polyline points="21 15 16 10 5 21" />
-		</>
-	),
+const QUICK_ACTION_ICONS: Record<string, LucideIcon> = {
+	edit: FileEdit,
+	gear: Settings,
+	heart: Heart,
+	users: Users,
+	image: ImageIcon,
 };
 
 const STATUS_BORDER: Record<string, string> = {
@@ -109,19 +85,7 @@ export default async function ManagerDashboard() {
 						href={href}
 						className="bg-[#111] border border-[#1e1e1e] hover:border-primary/30 rounded-sm p-4 flex flex-col gap-2 transition-colors group"
 					>
-						<svg
-							width="18"
-							height="18"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="rgba(255,215,0,0.6)"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							{QUICK_ACTION_ICONS[icon] ?? null}
-						</svg>
+						{(() => { const Icon = QUICK_ACTION_ICONS[icon]; return Icon ? <Icon size={18} strokeWidth={1.5} stroke="rgba(255,215,0,0.6)" aria-hidden="true" /> : null; })()}
 						<p className="font-body font-semibold text-[9px] text-[#ccc] group-hover:text-primary transition-colors">
 							{label}
 						</p>
@@ -147,21 +111,7 @@ export default async function ManagerDashboard() {
 
 			{recent.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						width="32"
-						height="32"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,0.25)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						className="mx-auto mb-3"
-						aria-hidden="true"
-					>
-						<polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
-						<path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
-					</svg>
+					<Inbox size={32} strokeWidth={1.5} stroke="rgba(255,215,0,0.25)" className="mx-auto mb-3" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No requests yet
 					</p>

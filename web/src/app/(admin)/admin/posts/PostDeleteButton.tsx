@@ -1,6 +1,7 @@
 "use client";
 
 import { deletePostAction } from "@/app/actions/posts";
+import { TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/components/Button";
 import {
 	Dialog,
@@ -10,7 +11,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/components/Dialog";
-import { Icon } from "@/components/ui/components/Icon";
 import { useDeleteDialog } from "@/hooks/useDeleteDialog";
 
 export function PostDeleteButton({ id, title }: { id: number; title: string }) {
@@ -27,7 +27,7 @@ export function PostDeleteButton({ id, title }: { id: number; title: string }) {
 				className="text-[#444] hover:text-red-400 transition-colors p-1"
 				aria-label={`Delete ${title}`}
 			>
-				<Icon name="trash" size={13} strokeWidth={2} />
+				<TrashIcon size={13} strokeWidth={2} />
 			</button>
 
 			<Dialog open={open} onOpenChange={setOpen}>

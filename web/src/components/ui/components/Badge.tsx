@@ -1,4 +1,4 @@
-import { type BadgeVariant, STATUS_VARIANT_MAP } from "../constants";
+import { type BadgeVariant, STATUS_VARIANT_MAP } from "@/constants/ui";
 import { ParaBadge, type ParaBadgeVariant } from "./ParaBadge";
 
 const VARIANT_MAP: Record<BadgeVariant, ParaBadgeVariant> = {

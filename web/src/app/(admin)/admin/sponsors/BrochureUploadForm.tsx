@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { Check, Info, Upload } from "lucide-react";
 import { uploadBrochureAction } from "@/app/actions/brochure";
 import { Field } from "@/components/ui/components/Field";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
@@ -14,37 +15,13 @@ export function BrochureUploadForm() {
 		<form action={action} className="flex flex-col gap-4">
 			{state.error && (
 				<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 flex items-center gap-2 text-red-400 text-[9px]">
-					<svg
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						aria-hidden="true"
-					>
-						<circle cx="12" cy="12" r="10" />
-						<line x1="12" y1="8" x2="12" y2="12" />
-						<line x1="12" y1="16" x2="12.01" y2="16" />
-					</svg>
+					<Info size={12} strokeWidth={2} aria-hidden="true" />
 					{state.error}
 				</div>
 			)}
 			{state.success && (
 				<div className="bg-green-500/8 border border-green-500/20 rounded-none p-3 flex items-center gap-2 text-green-400 text-[9px]">
-					<svg
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						aria-hidden="true"
-					>
-						<polyline points="20 6 9 17 4 12" />
-					</svg>
+					<Check size={12} strokeWidth={2} aria-hidden="true" />
 					{state.success}
 				</div>
 			)}
@@ -101,20 +78,7 @@ export function BrochureUploadForm() {
 					</>
 				) : (
 					<>
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							aria-hidden="true"
-						>
-							<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-							<polyline points="17 8 12 3 7 8" />
-							<line x1="12" y1="3" x2="12" y2="15" />
-						</svg>
+						<Upload size={11} strokeWidth={2} aria-hidden="true" />
 						Upload Brochure
 					</>
 				)}

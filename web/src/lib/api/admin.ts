@@ -1,4 +1,4 @@
-import { asc, desc, eq, ne, sql } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
 	applications,
@@ -8,6 +8,7 @@ import {
 	projects,
 	siteSettings,
 	sponsors,
+	teamMembers,
 	users,
 } from "@/lib/db/schema";
 import type { Application } from "@/types/application";
@@ -68,12 +69,10 @@ export async function fetchDashboardStats(): Promise<DashboardStats | null> {
 				.from(contentRequests)
 				.where(eq(contentRequests.status, "pending")),
 			db
-				.select({ team: users.team, count: sql<number>`COUNT(*)` })
-				.from(users)
-				.where(
-					sql`${users.status} = 'active' AND ${users.role} NOT IN ('admin','manager')`,
-				)
-				.groupBy(users.team),
+				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
+				.from(teamMembers)
+				.where(sql`${teamMembers.status} = 'active'`)
+				.groupBy(teamMembers.team),
 		]);
 
 		const by_team: Record<string, number> = {
@@ -163,24 +162,9 @@ export async function fetchAdminGallery(): Promise<GalleryImage[]> {
 export async function fetchAdminMembers(): Promise<AdminMember[]> {
 	try {
 		const data = await db
-			.select({
-				id: users.id,
-				username: users.username,
-				email: users.email,
-				full_name: users.full_name,
-				role: users.role,
-				team: users.team,
-				department: users.department,
-				phone: users.phone,
-				study_field: users.study_field,
-				position: users.position,
-				profile_picture: users.profile_picture,
-				status: users.status,
-				created_at: users.created_at,
-			})
-			.from(users)
-			.where(ne(users.role, "admin"))
-			.orderBy(asc(users.full_name));
+			.select()
+			.from(teamMembers)
+			.orderBy(asc(teamMembers.full_name));
 		return data as unknown as AdminMember[];
 	} catch {
 		return [];
@@ -191,26 +175,12 @@ export async function fetchAdminMember(
 	id: number,
 ): Promise<AdminMember | null> {
 	try {
-		const [user] = await db
-			.select({
-				id: users.id,
-				username: users.username,
-				email: users.email,
-				full_name: users.full_name,
-				role: users.role,
-				team: users.team,
-				department: users.department,
-				phone: users.phone,
-				study_field: users.study_field,
-				position: users.position,
-				profile_picture: users.profile_picture,
-				status: users.status,
-				created_at: users.created_at,
-			})
-			.from(users)
-			.where(eq(users.id, id))
+		const [row] = await db
+			.select()
+			.from(teamMembers)
+			.where(eq(teamMembers.id, id))
 			.limit(1);
-		return (user as unknown as AdminMember) ?? null;
+		return (row as unknown as AdminMember) ?? null;
 	} catch {
 		return null;
 	}

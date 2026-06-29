@@ -7,7 +7,7 @@ import {
 	BUTTON_VARIANT_CLASSES,
 	type ButtonSize,
 	type ButtonVariant,
-} from "../constants";
+} from "@/constants/ui";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: ButtonVariant;

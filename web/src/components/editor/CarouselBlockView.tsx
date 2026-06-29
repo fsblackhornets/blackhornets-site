@@ -3,14 +3,11 @@
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper } from "@tiptap/react";
 import { useState } from "react";
-import type { CarouselSlide } from "./CarouselBlock";
+import { ImageIcon, PlusIcon, XIcon } from "@/components/icons";
+import { GALLERY_CATEGORY_OPTIONS } from "@/constants/gallery";
+import type { CarouselSlide } from "@/hooks/CarouselBlock";
 
-const CATEGORY_OPTIONS = [
-	{ value: "race_cars", label: "Race Cars" },
-	{ value: "team", label: "Team" },
-	{ value: "events", label: "Events" },
-	{ value: "workshop", label: "Workshop" },
-];
+const CATEGORY_OPTIONS = GALLERY_CATEGORY_OPTIONS;
 
 export function CarouselBlockView({
 	node,
@@ -54,19 +51,11 @@ export function CarouselBlockView({
 				{/* Header */}
 				<div className="flex items-center justify-between mb-2">
 					<div className="flex items-center gap-2">
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="rgba(255,215,0,0.5)"
+						<ImageIcon
+							size={11}
 							strokeWidth={1.5}
-							aria-hidden="true"
-						>
-							<rect x="3" y="3" width="18" height="18" rx="2" />
-							<circle cx="8.5" cy="8.5" r="1.5" />
-							<polyline points="21 15 16 10 5 21" />
-						</svg>
+							className="text-primary/50"
+						/>
 						<span className="font-heading text-[7px] tracking-[3px] uppercase text-primary/60">
 							Carousel
 						</span>
@@ -100,18 +89,7 @@ export function CarouselBlockView({
 							onClick={deleteNode}
 							className="w-5 h-5 flex items-center justify-center text-[#333] hover:text-red-400"
 						>
-							<svg
-								width="10"
-								height="10"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								aria-hidden="true"
-							>
-								<line x1="18" y1="6" x2="6" y2="18" />
-								<line x1="6" y1="6" x2="18" y2="18" />
-							</svg>
+							<XIcon size={10} />
 						</button>
 					</div>
 				</div>
@@ -154,18 +132,7 @@ export function CarouselBlockView({
 								onClick={() => removeSlide(i)}
 								className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
 							>
-								<svg
-									width="6"
-									height="6"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="white"
-									strokeWidth={3}
-									aria-hidden="true"
-								>
-									<line x1="18" y1="6" x2="6" y2="18" />
-									<line x1="6" y1="6" x2="18" y2="18" />
-								</svg>
+								<XIcon size={6} strokeWidth={3} className="text-white" />
 							</button>
 						</div>
 					))}
@@ -174,18 +141,7 @@ export function CarouselBlockView({
 						onClick={addSlide}
 						className="w-12 h-12 border border-dashed border-[#2a2a2a] flex items-center justify-center text-[#333] hover:text-[#555] hover:border-[#444] transition-colors"
 					>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							aria-hidden="true"
-						>
-							<line x1="12" y1="5" x2="12" y2="19" />
-							<line x1="5" y1="12" x2="19" y2="12" />
-						</svg>
+						<PlusIcon size={14} />
 					</button>
 				</div>
 

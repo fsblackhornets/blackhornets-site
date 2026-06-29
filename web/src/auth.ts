@@ -5,13 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 
-export type UserRole =
-	| "admin"
-	| "manager"
-	| "team_member"
-	| "sub_leader"
-	| "team_leader"
-	| "project_leader";
+export type UserRole = "admin" | "manager";
 
 declare module "next-auth" {
 	interface User {
@@ -47,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 				if (!user) return null;
 				if (user.status !== "active") return null;
-				if (!["admin", "manager"].includes(user.role ?? "")) return null;
+				if (!user.role || !["admin", "manager"].includes(user.role)) return null;
 
 				const valid = await bcrypt.compare(
 					credentials.password as string,

@@ -1,3 +1,4 @@
+import { Settings } from "lucide-react";
 import type { Metadata } from "next";
 import { FeaturedProjectCard } from "@/components/pagecomponents/projects/components/FeaturedProjectCard";
 import { PaginatedProjects } from "@/components/pagecomponents/projects/components/PaginatedProjects";
@@ -112,30 +113,8 @@ export default async function ProjectsPage() {
 						<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 flex flex-col items-center gap-4 max-w-lg w-full">
 							{/* Gear icons */}
 							<div className="flex gap-3 items-center">
-								<svg
-									width="40"
-									height="40"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="rgba(255,215,0,.4)"
-									strokeWidth="1.5"
-									aria-hidden="true"
-								>
-									<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-									<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-								</svg>
-								<svg
-									width="28"
-									height="28"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="rgba(255,215,0,.4)"
-									strokeWidth="1.5"
-									aria-hidden="true"
-								>
-									<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-									<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-								</svg>
+								<Settings size={40} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+								<Settings size={28} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 							</div>
 
 							{/* Racing stripe divider */}

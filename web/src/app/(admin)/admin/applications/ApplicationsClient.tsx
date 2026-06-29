@@ -1,5 +1,6 @@
 "use client";
 
+import { Briefcase, Calendar, FileText, GraduationCap, Home } from "lucide-react";
 import { StatusBadge } from "@/components/ui/components/Badge";
 import {
 	Dialog,
@@ -12,7 +13,7 @@ import { buildApplicationsUrl } from "@/helpers/buildApplicationsUrl";
 import { useApplicationReview } from "@/hooks/admin/useApplicationReview";
 import type { ApplicationsResponse } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";
-import { APPLICATION_TABS } from "./constants";
+import { APPLICATION_TABS } from "@/constants/admin";
 
 interface Props {
 	res: ApplicationsResponse | null;
@@ -57,23 +58,7 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 
 			{!res || res.data.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						className="mx-auto mb-4"
-						width="36"
-						height="36"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.2)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-						<polyline points="14 2 14 8 20 8" />
-						<line x1="16" y1="13" x2="8" y2="13" />
-						<line x1="16" y1="17" x2="8" y2="17" />
-					</svg>
+					<FileText size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No applications found.
 					</p>
@@ -100,69 +85,19 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 							</div>
 							<div className="grid grid-cols-2 gap-2 font-body text-[8px] text-[#444]">
 								<span className="flex items-center gap-1.5">
-									<svg
-										width="10"
-										height="10"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,.4)"
-										strokeWidth={1.5}
-										strokeLinecap="round"
-										aria-hidden="true"
-									>
-										<rect x="2" y="7" width="20" height="14" rx="2" />
-										<path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-									</svg>
+									<Briefcase size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 									{app.desired_position}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<svg
-										width="10"
-										height="10"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,.4)"
-										strokeWidth={1.5}
-										strokeLinecap="round"
-										aria-hidden="true"
-									>
-										<path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-										<path d="M6 12v5c3 3 9 3 12 0v-5" />
-									</svg>
+									<GraduationCap size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 									GPA {app.gpa}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<svg
-										width="10"
-										height="10"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,.4)"
-										strokeWidth={1.5}
-										strokeLinecap="round"
-										aria-hidden="true"
-									>
-										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-										<polyline points="9 22 9 12 15 12 15 22" />
-									</svg>
+									<Home size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 									{app.faculty}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<svg
-										width="10"
-										height="10"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="rgba(255,215,0,.4)"
-										strokeWidth={1.5}
-										strokeLinecap="round"
-										aria-hidden="true"
-									>
-										<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-										<line x1="16" y1="2" x2="16" y2="6" />
-										<line x1="8" y1="2" x2="8" y2="6" />
-										<line x1="3" y1="10" x2="21" y2="10" />
-									</svg>
+									<Calendar size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
 									{formatDate(app.created_at)}
 								</span>
 							</div>
@@ -253,22 +188,7 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 								rel="noopener noreferrer"
 								className="inline-flex items-center gap-1.5 text-primary text-[9px] hover:underline mb-2"
 							>
-								<svg
-									width="11"
-									height="11"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth={2}
-									strokeLinecap="round"
-									aria-hidden="true"
-								>
-									<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-									<polyline points="14 2 14 8 20 8" />
-									<line x1="16" y1="13" x2="8" y2="13" />
-									<line x1="16" y1="17" x2="8" y2="17" />
-									<polyline points="10 9 9 9 8 9" />
-								</svg>
+								<FileText size={11} strokeWidth={2} aria-hidden="true" />
 								View Resume
 							</a>
 						)}

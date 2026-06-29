@@ -28,3 +28,8 @@ export const GALLERY_SECTIONS = [
 			"Step into our engineering sanctuary. Where ideas transform into reality, and innovation meets craftsmanship in our state-of-the-art facility.",
 	},
 ] as const;
+
+export const GALLERY_CATEGORY_OPTIONS = GALLERY_SECTIONS.map(({ category, title }) => ({
+	value: category,
+	label: title,
+}));

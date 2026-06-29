@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Check, X } from "lucide-react";
 import { reviewRequestAction } from "@/app/actions/requests";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
@@ -114,17 +115,7 @@ export function RequestReviewClient({ request, isPostType }: Props) {
 					{isPending ? (
 						<span className="w-3 h-3 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
 					) : (
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							aria-hidden="true"
-						>
-							<polyline points="20 6 9 17 4 12" />
-						</svg>
+						<Check size={11} strokeWidth={2} aria-hidden="true" />
 					)}
 					Approve & Publish
 				</button>
@@ -139,18 +130,7 @@ export function RequestReviewClient({ request, isPostType }: Props) {
 							clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 100%, 6px 100%)",
 						}}
 					>
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							aria-hidden="true"
-						>
-							<line x1="18" y1="6" x2="6" y2="18" />
-							<line x1="6" y1="6" x2="18" y2="18" />
-						</svg>
+						<X size={11} strokeWidth={2} aria-hidden="true" />
 						Decline
 					</button>
 				) : (

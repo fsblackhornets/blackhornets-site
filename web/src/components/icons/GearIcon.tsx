@@ -1,4 +1,18 @@
 import { Settings } from "lucide-react";
-export function GearIcon({ className }: { className?: string }) {
-	return <Settings className={className} aria-hidden="true" />;
+
+interface IconProps {
+	size?: number;
+	className?: string;
+	strokeWidth?: number;
+}
+
+export function GearIcon({ size, strokeWidth = 2, className }: IconProps) {
+	return (
+		<Settings
+			size={size}
+			strokeWidth={strokeWidth}
+			className={className}
+			aria-hidden="true"
+		/>
+	);
 }

@@ -1,8 +1,8 @@
-import { and, eq, ne, sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
+import { teamMembers } from "@/lib/db/schema";
 
 export async function POST(
 	_req: Request,
@@ -15,17 +15,17 @@ export async function POST(
 
 		const { id } = await params;
 		const result = await db
-			.update(users)
-			.set({ status: sql`IF(${users.status}='active','inactive','active')` })
-			.where(and(eq(users.id, Number(id)), ne(users.role, "admin")));
+			.update(teamMembers)
+			.set({ status: sql`IF(${teamMembers.status}='active','inactive','active')` })
+			.where(eq(teamMembers.id, Number(id)));
 
 		if (!result[0].affectedRows)
 			return NextResponse.json({ error: "Member not found" }, { status: 404 });
 
 		const [row] = await db
-			.select({ status: users.status })
-			.from(users)
-			.where(eq(users.id, Number(id)));
+			.select({ status: teamMembers.status })
+			.from(teamMembers)
+			.where(eq(teamMembers.id, Number(id)));
 		return NextResponse.json({ success: true, status: row?.status });
 	} catch {
 		return NextResponse.json({ success: false }, { status: 500 });

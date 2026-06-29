@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteGalleryImageAction } from "@/app/actions/gallery";
+import { TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/components/Button";
 import {
 	Dialog,
@@ -10,7 +11,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/components/Dialog";
-import { Icon } from "@/components/ui/components/Icon";
 import { useDeleteDialog } from "@/hooks/useDeleteDialog";
 
 export function GalleryDeleteButton({ id }: { id: number }) {
@@ -27,7 +27,7 @@ export function GalleryDeleteButton({ id }: { id: number }) {
 				className="text-white/60 hover:text-red-400 transition-colors"
 				aria-label="Delete image"
 			>
-				<Icon name="trash" size={12} strokeWidth={2} />
+				<TrashIcon size={12} strokeWidth={2} />
 			</button>
 
 			<Dialog open={open} onOpenChange={setOpen}>

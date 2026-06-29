@@ -1,17 +1,14 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
+import { AlertCircleIcon, SaveIcon, UserIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { AdminMember } from "@/types/member";
 import { MEMBER_ROLE_OPTIONS, MEMBER_TEAM_OPTIONS } from "@/types/member";
-
-const SECTION_CARD =
-	"bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5 mb-4";
-const SECTION_HEAD =
-	"font-heading text-[8px] tracking-[4px] uppercase text-primary pb-2.5 mb-4 border-b border-[#1e1e1e]";
 
 interface MemberFormProps {
 	action: (
@@ -34,47 +31,8 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 		<form action={formAction} className="flex flex-col max-w-[720px]">
 			{state.error && (
 				<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 flex items-center gap-2 text-red-400 text-[9px] mb-4">
-					<svg
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						aria-hidden="true"
-					>
-						<circle cx="12" cy="12" r="10" />
-						<line x1="12" y1="8" x2="12" y2="12" />
-						<line x1="12" y1="16" x2="12.01" y2="16" />
-					</svg>
+					<AlertCircleIcon size={12} />
 					{state.error}
-				</div>
-			)}
-
-			{/* Account card (new member only) */}
-			{!member && (
-				<div className={SECTION_CARD}>
-					<h2 className={SECTION_HEAD}>Account</h2>
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-						<Field label="Username *" htmlFor="username">
-							<Input
-								id="username"
-								name="username"
-								required
-								autoComplete="off"
-							/>
-						</Field>
-						<Field label="Password *" htmlFor="password">
-							<Input
-								id="password"
-								name="password"
-								type="password"
-								required
-								autoComplete="new-password"
-							/>
-						</Field>
-					</div>
 				</div>
 			)}
 
@@ -90,12 +48,11 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 							defaultValue={member?.full_name ?? ""}
 						/>
 					</Field>
-					<Field label="Email *" htmlFor="email">
+					<Field label="Email" htmlFor="email">
 						<Input
 							id="email"
 							name="email"
 							type="email"
-							required
 							defaultValue={member?.email ?? ""}
 						/>
 					</Field>
@@ -170,18 +127,7 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 					)}
 					{!avatarFile && !existingAvatar && (
 						<div className="w-16 h-16 bg-primary/5 border border-[#1e1e1e] flex items-center justify-center shrink-0">
-							<svg
-								width="22"
-								height="22"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="#333"
-								strokeWidth={1.5}
-								aria-hidden="true"
-							>
-								<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-								<circle cx="12" cy="7" r="4" />
-							</svg>
+							<UserIcon size={22} strokeWidth={1.5} className="text-[#333]" />
 						</div>
 					)}
 					<div className="flex-1">
@@ -234,20 +180,7 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 					</>
 				) : (
 					<>
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							aria-hidden="true"
-						>
-							<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-							<polyline points="17 21 17 13 7 13 7 21" />
-							<polyline points="7 3 7 8 15 8" />
-						</svg>
+						<SaveIcon size={11} />
 						{submitLabel ?? defaultLabel}
 					</>
 				)}
