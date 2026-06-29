@@ -64,16 +64,5 @@ export function SponsorCard({
 		</div>
 	);
 
-	return sponsor.website ? (
-		<a
-			href={sponsor.website}
-			target="_blank"
-			rel="noopener noreferrer"
-			className="block"
-		>
-			{inner}
-		</a>
-	) : (
-		<div>{inner}</div>
-	);
+	return <div>{inner}</div>;
 }
