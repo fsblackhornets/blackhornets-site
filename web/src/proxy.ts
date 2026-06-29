@@ -1,4 +1,3 @@
-import createIntlMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -6,8 +5,6 @@ import { routing } from "@/i18n/routing";
 
 const ADMIN_ROLES = ["admin"] as const;
 const MANAGER_ROLES = ["admin", "manager"] as const;
-
-const intlMiddleware = createIntlMiddleware(routing);
 
 const authMiddleware = auth((req) => {
 	const { pathname } = req.nextUrl;
@@ -33,6 +30,18 @@ const authMiddleware = auth((req) => {
 
 	return NextResponse.next();
 });
+
+function intlMiddleware(req: NextRequest) {
+	const cookie = req.cookies.get("NEXT_LOCALE")?.value;
+	const locale =
+		cookie && (routing.locales as readonly string[]).includes(cookie)
+			? cookie
+			: routing.defaultLocale;
+
+	const headers = new Headers(req.headers);
+	headers.set("X-NEXT-INTL-LOCALE", locale);
+	return NextResponse.next({ request: { headers } });
+}
 
 export default function middleware(req: NextRequest) {
 	const { pathname } = req.nextUrl;

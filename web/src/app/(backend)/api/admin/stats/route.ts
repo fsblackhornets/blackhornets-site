@@ -7,6 +7,7 @@ import {
 	contactMessages,
 	contentRequests,
 	teamMembers,
+	users,
 } from "@/lib/db/schema";
 
 export async function GET() {
@@ -35,7 +36,8 @@ export async function GET() {
 			db
 				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
 				.from(teamMembers)
-				.where(sql`${teamMembers.status} = 'active'`)
+				.innerJoin(users, eq(teamMembers.user_id, users.id))
+				.where(sql`${users.status} = 'active'`)
 				.groupBy(teamMembers.team),
 		]);
 

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { setLocale } from "@/app/actions/setLocale";
@@ -23,13 +23,19 @@ const NAV_KEYS: Record<string, string> = {
 function LangSwitcher() {
 	const locale = useLocale() as Locale;
 	const [pending, startTransition] = useTransition();
+	const router = useRouter();
 	const other: Locale = locale === "sr" ? "en" : "sr";
 
 	return (
 		<button
 			type="button"
 			disabled={pending}
-			onClick={() => startTransition(() => setLocale(other))}
+			onClick={() =>
+				startTransition(async () => {
+					await setLocale(other);
+					router.refresh();
+				})
+			}
 			className="font-heading text-[7px] tracking-[3px] uppercase px-3 py-1.5 border transition-colors duration-200 disabled:opacity-50"
 			style={{
 				clipPath: "polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
