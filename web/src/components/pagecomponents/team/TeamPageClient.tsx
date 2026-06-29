@@ -148,10 +148,10 @@ function CompactMemberCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className="bg-[#0f0f0f] border border-[#1c1c1c] rounded-sm p-3 flex flex-col items-center gap-1.5 hover:border-primary/30 transition-colors"
+			className="w-[calc(20%-0.6rem)] bg-[#0f0f0f] border border-[#1c1c1c] rounded-sm p-4 flex flex-col items-center gap-3 hover:border-primary/30 transition-colors aspect-square justify-center"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
-			<div className="w-10 h-10 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
+			<div className="w-16 h-16 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
 				{imageUrl && !imgError ? (
 					// biome-ignore lint/performance/noImgElement: onError handler required
 					<img
@@ -161,12 +161,12 @@ function CompactMemberCard({
 						onError={() => setImgError(true)}
 					/>
 				) : (
-					<span className="text-primary font-heading text-sm font-bold">
+					<span className="text-primary font-heading text-xl font-bold">
 						{member.full_name.charAt(0)}
 					</span>
 				)}
 			</div>
-			<p className="font-body text-text-light text-[7.5px] text-center leading-tight">
+			<p className="font-body text-text-light text-[9px] text-center leading-tight">
 				{member.full_name}
 			</p>
 		</button>
@@ -481,7 +481,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 															style={{ background: "#222" }}
 														/>
 													</div>
-													<div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
+													<div className="flex flex-wrap justify-center gap-3">
 														{members.map((member) => (
 															<CompactMemberCard
 																key={member.id}
