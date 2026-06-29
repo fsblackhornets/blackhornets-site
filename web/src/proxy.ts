@@ -47,7 +47,9 @@ export default function middleware(req: NextRequest) {
 	const { pathname } = req.nextUrl;
 
 	if (pathname.startsWith("/admin") || pathname.startsWith("/manager")) {
-		return (authMiddleware as (req: NextRequest) => Response | Promise<Response>)(req);
+		return (
+			authMiddleware as (req: NextRequest) => Response | Promise<Response>
+		)(req);
 	}
 
 	return intlMiddleware(req);

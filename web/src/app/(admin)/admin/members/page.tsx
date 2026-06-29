@@ -35,7 +35,13 @@ export default async function MembersPage() {
 
 			{members.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<Users size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
+					<Users
+						size={36}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,.2)"
+						className="mx-auto mb-4"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No members found.
 					</p>

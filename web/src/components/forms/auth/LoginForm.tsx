@@ -41,7 +41,12 @@ export function LoginForm() {
 				<div className="bg-[#0e0e0e] border border-[#1e1e1e] border-t-[3px] border-t-primary rounded-sm px-8 py-10">
 					{/* Logo */}
 					<div className="w-12 h-12 rounded-full border-[1.5px] border-primary/40 bg-primary/5 flex items-center justify-center mx-auto">
-						<Hexagon size={22} strokeWidth={1.5} stroke="#ffd700" aria-hidden="true" />
+						<Hexagon
+							size={22}
+							strokeWidth={1.5}
+							stroke="#ffd700"
+							aria-hidden="true"
+						/>
 					</div>
 					<p className="font-heading text-[7px] tracking-[6px] uppercase text-primary/60 text-center mt-3">
 						Black Hornets Racing

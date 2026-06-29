@@ -188,7 +188,11 @@ export function RequestSponsorForm({ action }: Props) {
 					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm p-5">
 						<div className="flex items-start gap-4 mb-3">
 							<div className="w-14 h-14 rounded-sm bg-primary/5 border border-[#1e1e1e] flex items-center justify-center shrink-0">
-								<HeartIcon size={22} strokeWidth={1.5} className="text-primary/20" />
+								<HeartIcon
+									size={22}
+									strokeWidth={1.5}
+									className="text-primary/20"
+								/>
 							</div>
 							<div className="min-w-0">
 								<h3 className="font-heading text-base text-text-light leading-snug">

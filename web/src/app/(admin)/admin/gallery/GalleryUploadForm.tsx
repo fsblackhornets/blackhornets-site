@@ -2,11 +2,11 @@
 
 import { useActionState, useState } from "react";
 import { uploadGalleryImageAction } from "@/app/actions/gallery";
-import { GALLERY_CATEGORY_OPTIONS } from "@/constants/gallery";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
+import { GALLERY_CATEGORY_OPTIONS } from "@/constants/gallery";
 
 const CATEGORY_OPTIONS = GALLERY_CATEGORY_OPTIONS;
 

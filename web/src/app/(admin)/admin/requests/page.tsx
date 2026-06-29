@@ -1,7 +1,21 @@
+import {
+	Check,
+	FileEdit,
+	Heart,
+	Image as ImageIcon,
+	Inbox,
+	type LucideIcon,
+	Settings,
+	Users,
+} from "lucide-react";
 import Link from "next/link";
-import { Check, FileEdit, Heart, Image as ImageIcon, Inbox, Settings, Users, type LucideIcon } from "lucide-react";
 import { auth } from "@/auth";
-import { REQUEST_STATUS_BADGE, REQUEST_STATUS_BORDER, REQUEST_STATUSES, REQUEST_TYPES } from "@/constants/admin";
+import {
+	REQUEST_STATUS_BADGE,
+	REQUEST_STATUS_BORDER,
+	REQUEST_STATUSES,
+	REQUEST_TYPES,
+} from "@/constants/admin";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchRequests } from "@/lib/api/requests";
 
@@ -94,7 +108,13 @@ export default async function AdminRequestsPage({ searchParams }: Props) {
 
 			{sorted.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<Inbox size={32} strokeWidth={1.5} stroke="rgba(255,215,0,0.25)" className="mx-auto mb-3" aria-hidden="true" />
+					<Inbox
+						size={32}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,0.25)"
+						className="mx-auto mb-3"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No requests found
 					</p>
@@ -117,7 +137,17 @@ export default async function AdminRequestsPage({ searchParams }: Props) {
 							>
 								<div className="flex items-center gap-3 min-w-0">
 									<div className="w-[34px] h-[34px] rounded-sm bg-primary/8 border border-primary/15 flex items-center justify-center shrink-0">
-										{(() => { const Icon = TYPE_ICONS[r.type]; return Icon ? <Icon size={14} strokeWidth={1.5} stroke="rgba(255,215,0,0.6)" aria-hidden="true" /> : null; })()}
+										{(() => {
+											const Icon = TYPE_ICONS[r.type];
+											return Icon ? (
+												<Icon
+													size={14}
+													strokeWidth={1.5}
+													stroke="rgba(255,215,0,0.6)"
+													aria-hidden="true"
+												/>
+											) : null;
+										})()}
 									</div>
 									<div className="min-w-0">
 										<p className="font-body text-[10px] font-semibold text-[#e0e0e0] truncate">
@@ -141,7 +171,12 @@ export default async function AdminRequestsPage({ searchParams }: Props) {
 										)}
 										{r.status === "approved" && (
 											<p className="flex items-center gap-1 mt-0.5">
-												<Check size={9} strokeWidth={2} stroke="#4ade80" aria-hidden="true" />
+												<Check
+													size={9}
+													strokeWidth={2}
+													stroke="#4ade80"
+													aria-hidden="true"
+												/>
 												<span className="font-body text-[8px] text-green-500/60">
 													Published to site
 												</span>

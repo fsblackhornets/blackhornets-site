@@ -1,11 +1,7 @@
 import { auth } from "@/auth";
-import {
-	QUICK_ACTIONS,
-	STAT_CARDS,
-	TEAM_BREAKDOWN,
-} from "@/constants/admin";
 import { QuickActionCard } from "@/components/admin/QuickActionCard";
 import { StatCard } from "@/components/admin/StatCard";
+import { QUICK_ACTIONS, STAT_CARDS, TEAM_BREAKDOWN } from "@/constants/admin";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchDashboardStats } from "@/lib/api/admin";
 

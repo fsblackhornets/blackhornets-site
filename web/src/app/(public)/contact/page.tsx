@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ContactForm } from "@/components/forms/contact/ContactForm";
-import { SOCIAL_LINKS } from "@/constants/layout";
 import { FaqSection } from "@/components/pagecomponents/contact/FaqSection";
+import { SOCIAL_LINKS } from "@/constants/layout";
 import { SITE_NAME, SITE_OG_IMAGE } from "@/constants/site";
 
 export const metadata: Metadata = {

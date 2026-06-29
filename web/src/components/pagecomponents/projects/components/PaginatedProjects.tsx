@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 import type { Project } from "@/types/project";
 import { ProjectCard } from "./ProjectCard";
 

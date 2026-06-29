@@ -1,6 +1,6 @@
 import type { SelectHTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
 import { INPUT_BASE_CLS } from "@/constants/ui";
+import { cn } from "@/lib/utils";
 
 interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 	options: readonly { value: string; label: string }[];

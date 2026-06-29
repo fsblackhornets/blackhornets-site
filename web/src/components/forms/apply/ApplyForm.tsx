@@ -1,16 +1,13 @@
 "use client";
 
 import {
-	POSITION_OPTIONS,
-	YEAR_OPTIONS,
-} from "@/constants/apply";
-import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
-import {
 	AlertCircleIcon,
 	CheckCircleIcon,
 	SendIcon,
 	UploadIcon,
 } from "@/components/icons";
+import { POSITION_OPTIONS, YEAR_OPTIONS } from "@/constants/apply";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
 import { useApplyForm } from "@/hooks/apply/useApplyForm";
 
 const inputCls =

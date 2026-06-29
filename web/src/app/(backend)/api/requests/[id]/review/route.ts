@@ -98,7 +98,7 @@ async function insertContent(
 	} else if (type === "member") {
 		const email =
 			(data.email as string) || `member_${Date.now()}@blackhornets.local`;
-		const username = email.split("@")[0] + `_${Date.now()}`;
+		const username = `${email.split("@")[0]}_${Date.now()}`;
 		const password = await bcrypt.hash(
 			Math.random().toString(36).slice(2, 10),
 			10,

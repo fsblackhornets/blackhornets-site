@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { toggleGalleryImageAction } from "@/app/actions/gallery";
-import { GALLERY_SECTIONS } from "@/constants/gallery";
 import { Switch } from "@/components/ui/components/Switch";
+import { GALLERY_SECTIONS } from "@/constants/gallery";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchAdminGallery } from "@/lib/api/admin";
 import { buildGalleryImageUrl } from "@/lib/utils/utils";

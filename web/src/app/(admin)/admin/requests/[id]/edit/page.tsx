@@ -1,6 +1,6 @@
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
 import { editAndApproveAction } from "@/app/actions/requests";
 import { MemberForm } from "@/components/forms/members/MemberForm";
 import { PostForm } from "@/components/forms/posts/PostForm";
@@ -37,7 +37,12 @@ export default async function EditRequestPage({ params }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back"
 				>
-					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
+					<ChevronLeft
+						size={16}
+						strokeWidth={2}
+						stroke="#ffd700"
+						aria-hidden="true"
+					/>
 				</Link>
 				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Edit & Approve Request

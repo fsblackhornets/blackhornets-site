@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 			);
 
 		const email = body.email ?? `member_${Date.now()}@blackhornets.local`;
-		const username = email.split("@")[0] + `_${Date.now()}`;
+		const username = `${email.split("@")[0]}_${Date.now()}`;
 		const password = await bcrypt.hash(
 			Math.random().toString(36).slice(2, 10),
 			10,

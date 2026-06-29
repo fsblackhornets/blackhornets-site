@@ -63,7 +63,12 @@ export default async function BlogPostPage({ params }: Props) {
 				href="/blog"
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-7 hover:opacity-70 transition-opacity"
 			>
-				<ChevronLeft size={12} strokeWidth={2.5} stroke="#ffd700" aria-hidden="true" />
+				<ChevronLeft
+					size={12}
+					strokeWidth={2.5}
+					stroke="#ffd700"
+					aria-hidden="true"
+				/>
 				{t("backToBlog")}
 			</Link>
 
@@ -284,7 +289,10 @@ export default async function BlogPostPage({ params }: Props) {
 											)}
 											<div className="p-3">
 												<p className="font-body text-[9px] text-text-gray mb-1">
-													{formatDate(rel.created_at, locale === "sr" ? "sr-RS" : "en-US")}
+													{formatDate(
+														rel.created_at,
+														locale === "sr" ? "sr-RS" : "en-US",
+													)}
 												</p>
 												<p className="font-heading text-[9px] tracking-[0.5px] text-[#e0e0e0] leading-snug line-clamp-2">
 													{relTitle}
@@ -400,7 +408,9 @@ export default async function BlogPostPage({ params }: Props) {
 									},
 									{
 										label: "Copy Link",
-										icon: <Link2 size={12} strokeWidth={2} aria-hidden="true" />,
+										icon: (
+											<Link2 size={12} strokeWidth={2} aria-hidden="true" />
+										),
 									},
 								].map(({ label, icon }) => (
 									<button

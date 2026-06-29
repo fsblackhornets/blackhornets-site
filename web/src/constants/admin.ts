@@ -138,9 +138,21 @@ export const REQUEST_STATUS_BADGE: Record<string, string> = {
 	declined: "bg-red-500/10 text-red-400",
 };
 
-export const REQUEST_STATUSES = ["", "pending", "approved", "declined"] as const;
+export const REQUEST_STATUSES = [
+	"",
+	"pending",
+	"approved",
+	"declined",
+] as const;
 
-export const REQUEST_TYPES = ["", "post", "project", "sponsor", "member", "gallery"] as const;
+export const REQUEST_TYPES = [
+	"",
+	"post",
+	"project",
+	"sponsor",
+	"member",
+	"gallery",
+] as const;
 
 export const APPLICATION_TABS = [
 	{ value: "", label: "All" },

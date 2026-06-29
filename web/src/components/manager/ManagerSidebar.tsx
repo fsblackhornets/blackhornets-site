@@ -1,8 +1,18 @@
 "use client";
 
+import {
+	Activity,
+	FileEdit,
+	Heart,
+	Hexagon,
+	Image,
+	LayoutGrid,
+	LogOut,
+	Settings,
+	Users,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, FileEdit, Heart, Hexagon, Image, LayoutGrid, LogOut, Settings, Users } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
 import { MANAGER_NAV } from "./constants";
 
@@ -11,7 +21,14 @@ interface ManagerSidebarProps {
 	userRole: string;
 }
 
-const NAV_ICONS: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties }>> = {
+const NAV_ICONS: Record<
+	string,
+	React.ComponentType<{
+		size?: number;
+		strokeWidth?: number;
+		style?: React.CSSProperties;
+	}>
+> = {
 	grid: LayoutGrid,
 	activity: Activity,
 	edit: FileEdit,
@@ -35,7 +52,12 @@ export function ManagerSidebar({ userName, userRole }: ManagerSidebarProps) {
 			{/* Logo */}
 			<div className="flex items-center gap-3 px-4 h-[56px] border-b border-primary/8 shrink-0">
 				<div className="w-[30px] h-[30px] rounded-full border-[1.5px] border-primary/40 bg-primary/5 flex items-center justify-center shrink-0">
-					<Hexagon size={14} strokeWidth={1.5} stroke="rgba(255,215,0,0.7)" aria-hidden="true" />
+					<Hexagon
+						size={14}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,0.7)"
+						aria-hidden="true"
+					/>
 				</div>
 				<span className="font-heading text-[9px] tracking-[2px] uppercase text-primary">
 					Manager

@@ -1,5 +1,5 @@
-import { SpinnerIcon } from "../../icons/SpinnerIcon";
 import { SPINNER_SIZE_CLASSES, type SpinnerSize } from "@/constants/ui";
+import { SpinnerIcon } from "../../icons/SpinnerIcon";
 
 interface SpinnerProps {
 	size?: SpinnerSize;

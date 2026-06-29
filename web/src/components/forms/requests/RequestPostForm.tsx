@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import { useActionState, useRef, useState } from "react";
-import { ArrowLeftIcon, ImageIcon, PencilIcon, SendIcon } from "@/components/icons";
 import {
 	extractGalleryItems,
 	RichTextEditor,
 } from "@/components/editor/RichTextEditor";
+import {
+	ArrowLeftIcon,
+	ImageIcon,
+	PencilIcon,
+	SendIcon,
+} from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 
@@ -219,7 +224,11 @@ export function RequestPostForm({
 
 						{galleryCount > 0 && (
 							<div className="flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-sm px-3 py-2">
-								<ImageIcon size={11} strokeWidth={1.5} className="text-primary" />
+								<ImageIcon
+									size={11}
+									strokeWidth={1.5}
+									className="text-primary"
+								/>
 								<span className="font-body text-[8px] text-primary/70">
 									{galleryCount} image{galleryCount !== 1 ? "s" : ""} will be
 									added to Gallery on approval
@@ -287,7 +296,11 @@ export function RequestPostForm({
 						<div className="bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden">
 							{imageFile && (
 								<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-									<ImageIcon size={28} strokeWidth={1.5} className="text-primary/20" />
+									<ImageIcon
+										size={28}
+										strokeWidth={1.5}
+										className="text-primary/20"
+									/>
 								</div>
 							)}
 							<div className="p-5">
@@ -336,7 +349,11 @@ export function RequestPostForm({
 							</div>
 							{galleryCount > 0 && (
 								<div className="border-t border-[#1e1e1e] px-5 py-3 flex items-center gap-2">
-									<ImageIcon size={10} strokeWidth={1.5} className="text-primary/40" />
+									<ImageIcon
+										size={10}
+										strokeWidth={1.5}
+										className="text-primary/40"
+									/>
 									<span className="font-body text-[8px] text-[#333]">
 										Gallery: {galleryCount} image{galleryCount !== 1 ? "s" : ""}{" "}
 										queued

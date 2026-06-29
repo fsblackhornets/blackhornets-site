@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { FileEdit, FileText, Plus } from "lucide-react";
+import Link from "next/link";
 import { togglePostStatusAction } from "@/app/actions/posts";
 import { StatusBadge } from "@/components/ui/components/Badge";
 import { ParaButton } from "@/components/ui/components/ParaButton";
@@ -27,9 +27,7 @@ export default async function PostsPage() {
 				<ParaButton
 					href="/admin/posts/new"
 					size="sm"
-					icon={
-						<Plus size={10} strokeWidth={2.5} aria-hidden="true" />
-					}
+					icon={<Plus size={10} strokeWidth={2.5} aria-hidden="true" />}
 				>
 					New Post
 				</ParaButton>
@@ -37,7 +35,13 @@ export default async function PostsPage() {
 
 			{posts.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<FileText size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
+					<FileText
+						size={36}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,.2)"
+						className="mx-auto mb-4"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No posts yet.
 					</p>

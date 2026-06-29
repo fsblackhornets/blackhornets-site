@@ -1,6 +1,12 @@
 "use client";
 
-import { Briefcase, Calendar, FileText, GraduationCap, Home } from "lucide-react";
+import {
+	Briefcase,
+	Calendar,
+	FileText,
+	GraduationCap,
+	Home,
+} from "lucide-react";
 import { StatusBadge } from "@/components/ui/components/Badge";
 import {
 	Dialog,
@@ -9,11 +15,11 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/components/Dialog";
+import { APPLICATION_TABS } from "@/constants/admin";
 import { buildApplicationsUrl } from "@/helpers/buildApplicationsUrl";
 import { useApplicationReview } from "@/hooks/admin/useApplicationReview";
 import type { ApplicationsResponse } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";
-import { APPLICATION_TABS } from "@/constants/admin";
 
 interface Props {
 	res: ApplicationsResponse | null;
@@ -58,7 +64,13 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 
 			{!res || res.data.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<FileText size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
+					<FileText
+						size={36}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,.2)"
+						className="mx-auto mb-4"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No applications found.
 					</p>
@@ -85,19 +97,39 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 							</div>
 							<div className="grid grid-cols-2 gap-2 font-body text-[8px] text-[#444]">
 								<span className="flex items-center gap-1.5">
-									<Briefcase size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+									<Briefcase
+										size={10}
+										strokeWidth={1.5}
+										stroke="rgba(255,215,0,.4)"
+										aria-hidden="true"
+									/>
 									{app.desired_position}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<GraduationCap size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+									<GraduationCap
+										size={10}
+										strokeWidth={1.5}
+										stroke="rgba(255,215,0,.4)"
+										aria-hidden="true"
+									/>
 									GPA {app.gpa}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<Home size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+									<Home
+										size={10}
+										strokeWidth={1.5}
+										stroke="rgba(255,215,0,.4)"
+										aria-hidden="true"
+									/>
 									{app.faculty}
 								</span>
 								<span className="flex items-center gap-1.5">
-									<Calendar size={10} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+									<Calendar
+										size={10}
+										strokeWidth={1.5}
+										stroke="rgba(255,215,0,.4)"
+										aria-hidden="true"
+									/>
 									{formatDate(app.created_at)}
 								</span>
 							</div>

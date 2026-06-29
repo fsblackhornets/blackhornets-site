@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ApplyForm } from "@/components/forms/apply/ApplyForm";
-import {
-	DEPARTMENTS,
-	REQUIREMENTS,
-} from "@/constants/apply";
+import { DEPARTMENTS, REQUIREMENTS } from "@/constants/apply";
 import { SITE_NAME, SITE_OG_IMAGE } from "@/constants/site";
 
 export const metadata: Metadata = {
@@ -22,7 +19,10 @@ export const metadata: Metadata = {
 
 export default async function ApplyPage() {
 	const t = await getTranslations("apply");
-	const requirementItems = t.raw("requirementItems") as { title: string; desc: string }[];
+	const requirementItems = t.raw("requirementItems") as {
+		title: string;
+		desc: string;
+	}[];
 
 	return (
 		<>

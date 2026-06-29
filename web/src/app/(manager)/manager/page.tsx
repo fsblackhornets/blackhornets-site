@@ -1,4 +1,12 @@
-import { FileEdit, Heart, Image as ImageIcon, Inbox, Settings, Users, type LucideIcon } from "lucide-react";
+import {
+	FileEdit,
+	Heart,
+	Image as ImageIcon,
+	Inbox,
+	type LucideIcon,
+	Settings,
+	Users,
+} from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { QUICK_ACTIONS } from "@/components/manager/constants";
@@ -85,7 +93,17 @@ export default async function ManagerDashboard() {
 						href={href}
 						className="bg-[#111] border border-[#1e1e1e] hover:border-primary/30 rounded-sm p-4 flex flex-col gap-2 transition-colors group"
 					>
-						{(() => { const Icon = QUICK_ACTION_ICONS[icon]; return Icon ? <Icon size={18} strokeWidth={1.5} stroke="rgba(255,215,0,0.6)" aria-hidden="true" /> : null; })()}
+						{(() => {
+							const Icon = QUICK_ACTION_ICONS[icon];
+							return Icon ? (
+								<Icon
+									size={18}
+									strokeWidth={1.5}
+									stroke="rgba(255,215,0,0.6)"
+									aria-hidden="true"
+								/>
+							) : null;
+						})()}
 						<p className="font-body font-semibold text-[9px] text-[#ccc] group-hover:text-primary transition-colors">
 							{label}
 						</p>
@@ -111,7 +129,13 @@ export default async function ManagerDashboard() {
 
 			{recent.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<Inbox size={32} strokeWidth={1.5} stroke="rgba(255,215,0,0.25)" className="mx-auto mb-3" aria-hidden="true" />
+					<Inbox
+						size={32}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,0.25)"
+						className="mx-auto mb-3"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No requests yet
 					</p>

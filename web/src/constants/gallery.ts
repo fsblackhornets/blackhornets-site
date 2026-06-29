@@ -29,7 +29,9 @@ export const GALLERY_SECTIONS = [
 	},
 ] as const;
 
-export const GALLERY_CATEGORY_OPTIONS = GALLERY_SECTIONS.map(({ category, title }) => ({
-	value: category,
-	label: title,
-}));
+export const GALLERY_CATEGORY_OPTIONS = GALLERY_SECTIONS.map(
+	({ category, title }) => ({
+		value: category,
+		label: title,
+	}),
+);

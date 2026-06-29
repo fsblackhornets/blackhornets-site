@@ -1,6 +1,6 @@
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft } from "lucide-react";
 import { updateProjectAction } from "@/app/actions/projects";
 import { ProjectForm } from "@/components/forms/projects/ProjectForm";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
@@ -31,7 +31,12 @@ export default async function EditProjectPage({ params }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back"
 				>
-					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
+					<ChevronLeft
+						size={16}
+						strokeWidth={2}
+						stroke="#ffd700"
+						aria-hidden="true"
+					/>
 				</Link>
 				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Edit Project

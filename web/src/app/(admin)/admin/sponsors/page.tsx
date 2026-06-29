@@ -1,6 +1,6 @@
+import { ExternalLink, FileEdit, FileText, Plus, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, FileEdit, FileText, Plus, Users } from "lucide-react";
 import { ParaButton } from "@/components/ui/components/ParaButton";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchAdminBrochure, fetchAdminSponsors } from "@/lib/api/admin";
@@ -37,7 +37,12 @@ export default async function SponsorsAdminPage() {
 			{/* Sponsor list */}
 			{sponsors.length === 0 ? (
 				<div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-16 text-center mb-8">
-					<Users size={40} strokeWidth={1} className="mx-auto mb-4 opacity-20 text-primary" aria-hidden="true" />
+					<Users
+						size={40}
+						strokeWidth={1}
+						className="mx-auto mb-4 opacity-20 text-primary"
+						aria-hidden="true"
+					/>
 					<p className="font-body text-[10px] text-[#333] tracking-[3px] uppercase">
 						No sponsors yet
 					</p>
@@ -96,7 +101,11 @@ export default async function SponsorsAdminPage() {
 												rel="noopener noreferrer"
 												className="font-body text-[8px] text-primary/50 hover:text-primary transition-colors flex items-center gap-1"
 											>
-												<ExternalLink size={8} strokeWidth={2} aria-hidden="true" />
+												<ExternalLink
+													size={8}
+													strokeWidth={2}
+													aria-hidden="true"
+												/>
 												website
 											</a>
 										)}
@@ -123,7 +132,12 @@ export default async function SponsorsAdminPage() {
 			{/* Brochure section */}
 			<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5">
 				<div className="flex items-center gap-2 pb-2.5 mb-5 border-b border-[#1e1e1e]">
-					<FileText size={13} strokeWidth={1.5} stroke="#ef4444" aria-hidden="true" />
+					<FileText
+						size={13}
+						strokeWidth={1.5}
+						stroke="#ef4444"
+						aria-hidden="true"
+					/>
 					<h2 className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
 						Partner Brochure
 					</h2>
@@ -148,7 +162,11 @@ export default async function SponsorsAdminPage() {
 											rel="noopener noreferrer"
 											className="font-body text-[10px] text-primary flex items-center gap-1.5 hover:text-primary/70 transition-colors"
 										>
-											<ExternalLink size={10} strokeWidth={2} aria-hidden="true" />
+											<ExternalLink
+												size={10}
+												strokeWidth={2}
+												aria-hidden="true"
+											/>
 											View PDF
 										</a>
 										<p className="font-body text-[8px] text-[#333] mt-1">

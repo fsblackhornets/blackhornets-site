@@ -1,6 +1,6 @@
+import { ArrowLeft, Image as ImageIcon, Info } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Image as ImageIcon, Info } from "lucide-react";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchRequest } from "@/lib/api/requests";
 import { RequestReviewClient } from "./RequestReviewClient";
@@ -118,7 +118,12 @@ export default async function RequestDetailPage({ params }: Props) {
 								{galleryItems.length > 0 && (
 									<div className="mt-4 pt-3 border-t border-[#1e1e1e]">
 										<div className="flex items-center gap-2 mb-2">
-											<Info size={11} strokeWidth={1.5} stroke="rgba(255,215,0,0.4)" aria-hidden="true" />
+											<Info
+												size={11}
+												strokeWidth={1.5}
+												stroke="rgba(255,215,0,0.4)"
+												aria-hidden="true"
+											/>
 											<span className="font-body text-[8px] text-primary/50">
 												Approving this post will also publish{" "}
 												{galleryItems.length} image
@@ -141,7 +146,12 @@ export default async function RequestDetailPage({ params }: Props) {
 															className="w-full h-full object-cover"
 														/>
 													) : (
-														<ImageIcon size={16} strokeWidth={1.5} stroke="rgba(255,215,0,0.15)" aria-hidden="true" />
+														<ImageIcon
+															size={16}
+															strokeWidth={1.5}
+															stroke="rgba(255,215,0,0.15)"
+															aria-hidden="true"
+														/>
 													)}
 												</div>
 											))}
@@ -219,7 +229,13 @@ export default async function RequestDetailPage({ params }: Props) {
 								Admin Notes
 							</p>
 							<div className="bg-[#111] border border-[#1e1e1e] rounded-sm px-5 py-4 flex items-start gap-2">
-								<Info size={11} strokeWidth={1.5} stroke="rgba(255,215,0,0.3)" style={{ flexShrink: 0, marginTop: "1px" }} aria-hidden="true" />
+								<Info
+									size={11}
+									strokeWidth={1.5}
+									stroke="rgba(255,215,0,0.3)"
+									style={{ flexShrink: 0, marginTop: "1px" }}
+									aria-hidden="true"
+								/>
 								<p className="font-body text-[10px] text-[#888]">
 									{request.admin_notes}
 								</p>

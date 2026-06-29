@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { ArrowLeftIcon, GearIcon, ImageIcon, SendIcon } from "@/components/icons";
+import {
+	ArrowLeftIcon,
+	GearIcon,
+	ImageIcon,
+	SendIcon,
+} from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
@@ -208,7 +213,11 @@ export function RequestProjectForm({ action }: Props) {
 					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
 						{imageFile ? (
 							<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-								<ImageIcon size={28} strokeWidth={1.5} className="text-primary/20" />
+								<ImageIcon
+									size={28}
+									strokeWidth={1.5}
+									className="text-primary/20"
+								/>
 							</div>
 						) : null}
 						<div className="p-5">

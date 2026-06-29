@@ -1,6 +1,15 @@
 "use client";
 
-import { FileEdit, Heart, Image as ImageIcon, Inbox, Info, Settings, Users, type LucideIcon } from "lucide-react";
+import {
+	FileEdit,
+	Heart,
+	Image as ImageIcon,
+	Inbox,
+	Info,
+	type LucideIcon,
+	Settings,
+	Users,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -69,7 +78,13 @@ export function RequestsFilterClient({
 
 			{filtered.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<Inbox size={32} strokeWidth={1.5} stroke="rgba(255,215,0,0.25)" className="mx-auto mb-3" aria-hidden="true" />
+					<Inbox
+						size={32}
+						strokeWidth={1.5}
+						stroke="rgba(255,215,0,0.25)"
+						className="mx-auto mb-3"
+						aria-hidden="true"
+					/>
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No requests yet
 					</p>
@@ -89,7 +104,18 @@ export function RequestsFilterClient({
 						>
 							<div className="flex items-start justify-between gap-4">
 								<div className="flex items-center gap-3 min-w-0">
-									{(() => { const Icon = TYPE_ICONS[r.type]; return Icon ? <Icon size={14} strokeWidth={1.5} stroke="rgba(255,215,0,0.4)" style={{ flexShrink: 0 }} aria-hidden="true" /> : null; })()}
+									{(() => {
+										const Icon = TYPE_ICONS[r.type];
+										return Icon ? (
+											<Icon
+												size={14}
+												strokeWidth={1.5}
+												stroke="rgba(255,215,0,0.4)"
+												style={{ flexShrink: 0 }}
+												aria-hidden="true"
+											/>
+										) : null;
+									})()}
 									<div className="min-w-0">
 										<p className="font-body text-[10px] font-semibold text-[#e0e0e0] truncate">
 											{getTitle(r.data)}
@@ -114,7 +140,13 @@ export function RequestsFilterClient({
 
 							{r.admin_notes && (
 								<div className="border-t border-[#1a1a1a] pt-2.5 mt-2.5 flex items-start gap-1.5">
-									<Info size={11} strokeWidth={1.5} stroke="rgba(255,215,0,0.3)" style={{ flexShrink: 0, marginTop: "1px" }} aria-hidden="true" />
+									<Info
+										size={11}
+										strokeWidth={1.5}
+										stroke="rgba(255,215,0,0.3)"
+										style={{ flexShrink: 0, marginTop: "1px" }}
+										aria-hidden="true"
+									/>
 									<p className="text-[8.5px] text-[#444] leading-snug">
 										<span className="text-primary/40 font-semibold">
 											Admin note:{" "}

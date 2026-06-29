@@ -117,8 +117,18 @@ export default async function ProjectsPage() {
 						<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 flex flex-col items-center gap-4 max-w-lg w-full">
 							{/* Gear icons */}
 							<div className="flex gap-3 items-center">
-								<Settings size={40} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
-								<Settings size={28} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" aria-hidden="true" />
+								<Settings
+									size={40}
+									strokeWidth={1.5}
+									stroke="rgba(255,215,0,.4)"
+									aria-hidden="true"
+								/>
+								<Settings
+									size={28}
+									strokeWidth={1.5}
+									stroke="rgba(255,215,0,.4)"
+									aria-hidden="true"
+								/>
 							</div>
 
 							{/* Racing stripe divider */}

@@ -5,11 +5,11 @@ import {
 	extractGalleryItems,
 	RichTextEditor,
 } from "@/components/editor/RichTextEditor";
-import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
 import { AlertCircleIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
+import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
 import type { Post } from "@/types/post";
 
 interface PostFormProps {

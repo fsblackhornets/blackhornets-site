@@ -15,7 +15,12 @@ export default function NewSponsorPage() {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back"
 				>
-					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
+					<ChevronLeft
+						size={16}
+						strokeWidth={2}
+						stroke="#ffd700"
+						aria-hidden="true"
+					/>
 				</Link>
 				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					New Sponsor

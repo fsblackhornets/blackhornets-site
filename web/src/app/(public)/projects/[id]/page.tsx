@@ -69,7 +69,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 				href="/projects"
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-8"
 			>
-				<ChevronLeft size={14} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
+				<ChevronLeft
+					size={14}
+					strokeWidth={2}
+					stroke="#ffd700"
+					aria-hidden="true"
+				/>
 				{t("backToProjects")}
 			</Link>
 
@@ -120,7 +125,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 				{project.due_date && (
 					<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 						<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-							<Calendar size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
+							<Calendar
+								size={14}
+								strokeWidth={1.5}
+								stroke="rgba(255,215,0,.5)"
+								aria-hidden="true"
+							/>
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
@@ -135,7 +145,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 				{project.duration && (
 					<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 						<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-							<Clock size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
+							<Clock
+								size={14}
+								strokeWidth={1.5}
+								stroke="rgba(255,215,0,.5)"
+								aria-hidden="true"
+							/>
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
@@ -149,7 +164,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 				)}
 				<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 					<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-						<Hourglass size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
+						<Hourglass
+							size={14}
+							strokeWidth={1.5}
+							stroke="rgba(255,215,0,.5)"
+							aria-hidden="true"
+						/>
 					</div>
 					<div>
 						<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
