@@ -22,16 +22,18 @@ export default async function GalleryPage() {
 	return (
 		<div className="max-w-[1100px]">
 			<div className="flex items-center gap-3 mb-6">
-				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
+				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Gallery
 				</h1>
 				<div className="flex-1 h-px bg-primary/12" />
-				<span className="text-text-gray text-sm">{images.length} images</span>
+				<span className="font-body text-[8.5px] text-[#444]">
+					{images.length} images
+				</span>
 			</div>
 
 			{/* Upload */}
-			<div className="bg-[#111] border border-primary/12 rounded-2xl p-6 mb-8">
-				<h2 className="font-heading text-sm tracking-widest text-primary uppercase mb-4">
+			<div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-6 mb-8">
+				<h2 className="font-heading text-[9px] tracking-[4px] uppercase text-primary mb-4">
 					Upload Image
 				</h2>
 				<GalleryUploadForm />
@@ -42,16 +44,18 @@ export default async function GalleryPage() {
 				const items = byCategory[category] ?? [];
 				return (
 					<section key={category} className="mb-10">
-						<div className="flex items-center gap-3 mb-4">
-							<h2 className="font-heading text-sm tracking-widest text-primary uppercase">
+						<div className="flex items-center gap-3 mb-3">
+							<h2 className="font-heading text-[9px] tracking-[4px] uppercase text-primary/70">
 								{title}
 							</h2>
-							<div className="flex-1 h-px bg-primary/12" />
-							<span className="text-text-gray text-xs">{items.length}</span>
+							<div className="flex-1 h-px bg-[#1e1e1e]" />
+							<span className="font-body text-[8px] text-[#333]">
+								{items.length}
+							</span>
 						</div>
 
 						{items.length === 0 ? (
-							<p className="text-text-gray text-sm">
+							<p className="font-body text-[9px] text-[#333]">
 								No images in this category.
 							</p>
 						) : (
@@ -59,7 +63,7 @@ export default async function GalleryPage() {
 								{items.map((img) => (
 									<div
 										key={img.id}
-										className={`group relative rounded-xl overflow-hidden border ${img.is_active ? "border-primary/20" : "border-gray-mid opacity-50"}`}
+										className={`group relative rounded-sm overflow-hidden border ${img.is_active ? "border-primary/30" : "border-[#1e1e1e] opacity-40"}`}
 									>
 										<div className="relative aspect-square">
 											<Image
@@ -92,7 +96,7 @@ export default async function GalleryPage() {
 
 										{img.title && (
 											<div className="absolute top-1 left-1 right-1">
-												<span className="text-[10px] text-white/70 bg-black/60 rounded px-1 truncate block">
+												<span className="bg-black/70 font-body text-[7px] text-white/60 px-1.5 py-0.5 truncate block">
 													{img.title}
 												</span>
 											</div>

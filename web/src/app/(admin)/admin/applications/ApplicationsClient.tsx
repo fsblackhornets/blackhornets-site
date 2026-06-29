@@ -1,7 +1,6 @@
 "use client";
 
-import { Badge, StatusBadge } from "@/components/ui/components/Badge";
-import { Button } from "@/components/ui/components/Button";
+import { StatusBadge } from "@/components/ui/components/Badge";
 import {
 	Dialog,
 	DialogContent,
@@ -9,12 +8,6 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/components/Dialog";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@/components/ui/components/Tabs";
 import { buildApplicationsUrl } from "@/helpers/buildApplicationsUrl";
 import { useApplicationReview } from "@/hooks/admin/useApplicationReview";
 import type { ApplicationsResponse } from "@/lib/api/admin";
@@ -37,87 +30,165 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 
 	return (
 		<>
-			<Tabs value={currentStatus} onValueChange={handleTabChange}>
-				<TabsList className="mb-6">
-					{APPLICATION_TABS.map(({ value, label }) => (
-						<TabsTrigger key={value} value={value}>
+			{/* Filter chips */}
+			<div className="flex flex-wrap gap-2 mb-6">
+				{APPLICATION_TABS.map(({ value, label }) => {
+					const isActive = currentStatus === value;
+					return (
+						<button
+							key={value}
+							type="button"
+							onClick={() => handleTabChange(value)}
+							className={`font-heading text-[7px] tracking-[2px] uppercase px-4 py-2 border transition-colors ${
+								isActive
+									? "bg-primary/10 border-primary text-primary"
+									: "border-[#1e1e1e] text-[#555] hover:border-primary/40 hover:text-[#888]"
+							}`}
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
+						>
 							{label}
-						</TabsTrigger>
-					))}
-				</TabsList>
+						</button>
+					);
+				})}
+			</div>
 
-				<TabsContent value={currentStatus}>
-					{!res || res.data.length === 0 ? (
-						<div className="bg-[#111] border border-primary/12 rounded-2xl p-16 text-center text-text-gray">
-							<i
-								className="fas fa-file-alt text-4xl text-primary/30 mb-4 block"
-								aria-hidden="true"
-							/>
-							No applications found.
-						</div>
-					) : (
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							{res.data.map((app) => (
-								<button
-									key={app.id}
-									type="button"
-									onClick={() => setSelected(app)}
-									className="bg-[#111] border border-primary/12 rounded-xl p-5 text-left hover:border-primary/40 transition-colors"
-								>
-									<div className="flex items-start justify-between gap-3 mb-3">
-										<div>
-											<p className="text-text-light font-semibold text-sm">
-												{app.first_name} {app.last_name}
-											</p>
-											<p className="text-text-gray text-xs">{app.email}</p>
-										</div>
-										<StatusBadge status={app.status} />
-									</div>
-									<div className="grid grid-cols-2 gap-2 text-xs text-text-gray">
-										<span>
-											<i className="fas fa-briefcase text-primary/60 mr-1" />
-											{app.desired_position}
-										</span>
-										<span>
-											<i className="fas fa-graduation-cap text-primary/60 mr-1" />
-											GPA {app.gpa}
-										</span>
-										<span>
-											<i className="fas fa-university text-primary/60 mr-1" />
-											{app.faculty}
-										</span>
-										<span>
-											<i className="fas fa-calendar text-primary/60 mr-1" />
-											{formatDate(app.created_at)}
-										</span>
-									</div>
-								</button>
-							))}
-						</div>
-					)}
-
-					{/* Pagination */}
-					{res && res.total_pages > 1 && (
-						<div className="flex justify-center gap-2 mt-6">
-							{Array.from({ length: res.total_pages }, (_, i) => i + 1).map(
-								(p) => (
-									<a
-										key={p}
-										href={buildApplicationsUrl(currentStatus, p)}
-										className={`w-9 h-9 rounded-lg font-heading text-sm flex items-center justify-center transition-colors ${
-											p === currentPage
-												? "bg-primary text-bg-dark"
-												: "border border-gray-mid text-text-gray hover:border-primary hover:text-primary"
-										}`}
+			{!res || res.data.length === 0 ? (
+				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
+					<svg
+						className="mx-auto mb-4"
+						width="36"
+						height="36"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="rgba(255,215,0,.2)"
+						strokeWidth={1.5}
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+						<polyline points="14 2 14 8 20 8" />
+						<line x1="16" y1="13" x2="8" y2="13" />
+						<line x1="16" y1="17" x2="8" y2="17" />
+					</svg>
+					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
+						No applications found.
+					</p>
+				</div>
+			) : (
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					{res.data.map((app) => (
+						<button
+							key={app.id}
+							type="button"
+							onClick={() => setSelected(app)}
+							className="bg-[#111] border border-[#1e1e1e] rounded-sm p-5 text-left hover:border-primary/30 transition-colors border-l-[2px] border-l-primary/20 hover:border-l-primary/60"
+						>
+							<div className="flex items-start justify-between gap-3 mb-3">
+								<div>
+									<p className="font-body font-semibold text-[10px] text-[#e0e0e0]">
+										{app.first_name} {app.last_name}
+									</p>
+									<p className="font-body text-[8px] text-[#444]">
+										{app.email}
+									</p>
+								</div>
+								<StatusBadge status={app.status} />
+							</div>
+							<div className="grid grid-cols-2 gap-2 font-body text-[8px] text-[#444]">
+								<span className="flex items-center gap-1.5">
+									<svg
+										width="10"
+										height="10"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="rgba(255,215,0,.4)"
+										strokeWidth={1.5}
+										strokeLinecap="round"
+										aria-hidden="true"
 									>
-										{p}
-									</a>
-								),
-							)}
-						</div>
-					)}
-				</TabsContent>
-			</Tabs>
+										<rect x="2" y="7" width="20" height="14" rx="2" />
+										<path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+									</svg>
+									{app.desired_position}
+								</span>
+								<span className="flex items-center gap-1.5">
+									<svg
+										width="10"
+										height="10"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="rgba(255,215,0,.4)"
+										strokeWidth={1.5}
+										strokeLinecap="round"
+										aria-hidden="true"
+									>
+										<path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+										<path d="M6 12v5c3 3 9 3 12 0v-5" />
+									</svg>
+									GPA {app.gpa}
+								</span>
+								<span className="flex items-center gap-1.5">
+									<svg
+										width="10"
+										height="10"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="rgba(255,215,0,.4)"
+										strokeWidth={1.5}
+										strokeLinecap="round"
+										aria-hidden="true"
+									>
+										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+										<polyline points="9 22 9 12 15 12 15 22" />
+									</svg>
+									{app.faculty}
+								</span>
+								<span className="flex items-center gap-1.5">
+									<svg
+										width="10"
+										height="10"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="rgba(255,215,0,.4)"
+										strokeWidth={1.5}
+										strokeLinecap="round"
+										aria-hidden="true"
+									>
+										<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+										<line x1="16" y1="2" x2="16" y2="6" />
+										<line x1="8" y1="2" x2="8" y2="6" />
+										<line x1="3" y1="10" x2="21" y2="10" />
+									</svg>
+									{formatDate(app.created_at)}
+								</span>
+							</div>
+						</button>
+					))}
+				</div>
+			)}
+
+			{/* Pagination */}
+			{res && res.total_pages > 1 && (
+				<div className="flex justify-center gap-2 mt-6">
+					{Array.from({ length: res.total_pages }, (_, i) => i + 1).map((p) => (
+						<a
+							key={p}
+							href={buildApplicationsUrl(currentStatus, p)}
+							className={`w-9 h-9 rounded-sm font-heading text-[8px] flex items-center justify-center transition-colors ${
+								p === currentPage
+									? "bg-primary text-black"
+									: "border border-[#1e1e1e] text-[#444] hover:border-primary hover:text-primary"
+							}`}
+						>
+							{p}
+						</a>
+					))}
+				</div>
+			)}
 
 			{/* Detail Dialog */}
 			<Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
@@ -127,13 +198,21 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 							<DialogTitle>
 								{selected.first_name} {selected.last_name}
 							</DialogTitle>
-							<div className="flex gap-2 mt-1">
+							<div className="flex gap-2 mt-2">
 								<StatusBadge status={selected.status} />
-								<Badge variant="info">{selected.desired_position}</Badge>
+								<span
+									className="inline-block font-heading text-[7px] tracking-[2px] uppercase px-2.5 py-1.5 bg-blue-500/10 text-blue-400 border border-blue-500/20"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+									}}
+								>
+									{selected.desired_position}
+								</span>
 							</div>
 						</DialogHeader>
 
-						<div className="grid grid-cols-2 gap-3 text-sm mb-4">
+						<div className="grid grid-cols-2 gap-3 mb-4">
 							{[
 								{ label: "Email", value: selected.email },
 								{ label: "Phone", value: selected.phone },
@@ -148,20 +227,20 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 								{ label: "Applied", value: formatDate(selected.created_at) },
 							].map(({ label, value }) => (
 								<div key={label}>
-									<p className="text-text-gray text-xs uppercase tracking-widest mb-0.5">
+									<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#444] mb-0.5">
 										{label}
 									</p>
-									<p className="text-text-light">{value}</p>
+									<p className="font-body text-[10px] text-[#ccc]">{value}</p>
 								</div>
 							))}
 						</div>
 
 						{selected.motivation && (
 							<div className="mb-4">
-								<p className="text-text-gray text-xs uppercase tracking-widest mb-1">
+								<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#444] mb-1">
 									Motivation
 								</p>
-								<p className="text-text-light text-sm leading-relaxed bg-bg-dark rounded-xl p-3 max-h-36 overflow-y-auto">
+								<p className="font-body text-[9.5px] text-[#aaa] leading-relaxed bg-[#0e0e0e] border border-[#1e1e1e] rounded-sm p-3 max-h-36 overflow-y-auto">
 									{selected.motivation}
 								</p>
 							</div>
@@ -172,40 +251,70 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 								href={`${process.env.NEXT_PUBLIC_API_BASE?.replace("/backend/api", "")}/frontend/${selected.resume_path}`}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="inline-flex items-center gap-2 text-primary text-sm hover:underline mb-2"
+								className="inline-flex items-center gap-1.5 text-primary text-[9px] hover:underline mb-2"
 							>
-								<i className="fas fa-file-pdf" aria-hidden="true" />
+								<svg
+									width="11"
+									height="11"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth={2}
+									strokeLinecap="round"
+									aria-hidden="true"
+								>
+									<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+									<polyline points="14 2 14 8 20 8" />
+									<line x1="16" y1="13" x2="8" y2="13" />
+									<line x1="16" y1="17" x2="8" y2="17" />
+									<polyline points="10 9 9 9 8 9" />
+								</svg>
 								View Resume
 							</a>
 						)}
 
 						<DialogFooter>
 							{selected.status !== "reviewing" && (
-								<Button
-									variant="secondary"
+								<button
+									type="button"
 									onClick={() => handleReview("review")}
 									disabled={!!loading}
+									className="border border-primary/30 text-primary font-heading text-[7.5px] tracking-[2px] uppercase py-2 px-4 hover:bg-primary/10 disabled:opacity-50 transition-colors"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 6px) 0, 100% 100%, 6px 100%)",
+									}}
 								>
 									{loading === "review" ? "…" : "Mark Reviewing"}
-								</Button>
+								</button>
 							)}
 							{selected.status !== "rejected" && (
-								<Button
-									variant="danger"
+								<button
+									type="button"
 									onClick={() => handleReview("reject")}
 									disabled={!!loading}
+									className="border border-red-500/30 text-red-400 font-heading text-[7.5px] tracking-[2px] uppercase py-2 px-4 hover:bg-red-500/10 disabled:opacity-50 transition-colors"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 6px) 0, 100% 100%, 6px 100%)",
+									}}
 								>
 									{loading === "reject" ? "…" : "Reject"}
-								</Button>
+								</button>
 							)}
 							{selected.status !== "accepted" && (
-								<Button
-									variant="primary"
+								<button
+									type="button"
 									onClick={() => handleReview("accept")}
 									disabled={!!loading}
+									className="bg-green-600/20 border border-green-500/30 text-green-400 font-heading text-[7.5px] tracking-[2px] uppercase py-2 px-4 hover:bg-green-600/30 disabled:opacity-50 transition-colors"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 6px) 0, 100% 100%, 6px 100%)",
+									}}
 								>
 									{loading === "accept" ? "…" : "Accept"}
-								</Button>
+								</button>
 							)}
 						</DialogFooter>
 					</DialogContent>
