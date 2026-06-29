@@ -42,12 +42,17 @@ export async function apiDelete<T>(path: string): Promise<T> {
 export async function apiPost<T>(
 	path: string,
 	body: FormData | Record<string, unknown>,
+	extraHeaders?: Record<string, string>,
 ): Promise<T> {
 	const isForm = body instanceof FormData;
+	const headers: Record<string, string> = {
+		...(isForm ? {} : { "Content-Type": "application/json" }),
+		...extraHeaders,
+	};
 	const res = await fetch(`${BASE}/${path}`, {
 		method: "POST",
 		body: isForm ? body : JSON.stringify(body),
-		headers: isForm ? undefined : { "Content-Type": "application/json" },
+		headers: Object.keys(headers).length > 0 ? headers : undefined,
 	});
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;

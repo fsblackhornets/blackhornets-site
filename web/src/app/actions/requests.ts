@@ -1,12 +1,22 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { apiPost } from "@/lib/api-client";
 import { db } from "@/lib/db";
 import { contentRequests } from "@/lib/db/schema";
+
+async function sessionCookieHeader(): Promise<Record<string, string>> {
+	const store = await cookies();
+	const header = store
+		.getAll()
+		.map((c) => `${c.name}=${c.value}`)
+		.join("; ");
+	return header ? { Cookie: header } : {};
+}
 
 export async function submitRequestAction(
 	_prev: { error?: string; success?: string },
@@ -20,7 +30,7 @@ export async function submitRequestAction(
 		formData.set("_user_name", session.user.full_name ?? "");
 		formData.set("_role", session.user.role ?? "manager");
 
-		await apiPost("requests", formData);
+		await apiPost("requests", formData, await sessionCookieHeader());
 		revalidatePath("/manager/requests");
 		return { success: "Request submitted. Awaiting admin approval." };
 	} catch {
@@ -97,20 +107,34 @@ export async function editAndApproveAction(
 				/* ignore */
 			}
 		}
-		await apiPost(`requests/${requestId}/review`, {
-			id: requestId,
-			action: "approve",
-			notes: null,
-			editedData,
-			reviewed_by: Number(session?.user?.id ?? 0),
-			_role: session?.user?.role ?? "admin",
-		});
+		await apiPost(
+			`requests/${requestId}/review`,
+			{
+				id: requestId,
+				action: "approve",
+				notes: null,
+				editedData,
+				reviewed_by: Number(session?.user?.id ?? 0),
+				_role: session?.user?.role ?? "admin",
+			},
+			await sessionCookieHeader(),
+		);
 		revalidatePath("/admin/requests");
 		revalidatePath(`/admin/requests/${requestId}`);
+		revalidatePublicPaths();
 	} catch {
 		return { error: "Failed to approve request. Please try again." };
 	}
 	redirect("/admin/requests");
+}
+
+function revalidatePublicPaths() {
+	revalidatePath("/blog");
+	revalidatePath("/projects");
+	revalidatePath("/sponsors");
+	revalidatePath("/team");
+	revalidatePath("/gallery");
+	revalidatePath("/");
 }
 
 export async function reviewRequestAction(
@@ -121,16 +145,21 @@ export async function reviewRequestAction(
 ): Promise<{ error?: string }> {
 	try {
 		const session = await auth();
-		await apiPost(`requests/${id}/review`, {
-			id,
-			action,
-			notes: notes || null,
-			editedData: editedData ?? null,
-			reviewed_by: Number(session?.user?.id ?? 0),
-			_role: session?.user?.role ?? "admin",
-		});
+		await apiPost(
+			`requests/${id}/review`,
+			{
+				id,
+				action,
+				notes: notes || null,
+				editedData: editedData ?? null,
+				reviewed_by: Number(session?.user?.id ?? 0),
+				_role: session?.user?.role ?? "admin",
+			},
+			await sessionCookieHeader(),
+		);
 		revalidatePath("/admin/requests");
 		revalidatePath(`/admin/requests/${id}`);
+		if (action === "approve") revalidatePublicPaths();
 	} catch {
 		return { error: "Failed to process request. Please try again." };
 	}
