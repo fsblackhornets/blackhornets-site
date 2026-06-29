@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 import { SPONSOR_TIERS } from "@/constants/sponsors";
 import { fetchSponsors, groupSponsorsByTier } from "@/lib/api/sponsors";
 import { TierGroup } from "./components/TierGroup";
@@ -36,21 +37,7 @@ export async function CurrentSponsorsSection() {
 					))
 				) : (
 					<div className="bg-bg-dark border border-[#1e1e1e] rounded-sm p-12 text-center">
-						<svg
-							width="40"
-							height="40"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="rgba(255,215,0,.4)"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							className="mx-auto mb-4"
-							aria-hidden="true"
-						>
-							<circle cx="12" cy="12" r="10" />
-							<polyline points="12 6 12 12 16 14" />
-						</svg>
+						<Clock size={40} strokeWidth={1.5} stroke="rgba(255,215,0,.4)" className="mx-auto mb-4" aria-hidden="true" />
 						<p className="font-heading text-[13px] tracking-[3px] uppercase text-primary mb-2">
 							Coming Soon
 						</p>

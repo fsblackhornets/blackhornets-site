@@ -1,6 +1,6 @@
 import type { TextareaHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { INPUT_BASE_CLS } from "../constants";
+import { INPUT_BASE_CLS } from "@/constants/ui";
 
 export function Textarea({
 	className,

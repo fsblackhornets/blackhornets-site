@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "@/app/actions/auth";
-import { ADMIN_NAV } from "./constants";
+import { ADMIN_NAV } from "@/constants/admin";
 
 export function AdminSidebar() {
 	const pathname = usePathname();

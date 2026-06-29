@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FileEdit, FileText, Plus } from "lucide-react";
 import { togglePostStatusAction } from "@/app/actions/posts";
 import { StatusBadge } from "@/components/ui/components/Badge";
 import { ParaButton } from "@/components/ui/components/ParaButton";
@@ -27,20 +28,7 @@ export default async function PostsPage() {
 					href="/admin/posts/new"
 					size="sm"
 					icon={
-						<svg
-							width="10"
-							height="10"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<line x1="12" y1="5" x2="12" y2="19" />
-							<line x1="5" y1="12" x2="19" y2="12" />
-						</svg>
+						<Plus size={10} strokeWidth={2.5} aria-hidden="true" />
 					}
 				>
 					New Post
@@ -49,24 +37,7 @@ export default async function PostsPage() {
 
 			{posts.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						className="mx-auto mb-4"
-						width="36"
-						height="36"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.2)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-						<polyline points="14 2 14 8 20 8" />
-						<line x1="16" y1="13" x2="8" y2="13" />
-						<line x1="16" y1="17" x2="8" y2="17" />
-						<polyline points="10 9 9 9 8 9" />
-					</svg>
+					<FileText size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No posts yet.
 					</p>
@@ -112,20 +83,7 @@ export default async function PostsPage() {
 									className="text-[#444] hover:text-primary transition-colors p-1"
 									aria-label="Edit post"
 								>
-									<svg
-										width="13"
-										height="13"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-										<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-									</svg>
+									<FileEdit size={13} strokeWidth={2} aria-hidden="true" />
 								</Link>
 								<PostDeleteButton id={post.id} title={resolvePostTitle(post)} />
 							</div>

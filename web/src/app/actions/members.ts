@@ -6,12 +6,12 @@ import { apiDelete, apiPost, apiPut } from "@/lib/api-client";
 
 function parseMemberFormData(formData: FormData) {
 	return {
-		email: (formData.get("email") as string) ?? "",
 		full_name: (formData.get("full_name") as string) ?? "",
+		email: (formData.get("email") as string) ?? null,
+		phone: (formData.get("phone") as string) ?? null,
 		role: (formData.get("role") as string) ?? "team_member",
 		team: (formData.get("team") as string) ?? null,
 		department: (formData.get("department") as string) ?? null,
-		phone: (formData.get("phone") as string) ?? null,
 		study_field: (formData.get("study_field") as string) ?? null,
 		position: (formData.get("position") as string) ?? null,
 	};
@@ -21,19 +21,11 @@ export async function createMemberAction(
 	_prev: { error?: string },
 	formData: FormData,
 ): Promise<{ error?: string }> {
-	const password = formData.get("password") as string;
-	if (!password || password.length < 8) {
-		return { error: "Password must be at least 8 characters." };
-	}
 	try {
-		await apiPost("admin/members", {
-			username: formData.get("username") as string,
-			password,
-			...parseMemberFormData(formData),
-		});
+		await apiPost("admin/members", parseMemberFormData(formData));
 		revalidatePath("/admin/members");
 	} catch {
-		return { error: "Failed to create member. Username may already exist." };
+		return { error: "Failed to create member." };
 	}
 	redirect("/admin/members");
 }

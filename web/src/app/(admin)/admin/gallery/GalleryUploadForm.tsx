@@ -2,16 +2,13 @@
 
 import { useActionState, useState } from "react";
 import { uploadGalleryImageAction } from "@/app/actions/gallery";
-import { GALLERY_SECTIONS } from "@/components/pagecomponents/gallery/constants";
+import { GALLERY_CATEGORY_OPTIONS } from "@/constants/gallery";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SubmitButton } from "@/components/ui/components/SubmitButton";
 
-const CATEGORY_OPTIONS = GALLERY_SECTIONS.map(({ category, title }) => ({
-	value: category,
-	label: title,
-}));
+const CATEGORY_OPTIONS = GALLERY_CATEGORY_OPTIONS;
 
 export function GalleryUploadForm() {
 	const [state, action, pending] = useActionState(uploadGalleryImageAction, {});

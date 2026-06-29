@@ -1,3 +1,4 @@
+import { Calendar, ChevronLeft, Clock, Eye, Link2 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,19 +57,7 @@ export default async function BlogPostPage({ params }: Props) {
 				href="/blog"
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-7 hover:opacity-70 transition-opacity"
 			>
-				<svg
-					width="12"
-					height="12"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="#ffd700"
-					strokeWidth={2.5}
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					aria-hidden="true"
-				>
-					<polyline points="15 18 9 12 15 6" />
-				</svg>
+				<ChevronLeft size={12} strokeWidth={2.5} stroke="#ffd700" aria-hidden="true" />
 				Back to Blog
 			</Link>
 
@@ -127,20 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
 
 						{/* Date */}
 						<span className="flex items-center gap-1.5 font-body text-xs text-text-gray">
-							<svg
-								width="11"
-								height="11"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								aria-hidden="true"
-							>
-								<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-								<line x1="16" y1="2" x2="16" y2="6" />
-								<line x1="8" y1="2" x2="8" y2="6" />
-								<line x1="3" y1="10" x2="21" y2="10" />
-							</svg>
+							<Calendar size={11} strokeWidth={2} aria-hidden="true" />
 							{formatDate(post.created_at)}
 						</span>
 
@@ -148,18 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
 
 						{/* Read time */}
 						<span className="flex items-center gap-1.5 font-body text-xs text-text-gray">
-							<svg
-								width="11"
-								height="11"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								aria-hidden="true"
-							>
-								<circle cx="12" cy="12" r="10" />
-								<polyline points="12 6 12 12 16 14" />
-							</svg>
+							<Clock size={11} strokeWidth={2} aria-hidden="true" />
 							{readTime} min read
 						</span>
 
@@ -167,18 +132,7 @@ export default async function BlogPostPage({ params }: Props) {
 							<>
 								<div className="w-px h-6 bg-[#222]" />
 								<span className="flex items-center gap-1.5 font-body text-xs text-text-gray">
-									<svg
-										width="11"
-										height="11"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										aria-hidden="true"
-									>
-										<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-										<circle cx="12" cy="12" r="3" />
-									</svg>
+									<Eye size={11} strokeWidth={2} aria-hidden="true" />
 									{post.views.toLocaleString()}
 								</span>
 							</>
@@ -284,19 +238,7 @@ export default async function BlogPostPage({ params }: Props) {
 								aria-label="Copy link"
 								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
 							>
-								<svg
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth={2}
-									strokeLinecap="round"
-									aria-hidden="true"
-								>
-									<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-									<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-								</svg>
+								<Link2 size={12} strokeWidth={2} aria-hidden="true" />
 							</button>
 						</div>
 					</div>
@@ -453,21 +395,7 @@ export default async function BlogPostPage({ params }: Props) {
 									},
 									{
 										label: "Copy Link",
-										icon: (
-											<svg
-												width="12"
-												height="12"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth={2}
-												strokeLinecap="round"
-												aria-hidden="true"
-											>
-												<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-												<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-											</svg>
-										),
+										icon: <Link2 size={12} strokeWidth={2} aria-hidden="true" />,
 									},
 								].map(({ label, icon }) => (
 									<button

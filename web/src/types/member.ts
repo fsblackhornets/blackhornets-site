@@ -26,16 +26,15 @@ export type MemberTeam = (typeof MEMBER_TEAMS)[number];
 
 export interface AdminMember {
 	id: number;
-	username: string;
-	email: string;
 	full_name: string;
-	role: MemberRole | "admin" | "manager";
+	email: string | null;
+	phone: string | null;
+	role: MemberRole;
 	team: string | null;
 	department: string | null;
-	phone: string | null;
 	study_field: string | null;
 	position: string | null;
-	profile_picture: string;
+	profile_picture: string | null;
 	status: "active" | "inactive";
 	created_at: string;
 }

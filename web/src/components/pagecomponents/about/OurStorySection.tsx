@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { fetchMemberCount } from "@/lib/api/team";
-import { STAT_ITEMS } from "./constants";
+import { STAT_ITEMS } from "@/constants/about";
 
 export async function OurStorySection() {
 	const memberCount = await fetchMemberCount();

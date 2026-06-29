@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { TeamKey } from "@/components/pagecomponents/team/constants";
+import type { TeamKey } from "@/constants/team";
 import type { TeamData, TeamMember } from "@/types/team";
 
 interface State {

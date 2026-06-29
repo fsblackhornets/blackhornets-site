@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, Image as ImageIcon, Info } from "lucide-react";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchRequest } from "@/lib/api/requests";
 import { RequestReviewClient } from "./RequestReviewClient";
@@ -40,18 +41,7 @@ export default async function RequestDetailPage({ params }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back"
 				>
-					<svg
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						aria-hidden="true"
-					>
-						<line x1="19" y1="12" x2="5" y2="12" />
-						<polyline points="12 19 5 12 12 5" />
-					</svg>
+					<ArrowLeft size={13} strokeWidth={2} aria-hidden="true" />
 				</Link>
 				<span className="font-heading text-[8px] tracking-[2px] uppercase text-[#333]">
 					Requests
@@ -101,12 +91,12 @@ export default async function RequestDetailPage({ params }: Props) {
 								Post Preview — As it will appear on the site:
 							</p>
 							<div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-5">
-								{request.data.title_sr && (
+								{!!request.data.title_sr && (
 									<h1 className="font-heading text-lg text-text-light mb-3">
 										{String(request.data.title_sr)}
 									</h1>
 								)}
-								{request.data.category && (
+								{!!request.data.category && (
 									<span
 										className="inline-block font-heading text-[7px] tracking-[2px] uppercase text-primary bg-primary/10 px-2.5 py-1 mb-3"
 										style={{
@@ -128,19 +118,7 @@ export default async function RequestDetailPage({ params }: Props) {
 								{galleryItems.length > 0 && (
 									<div className="mt-4 pt-3 border-t border-[#1e1e1e]">
 										<div className="flex items-center gap-2 mb-2">
-											<svg
-												width="11"
-												height="11"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="rgba(255,215,0,0.4)"
-												strokeWidth={1.5}
-												aria-hidden="true"
-											>
-												<circle cx="12" cy="12" r="10" />
-												<line x1="12" y1="8" x2="12" y2="12" />
-												<line x1="12" y1="16" x2="12.01" y2="16" />
-											</svg>
+											<Info size={11} strokeWidth={1.5} stroke="rgba(255,215,0,0.4)" aria-hidden="true" />
 											<span className="font-body text-[8px] text-primary/50">
 												Approving this post will also publish{" "}
 												{galleryItems.length} image
@@ -163,19 +141,7 @@ export default async function RequestDetailPage({ params }: Props) {
 															className="w-full h-full object-cover"
 														/>
 													) : (
-														<svg
-															width="16"
-															height="16"
-															viewBox="0 0 24 24"
-															fill="none"
-															stroke="rgba(255,215,0,0.15)"
-															strokeWidth={1.5}
-															aria-hidden="true"
-														>
-															<rect x="3" y="3" width="18" height="18" rx="2" />
-															<circle cx="8.5" cy="8.5" r="1.5" />
-															<polyline points="21 15 16 10 5 21" />
-														</svg>
+														<ImageIcon size={16} strokeWidth={1.5} stroke="rgba(255,215,0,0.15)" aria-hidden="true" />
 													)}
 												</div>
 											))}
@@ -201,7 +167,7 @@ export default async function RequestDetailPage({ params }: Props) {
 								Post Content
 							</p>
 							<div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-5">
-								{request.data.title_sr && (
+								{!!request.data.title_sr && (
 									<h1 className="font-heading text-lg text-text-light mb-3">
 										{String(request.data.title_sr)}
 									</h1>
@@ -253,20 +219,7 @@ export default async function RequestDetailPage({ params }: Props) {
 								Admin Notes
 							</p>
 							<div className="bg-[#111] border border-[#1e1e1e] rounded-sm px-5 py-4 flex items-start gap-2">
-								<svg
-									width="11"
-									height="11"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="rgba(255,215,0,0.3)"
-									strokeWidth={1.5}
-									style={{ flexShrink: 0, marginTop: "1px" }}
-									aria-hidden="true"
-								>
-									<circle cx="12" cy="12" r="10" />
-									<line x1="12" y1="8" x2="12" y2="12" />
-									<line x1="12" y1="16" x2="12.01" y2="16" />
-								</svg>
+								<Info size={11} strokeWidth={1.5} stroke="rgba(255,215,0,0.3)" style={{ flexShrink: 0, marginTop: "1px" }} aria-hidden="true" />
 								<p className="font-body text-[10px] text-[#888]">
 									{request.admin_notes}
 								</p>

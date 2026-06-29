@@ -3,7 +3,7 @@ import { ApplyForm } from "@/components/forms/apply/ApplyForm";
 import {
 	DEPARTMENTS,
 	REQUIREMENTS,
-} from "@/components/pagecomponents/apply/constants";
+} from "@/constants/apply";
 import { SITE_NAME, SITE_OG_IMAGE } from "@/constants/site";
 
 export const metadata: Metadata = {

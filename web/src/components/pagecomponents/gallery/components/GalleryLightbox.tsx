@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useEffect } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { buildGalleryImageUrl } from "@/lib/utils/utils";
 import type { GalleryImage } from "@/types/gallery";
 
@@ -64,19 +65,7 @@ export function GalleryLightbox({
 					className="w-[26px] h-[26px] rounded-full border border-[#2a2a2a] flex items-center justify-center text-text-gray hover:text-primary hover:border-primary transition-colors"
 					aria-label="Close"
 				>
-					<svg
-						width="10"
-						height="10"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2.5}
-						strokeLinecap="round"
-						aria-hidden="true"
-					>
-						<line x1="18" y1="6" x2="6" y2="18" />
-						<line x1="6" y1="6" x2="18" y2="18" />
-					</svg>
+					<X size={10} strokeWidth={2.5} aria-hidden="true" />
 				</button>
 			</div>
 
@@ -90,19 +79,7 @@ export function GalleryLightbox({
 					className="absolute left-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
 					aria-label="Previous image"
 				>
-					<svg
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.7)"
-						strokeWidth={2.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<polyline points="15 18 9 12 15 6" />
-					</svg>
+					<ChevronLeft size={14} strokeWidth={2.5} stroke="rgba(255,215,0,.7)" aria-hidden="true" />
 				</button>
 
 				{/* Image */}
@@ -142,19 +119,7 @@ export function GalleryLightbox({
 					className="absolute right-4 w-8 h-8 border border-primary/25 bg-black/60 flex items-center justify-center text-primary hover:border-primary/60 transition-colors disabled:opacity-20 disabled:pointer-events-none"
 					aria-label="Next image"
 				>
-					<svg
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.7)"
-						strokeWidth={2.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<polyline points="9 18 15 12 9 6" />
-					</svg>
+					<ChevronRight size={14} strokeWidth={2.5} stroke="rgba(255,215,0,.7)" aria-hidden="true" />
 				</button>
 			</div>
 

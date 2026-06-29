@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Project } from "@/types/project";
 import { ProjectCard } from "./ProjectCard";
 
@@ -67,19 +68,7 @@ export function PaginatedProjects({ projects }: { projects: Project[] }) {
 						disabled={page === 1}
 						className="w-[30px] h-[30px] flex items-center justify-center border border-[#222] text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
 					>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<polyline points="15 18 9 12 15 6" />
-						</svg>
+						<ChevronLeft size={14} strokeWidth={2.5} aria-hidden="true" />
 					</button>
 
 					{/* Page numbers */}
@@ -108,19 +97,7 @@ export function PaginatedProjects({ projects }: { projects: Project[] }) {
 						disabled={page === totalPages}
 						className="w-[30px] h-[30px] flex items-center justify-center border border-[#222] text-text-gray hover:border-primary hover:text-primary transition-colors disabled:opacity-40 disabled:pointer-events-none"
 					>
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<polyline points="9 18 15 12 9 6" />
-						</svg>
+						<ChevronRight size={14} strokeWidth={2.5} aria-hidden="true" />
 					</button>
 				</div>
 			)}

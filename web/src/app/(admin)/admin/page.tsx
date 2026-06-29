@@ -3,7 +3,7 @@ import {
 	QUICK_ACTIONS,
 	STAT_CARDS,
 	TEAM_BREAKDOWN,
-} from "@/components/admin/constants";
+} from "@/constants/admin";
 import { QuickActionCard } from "@/components/admin/QuickActionCard";
 import { StatCard } from "@/components/admin/StatCard";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";

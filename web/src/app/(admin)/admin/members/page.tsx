@@ -1,3 +1,4 @@
+import { FileEdit, UserPlus, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { toggleMemberStatusAction } from "@/app/actions/members";
@@ -26,24 +27,7 @@ export default async function MembersPage() {
 				<ParaButton
 					href="/admin/members/new"
 					size="sm"
-					icon={
-						<svg
-							width="11"
-							height="11"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-							<circle cx="9" cy="7" r="4" />
-							<line x1="19" y1="8" x2="19" y2="14" />
-							<line x1="22" y1="11" x2="16" y2="11" />
-						</svg>
-					}
+					icon={<UserPlus size={11} strokeWidth={2} aria-hidden="true" />}
 				>
 					Add Member
 				</ParaButton>
@@ -51,23 +35,7 @@ export default async function MembersPage() {
 
 			{members.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						className="mx-auto mb-4"
-						width="36"
-						height="36"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.2)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-						<circle cx="9" cy="7" r="4" />
-						<path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-						<path d="M16 3.13a4 4 0 0 1 0 7.75" />
-					</svg>
+					<Users size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No members found.
 					</p>
@@ -149,20 +117,7 @@ export default async function MembersPage() {
 										className="text-[#444] hover:text-primary transition-colors p-1"
 										aria-label="Edit member"
 									>
-										<svg
-											width="13"
-											height="13"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth={2}
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											aria-hidden="true"
-										>
-											<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-											<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-										</svg>
+										<FileEdit size={13} strokeWidth={2} aria-hidden="true" />
 									</Link>
 									<MemberDeleteButton id={m.id} name={m.full_name} />
 								</div>

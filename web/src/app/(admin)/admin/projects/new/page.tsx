@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { createProjectAction } from "@/app/actions/projects";
 import { ProjectForm } from "@/components/forms/projects/ProjectForm";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
@@ -11,11 +12,12 @@ export default function NewProjectPage() {
 			<div className="flex items-center gap-3 mb-6">
 				<Link
 					href="/admin/projects"
-					className="text-text-gray hover:text-primary transition-colors"
+					className="text-primary hover:text-primary/70 transition-colors"
+					aria-label="Back"
 				>
-					<i className="fas fa-arrow-left" aria-hidden="true" />
+					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
 				</Link>
-				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
+				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					New Project
 				</h1>
 			</div>

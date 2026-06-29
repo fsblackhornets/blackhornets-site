@@ -6,7 +6,7 @@ import { useTeamState } from "@/hooks/team/useTeamState";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamData, TeamMember } from "@/types/team";
 import { MemberModal } from "./components/MemberModal";
-import { TEAM_STRUCTURE, type TeamKey } from "./constants";
+import { TEAM_STRUCTURE, type TeamKey } from "@/constants/team";
 
 // ── sub-components ───────────────────────────────────────────
 

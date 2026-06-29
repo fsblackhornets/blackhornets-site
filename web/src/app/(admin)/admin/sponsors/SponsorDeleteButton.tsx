@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteSponsorAction } from "@/app/actions/sponsors";
+import { TrashIcon } from "@/components/icons";
 import { Button } from "@/components/ui/components/Button";
 import {
 	Dialog,
@@ -32,7 +33,7 @@ export function SponsorDeleteButton({
 				className="text-text-gray hover:text-red-400 transition-colors text-sm px-2"
 				aria-label={`Delete ${name}`}
 			>
-				<i className="fas fa-trash" aria-hidden="true" />
+				<TrashIcon size={13} strokeWidth={2} />
 			</button>
 
 			<Dialog open={open} onOpenChange={setOpen}>

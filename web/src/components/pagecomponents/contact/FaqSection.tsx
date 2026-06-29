@@ -1,4 +1,5 @@
-import { FAQS } from "./constants";
+import { ChevronDown } from "lucide-react";
+import { FAQS } from "@/constants/contact";
 
 export function FaqSection() {
 	return (
@@ -37,18 +38,11 @@ export function FaqSection() {
 							{q}
 							{/* Chevron */}
 							<div className="w-7 h-7 rounded-full border border-gray-dark bg-bg-dark flex items-center justify-center shrink-0 ml-4 transition-colors group-open:border-primary/25 group-open:bg-primary/8">
-								<svg
+								<ChevronDown
 									className="w-3.5 h-3.5 text-text-gray group-open:text-primary transition-transform group-open:rotate-180"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
 									strokeWidth={2.5}
-									strokeLinecap="round"
-									strokeLinejoin="round"
 									aria-hidden="true"
-								>
-									<polyline points="6 9 12 15 18 9" />
-								</svg>
+								/>
 							</div>
 						</summary>
 						<p className="font-body text-[10px] leading-[1.8] text-text-gray pb-4 max-w-3xl mt-3">

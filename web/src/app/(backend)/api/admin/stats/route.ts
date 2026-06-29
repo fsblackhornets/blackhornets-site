@@ -6,7 +6,7 @@ import {
 	applications,
 	contactMessages,
 	contentRequests,
-	users,
+	teamMembers,
 } from "@/lib/db/schema";
 
 export async function GET() {
@@ -33,12 +33,10 @@ export async function GET() {
 				.from(contentRequests)
 				.where(eq(contentRequests.status, "pending")),
 			db
-				.select({ team: users.team, count: sql<number>`COUNT(*)` })
-				.from(users)
-				.where(
-					sql`${users.status} = 'active' AND ${users.role} NOT IN ('admin','manager')`,
-				)
-				.groupBy(users.team),
+				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
+				.from(teamMembers)
+				.where(sql`${teamMembers.status} = 'active'`)
+				.groupBy(teamMembers.team),
 		]);
 
 		const by_team = {

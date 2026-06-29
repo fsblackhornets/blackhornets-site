@@ -1,3 +1,4 @@
+import { Calendar, ChevronLeft, Clock, Hourglass } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -64,19 +65,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				href="/projects"
 				className="inline-flex items-center gap-2 font-heading text-[8px] tracking-[3px] uppercase text-primary mb-8"
 			>
-				<svg
-					width="14"
-					height="14"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="#ffd700"
-					strokeWidth={2}
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					aria-hidden="true"
-				>
-					<polyline points="15 18 9 12 15 6" />
-				</svg>
+				<ChevronLeft size={14} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
 				Back to Projects
 			</Link>
 
@@ -127,22 +116,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				{project.due_date && (
 					<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 						<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-							<svg
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="rgba(255,215,0,.5)"
-								strokeWidth={1.5}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								aria-hidden="true"
-							>
-								<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-								<line x1="16" y1="2" x2="16" y2="6" />
-								<line x1="8" y1="2" x2="8" y2="6" />
-								<line x1="3" y1="10" x2="21" y2="10" />
-							</svg>
+							<Calendar size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
@@ -157,20 +131,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				{project.duration && (
 					<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 						<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-							<svg
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="rgba(255,215,0,.5)"
-								strokeWidth={1.5}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								aria-hidden="true"
-							>
-								<circle cx="12" cy="12" r="10" />
-								<polyline points="12 6 12 12 16 14" />
-							</svg>
+							<Clock size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
 						</div>
 						<div>
 							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">
@@ -184,22 +145,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 				)}
 				<div className="rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 bg-bg-panel p-4 flex items-center gap-3">
 					<div className="w-8 h-8 rounded-full border border-primary/20 bg-primary/5 flex items-center justify-center shrink-0">
-						<svg
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="rgba(255,215,0,.5)"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<path d="M5 22h14" />
-							<path d="M5 2h14" />
-							<path d="M17 22v-4.172a2 2 0 00-.586-1.414L12 12l-4.414 4.414A2 2 0 007 17.828V22" />
-							<path d="M7 2v4.172a2 2 0 00.586 1.414L12 12l4.414-4.414A2 2 0 0017 6.172V2" />
-						</svg>
+						<Hourglass size={14} strokeWidth={1.5} stroke="rgba(255,215,0,.5)" aria-hidden="true" />
 					</div>
 					<div>
 						<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#555] mb-1">

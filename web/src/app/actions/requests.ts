@@ -76,6 +76,43 @@ export async function resubmitRequestAction(
 	redirect("/manager/requests");
 }
 
+export async function editAndApproveAction(
+	requestId: number,
+	_prev: { error?: string },
+	formData: FormData,
+): Promise<{ error?: string }> {
+	try {
+		const session = await auth();
+		const editedData: Record<string, unknown> = {};
+		for (const [key, val] of formData.entries()) {
+			if (!key.startsWith("_")) {
+				editedData[key] = val instanceof File ? null : val;
+			}
+		}
+		const galleryRaw = formData.get("gallery_items");
+		if (galleryRaw && typeof galleryRaw === "string") {
+			try {
+				editedData.gallery_items = JSON.parse(galleryRaw);
+			} catch {
+				/* ignore */
+			}
+		}
+		await apiPost(`requests/${requestId}/review`, {
+			id: requestId,
+			action: "approve",
+			notes: null,
+			editedData,
+			reviewed_by: Number(session?.user?.id ?? 0),
+			_role: session?.user?.role ?? "admin",
+		});
+		revalidatePath("/admin/requests");
+		revalidatePath(`/admin/requests/${requestId}`);
+	} catch {
+		return { error: "Failed to approve request. Please try again." };
+	}
+	redirect("/admin/requests");
+}
+
 export async function reviewRequestAction(
 	id: number,
 	action: "approve" | "decline",

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useScrolled } from "@/hooks/useScrolled";
-import { NAV_LINKS } from "./constants";
+import { NAV_LINKS } from "@/constants/layout";
 
 export function Navbar() {
 	const pathname = usePathname();

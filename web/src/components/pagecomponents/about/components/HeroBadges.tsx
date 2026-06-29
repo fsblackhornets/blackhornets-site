@@ -1,4 +1,4 @@
-import { HERO_BADGES } from "../constants";
+import { HERO_BADGES } from "@/constants/about";
 
 export function HeroBadges() {
 	return (

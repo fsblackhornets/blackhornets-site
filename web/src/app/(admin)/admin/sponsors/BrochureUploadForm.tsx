@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { Check, Info, Upload } from "lucide-react";
 import { uploadBrochureAction } from "@/app/actions/brochure";
 import { Field } from "@/components/ui/components/Field";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
-import { SubmitButton } from "@/components/ui/components/SubmitButton";
 import { BROCHURE_LANG_OPTIONS } from "@/constants/sponsors";
 
 export function BrochureUploadForm() {
@@ -14,12 +14,14 @@ export function BrochureUploadForm() {
 	return (
 		<form action={action} className="flex flex-col gap-4">
 			{state.error && (
-				<div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm">
+				<div className="bg-red-500/8 border border-red-500/20 rounded-none p-3 flex items-center gap-2 text-red-400 text-[9px]">
+					<Info size={12} strokeWidth={2} aria-hidden="true" />
 					{state.error}
 				</div>
 			)}
 			{state.success && (
-				<div className="bg-green-500/10 border border-green-500/30 rounded-xl p-3 text-green-400 text-sm">
+				<div className="bg-green-500/8 border border-green-500/20 rounded-none p-3 flex items-center gap-2 text-green-400 text-[9px]">
+					<Check size={12} strokeWidth={2} aria-hidden="true" />
 					{state.success}
 				</div>
 			)}
@@ -32,11 +34,17 @@ export function BrochureUploadForm() {
 					<div className="flex items-center gap-2">
 						<label
 							htmlFor="brochure_pdf"
-							className="cursor-pointer px-3 py-2 rounded-lg border border-primary text-primary text-xs font-heading tracking-widest hover:bg-primary hover:text-bg-dark transition-colors shrink-0"
+							className="cursor-pointer border border-primary/40 text-primary font-heading text-[7px] tracking-[2px] uppercase px-3 py-2 transition-colors hover:bg-primary/10 shrink-0"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
 						>
-							Choose
+							Choose PDF
 						</label>
-						<span className="text-text-gray text-xs truncate">{fileName}</span>
+						<span className="font-body text-[9px] text-[#333] truncate">
+							{fileName}
+						</span>
 					</div>
 					<input
 						id="brochure_pdf"
@@ -52,13 +60,29 @@ export function BrochureUploadForm() {
 				</Field>
 			</div>
 
-			<SubmitButton
-				pending={pending}
-				label="Upload Brochure"
-				pendingLabel="Uploading…"
-				icon="fas fa-file-upload"
-				className="self-start"
-			/>
+			<button
+				type="submit"
+				disabled={pending}
+				className="bg-primary text-black font-heading text-[8px] tracking-[3px] uppercase py-3 px-6 self-start flex items-center gap-2 transition-opacity disabled:opacity-60"
+				style={{
+					clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+				}}
+			>
+				{pending ? (
+					<>
+						<span
+							className="w-3 h-3 border-2 border-black border-t-transparent rounded-full animate-spin"
+							aria-hidden="true"
+						/>
+						Uploading…
+					</>
+				) : (
+					<>
+						<Upload size={11} strokeWidth={2} aria-hidden="true" />
+						Upload Brochure
+					</>
+				)}
+			</button>
 		</form>
 	);
 }

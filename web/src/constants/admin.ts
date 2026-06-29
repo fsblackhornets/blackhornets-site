@@ -125,3 +125,27 @@ export const QUICK_ACTIONS = [
 		desc: "Manage racing projects",
 	},
 ] as const;
+
+export const REQUEST_STATUS_BORDER: Record<string, string> = {
+	pending: "border-l-primary",
+	approved: "border-l-green-500",
+	declined: "border-l-red-600",
+};
+
+export const REQUEST_STATUS_BADGE: Record<string, string> = {
+	pending: "bg-primary/10 text-primary",
+	approved: "bg-green-500/10 text-green-400",
+	declined: "bg-red-500/10 text-red-400",
+};
+
+export const REQUEST_STATUSES = ["", "pending", "approved", "declined"] as const;
+
+export const REQUEST_TYPES = ["", "post", "project", "sponsor", "member", "gallery"] as const;
+
+export const APPLICATION_TABS = [
+	{ value: "", label: "All" },
+	{ value: "pending", label: "Pending" },
+	{ value: "reviewing", label: "Reviewing" },
+	{ value: "accepted", label: "Accepted" },
+	{ value: "rejected", label: "Rejected" },
+] as const;

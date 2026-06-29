@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 import { updatePostAction } from "@/app/actions/posts";
-import { PostForm } from "@/components/admin/PostForm";
+import { PostForm } from "@/components/forms/posts/PostForm";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchPost } from "@/lib/api/posts";
 import { resolvePostTitle } from "@/lib/utils/utils";
@@ -24,15 +25,16 @@ export default async function EditPostPage({ params }: Props) {
 	const action = updatePostAction.bind(null, post.id);
 
 	return (
-		<div className="max-w-[720px]">
+		<div className="max-w-none">
 			<div className="flex items-center gap-3 mb-6">
 				<Link
 					href="/admin/posts"
-					className="text-text-gray hover:text-primary transition-colors"
+					className="text-primary hover:text-primary/70 transition-colors"
+					aria-label="Back"
 				>
-					<i className="fas fa-arrow-left" aria-hidden="true" />
+					<ChevronLeft size={16} strokeWidth={2} stroke="#ffd700" aria-hidden="true" />
 				</Link>
-				<h1 className="font-heading text-xl text-primary tracking-widest uppercase">
+				<h1 className="font-heading text-[14px] tracking-[2px] uppercase text-primary">
 					Edit Post
 				</h1>
 			</div>

@@ -1,4 +1,6 @@
+import { Inbox, Reply } from "lucide-react";
 import { deleteMessageAction } from "@/app/actions/messages";
+import { TrashIcon } from "@/components/icons";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
 import { fetchMessages } from "@/lib/api/admin";
 import { formatDate } from "@/lib/utils/utils";
@@ -30,21 +32,7 @@ export default async function MessagesPage({ searchParams }: Props) {
 
 			{!res || res.data.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						className="mx-auto mb-4"
-						width="36"
-						height="36"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.2)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
-						<path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
-					</svg>
+					<Inbox size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No messages found.
 					</p>
@@ -85,20 +73,7 @@ export default async function MessagesPage({ searchParams }: Props) {
 									href={`mailto:${msg.email}`}
 									className="flex items-center gap-1.5 font-body text-[8.5px] text-[#444] hover:text-primary transition-colors"
 								>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<polyline points="9 17 4 12 9 7" />
-										<path d="M20 18v-2a4 4 0 0 0-4-4H4" />
-									</svg>
+									<Reply size={12} strokeWidth={2} aria-hidden="true" />
 									Reply
 								</a>
 
@@ -112,22 +87,7 @@ export default async function MessagesPage({ searchParams }: Props) {
 										type="submit"
 										className="flex items-center gap-1.5 font-body text-[8.5px] text-[#444] hover:text-red-400 transition-colors"
 									>
-										<svg
-											width="12"
-											height="12"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											strokeWidth={2}
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											aria-hidden="true"
-										>
-											<polyline points="3 6 5 6 21 6" />
-											<path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-											<path d="M10 11v6M14 11v6" />
-											<path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-										</svg>
+										<TrashIcon size={12} strokeWidth={2} />
 										Delete
 									</button>
 								</form>

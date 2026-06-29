@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import { Image as ImageIcon } from "lucide-react";
 import { useGalleryLightbox } from "@/hooks/gallery/useGalleryLightbox";
 import type { GalleryImage } from "@/types/gallery";
 import { GalleryLightbox } from "./components/GalleryLightbox";
 import { GalleryTile } from "./components/GalleryTile";
-import { GALLERY_SECTIONS } from "./constants";
+import { GALLERY_SECTIONS } from "@/constants/gallery";
 
 interface GalleryPageClientProps {
 	grouped: Record<string, GalleryImage[]>;
@@ -100,19 +101,7 @@ export function GalleryPageClient({ grouped }: GalleryPageClientProps) {
 								{/* Grid or empty state */}
 								{images.length === 0 ? (
 									<div className="h-32 flex flex-col items-center justify-center gap-3 border border-[#1e1e1e] rounded-sm bg-bg-dark">
-										<svg
-											width="28"
-											height="28"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="rgba(255,215,0,.25)"
-											strokeWidth="1.5"
-											aria-hidden="true"
-										>
-											<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-											<circle cx="8.5" cy="8.5" r="1.5" />
-											<polyline points="21 15 16 10 5 21" />
-										</svg>
+										<ImageIcon size={28} strokeWidth={1.5} stroke="rgba(255,215,0,.25)" aria-hidden="true" />
 										<p
 											className="font-heading text-[9px] tracking-[3px] uppercase"
 											style={{ color: "#333" }}

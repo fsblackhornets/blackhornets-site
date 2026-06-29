@@ -40,3 +40,12 @@ export const TIER_LABELS: Record<SponsorTier, string> = {
 	"F4 - Bronze": "F4 — Bronze",
 	"Friends of the Project": "Friends of the Project",
 };
+
+export const TIER_STYLES: Record<SponsorTier, { text: string; badgeBorder: string; badgeBg: string; border: string }> = {
+	Institucija:              { text: "text-purple-400",  badgeBorder: "border-purple-400/30",  badgeBg: "bg-purple-400/5",  border: "border-t-purple-400/40"  },
+	"F1 - Platinum":          { text: "text-slate-300",   badgeBorder: "border-slate-300/30",   badgeBg: "bg-slate-300/5",   border: "border-t-slate-300/40"   },
+	"F2 - Gold":              { text: "text-primary",     badgeBorder: "border-primary/30",     badgeBg: "bg-primary/5",     border: "border-t-primary/60"     },
+	"F3 - Silver":            { text: "text-gray-400",    badgeBorder: "border-gray-400/30",    badgeBg: "bg-gray-400/5",    border: "border-t-gray-400/40"    },
+	"F4 - Bronze":            { text: "text-orange-400",  badgeBorder: "border-orange-400/30",  badgeBg: "bg-orange-400/5",  border: "border-t-orange-400/40"  },
+	"Friends of the Project": { text: "text-primary/60",  badgeBorder: "border-primary/20",     badgeBg: "bg-primary/5",     border: "border-t-primary/20"     },
+};

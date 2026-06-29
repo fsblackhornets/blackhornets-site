@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { ArrowLeftIcon, GearIcon, ImageIcon, SendIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
@@ -44,20 +45,7 @@ export function RequestProjectForm({ action }: Props) {
 					className="text-primary hover:text-primary/70 transition-colors"
 					aria-label="Back to Dashboard"
 				>
-					<svg
-						width="13"
-						height="13"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth={2}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<line x1="19" y1="12" x2="5" y2="12" />
-						<polyline points="12 19 5 12 12 5" />
-					</svg>
+					<ArrowLeftIcon size={13} />
 				</Link>
 				<span className="font-heading text-[8px] tracking-[2px] uppercase text-[#333]">
 					Dashboard
@@ -73,20 +61,7 @@ export function RequestProjectForm({ action }: Props) {
 				<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5">
 					{/* Card header */}
 					<div className="flex items-center gap-2 pb-2.5 mb-4 border-b border-[#1e1e1e]">
-						<svg
-							width="13"
-							height="13"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#ffd700"
-							strokeWidth={1.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<circle cx="12" cy="12" r="3" />
-							<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-						</svg>
+						<GearIcon size={13} strokeWidth={1.5} className="text-primary" />
 						<span className="font-heading text-[8px] tracking-[4px] uppercase text-primary">
 							Project Details
 						</span>
@@ -217,20 +192,7 @@ export function RequestProjectForm({ action }: Props) {
 								</>
 							) : (
 								<>
-									<svg
-										width="12"
-										height="12"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<line x1="22" y1="2" x2="11" y2="13" />
-										<polygon points="22 2 15 22 11 13 2 9 22 2" />
-									</svg>
+									<SendIcon size={12} />
 									Submit for Review
 								</>
 							)}
@@ -246,21 +208,7 @@ export function RequestProjectForm({ action }: Props) {
 					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
 						{imageFile ? (
 							<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-								<svg
-									width="28"
-									height="28"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="rgba(255,215,0,0.2)"
-									strokeWidth={1.5}
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									aria-hidden="true"
-								>
-									<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-									<circle cx="8.5" cy="8.5" r="1.5" />
-									<polyline points="21 15 16 10 5 21" />
-								</svg>
+								<ImageIcon size={28} strokeWidth={1.5} className="text-primary/20" />
 							</div>
 						) : null}
 						<div className="p-5">

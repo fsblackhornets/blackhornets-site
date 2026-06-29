@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FileEdit, LayoutGrid, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/components/Badge";
 import { ParaButton } from "@/components/ui/components/ParaButton";
 import { buildAdminMeta } from "@/helpers/buildAdminMeta";
@@ -25,20 +26,7 @@ export default async function ProjectsAdminPage() {
 					href="/admin/projects/new"
 					size="sm"
 					icon={
-						<svg
-							width="10"
-							height="10"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2.5}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							aria-hidden="true"
-						>
-							<line x1="12" y1="5" x2="12" y2="19" />
-							<line x1="5" y1="12" x2="19" y2="12" />
-						</svg>
+						<Plus size={10} strokeWidth={2.5} aria-hidden="true" />
 					}
 				>
 					New Project
@@ -47,23 +35,7 @@ export default async function ProjectsAdminPage() {
 
 			{projects.length === 0 ? (
 				<div className="border border-[#1e1e1e] rounded-sm p-16 text-center">
-					<svg
-						className="mx-auto mb-4"
-						width="36"
-						height="36"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="rgba(255,215,0,.2)"
-						strokeWidth={1.5}
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						aria-hidden="true"
-					>
-						<rect x="3" y="3" width="7" height="7" />
-						<rect x="14" y="3" width="7" height="7" />
-						<rect x="14" y="14" width="7" height="7" />
-						<rect x="3" y="14" width="7" height="7" />
-					</svg>
+					<LayoutGrid size={36} strokeWidth={1.5} stroke="rgba(255,215,0,.2)" className="mx-auto mb-4" aria-hidden="true" />
 					<p className="font-heading text-[9px] tracking-[3px] uppercase text-[#333]">
 						No projects yet.
 					</p>
@@ -103,20 +75,7 @@ export default async function ProjectsAdminPage() {
 									className="text-[#444] hover:text-primary transition-colors p-1"
 									aria-label="Edit project"
 								>
-									<svg
-										width="13"
-										height="13"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										aria-hidden="true"
-									>
-										<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-										<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-									</svg>
+									<FileEdit size={13} strokeWidth={2} aria-hidden="true" />
 								</Link>
 								<ProjectDeleteButton id={project.id} name={project.name} />
 							</div>

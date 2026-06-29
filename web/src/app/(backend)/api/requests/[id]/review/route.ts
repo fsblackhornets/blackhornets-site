@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -10,7 +9,6 @@ import {
 	projects,
 	sponsors,
 	teamMembers,
-	users,
 } from "@/lib/db/schema";
 
 type ReviewBody = {
@@ -96,48 +94,20 @@ async function insertContent(
 			});
 		}
 	} else if (type === "member") {
-		const fullName = String(data.full_name ?? "");
-		const base = fullName
-			.toLowerCase()
-			.replace(/[^a-z0-9]/g, "_")
-			.replace(/_+/g, "_")
-			.replace(/^_|_$/g, "");
-		let username = base;
-		let suffix = 1;
-		while (true) {
-			const [existing] = await tx
-				.select({ id: users.id })
-				.from(users)
-				.where(eq(users.username, username));
-			if (!existing) break;
-			username = `${base}_${suffix++}`;
-		}
-		const hash = await bcrypt.hash(Math.random().toString(36), 10);
-		const [inserted] = await tx
-			.insert(users)
-			.values({
-				username,
-				password: hash,
-				email: String(data.email ?? ""),
-				full_name: fullName,
-				role: (data.role as "team_member") ?? "team_member",
-				team: (data.team as string) ?? null,
-				department: (data.department as string) ?? null,
-				phone: (data.phone as string) ?? null,
-				status: "active",
-			})
-			.$returningId();
-
 		await tx.insert(teamMembers).values({
-			user_id: inserted.id,
+			full_name: String(data.full_name ?? ""),
+			email: (data.email as string) ?? null,
+			phone: (data.phone as string) ?? null,
+			role: (data.role as "team_member") ?? "team_member",
+			team: (data.team as string) ?? null,
+			department: (data.department as string) ?? null,
+			study_field: (data.study_field as string) ?? null,
 			position: (data.position as string) ?? null,
-			profile_picture: (data.profile_picture as string) ?? "default.jpg",
+			profile_picture: (data.profile_picture as string) ?? null,
 			image_position: String(data.image_position ?? "50% 50%"),
 			faculty: (data.faculty as string) ?? null,
-			study_field: (data.study_field as string) ?? null,
 			academic_year: (data.academic_year as string) ?? null,
-			department: (data.department as string) ?? null,
-			team: (data.team as string) ?? null,
+			status: "active",
 		});
 	}
 }
