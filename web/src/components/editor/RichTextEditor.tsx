@@ -54,8 +54,9 @@ export function RichTextEditor({
 	const [showImageModal, setShowImageModal] = useState(false);
 
 	const editor = useEditor({
+		immediatelyRender: true,
 		extensions: [
-			StarterKit.configure({ heading: { levels: [2, 3] } }),
+			StarterKit.configure({ heading: { levels: [2, 3] }, link: false }),
 			TextAlign.configure({ types: ["heading", "paragraph"] }),
 			Placeholder.configure({ placeholder }),
 			Link.configure({ openOnClick: false }),

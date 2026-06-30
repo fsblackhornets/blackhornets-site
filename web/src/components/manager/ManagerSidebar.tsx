@@ -73,8 +73,8 @@ export function ManagerSidebar({ userName, userRole }: ManagerSidebarProps) {
 						</p>
 						{items.map(({ href, icon, label }) => {
 							const active =
-								href === "/manager"
-									? pathname === "/manager"
+								href === "/manager" || href === "/manager/requests"
+									? pathname === href
 									: pathname.startsWith(href);
 							return (
 								<Link

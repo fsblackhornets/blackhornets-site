@@ -83,6 +83,7 @@ export function Navbar() {
 						width={48}
 						height={48}
 						className="h-10 w-auto drop-shadow-[0_0_12px_rgba(255,215,0,0.35)] hover:scale-105 transition-transform duration-300"
+						style={{ width: "auto" }}
 						priority
 					/>
 				</Link>
