@@ -1,6 +1,6 @@
 -- ================================================================
 -- Black Hornets Racing — Database Setup
--- Updated: 2026-06-26
+-- Updated: 2026-06-30
 -- Compatible with: MySQL 5.7+ / MariaDB 10.4+
 -- ================================================================
 --
@@ -217,7 +217,7 @@ CREATE TABLE `contact_messages` (
 
 CREATE TABLE `content_requests` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` enum('member','post','project','sponsor') NOT NULL,
+  `type` enum('member','post','project','sponsor','gallery') NOT NULL,
   `data` json NOT NULL,
   `submitted_by` int(11) NOT NULL,
   `submitter_name` varchar(255) NOT NULL DEFAULT '',
@@ -249,4 +249,5 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- ================================================================
 -- Setup complete. 10 tables created, 1 admin user seeded.
+-- content_requests.type includes: member, post, project, sponsor, gallery
 -- ================================================================

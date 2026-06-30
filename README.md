@@ -41,8 +41,11 @@ blackhornets-site/
 | Styling | Tailwind CSS + CSS variables |
 | Database | MySQL via Drizzle ORM + mysql2 |
 | Auth | Auth.js v5 (credentials, JWT sessions) |
+| i18n | next-intl (English / Serbian) |
+| Rich text | Tiptap v3 |
 | File uploads | Server-side to `public/uploads/` |
 | Lint/format | Biome |
+| E2E tests | Playwright |
 
 ## Getting started
 
@@ -109,8 +112,18 @@ Uploads are written to `web/public/uploads/{type}/` and served at `/uploads/{typ
 
 All endpoints live under `/api/`. Route handlers are in `web/src/app/(backend)/api/`.
 
-Public: `GET /api/team`, `GET /api/posts`, `GET /api/projects`, `GET /api/sponsors`, `GET /api/gallery`, `GET /api/brochure`
+Public:
+- `GET /api/team` — team members
+- `GET /api/posts`, `GET /api/posts/[id]`, `GET /api/posts/categories` — news/posts
+- `GET /api/projects`, `GET /api/projects/[id]` — projects
+- `GET /api/sponsors` — sponsors
+- `GET /api/gallery`, `GET /api/gallery/[id]` — gallery images
+- `GET /api/brochure` — brochure download
+- `POST /api/applications` — join applications
+- `POST /api/contact/send` — contact form
 
-Admin-only: `GET|POST /api/admin/*`
+Admin-only (`/api/admin/*`): CRUD for members, posts, projects, sponsors, gallery, messages, applications, stats
 
-Request workflow: `POST /api/requests` → `POST /api/requests/[id]/review`
+Manager request workflow: `POST /api/requests` → admin reviews via `POST /api/requests/[id]/review`
+
+Request types: `member`, `post`, `project`, `sponsor`, `gallery`
