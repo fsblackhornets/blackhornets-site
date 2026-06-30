@@ -215,7 +215,7 @@ export function ApplicationsClient({ res, currentStatus, currentPage }: Props) {
 
 						{selected.resume_path && (
 							<a
-								href={`${process.env.NEXT_PUBLIC_API_BASE?.replace("/backend/api", "")}/frontend/${selected.resume_path}`}
+								href={`/api/admin/applications/${selected.id}/resume`}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="inline-flex items-center gap-1.5 text-primary text-[9px] hover:underline mb-2"

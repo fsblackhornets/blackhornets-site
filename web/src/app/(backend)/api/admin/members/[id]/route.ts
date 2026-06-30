@@ -1,6 +1,7 @@
 import { eq, sql } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { saveUpload } from "@/lib/api/upload";
 import { db } from "@/lib/db";
 import { teamMembers, users } from "@/lib/db/schema";
 
@@ -90,9 +91,63 @@ export async function PUT(
 					department: body.department ?? null,
 					study_field: body.study_field ?? null,
 					position: body.position ?? null,
+					...(body.profile_picture
+						? { profile_picture: body.profile_picture as string }
+						: {}),
 				})
 				.where(eq(teamMembers.id, Number(id))),
 		]);
+
+		return NextResponse.json({ success: true });
+	} catch {
+		return NextResponse.json({ success: false }, { status: 500 });
+	}
+}
+
+export async function POST(
+	req: NextRequest,
+	{ params }: { params: Promise<{ id: string }> },
+) {
+	try {
+		if (!(await requireAdmin())) return NextResponse.json({}, { status: 403 });
+
+		const { id } = await params;
+		const form = await req.formData();
+
+		const [member] = await db
+			.select({ user_id: teamMembers.user_id })
+			.from(teamMembers)
+			.where(eq(teamMembers.id, Number(id)));
+
+		if (!member)
+			return NextResponse.json({ error: "Member not found" }, { status: 404 });
+
+		await db
+			.update(users)
+			.set({
+				full_name: (form.get("full_name") as string) || undefined,
+				email: (form.get("email") as string) || undefined,
+				phone: (form.get("phone") as string) || null,
+				role: ((form.get("role") as string | null) ??
+					"team_member") as typeof users.$inferInsert.role,
+			})
+			.where(eq(users.id, member.user_id));
+
+		const memberUpdate: Partial<typeof teamMembers.$inferInsert> = {
+			team: (form.get("team") as string | null) || null,
+			department: (form.get("department") as string | null) || null,
+			study_field: (form.get("study_field") as string | null) || null,
+			position: (form.get("position") as string | null) || null,
+		};
+
+		const imageFile = form.get("profile_picture") as File | null;
+		if (imageFile?.size)
+			memberUpdate.profile_picture = await saveUpload(imageFile, "profiles");
+
+		await db
+			.update(teamMembers)
+			.set(memberUpdate)
+			.where(eq(teamMembers.id, Number(id)));
 
 		return NextResponse.json({ success: true });
 	} catch {

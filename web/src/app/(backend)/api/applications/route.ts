@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { saveUpload } from "@/lib/api/upload";
+import { saveUploadPrivate } from "@/lib/api/upload";
 import { db } from "@/lib/db";
 import { applications } from "@/lib/db/schema";
 
@@ -57,8 +57,8 @@ export async function POST(req: NextRequest) {
 			);
 		}
 
-		const resumeFilename = await saveUpload(resume, "resumes");
-		const resumePath = `uploads/resumes/${resumeFilename}`;
+		const resumeFilename = await saveUploadPrivate(resume, "resumes");
+		const resumePath = `resumes/${resumeFilename}`;
 
 		await db.insert(applications).values({
 			first_name: (form.get("firstName") as string).trim(),

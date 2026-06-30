@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 const BASE =
 	process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8080/backend/api";
 
@@ -14,8 +16,21 @@ type FetchInit = RequestInit & {
 	next?: { revalidate?: number | false; tags?: string[] };
 };
 
+async function cookieHeader(): Promise<Record<string, string>> {
+	try {
+		const store = await cookies();
+		const str = store.toString();
+		return str ? { Cookie: str } : {};
+	} catch {
+		return {};
+	}
+}
+
 export async function apiGet<T>(path: string, init?: FetchInit): Promise<T> {
-	const res = await fetch(`${BASE}/${path}`, init);
+	const res = await fetch(`${BASE}/${path}`, {
+		...init,
+		headers: { ...(await cookieHeader()), ...init?.headers },
+	});
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;
 }
@@ -27,14 +42,20 @@ export async function apiPut<T>(
 	const res = await fetch(`${BASE}/${path}`, {
 		method: "PUT",
 		body: JSON.stringify(body),
-		headers: { "Content-Type": "application/json" },
+		headers: {
+			"Content-Type": "application/json",
+			...(await cookieHeader()),
+		},
 	});
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;
 }
 
 export async function apiDelete<T>(path: string): Promise<T> {
-	const res = await fetch(`${BASE}/${path}`, { method: "DELETE" });
+	const res = await fetch(`${BASE}/${path}`, {
+		method: "DELETE",
+		headers: await cookieHeader(),
+	});
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;
 }
@@ -45,14 +66,14 @@ export async function apiPost<T>(
 	extraHeaders?: Record<string, string>,
 ): Promise<T> {
 	const isForm = body instanceof FormData;
-	const headers: Record<string, string> = {
-		...(isForm ? {} : { "Content-Type": "application/json" }),
-		...extraHeaders,
-	};
 	const res = await fetch(`${BASE}/${path}`, {
 		method: "POST",
 		body: isForm ? body : JSON.stringify(body),
-		headers: Object.keys(headers).length > 0 ? headers : undefined,
+		headers: {
+			...(isForm ? {} : { "Content-Type": "application/json" }),
+			...(await cookieHeader()),
+			...extraHeaders,
+		},
 	});
 	if (!res.ok) throw new ApiError(res.status, path);
 	return res.json() as Promise<T>;

@@ -4,25 +4,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { apiDelete, apiPost, apiPut } from "@/lib/api-client";
 
-function parseMemberFormData(formData: FormData) {
-	return {
-		full_name: (formData.get("full_name") as string) ?? "",
-		email: (formData.get("email") as string) ?? null,
-		phone: (formData.get("phone") as string) ?? null,
-		role: (formData.get("role") as string) ?? "team_member",
-		team: (formData.get("team") as string) ?? null,
-		department: (formData.get("department") as string) ?? null,
-		study_field: (formData.get("study_field") as string) ?? null,
-		position: (formData.get("position") as string) ?? null,
-	};
-}
-
 export async function createMemberAction(
 	_prev: { error?: string },
 	formData: FormData,
 ): Promise<{ error?: string }> {
 	try {
-		await apiPost("admin/members", parseMemberFormData(formData));
+		await apiPost("admin/members", formData);
 		revalidatePath("/admin/members");
 	} catch {
 		return { error: "Failed to create member." };
@@ -36,7 +23,7 @@ export async function updateMemberAction(
 	formData: FormData,
 ): Promise<{ error?: string }> {
 	try {
-		await apiPut(`admin/members/${id}`, parseMemberFormData(formData));
+		await apiPost(`admin/members/${id}`, formData);
 		revalidatePath("/admin/members");
 	} catch {
 		return { error: "Failed to update member." };

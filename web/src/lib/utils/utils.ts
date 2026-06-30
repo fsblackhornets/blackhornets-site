@@ -53,30 +53,36 @@ export function formatDate(dateStr: string | Date, locale = "en-US"): string {
 	});
 }
 
+const R2 = process.env.NEXT_PUBLIC_R2_PUBLIC_URL ?? "";
+
+function r2Url(subdir: string, name: string): string {
+	if (name.startsWith("http")) return name;
+	// legacy local path — strip leading slashes/uploads prefix, serve from /uploads
+	if (name.startsWith("uploads/") || name.startsWith("/"))
+		return `/${name.replace(/^\//, "")}`;
+	if (R2) return `${R2}/${subdir}/${name}`;
+	return `/uploads/${subdir}/${name}`;
+}
+
 export function buildGalleryImageUrl(imagePath: string): string {
-	if (imagePath.startsWith("uploads/") || imagePath.startsWith("/"))
-		return `/${imagePath.replace(/^\//, "")}`;
-	return `/uploads/gallery/${imagePath}`;
+	return r2Url("gallery", imagePath);
 }
 
 export function buildProjectImageUrl(imageUrl: string): string {
-	if (imageUrl.startsWith("uploads/") || imageUrl.startsWith("/"))
-		return `/${imageUrl.replace(/^\//, "")}`;
-	return `/uploads/projects/${imageUrl}`;
+	return r2Url("projects", imageUrl);
 }
 
 export function buildSponsorLogoUrl(
 	logo: string | null | undefined,
 ): string | null {
 	if (!logo) return null;
-	if (logo.startsWith("uploads/") || logo.startsWith("/"))
-		return `/${logo.replace(/^\//, "")}`;
-	return `/uploads/sponsors/${logo}`;
+	return r2Url("sponsors", logo);
 }
 
 export function buildBrochureUrl(pdfUrl: string): string {
-	if (pdfUrl.startsWith("/")) return pdfUrl;
-	return `/${pdfUrl}`;
+	if (pdfUrl.startsWith("http") || pdfUrl.startsWith("/")) return pdfUrl;
+	if (R2) return `${R2}/brochure/${pdfUrl}`;
+	return `/uploads/brochure/${pdfUrl}`;
 }
 
 export function getProjectStatusVariant(
@@ -97,7 +103,5 @@ export function getProgressColor(progress: number): string {
 
 export function buildProfileImageUrl(filename: string | null): string | null {
 	if (!filename || filename === "default.jpg") return null;
-	if (filename.startsWith("uploads/") || filename.startsWith("/"))
-		return `/${filename.replace(/^\//, "")}`;
-	return `/uploads/profiles/${filename}`;
+	return r2Url("profiles", filename);
 }

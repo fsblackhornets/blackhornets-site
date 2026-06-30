@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import { asc, eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { saveUpload } from "@/lib/api/upload";
 import { db } from "@/lib/db";
 import { teamMembers, users } from "@/lib/db/schema";
 
@@ -36,20 +37,23 @@ export async function GET() {
 	}
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
 	try {
 		const session = await auth();
 		if (session?.user?.role !== "admin")
 			return NextResponse.json({}, { status: 403 });
 
-		const body = await req.json();
-		if (!body.full_name)
+		const form = await req.formData();
+		const full_name = form.get("full_name") as string | null;
+		if (!full_name)
 			return NextResponse.json(
 				{ error: "full_name is required" },
 				{ status: 400 },
 			);
 
-		const email = body.email ?? `member_${Date.now()}@blackhornets.local`;
+		const email =
+			(form.get("email") as string | null) ??
+			`member_${Date.now()}@blackhornets.local`;
 		const username = `${email.split("@")[0]}_${Date.now()}`;
 		const password = await bcrypt.hash(
 			Math.random().toString(36).slice(2, 10),
@@ -62,25 +66,32 @@ export async function POST(req: Request) {
 				username,
 				password,
 				email,
-				full_name: body.full_name,
-				role: body.role ?? "team_member",
-				team: body.team ?? null,
-				department: body.department ?? null,
-				phone: body.phone ?? null,
+				full_name,
+				role: ((form.get("role") as string | null) ??
+					"team_member") as typeof users.$inferInsert.role,
+				team: (form.get("team") as string | null) || null,
+				department: (form.get("department") as string | null) || null,
+				phone: (form.get("phone") as string | null) || null,
 				status: "active",
-				study_field: body.study_field ?? null,
-				position: body.position ?? null,
+				study_field: (form.get("study_field") as string | null) || null,
+				position: (form.get("position") as string | null) || null,
 			})
 			.$returningId();
+
+		let profile_picture: string | null = null;
+		const imageFile = form.get("profile_picture") as File | null;
+		if (imageFile?.size)
+			profile_picture = await saveUpload(imageFile, "profiles");
 
 		const [result] = await db
 			.insert(teamMembers)
 			.values({
 				user_id: userId,
-				team: body.team ?? null,
-				department: body.department ?? null,
-				study_field: body.study_field ?? null,
-				position: body.position ?? null,
+				team: (form.get("team") as string | null) || null,
+				department: (form.get("department") as string | null) || null,
+				study_field: (form.get("study_field") as string | null) || null,
+				position: (form.get("position") as string | null) || null,
+				profile_picture,
 			})
 			.$returningId();
 

@@ -17,6 +17,9 @@ interface Props {
 
 export function ImageInsertModal({ onInsert, onClose }: Props) {
 	const [preview, setPreview] = useState<string | null>(null);
+	const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
+	const [uploading, setUploading] = useState(false);
+	const [uploadError, setUploadError] = useState<string | null>(null);
 	const [alt, setAlt] = useState("");
 	const [caption, setCaption] = useState("");
 	const [align, setAlign] = useState<"left" | "center" | "right">("center");
@@ -24,10 +27,25 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 	const [dragging, setDragging] = useState(false);
 	const fileRef = useRef<HTMLInputElement>(null);
 
-	function handleFile(file: File) {
-		const url = URL.createObjectURL(file);
-		setPreview(url);
+	async function handleFile(file: File) {
+		setPreview(URL.createObjectURL(file));
+		setUploadedUrl(null);
+		setUploadError(null);
 		if (!alt) setAlt(file.name.replace(/\.[^.]+$/, ""));
+
+		setUploading(true);
+		try {
+			const form = new FormData();
+			form.append("file", file);
+			const res = await fetch("/api/upload", { method: "POST", body: form });
+			if (!res.ok) throw new Error();
+			const { url } = await res.json();
+			setUploadedUrl(url);
+		} catch {
+			setUploadError("Upload failed. Try again.");
+		} finally {
+			setUploading(false);
+		}
 	}
 
 	function handleDrop(e: React.DragEvent) {
@@ -38,8 +56,8 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 	}
 
 	function handleInsert() {
-		if (!preview) return;
-		onInsert({ src: preview, alt, caption, align, galleryCategory });
+		if (!uploadedUrl) return;
+		onInsert({ src: uploadedUrl, alt, caption, align, galleryCategory });
 	}
 
 	return (
@@ -75,12 +93,26 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 					onClick={() => fileRef.current?.click()}
 				>
 					{preview ? (
-						// biome-ignore lint/performance/noImgElement: preview uses object URL
-						<img
-							src={preview}
-							alt="preview"
-							className="max-h-40 mx-auto object-contain border border-[#1e1e1e]"
-						/>
+						<div className="relative">
+							{/* biome-ignore lint/performance/noImgElement: local blob preview */}
+							<img
+								src={preview}
+								alt="preview"
+								className="max-h-40 mx-auto object-contain border border-[#1e1e1e]"
+							/>
+							{uploading && (
+								<div className="absolute inset-0 flex items-center justify-center bg-black/60">
+									<span className="font-heading text-[8px] tracking-[2px] uppercase text-primary animate-pulse">
+										Uploading…
+									</span>
+								</div>
+							)}
+							{uploadError && (
+								<p className="text-red-400 font-body text-[8px] mt-1">
+									{uploadError}
+								</p>
+							)}
+						</div>
 					) : (
 						<>
 							<ImageIcon
@@ -194,7 +226,7 @@ export function ImageInsertModal({ onInsert, onClose }: Props) {
 				{/* Insert button */}
 				<button
 					type="button"
-					disabled={!preview}
+					disabled={!uploadedUrl || uploading}
 					onClick={handleInsert}
 					className="bg-primary text-black font-heading text-[9px] tracking-[3px] uppercase py-3 px-6 flex items-center gap-2 transition-opacity disabled:opacity-40"
 					style={{
