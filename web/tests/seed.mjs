@@ -63,5 +63,7 @@ await db.execute(
 	[hash],
 );
 
-console.log("Seed complete. test_admin and test_manager ready. Content tables truncated.");
+console.log(
+	"Seed complete. test_admin and test_manager ready. Content tables truncated.",
+);
 await db.end();

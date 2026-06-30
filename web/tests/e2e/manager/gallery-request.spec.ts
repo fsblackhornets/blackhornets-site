@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 import { uniqueName } from "../helpers";
 
-test("manager submits gallery request → success + pending in queue", async ({ page }) => {
+test("manager submits gallery request → success + pending in queue", async ({
+	page,
+}) => {
 	const title = uniqueName("Gallery E2E");
 
 	await page.goto("/manager/requests/new/gallery");
@@ -24,7 +26,9 @@ test("manager submits gallery request → success + pending in queue", async ({ 
 
 	await page.getByRole("button", { name: /submit/i }).click();
 
-	await expect(page.getByText(/request submitted/i)).toBeVisible({ timeout: 10000 });
+	await expect(page.getByText(/request submitted/i)).toBeVisible({
+		timeout: 10000,
+	});
 
 	await page.goto("/manager/requests");
 	// Gallery requests appear in queue (title may be empty without image; check type label)

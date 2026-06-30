@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 import { uniqueName } from "../helpers";
 
-test("manager submits member request → success + pending in queue", async ({ page }) => {
+test("manager submits member request → success + pending in queue", async ({
+	page,
+}) => {
 	const fullName = uniqueName("E2E Member");
 
 	await page.goto("/manager/requests/new/member");
@@ -32,7 +34,9 @@ test("manager submits member request → success + pending in queue", async ({ p
 
 	await page.getByRole("button", { name: /submit/i }).click();
 
-	await expect(page.getByText(/request submitted/i)).toBeVisible({ timeout: 10000 });
+	await expect(page.getByText(/request submitted/i)).toBeVisible({
+		timeout: 10000,
+	});
 
 	await page.goto("/manager/requests");
 	await expect(page.getByText(fullName)).toBeVisible();

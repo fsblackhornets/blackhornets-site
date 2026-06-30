@@ -1,308 +1,308 @@
 {
-  "nav": {
-    "home": "Početna",
-    "team": "Tim",
-    "about": "O nama",
-    "projects": "Projekti",
-    "blog": "Blog",
-    "gallery": "Galerija",
-    "sponsors": "Sponzori",
-    "contact": "Kontakt",
-    "applyNow": "Prijavi se",
-    "openMenu": "Otvori meni",
-    "closeMenu": "Zatvori meni"
-  },
-  "footer": {
-    "tagline": "Pioniri inovacija u elektrotrkama",
-    "quickLinks": "Brzi linkovi",
-    "getInvolved": "Pridruži se",
-    "applyToTeam": "Pridruži se timu",
-    "becomeSponsor": "Postanite sponzor",
-    "gallery": "Galerija",
-    "applyNow": "Prijavi se",
-    "contactUs": "Kontaktirajte nas",
-    "location": "Univerzitet u Novom Sadu, Srbija",
-    "privacyPolicy": "Politika privatnosti · Powered by CodeHive"
-  },
-  "home": {
-    "hero": {
-      "subtitle": "Formula Student · Novi Sad",
-      "discoverMore": "Saznaj više",
-      "blog": "Blog",
-      "scrollDown": "Skroluj"
-    },
-    "whoWeAre": {
-      "heading": "Ko smo mi",
-      "quote": "Mi ne gradimo samo automobile – mi gradimo budućnost trkanja.",
-      "p1": "Black Hornets Racing je strastven tim studenata inženjeringa posvećen pomeranju granica automobilske inovacije. Kombinujemo najsavremeniju tehnologiju sa održivim praksama kako bismo stvorili trkačka vozila visokih performansi koja predstavljaju budućnost auto-moto sporta.",
-      "p2": "Naš tim okuplja raznolike talente iz oblasti mašinstva, elektroinženjeringa, aerodinamike i analize podataka. Verujemo u učenje kroz praktično iskustvo, takmičenje na međunarodnim nadmetanjima i razvoj rešenja koja odgovaraju na realne izazove automobilske industrije."
-    },
-    "latestNews": {
-      "heading": "Najnovije vesti",
-      "moreNews": "Više vesti"
-    }
-  },
-  "about": {
-    "hero": {
-      "line1": "O",
-      "line2": "Timu",
-      "subtitle": "Pokretači inovacija u studentskim trkama"
-    },
-    "badges": {
-      "speed": "Brzina",
-      "innovation": "Inovacija",
-      "excellence": "Izvrsnost"
-    },
-    "mission": {
-      "label": "Naša misija",
-      "heading": "Pokrenuti inovacije",
-      "body": "Razvijamo inovativna trkačka rešenja i pružamo studentima koji su strastveni prema motorsportu praktično inženjersko iskustvo."
-    },
-    "vision": {
-      "label": "Naša vizija",
-      "heading": "Predvoditi budućnost",
-      "body": "Postati vodeći Formula Student tim, poznat po tehničkim inovacijama i profesionalnom razvoju budućih inženjera."
-    },
-    "story": {
-      "label": "Naša priča",
-      "line1": "Izgrađeno iz",
-      "line2": "Strasti",
-      "p1": "Black Hornets Racing osnovala je grupa strastvenih studenata inžinjeringa. Ono što je počelo kao mali projekat preraslo je u jedan od najdinamičnijih Formula Student timova u regionu.",
-      "p2": "Od koncepta do staze, svaki komponent koji gradimo odražava našu posvećenost tehničkoj izvrsnosti, timskom radu i stalnom napretku — pripremajući novu generaciju automobilskih inženjera.",
-      "statTeamMembers": "Članovi tima",
-      "statDepartments": "Sektori",
-      "statAwards": "Nagrade"
-    },
-    "departments": {
-      "label": "Struktura",
-      "heading": "Naši",
-      "headingGold": "Sektori",
-      "marketing": {
-        "title": "Marketing",
-        "description": "Promocija tima, kreiranje sadržaja i upravljanje društvenim mrežama."
-      },
-      "sponsorships": {
-        "title": "Sponzorstva",
-        "description": "Komunikacija sa partnerima, pregovori i upravljanje odnosima sa sponzorima."
-      },
-      "management": {
-        "title": "Menadžment",
-        "description": "Organizacija tima, koordinacija projekata i upravljanje resursima."
-      },
-      "chassis": {
-        "title": "Šasija i aerodinamika",
-        "description": "Dizajn šasije, strukturalna analiza i aerodinamička optimizacija."
-      },
-      "suspension": {
-        "title": "Oslanjanje i upravljanje",
-        "description": "Sistemi oslanjanja, geometrija upravljača i dinamika vozila."
-      },
-      "transmission": {
-        "title": "Transmisija i kočenje",
-        "description": "Komponente pogona, sistemi kočenja i prenos snage."
-      },
-      "highVoltage": {
-        "title": "Visoki napon",
-        "description": "Baterijski sistemi, distribucija visokog napona i upravljanje energijom."
-      },
-      "lowVoltage": {
-        "title": "Niski napon",
-        "description": "Upravljačka elektronika, senzori, CAN komunikacija i sistemi niskog napona."
-      }
-    }
-  },
-  "sponsors": {
-    "hero": {
-      "line1": "Naši",
-      "line2": "Sponzori",
-      "subtitle": "Partneri u inovacijama i izvrsnosti"
-    },
-    "current": {
-      "label": "Partneri",
-      "heading": "Naši",
-      "headingGold": "Sponzori",
-      "comingSoon": "Uskoro",
-      "comingSoonDesc": "Partnerstva se potvrđuju. Pratite nas!"
-    },
-    "become": {
-      "label": "Partnerstvo",
-      "heading": "Postanite",
-      "headingGold": "Sponzor",
-      "body": "Ako želite da podelite našu viziju i investirate u potencijal mladih ambicioznih ljudi, u našoj partnerskoj brošuri možete saznati kako postati sponzor.",
-      "brochure": "Partnerska brošura",
-      "contact": "Kontaktirajte nas"
-    }
-  },
-  "team": {
-    "hero": {
-      "line1": "Naš",
-      "line2": "Tim",
-      "subtitle": "Upoznajte inovatore iza Black Hornets Racing"
-    },
-    "projectLeader": "Vođa projekta",
-    "deptLeader": "Vođa sektora",
-    "viewProfile": "Pogledaj profil ›",
-    "seeTeamMembers": "Vidi članove",
-    "backToTeams": "Nazad na timove",
-    "ourTeam": "Naš tim",
-    "sector": "Sektor",
-    "departmentLeader": "Vođa odeljenja",
-    "all": "Svi",
-    "teamLeaders": "Vođe timova",
-    "members": "Članovi",
-    "noMembersFound": "Nema pronađenih članova."
-  },
-  "blog": {
-    "hero": {
-      "label": "Najnovije",
-      "line1": "Najnovije",
-      "line2": "Vesti",
-      "subtitle": "Ažuriranja sa trka, tehnički uvidi i priče o timu."
-    },
-    "search": {
-      "placeholder": "Pretraži objave...",
-      "button": "Pretraži"
-    },
-    "allPosts": "Sve objave",
-    "latest": "Najnovije",
-    "articles": "Članci",
-    "noPostsFound": "Nema pronađenih objava",
-    "noPostsTip": "Pokušajte sa drugačijim pojmom ili kategorijom.",
-    "category": "Kategorija"
-  },
-  "blogPost": {
-    "backToBlog": "Nazad na blog",
-    "featured": "Istaknuto",
-    "minRead": "{count} min čitanja",
-    "moreArticles": "Više članaka",
-    "tags": "Oznake:",
-    "share": "Podeli",
-    "contents": "Sadržaj",
-    "joinTeam": "Pridruži se timu",
-    "joinTeamBody": "Budi deo Black Hornets Racing. Prijavi se i gradi budućnost motorsporta.",
-    "applyNow": "Prijavi se",
-    "shareOnFacebook": "Podeli na Facebook-u",
-    "shareOnInstagram": "Podeli na Instagram-u",
-    "copyLink": "Kopiraj link",
-    "authorBio": "Formula Student tim posvećen inženjerskoj izvrsnosti i inovacijama u motorsportu.",
-    "teamBlackHornets": "Tim Black Hornets"
-  },
-  "projects": {
-    "hero": {
-      "line1": "Naši",
-      "line2": "Projekti",
-      "subtitle": "Inženjerske inovacije na stazi i van nje"
-    },
-    "engineering": "Inženjering",
-    "mostRecent": "Najnoviji",
-    "projectsLabel": "Projekti",
-    "comingSoon": "Projekti uskoro",
-    "comingSoonDesc": "Radimo na uzbudljivim novim projektima. Pratite nas!",
-    "backToProjects": "Nazad na projekte",
-    "project": "Projekat",
-    "dueDate": "Rok",
-    "duration": "Trajanje",
-    "timeline": "Vremenski okvir",
-    "daysOverdue": "{count} dana zakašnjenja",
-    "daysRemaining": "{count} dana preostalo",
-    "progress": "Napredak",
-    "percentComplete": "{percent}% završeno"
-  },
-  "gallery": {
-    "hero": {
-      "line1": "Naša",
-      "line2": "Galerija",
-      "subtitle": "Snimci našeg trkačkog putovanja"
-    },
-    "category": "Kategorija",
-    "noImages": "Nema dostupnih slika",
-    "checkBackSoon": "Proverite uskoro.",
-    "sections": {
-      "race_cars": {
-        "title": "Trkački automobili",
-        "description": "Black Hornets Racing prikazuje naše najsavremenije Formula Student trkačke automobile. Svako vozilo predstavlja bezbroj sati inovacija, preciznog inžinjeringa i aerodinamičke izvrsnosti."
-      },
-      "team": {
-        "title": "Naš tim",
-        "description": "Upoznajte strastvene umove iza našeg uspeha. Raznovrstan tim inženjera, dizajnera i inovatora koji zajedno rade na postizanju izvrsnosti."
-      },
-      "events": {
-        "title": "Događaji i takmičenja",
-        "description": "Prisustvujte našem takmičarskom duhu u akciji. Od Formula Student takmičenja do inženjerskih izložbi, svaki događaj priča priču o odlučnosti."
-      },
-      "workshop": {
-        "title": "Radionica",
-        "description": "Zakoračite u naše inženjersko utočište. Gde se ideje pretvaraju u stvarnost, a inovacije susreću sa zanatstvom u našem savremenom prostoru."
-      }
-    }
-  },
-  "contact": {
-    "hero": {
-      "line1": "Stupite u",
-      "line2": "Kontakt",
-      "subtitle": "Drago nam je da čujemo od vas"
-    },
-    "sendMessage": "Pošaljite poruku",
-    "getInTouch": "Kontaktirajte nas",
-    "location": "Lokacija",
-    "locationName": "Univerzitet u Novom Sadu, Srbija",
-    "locationFaculty": "Fakultet tehničkih nauka",
-    "email": "Email",
-    "phone": "Telefon",
-    "followUs": "Pratite nas",
-    "faq": {
-      "label": "ČPP",
-      "heading": "Često postavljana",
-      "headingGold": "Pitanja",
-      "items": [
-        {
-          "q": "Kako mogu da se pridružim timu?",
-          "a": "Posetite stranicu Prijavi se i popunite formular za prijavu. Redovno pregledamo prijave i kontaktiraćemo kvalifikovane kandidate."
-        },
-        {
-          "q": "Da li nudite mogućnosti sponzorstva?",
-          "a": "Da, nudimo različite pakete sponzorstva. Kontaktirajte naš tim za sponzorstva radi više informacija."
-        },
-        {
-          "q": "Šta je Formula Student?",
-          "a": "Formula Student je međunarodno inženjersko takmičenje na kome studentski timovi projektuju, grade i voze mali automobil trkačkog stila. Timovi se ocenjuju prema performansama vozila, inženjerskom dizajnu, troškovima i poslovnoj prezentaciji."
-        },
-        {
-          "q": "Kojim sektorima mogu da se pridružim?",
-          "a": "Imamo mehanički, električni i poslovni sektor. Mehanički pokriva šasiju, oslanjanje i pogon. Električni pokriva elektroniku i softver. Poslovni pokriva marketing, sponzorstva i menadžment."
-        },
-        {
-          "q": "Kada i gde se takmičite?",
-          "a": "Takmičimo se na Formula Student događajima širom Evrope, koji se obično održavaju između juna i septembra. Naša baza je Fakultet tehničkih nauka, Univerzitet u Novom Sadu."
-        },
-        {
-          "q": "Mogu li da posetim vašu radionicu?",
-          "a": "Da! Studenti koji žele da se pridruže ili saznaju više o našem radu su dobrodošli da nas posete. Kontaktirajte nas putem formulara ili društvenih mreža kako biste dogovorili posetu."
-        }
-      ]
-    }
-  },
-  "apply": {
-    "hero": {
-      "line1": "Pridruži se",
-      "line2": "Našem timu",
-      "subtitle": "Budi deo nečeg izvanrednog"
-    },
-    "requirements": "Uslovi",
-    "departments": "Sektori",
-    "requirementItems": [
-      {
-        "title": "Status studenta",
-        "desc": "Aktivni student Univerziteta u Novom Sadu"
-      },
-      {
-        "title": "Strast",
-        "desc": "Entuzijazam za motorsport i inženjering"
-      },
-      {
-        "title": "Timski duh",
-        "desc": "Sposobnost rada u kolaborativnom okruženju"
-      }
-    ]
-  }
+	"nav": {
+		"home": "Početna",
+		"team": "Tim",
+		"about": "O nama",
+		"projects": "Projekti",
+		"blog": "Blog",
+		"gallery": "Galerija",
+		"sponsors": "Sponzori",
+		"contact": "Kontakt",
+		"applyNow": "Prijavi se",
+		"openMenu": "Otvori meni",
+		"closeMenu": "Zatvori meni"
+	},
+	"footer": {
+		"tagline": "Pioniri inovacija u elektrotrkama",
+		"quickLinks": "Brzi linkovi",
+		"getInvolved": "Pridruži se",
+		"applyToTeam": "Pridruži se timu",
+		"becomeSponsor": "Postanite sponzor",
+		"gallery": "Galerija",
+		"applyNow": "Prijavi se",
+		"contactUs": "Kontaktirajte nas",
+		"location": "Univerzitet u Novom Sadu, Srbija",
+		"privacyPolicy": "Politika privatnosti · Powered by CodeHive"
+	},
+	"home": {
+		"hero": {
+			"subtitle": "Formula Student · Novi Sad",
+			"discoverMore": "Saznaj više",
+			"blog": "Blog",
+			"scrollDown": "Skroluj"
+		},
+		"whoWeAre": {
+			"heading": "Ko smo mi",
+			"quote": "Mi ne gradimo samo automobile – mi gradimo budućnost trkanja.",
+			"p1": "Black Hornets Racing je strastven tim studenata inženjeringa posvećen pomeranju granica automobilske inovacije. Kombinujemo najsavremeniju tehnologiju sa održivim praksama kako bismo stvorili trkačka vozila visokih performansi koja predstavljaju budućnost auto-moto sporta.",
+			"p2": "Naš tim okuplja raznolike talente iz oblasti mašinstva, elektroinženjeringa, aerodinamike i analize podataka. Verujemo u učenje kroz praktično iskustvo, takmičenje na međunarodnim nadmetanjima i razvoj rešenja koja odgovaraju na realne izazove automobilske industrije."
+		},
+		"latestNews": {
+			"heading": "Najnovije vesti",
+			"moreNews": "Više vesti"
+		}
+	},
+	"about": {
+		"hero": {
+			"line1": "O",
+			"line2": "Timu",
+			"subtitle": "Pokretači inovacija u studentskim trkama"
+		},
+		"badges": {
+			"speed": "Brzina",
+			"innovation": "Inovacija",
+			"excellence": "Izvrsnost"
+		},
+		"mission": {
+			"label": "Naša misija",
+			"heading": "Pokrenuti inovacije",
+			"body": "Razvijamo inovativna trkačka rešenja i pružamo studentima koji su strastveni prema motorsportu praktično inženjersko iskustvo."
+		},
+		"vision": {
+			"label": "Naša vizija",
+			"heading": "Predvoditi budućnost",
+			"body": "Postati vodeći Formula Student tim, poznat po tehničkim inovacijama i profesionalnom razvoju budućih inženjera."
+		},
+		"story": {
+			"label": "Naša priča",
+			"line1": "Izgrađeno iz",
+			"line2": "Strasti",
+			"p1": "Black Hornets Racing osnovala je grupa strastvenih studenata inžinjeringa. Ono što je počelo kao mali projekat preraslo je u jedan od najdinamičnijih Formula Student timova u regionu.",
+			"p2": "Od koncepta do staze, svaki komponent koji gradimo odražava našu posvećenost tehničkoj izvrsnosti, timskom radu i stalnom napretku — pripremajući novu generaciju automobilskih inženjera.",
+			"statTeamMembers": "Članovi tima",
+			"statDepartments": "Sektori",
+			"statAwards": "Nagrade"
+		},
+		"departments": {
+			"label": "Struktura",
+			"heading": "Naši",
+			"headingGold": "Sektori",
+			"marketing": {
+				"title": "Marketing",
+				"description": "Promocija tima, kreiranje sadržaja i upravljanje društvenim mrežama."
+			},
+			"sponsorships": {
+				"title": "Sponzorstva",
+				"description": "Komunikacija sa partnerima, pregovori i upravljanje odnosima sa sponzorima."
+			},
+			"management": {
+				"title": "Menadžment",
+				"description": "Organizacija tima, koordinacija projekata i upravljanje resursima."
+			},
+			"chassis": {
+				"title": "Šasija i aerodinamika",
+				"description": "Dizajn šasije, strukturalna analiza i aerodinamička optimizacija."
+			},
+			"suspension": {
+				"title": "Oslanjanje i upravljanje",
+				"description": "Sistemi oslanjanja, geometrija upravljača i dinamika vozila."
+			},
+			"transmission": {
+				"title": "Transmisija i kočenje",
+				"description": "Komponente pogona, sistemi kočenja i prenos snage."
+			},
+			"highVoltage": {
+				"title": "Visoki napon",
+				"description": "Baterijski sistemi, distribucija visokog napona i upravljanje energijom."
+			},
+			"lowVoltage": {
+				"title": "Niski napon",
+				"description": "Upravljačka elektronika, senzori, CAN komunikacija i sistemi niskog napona."
+			}
+		}
+	},
+	"sponsors": {
+		"hero": {
+			"line1": "Naši",
+			"line2": "Sponzori",
+			"subtitle": "Partneri u inovacijama i izvrsnosti"
+		},
+		"current": {
+			"label": "Partneri",
+			"heading": "Naši",
+			"headingGold": "Sponzori",
+			"comingSoon": "Uskoro",
+			"comingSoonDesc": "Partnerstva se potvrđuju. Pratite nas!"
+		},
+		"become": {
+			"label": "Partnerstvo",
+			"heading": "Postanite",
+			"headingGold": "Sponzor",
+			"body": "Ako želite da podelite našu viziju i investirate u potencijal mladih ambicioznih ljudi, u našoj partnerskoj brošuri možete saznati kako postati sponzor.",
+			"brochure": "Partnerska brošura",
+			"contact": "Kontaktirajte nas"
+		}
+	},
+	"team": {
+		"hero": {
+			"line1": "Naš",
+			"line2": "Tim",
+			"subtitle": "Upoznajte inovatore iza Black Hornets Racing"
+		},
+		"projectLeader": "Vođa projekta",
+		"deptLeader": "Vođa sektora",
+		"viewProfile": "Pogledaj profil ›",
+		"seeTeamMembers": "Vidi članove",
+		"backToTeams": "Nazad na timove",
+		"ourTeam": "Naš tim",
+		"sector": "Sektor",
+		"departmentLeader": "Vođa odeljenja",
+		"all": "Svi",
+		"teamLeaders": "Vođe timova",
+		"members": "Članovi",
+		"noMembersFound": "Nema pronađenih članova."
+	},
+	"blog": {
+		"hero": {
+			"label": "Najnovije",
+			"line1": "Najnovije",
+			"line2": "Vesti",
+			"subtitle": "Ažuriranja sa trka, tehnički uvidi i priče o timu."
+		},
+		"search": {
+			"placeholder": "Pretraži objave...",
+			"button": "Pretraži"
+		},
+		"allPosts": "Sve objave",
+		"latest": "Najnovije",
+		"articles": "Članci",
+		"noPostsFound": "Nema pronađenih objava",
+		"noPostsTip": "Pokušajte sa drugačijim pojmom ili kategorijom.",
+		"category": "Kategorija"
+	},
+	"blogPost": {
+		"backToBlog": "Nazad na blog",
+		"featured": "Istaknuto",
+		"minRead": "{count} min čitanja",
+		"moreArticles": "Više članaka",
+		"tags": "Oznake:",
+		"share": "Podeli",
+		"contents": "Sadržaj",
+		"joinTeam": "Pridruži se timu",
+		"joinTeamBody": "Budi deo Black Hornets Racing. Prijavi se i gradi budućnost motorsporta.",
+		"applyNow": "Prijavi se",
+		"shareOnFacebook": "Podeli na Facebook-u",
+		"shareOnInstagram": "Podeli na Instagram-u",
+		"copyLink": "Kopiraj link",
+		"authorBio": "Formula Student tim posvećen inženjerskoj izvrsnosti i inovacijama u motorsportu.",
+		"teamBlackHornets": "Tim Black Hornets"
+	},
+	"projects": {
+		"hero": {
+			"line1": "Naši",
+			"line2": "Projekti",
+			"subtitle": "Inženjerske inovacije na stazi i van nje"
+		},
+		"engineering": "Inženjering",
+		"mostRecent": "Najnoviji",
+		"projectsLabel": "Projekti",
+		"comingSoon": "Projekti uskoro",
+		"comingSoonDesc": "Radimo na uzbudljivim novim projektima. Pratite nas!",
+		"backToProjects": "Nazad na projekte",
+		"project": "Projekat",
+		"dueDate": "Rok",
+		"duration": "Trajanje",
+		"timeline": "Vremenski okvir",
+		"daysOverdue": "{count} dana zakašnjenja",
+		"daysRemaining": "{count} dana preostalo",
+		"progress": "Napredak",
+		"percentComplete": "{percent}% završeno"
+	},
+	"gallery": {
+		"hero": {
+			"line1": "Naša",
+			"line2": "Galerija",
+			"subtitle": "Snimci našeg trkačkog putovanja"
+		},
+		"category": "Kategorija",
+		"noImages": "Nema dostupnih slika",
+		"checkBackSoon": "Proverite uskoro.",
+		"sections": {
+			"race_cars": {
+				"title": "Trkački automobili",
+				"description": "Black Hornets Racing prikazuje naše najsavremenije Formula Student trkačke automobile. Svako vozilo predstavlja bezbroj sati inovacija, preciznog inžinjeringa i aerodinamičke izvrsnosti."
+			},
+			"team": {
+				"title": "Naš tim",
+				"description": "Upoznajte strastvene umove iza našeg uspeha. Raznovrstan tim inženjera, dizajnera i inovatora koji zajedno rade na postizanju izvrsnosti."
+			},
+			"events": {
+				"title": "Događaji i takmičenja",
+				"description": "Prisustvujte našem takmičarskom duhu u akciji. Od Formula Student takmičenja do inženjerskih izložbi, svaki događaj priča priču o odlučnosti."
+			},
+			"workshop": {
+				"title": "Radionica",
+				"description": "Zakoračite u naše inženjersko utočište. Gde se ideje pretvaraju u stvarnost, a inovacije susreću sa zanatstvom u našem savremenom prostoru."
+			}
+		}
+	},
+	"contact": {
+		"hero": {
+			"line1": "Stupite u",
+			"line2": "Kontakt",
+			"subtitle": "Drago nam je da čujemo od vas"
+		},
+		"sendMessage": "Pošaljite poruku",
+		"getInTouch": "Kontaktirajte nas",
+		"location": "Lokacija",
+		"locationName": "Univerzitet u Novom Sadu, Srbija",
+		"locationFaculty": "Fakultet tehničkih nauka",
+		"email": "Email",
+		"phone": "Telefon",
+		"followUs": "Pratite nas",
+		"faq": {
+			"label": "ČPP",
+			"heading": "Često postavljana",
+			"headingGold": "Pitanja",
+			"items": [
+				{
+					"q": "Kako mogu da se pridružim timu?",
+					"a": "Posetite stranicu Prijavi se i popunite formular za prijavu. Redovno pregledamo prijave i kontaktiraćemo kvalifikovane kandidate."
+				},
+				{
+					"q": "Da li nudite mogućnosti sponzorstva?",
+					"a": "Da, nudimo različite pakete sponzorstva. Kontaktirajte naš tim za sponzorstva radi više informacija."
+				},
+				{
+					"q": "Šta je Formula Student?",
+					"a": "Formula Student je međunarodno inženjersko takmičenje na kome studentski timovi projektuju, grade i voze mali automobil trkačkog stila. Timovi se ocenjuju prema performansama vozila, inženjerskom dizajnu, troškovima i poslovnoj prezentaciji."
+				},
+				{
+					"q": "Kojim sektorima mogu da se pridružim?",
+					"a": "Imamo mehanički, električni i poslovni sektor. Mehanički pokriva šasiju, oslanjanje i pogon. Električni pokriva elektroniku i softver. Poslovni pokriva marketing, sponzorstva i menadžment."
+				},
+				{
+					"q": "Kada i gde se takmičite?",
+					"a": "Takmičimo se na Formula Student događajima širom Evrope, koji se obično održavaju između juna i septembra. Naša baza je Fakultet tehničkih nauka, Univerzitet u Novom Sadu."
+				},
+				{
+					"q": "Mogu li da posetim vašu radionicu?",
+					"a": "Da! Studenti koji žele da se pridruže ili saznaju više o našem radu su dobrodošli da nas posete. Kontaktirajte nas putem formulara ili društvenih mreža kako biste dogovorili posetu."
+				}
+			]
+		}
+	},
+	"apply": {
+		"hero": {
+			"line1": "Pridruži se",
+			"line2": "Našem timu",
+			"subtitle": "Budi deo nečeg izvanrednog"
+		},
+		"requirements": "Uslovi",
+		"departments": "Sektori",
+		"requirementItems": [
+			{
+				"title": "Status studenta",
+				"desc": "Aktivni student Univerziteta u Novom Sadu"
+			},
+			{
+				"title": "Strast",
+				"desc": "Entuzijazam za motorsport i inženjering"
+			},
+			{
+				"title": "Timski duh",
+				"desc": "Sposobnost rada u kolaborativnom okruženju"
+			}
+		]
+	}
 }

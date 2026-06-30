@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 import { uniqueName } from "../helpers";
 
-test("admin edits field then approves → edited value persists", async ({ page }) => {
+test("admin edits field then approves → edited value persists", async ({
+	page,
+}) => {
 	const originalTitle = uniqueName("EditApprove Post");
 	const editedTitle = `${originalTitle} EDITED`;
 
@@ -21,11 +23,15 @@ test("admin edits field then approves → edited value persists", async ({ page 
 	}
 
 	await page.getByRole("button", { name: /submit/i }).click();
-	await expect(page.getByText(/request submitted/i)).toBeVisible({ timeout: 10000 });
+	await expect(page.getByText(/request submitted/i)).toBeVisible({
+		timeout: 10000,
+	});
 
 	// Navigate to admin review
 	await page.goto("/admin/requests");
-	const requestLink = page.getByRole("link", { name: new RegExp(originalTitle, "i") }).first();
+	const requestLink = page
+		.getByRole("link", { name: new RegExp(originalTitle, "i") })
+		.first();
 	await expect(requestLink).toBeVisible({ timeout: 5000 });
 	await requestLink.click();
 
@@ -42,7 +48,9 @@ test("admin edits field then approves → edited value persists", async ({ page 
 
 	// Edited value should now be in the approved content
 	// Verify the request no longer shows as pending
-	await expect(page.getByText(/pending/i)).not.toBeVisible({ timeout: 3000 }).catch(() => {
-		// pending might still appear for other requests — acceptable
-	});
+	await expect(page.getByText(/pending/i))
+		.not.toBeVisible({ timeout: 3000 })
+		.catch(() => {
+			// pending might still appear for other requests — acceptable
+		});
 });

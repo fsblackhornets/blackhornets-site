@@ -8,9 +8,11 @@ async function loginAs(
 	storageState: string,
 ) {
 	await page.goto("/login");
-	await page.context().addCookies([
-		{ name: "NEXT_LOCALE", value: "en", domain: "localhost", path: "/" },
-	]);
+	await page
+		.context()
+		.addCookies([
+			{ name: "NEXT_LOCALE", value: "en", domain: "localhost", path: "/" },
+		]);
 	await page.fill("input[name=username]", username);
 	await page.fill("input[name=password]", TEST_PASSWORD);
 	await page.getByRole("button", { name: /sign in/i }).click();

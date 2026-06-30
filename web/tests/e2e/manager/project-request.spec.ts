@@ -2,14 +2,18 @@ import { expect, test } from "@playwright/test";
 
 import { uniqueName } from "../helpers";
 
-test("manager submits project request → success + pending in queue", async ({ page }) => {
+test("manager submits project request → success + pending in queue", async ({
+	page,
+}) => {
 	const name = uniqueName("Test Project");
 
 	await page.goto("/manager/requests/new/project");
 
 	await page.fill("input[name=name]", name);
 
-	const descInput = page.locator("textarea[name=description], input[name=description]").first();
+	const descInput = page
+		.locator("textarea[name=description], input[name=description]")
+		.first();
 	if (await descInput.isVisible()) {
 		await descInput.fill("E2E project description.");
 	}
@@ -31,7 +35,9 @@ test("manager submits project request → success + pending in queue", async ({ 
 
 	await page.getByRole("button", { name: /submit/i }).click();
 
-	await expect(page.getByText(/request submitted/i)).toBeVisible({ timeout: 10000 });
+	await expect(page.getByText(/request submitted/i)).toBeVisible({
+		timeout: 10000,
+	});
 
 	await page.goto("/manager/requests");
 	await expect(page.getByText(name)).toBeVisible();

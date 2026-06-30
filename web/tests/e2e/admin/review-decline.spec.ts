@@ -22,11 +22,15 @@ test("admin declines request with notes → status declined, not on public site"
 	}
 
 	await page.getByRole("button", { name: /submit/i }).click();
-	await expect(page.getByText(/request submitted/i)).toBeVisible({ timeout: 10000 });
+	await expect(page.getByText(/request submitted/i)).toBeVisible({
+		timeout: 10000,
+	});
 
 	// Navigate to admin review
 	await page.goto("/admin/requests");
-	const requestLink = page.getByRole("link", { name: new RegExp(title, "i") }).first();
+	const requestLink = page
+		.getByRole("link", { name: new RegExp(title, "i") })
+		.first();
 	await expect(requestLink).toBeVisible({ timeout: 5000 });
 	await requestLink.click();
 
@@ -37,10 +41,16 @@ test("admin declines request with notes → status declined, not on public site"
 	}
 
 	// Click the decline button (shows confirm)
-	await page.getByRole("button", { name: /decline/i }).first().click();
+	await page
+		.getByRole("button", { name: /decline/i })
+		.first()
+		.click();
 
 	// Confirm decline
-	await page.getByRole("button", { name: /decline/i }).last().click();
+	await page
+		.getByRole("button", { name: /decline/i })
+		.last()
+		.click();
 
 	await page.waitForURL(/\/admin\/requests$/);
 

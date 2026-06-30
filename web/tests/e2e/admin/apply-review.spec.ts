@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 import { uniqueName } from "../helpers";
 
 // Admin storageState is loaded but /apply is public — cookie doesn't block it.
-test("application form submits → appears in admin applications panel", async ({ page }) => {
+test("application form submits → appears in admin applications panel", async ({
+	page,
+}) => {
 	const firstName = "E2E";
 	const lastName = uniqueName("Applicant").replace(/\s/g, "");
 
@@ -32,7 +34,10 @@ test("application form submits → appears in admin applications panel", async (
 	const positionSelect = page.locator("select[name=position]");
 	await positionSelect.selectOption({ index: 1 });
 
-	await page.fill("textarea[name=motivation]", "I want to join because I am passionate about Formula Student.");
+	await page.fill(
+		"textarea[name=motivation]",
+		"I want to join because I am passionate about Formula Student.",
+	);
 
 	// Upload a minimal PDF (Playwright creates it in-memory)
 	await page.locator("input[name=resume]").setInputFiles({
@@ -43,7 +48,9 @@ test("application form submits → appears in admin applications panel", async (
 
 	await page.getByRole("button", { name: /submit/i }).click();
 
-	await expect(page.getByRole("main").getByText(/submitted successfully/i)).toBeVisible({ timeout: 15000 });
+	await expect(
+		page.getByRole("main").getByText(/submitted successfully/i),
+	).toBeVisible({ timeout: 15000 });
 
 	// Verify it appears in admin applications panel
 	await page.goto("/admin/applications");
