@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 		const data: Record<string, unknown> = {};
 		for (const [key, val] of form.entries()) {
 			if (!key.startsWith("_") && key !== "type") {
-				data[key] = val instanceof File ? val.name : val;
+				data[key] = val instanceof File ? (val.name || null) : val;
 			}
 		}
 

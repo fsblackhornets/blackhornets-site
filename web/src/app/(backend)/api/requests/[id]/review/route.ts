@@ -75,7 +75,7 @@ async function insertContent(
 			website: (data.website as string) ?? null,
 			description: String(data.description_sr ?? ""),
 			description_en: (data.description_en as string) ?? null,
-			logo: (data.logo as string) ?? null,
+			logo: (data.logo && data.logo !== "undefined") ? String(data.logo) : null,
 			image_position: String(data.image_position ?? "50% 50%"),
 		});
 	} else if (type === "gallery") {
@@ -117,7 +117,7 @@ async function insertContent(
 				status: "active",
 				study_field: (data.study_field as string) ?? null,
 				position: (data.position as string) ?? null,
-				profile_picture: (data.profile_picture as string) ?? null,
+				profile_picture: (data.profile_picture && data.profile_picture !== "undefined") ? String(data.profile_picture) : null,
 			})
 			.$returningId();
 		await tx.insert(teamMembers).values({
@@ -126,7 +126,7 @@ async function insertContent(
 			department: (data.department as string) ?? null,
 			study_field: (data.study_field as string) ?? null,
 			position: (data.position as string) ?? null,
-			profile_picture: (data.profile_picture as string) ?? null,
+			profile_picture: (data.profile_picture && data.profile_picture !== "undefined") ? String(data.profile_picture) : null,
 			image_position: String(data.image_position ?? "50% 50%"),
 			faculty: (data.faculty as string) ?? null,
 			academic_year: (data.academic_year as string) ?? null,

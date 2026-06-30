@@ -18,7 +18,6 @@ export function AdminSidebar() {
 					alt="Black Hornets"
 					width={32}
 					height={32}
-					className="h-8 w-auto"
 				/>
 				<span className="font-heading text-xs tracking-widest text-primary uppercase">
 					Admin

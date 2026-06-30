@@ -65,7 +65,7 @@ export async function GET() {
 
 		const members = rows.map((r) => ({
 			...r,
-			profile_picture: r.profile_picture ?? "default.jpg",
+			profile_picture: (r.profile_picture && r.profile_picture !== "undefined") ? r.profile_picture : "default.jpg",
 			position: ROLE_DISPLAY[r.role ?? ""] ?? r.position,
 			department_name: r.department
 				? (DEPARTMENT_NAMES[r.department] ?? r.department)

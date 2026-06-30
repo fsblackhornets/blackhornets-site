@@ -75,7 +75,7 @@ export function buildProjectImageUrl(imageUrl: string): string {
 export function buildSponsorLogoUrl(
 	logo: string | null | undefined,
 ): string | null {
-	if (!logo) return null;
+	if (!logo || logo === "undefined") return null;
 	return r2Url("sponsors", logo);
 }
 
@@ -102,6 +102,6 @@ export function getProgressColor(progress: number): string {
 }
 
 export function buildProfileImageUrl(filename: string | null): string | null {
-	if (!filename || filename === "default.jpg") return null;
+	if (!filename || filename === "default.jpg" || filename === "undefined") return null;
 	return r2Url("profiles", filename);
 }
