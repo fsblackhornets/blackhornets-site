@@ -1,10 +1,18 @@
 import { saveUpload } from "@/lib/api/upload";
 
-const UPLOAD_SUBDIR: Record<string, string> = {
+export const UPLOAD_SUBDIR: Record<string, string> = {
 	post: "posts",
 	project: "projects",
 	sponsor: "sponsors",
 	member: "profiles",
+};
+
+/** Which content_requests.data field holds the staged filename for each type's single-file upload. */
+export const UPLOAD_FIELD: Record<string, string> = {
+	post: "image",
+	project: "image",
+	sponsor: "logo",
+	member: "profile_picture",
 };
 
 /**

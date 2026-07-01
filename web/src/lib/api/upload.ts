@@ -1,6 +1,7 @@
-import { mkdir, rename, writeFile } from "node:fs/promises";
+import { mkdir, rename, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
+	deleteObject,
 	moveObject,
 	putObject,
 	R2_BUCKET_PRIVATE,
@@ -54,6 +55,21 @@ export async function moveUpload(
 	const toDir = path.join(process.cwd(), "public", "uploads", toSubdir);
 	await mkdir(toDir, { recursive: true });
 	await rename(path.join(fromDir, name), path.join(toDir, name));
+}
+
+export async function deleteUpload(
+	subdir: string,
+	name: string,
+): Promise<void> {
+	if (isR2Configured()) {
+		await deleteObject(R2_BUCKET_PUBLIC, `${subdir}/${name}`);
+		return;
+	}
+	try {
+		await unlink(path.join(process.cwd(), "public", "uploads", subdir, name));
+	} catch {
+		/* already gone — fine */
+	}
 }
 
 export async function saveUploadPrivate(

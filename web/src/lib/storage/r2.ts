@@ -51,6 +51,10 @@ export async function moveObject(
 	await client.send(new DeleteObjectCommand({ Bucket: bucket, Key: fromKey }));
 }
 
+export async function deleteObject(bucket: string, key: string): Promise<void> {
+	await client.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }));
+}
+
 export async function signedGetUrl(
 	bucket: string,
 	key: string,
