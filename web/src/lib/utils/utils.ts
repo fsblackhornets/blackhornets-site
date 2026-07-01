@@ -1,10 +1,3 @@
-export function buildImageUrl(image: string | null): string | null {
-	if (!image) return null;
-	let p = image.replace(/^\.\.\//, "").replace(/^\//, "");
-	if (!p.startsWith("uploads/")) p = `uploads/${p}`;
-	return `/${p}`;
-}
-
 export function stripHtml(html: string): string {
 	return html
 		.replace(/<[^>]*>/g, " ")
@@ -62,6 +55,11 @@ function r2Url(subdir: string, name: string): string {
 		return `/${name.replace(/^\//, "")}`;
 	if (R2) return `${R2}/${subdir}/${name}`;
 	return `/uploads/${subdir}/${name}`;
+}
+
+export function buildImageUrl(image: string | null): string | null {
+	if (!image) return null;
+	return r2Url("posts", image);
 }
 
 export function buildGalleryImageUrl(imagePath: string): string {
