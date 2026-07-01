@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 		const [result] = await db
 			.insert(galleryImages)
 			.values({
-				image_path: `uploads/gallery/${filename}`,
+				image_path: filename,
 				category,
 				title: title || null,
 				created_by: Number(session.user.id),
