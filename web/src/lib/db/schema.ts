@@ -1,8 +1,8 @@
 import {
+	customType,
 	date,
 	decimal,
 	int,
-	json,
 	mysqlEnum,
 	mysqlTable,
 	text,
@@ -10,6 +10,25 @@ import {
 	tinyint,
 	varchar,
 } from "drizzle-orm/mysql-core";
+
+/**
+ * MariaDB stores JSON columns as plain TEXT (no native JSON type), so
+ * mysql2's automatic JSON parsing never triggers there — drizzle-orm's
+ * built-in json() only parses on write, not on read. This type parses
+ * defensively on both ends so it works on MySQL (already-parsed object)
+ * and MariaDB (raw string) alike.
+ */
+const json = customType<{ data: unknown }>({
+	dataType() {
+		return "json";
+	},
+	toDriver(value) {
+		return JSON.stringify(value);
+	},
+	fromDriver(value) {
+		return typeof value === "string" ? JSON.parse(value) : value;
+	},
+});
 
 export const users = mysqlTable("users", {
 	id: int("id").autoincrement().primaryKey(),
