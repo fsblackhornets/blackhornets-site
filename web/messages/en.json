@@ -117,6 +117,11 @@
 			"line2": "Sponsors",
 			"subtitle": "Partners in innovation and excellence"
 		},
+		"packages": {
+			"label": "Packages",
+			"heading": "Sponsorship",
+			"headingGold": "Packages"
+		},
 		"current": {
 			"label": "Partners",
 			"heading": "Our",
@@ -281,28 +286,5 @@
 				}
 			]
 		}
-	},
-	"apply": {
-		"hero": {
-			"line1": "Join",
-			"line2": "Our Team",
-			"subtitle": "Be part of something extraordinary"
-		},
-		"requirements": "Requirements",
-		"departments": "Departments",
-		"requirementItems": [
-			{
-				"title": "Student Status",
-				"desc": "Active student at University of Novi Sad"
-			},
-			{
-				"title": "Passion",
-				"desc": "Enthusiasm for motorsports and engineering"
-			},
-			{
-				"title": "Team Spirit",
-				"desc": "Ability to work in a collaborative environment"
-			}
-		]
 	}
 }

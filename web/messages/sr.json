@@ -117,6 +117,11 @@
 			"line2": "Sponzori",
 			"subtitle": "Partneri u inovacijama i izvrsnosti"
 		},
+		"packages": {
+			"label": "Paketi",
+			"heading": "Sponzorski",
+			"headingGold": "Paketi"
+		},
 		"current": {
 			"label": "Partneri",
 			"heading": "Naši",
@@ -281,28 +286,5 @@
 				}
 			]
 		}
-	},
-	"apply": {
-		"hero": {
-			"line1": "Pridruži se",
-			"line2": "Našem timu",
-			"subtitle": "Budi deo nečeg izvanrednog"
-		},
-		"requirements": "Uslovi",
-		"departments": "Sektori",
-		"requirementItems": [
-			{
-				"title": "Status studenta",
-				"desc": "Aktivni student Univerziteta u Novom Sadu"
-			},
-			{
-				"title": "Strast",
-				"desc": "Entuzijazam za motorsport i inženjering"
-			},
-			{
-				"title": "Timski duh",
-				"desc": "Sposobnost rada u kolaborativnom okruženju"
-			}
-		]
 	}
 }
