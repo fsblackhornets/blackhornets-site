@@ -1,4 +1,6 @@
 import {
+	CopyObjectCommand,
+	DeleteObjectCommand,
 	GetObjectCommand,
 	PutObjectCommand,
 	S3Client,
@@ -32,6 +34,21 @@ export async function putObject(
 			ContentType: file.type || "application/octet-stream",
 		}),
 	);
+}
+
+export async function moveObject(
+	bucket: string,
+	fromKey: string,
+	toKey: string,
+): Promise<void> {
+	await client.send(
+		new CopyObjectCommand({
+			Bucket: bucket,
+			CopySource: `/${bucket}/${fromKey}`,
+			Key: toKey,
+		}),
+	);
+	await client.send(new DeleteObjectCommand({ Bucket: bucket, Key: fromKey }));
 }
 
 export async function signedGetUrl(

@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { buildRequestData } from "@/lib/api/requestData";
 import { apiPost } from "@/lib/api-client";
 import { db } from "@/lib/db";
 import { contentRequests } from "@/lib/db/schema";
@@ -55,21 +56,7 @@ export async function resubmitRequestAction(
 
 		if (!original) return { error: "Original request not found." };
 
-		const data: Record<string, unknown> = {};
-		for (const [key, val] of formData.entries()) {
-			if (!key.startsWith("_") && key !== "type") {
-				data[key] = val instanceof File ? val.name : val;
-			}
-		}
-
-		const galleryRaw = formData.get("gallery_items");
-		if (galleryRaw && typeof galleryRaw === "string") {
-			try {
-				data.gallery_items = JSON.parse(galleryRaw);
-			} catch {
-				/* ignore */
-			}
-		}
+		const data = await buildRequestData(formData, original.type);
 
 		await db.insert(contentRequests).values({
 			type: original.type,

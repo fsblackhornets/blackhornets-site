@@ -115,8 +115,9 @@ export async function POST(
 		const form = await req.formData();
 
 		const [member] = await db
-			.select({ user_id: teamMembers.user_id })
+			.select({ user_id: teamMembers.user_id, username: users.username })
 			.from(teamMembers)
+			.innerJoin(users, eq(teamMembers.user_id, users.id))
 			.where(eq(teamMembers.id, Number(id)));
 
 		if (!member)
@@ -141,8 +142,13 @@ export async function POST(
 		};
 
 		const imageFile = form.get("profile_picture") as File | null;
-		if (imageFile?.size)
-			memberUpdate.profile_picture = await saveUpload(imageFile, "profiles");
+		if (imageFile?.size) {
+			const filename = await saveUpload(
+				imageFile,
+				`members/${member.username}`,
+			);
+			memberUpdate.profile_picture = `${member.username}/${filename}`;
+		}
 
 		await db
 			.update(teamMembers)

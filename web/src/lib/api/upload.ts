@@ -1,9 +1,10 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
+	moveObject,
+	putObject,
 	R2_BUCKET_PRIVATE,
 	R2_BUCKET_PUBLIC,
-	putObject,
 } from "@/lib/storage/r2";
 
 function isR2Configured(): boolean {
@@ -34,6 +35,25 @@ export async function saveUpload(file: File, subdir: string): Promise<string> {
 		await saveToDisk(file, subdir, name);
 	}
 	return name;
+}
+
+export async function moveUpload(
+	fromSubdir: string,
+	name: string,
+	toSubdir: string,
+): Promise<void> {
+	if (isR2Configured()) {
+		await moveObject(
+			R2_BUCKET_PUBLIC,
+			`${fromSubdir}/${name}`,
+			`${toSubdir}/${name}`,
+		);
+		return;
+	}
+	const fromDir = path.join(process.cwd(), "public", "uploads", fromSubdir);
+	const toDir = path.join(process.cwd(), "public", "uploads", toSubdir);
+	await mkdir(toDir, { recursive: true });
+	await rename(path.join(fromDir, name), path.join(toDir, name));
 }
 
 export async function saveUploadPrivate(

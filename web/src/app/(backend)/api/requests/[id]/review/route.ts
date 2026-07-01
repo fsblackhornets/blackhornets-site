@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { moveUpload } from "@/lib/api/upload";
 import { db } from "@/lib/db";
 import {
 	contentRequests,
@@ -75,7 +76,7 @@ async function insertContent(
 			website: (data.website as string) ?? null,
 			description: String(data.description_sr ?? ""),
 			description_en: (data.description_en as string) ?? null,
-			logo: (data.logo && data.logo !== "undefined") ? String(data.logo) : null,
+			logo: data.logo && data.logo !== "undefined" ? String(data.logo) : null,
 			image_position: String(data.image_position ?? "50% 50%"),
 		});
 	} else if (type === "gallery") {
@@ -103,6 +104,14 @@ async function insertContent(
 			Math.random().toString(36).slice(2, 10),
 			10,
 		);
+
+		let profile_picture: string | null = null;
+		const stagedFilename = data.profile_picture as string | undefined;
+		if (stagedFilename && stagedFilename !== "undefined") {
+			await moveUpload("profiles", stagedFilename, `members/${username}`);
+			profile_picture = `${username}/${stagedFilename}`;
+		}
+
 		const [{ id: userId }] = await tx
 			.insert(users)
 			.values({
@@ -117,7 +126,7 @@ async function insertContent(
 				status: "active",
 				study_field: (data.study_field as string) ?? null,
 				position: (data.position as string) ?? null,
-				profile_picture: (data.profile_picture && data.profile_picture !== "undefined") ? String(data.profile_picture) : null,
+				profile_picture,
 			})
 			.$returningId();
 		await tx.insert(teamMembers).values({
@@ -126,7 +135,7 @@ async function insertContent(
 			department: (data.department as string) ?? null,
 			study_field: (data.study_field as string) ?? null,
 			position: (data.position as string) ?? null,
-			profile_picture: (data.profile_picture && data.profile_picture !== "undefined") ? String(data.profile_picture) : null,
+			profile_picture,
 			image_position: String(data.image_position ?? "50% 50%"),
 			faculty: (data.faculty as string) ?? null,
 			academic_year: (data.academic_year as string) ?? null,

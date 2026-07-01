@@ -1,6 +1,7 @@
 import { and, desc, eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { buildRequestData } from "@/lib/api/requestData";
 import { db } from "@/lib/db";
 import { contentRequests } from "@/lib/db/schema";
 
@@ -56,12 +57,7 @@ export async function POST(req: NextRequest) {
 		const submitterName =
 			(form.get("_user_name") as string) ?? session.user.full_name ?? "";
 
-		const data: Record<string, unknown> = {};
-		for (const [key, val] of form.entries()) {
-			if (!key.startsWith("_") && key !== "type") {
-				data[key] = val instanceof File ? (val.name || null) : val;
-			}
-		}
+		const data = await buildRequestData(form, type);
 
 		const [result] = await db
 			.insert(contentRequests)

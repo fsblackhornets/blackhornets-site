@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
 		let profile_picture: string | null = null;
 		const imageFile = form.get("profile_picture") as File | null;
 		if (imageFile?.size)
-			profile_picture = await saveUpload(imageFile, "profiles");
+			profile_picture = `${username}/${await saveUpload(imageFile, `members/${username}`)}`;
 
 		const [result] = await db
 			.insert(teamMembers)

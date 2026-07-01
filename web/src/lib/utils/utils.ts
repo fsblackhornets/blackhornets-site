@@ -102,6 +102,7 @@ export function getProgressColor(progress: number): string {
 }
 
 export function buildProfileImageUrl(filename: string | null): string | null {
-	if (!filename || filename === "default.jpg" || filename === "undefined") return null;
-	return r2Url("profiles", filename);
+	if (!filename || filename === "default.jpg" || filename === "undefined")
+		return null;
+	return r2Url("members", filename);
 }
