@@ -1,10 +1,11 @@
-import { Calendar, ChevronLeft, Clock, Eye, Link2 } from "lucide-react";
+import { Calendar, ChevronLeft, Clock, Eye } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { SITE_NAME } from "@/constants/site";
+import { ShareButtons } from "@/components/pagecomponents/blog/components/ShareButtons";
+import { SITE_NAME, SITE_URL } from "@/constants/site";
 import { fetchAllPosts, fetchPost } from "@/lib/api/posts";
 import {
 	buildImageUrl,
@@ -41,6 +42,7 @@ export default async function BlogPostPage({ params }: Props) {
 	]);
 	if (!post) notFound();
 
+	const postUrl = `${SITE_URL}/blog/${post.id}`;
 	const title = resolvePostTitle(post, locale);
 	const content = resolvePostContent(post, locale);
 	const imageUrl = buildImageUrl(post.image);
@@ -207,50 +209,15 @@ export default async function BlogPostPage({ params }: Props) {
 							))}
 						</div>
 						<div className="flex items-center gap-2">
-							{/* Facebook */}
-							<button
-								type="button"
-								aria-label={t("shareOnFacebook")}
-								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
-							>
-								<svg
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="currentColor"
-									aria-hidden="true"
-								>
-									<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-								</svg>
-							</button>
-							{/* Instagram */}
-							<button
-								type="button"
-								aria-label={t("shareOnInstagram")}
-								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
-							>
-								<svg
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth={2}
-									aria-hidden="true"
-								>
-									<rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-									<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-									<line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-								</svg>
-							</button>
-							{/* Copy link */}
-							<button
-								type="button"
-								aria-label={t("copyLink")}
-								className="w-[30px] h-[30px] rounded-full border border-primary/20 flex items-center justify-center text-text-gray hover:border-primary hover:text-primary transition-colors"
-							>
-								<Link2 size={12} strokeWidth={2} aria-hidden="true" />
-							</button>
+							<ShareButtons
+								url={postUrl}
+								variant="compact"
+								labels={{
+									facebook: t("shareOnFacebook"),
+									instagram: t("shareOnInstagram"),
+									copyLink: t("copyLink"),
+								}}
+							/>
 						</div>
 					</div>
 
@@ -365,65 +332,15 @@ export default async function BlogPostPage({ params }: Props) {
 							<p className="font-heading text-[7px] tracking-[4px] uppercase text-primary mb-3">
 								{t("share")}
 							</p>
-							<div className="flex flex-col gap-1">
-								{[
-									{
-										label: "Facebook",
-										icon: (
-											<svg
-												width="12"
-												height="12"
-												viewBox="0 0 24 24"
-												fill="currentColor"
-												aria-hidden="true"
-											>
-												<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-											</svg>
-										),
-									},
-									{
-										label: "Instagram",
-										icon: (
-											<svg
-												width="12"
-												height="12"
-												viewBox="0 0 24 24"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth={2}
-												aria-hidden="true"
-											>
-												<rect
-													x="2"
-													y="2"
-													width="20"
-													height="20"
-													rx="5"
-													ry="5"
-												/>
-												<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-												<line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-											</svg>
-										),
-									},
-									{
-										label: "Copy Link",
-										icon: (
-											<Link2 size={12} strokeWidth={2} aria-hidden="true" />
-										),
-									},
-								].map(({ label, icon }) => (
-									<button
-										key={label}
-										type="button"
-										aria-label={label}
-										className="flex items-center gap-2.5 p-2.5 bg-bg-dark border border-[#1e1e1e] rounded-sm text-text-gray hover:text-primary hover:border-primary/30 transition-colors"
-									>
-										{icon}
-										<span className="font-body text-[9px]">{label}</span>
-									</button>
-								))}
-							</div>
+							<ShareButtons
+								url={postUrl}
+								variant="full"
+								labels={{
+									facebook: "Facebook",
+									instagram: "Instagram",
+									copyLink: "Copy Link",
+								}}
+							/>
 						</div>
 
 						{/* Join the Team CTA */}

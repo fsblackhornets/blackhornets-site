@@ -20,15 +20,16 @@ export const NAV_LINKS = [
 	{ href: "/contact", label: "Contact", Icon: ContactIcon },
 ];
 
+export const FACEBOOK_URL = "https://www.facebook.com";
+export const INSTAGRAM_URL = "https://www.instagram.com/blackhornets.ns/";
+export const LINKEDIN_URL = "https://www.linkedin.com";
+export const YOUTUBE_URL = "https://www.youtube.com";
+
 export const SOCIAL_LINKS = [
-	{ href: "https://www.facebook.com", Icon: FacebookIcon, label: "Facebook" },
-	{
-		href: "https://www.instagram.com/blackhornets.ns/",
-		Icon: InstagramIcon,
-		label: "Instagram",
-	},
-	{ href: "https://www.linkedin.com", Icon: LinkedInIcon, label: "LinkedIn" },
-	{ href: "https://www.youtube.com", Icon: YouTubeIcon, label: "YouTube" },
+	{ href: FACEBOOK_URL, Icon: FacebookIcon, label: "Facebook" },
+	{ href: INSTAGRAM_URL, Icon: InstagramIcon, label: "Instagram" },
+	{ href: LINKEDIN_URL, Icon: LinkedInIcon, label: "LinkedIn" },
+	{ href: YOUTUBE_URL, Icon: YouTubeIcon, label: "YouTube" },
 ];
 
 export const QUICK_LINKS = [
