@@ -57,8 +57,7 @@ export async function POST(req: NextRequest) {
 				{ status: 400 },
 			);
 
-		const filename = await saveUpload(file, "brochure");
-		const path = `uploads/brochure/${filename}`;
+		const path = await saveUpload(file, "brochure");
 		const key = `brochure_pdf_${lang}`;
 
 		await db
