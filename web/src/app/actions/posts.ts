@@ -2,8 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { parsePostFormData } from "@/helpers/parsePostFormData";
-import { apiDelete, apiPost, apiPut } from "@/lib/api-client";
+import { apiDelete, apiPost } from "@/lib/api-client";
 
 export async function deletePostAction(
 	id: number,
@@ -37,8 +36,9 @@ export async function createPostAction(
 	formData: FormData,
 ): Promise<{ error?: string }> {
 	try {
-		await apiPost("posts", parsePostFormData(formData));
+		await apiPost("posts", formData);
 		revalidatePath("/admin/posts");
+		revalidatePath("/blog");
 	} catch {
 		return { error: "Failed to create post." };
 	}
@@ -51,8 +51,9 @@ export async function updatePostAction(
 	formData: FormData,
 ): Promise<{ error?: string }> {
 	try {
-		await apiPut(`posts/${id}`, parsePostFormData(formData));
+		await apiPost(`posts/${id}`, formData);
 		revalidatePath("/admin/posts");
+		revalidatePath("/blog");
 	} catch {
 		return { error: "Failed to update post." };
 	}

@@ -5,11 +5,12 @@ import {
 	extractGalleryItems,
 	RichTextEditor,
 } from "@/components/editor/RichTextEditor";
-import { AlertCircleIcon, SaveIcon } from "@/components/icons";
+import { AlertCircleIcon, ImageIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
+import { buildImageUrl } from "@/lib/utils/utils";
 import type { Post } from "@/types/post";
 
 interface PostFormProps {
@@ -29,7 +30,9 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 	const [titleEn, setTitleEn] = useState(post?.title_en ?? "");
 	const [contentSr, setContentSr] = useState(post?.content_sr ?? "");
 	const [contentEn, setContentEn] = useState(post?.content_en ?? "");
+	const [fileName, setFileName] = useState("No file chosen");
 
+	const existingImage = buildImageUrl(post?.image ?? null);
 	const galleryItemsRef = useRef<string>("[]");
 
 	function handleSrChange(html: string) {
@@ -123,6 +126,61 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 									onChange={setContentEn}
 								/>
 							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Cover Image card */}
+				<div className={SECTION_CARD}>
+					<h2 className={SECTION_HEAD}>Cover Image</h2>
+					<div className="flex items-start gap-4">
+						{existingImage ? (
+							// biome-ignore lint/performance/noImgElement: cover preview uses dynamic URL
+							<img
+								src={existingImage}
+								alt={post?.title_sr ?? "Post cover"}
+								className="w-24 h-16 object-cover border border-[#1e1e1e] bg-[#0a0a0a] shrink-0"
+							/>
+						) : (
+							<div className="w-24 h-16 bg-primary/5 border border-[#1e1e1e] flex items-center justify-center shrink-0">
+								<ImageIcon
+									size={22}
+									strokeWidth={1.5}
+									className="text-[#2a2a2a]"
+								/>
+							</div>
+						)}
+						<div className="flex-1">
+							<div className="flex items-center gap-2 mb-1.5">
+								<label
+									htmlFor="image"
+									className="cursor-pointer border border-primary/40 text-primary font-heading text-[7px] tracking-[2px] uppercase px-3 py-2 transition-colors hover:bg-primary/10 shrink-0"
+									style={{
+										clipPath:
+											"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+									}}
+								>
+									Choose File
+								</label>
+								<span className="font-body text-[9px] text-[#333] truncate">
+									{fileName}
+								</span>
+							</div>
+							{post && (
+								<p className="font-body text-[8px] text-[#2a2a2a]">
+									Leave empty to keep the current cover image.
+								</p>
+							)}
+							<input
+								id="image"
+								type="file"
+								name="image"
+								accept="image/*"
+								className="sr-only"
+								onChange={(e) =>
+									setFileName(e.target.files?.[0]?.name ?? "No file chosen")
+								}
+							/>
 						</div>
 					</div>
 				</div>
