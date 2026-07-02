@@ -79,9 +79,7 @@ export default async function RequestDetailPage({ params }: Props) {
 			{isPending ? (
 				<div
 					className={
-						request.type === "post"
-							? "grid grid-cols-[1fr_260px] gap-4 items-start"
-							: ""
+						request.type === "post" ? "grid grid-cols-[1fr_260px] gap-4" : ""
 					}
 				>
 					{/* Post preview for post type */}
