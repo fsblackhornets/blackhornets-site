@@ -5,7 +5,8 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { buildRequestData } from "@/lib/api/requestData";
+import { buildRequestData, UPLOAD_SUBDIR } from "@/lib/api/requestData";
+import { saveUpload } from "@/lib/api/upload";
 import { apiPost } from "@/lib/api-client";
 import { db } from "@/lib/db";
 import { contentRequests } from "@/lib/db/schema";
@@ -80,10 +81,24 @@ export async function editAndApproveAction(
 ): Promise<{ error?: string }> {
 	try {
 		const session = await auth();
+
+		const [original] = await db
+			.select({ type: contentRequests.type, data: contentRequests.data })
+			.from(contentRequests)
+			.where(eq(contentRequests.id, requestId))
+			.limit(1);
+		if (!original) return { error: "Request not found." };
+
+		const originalData = original.data as Record<string, unknown>;
 		const editedData: Record<string, unknown> = {};
 		for (const [key, val] of formData.entries()) {
-			if (!key.startsWith("_")) {
-				editedData[key] = val instanceof File ? null : val;
+			if (key.startsWith("_")) continue;
+			if (val instanceof File) {
+				editedData[key] = val.size
+					? await saveUpload(val, UPLOAD_SUBDIR[original.type] ?? "misc")
+					: (originalData[key] ?? null);
+			} else {
+				editedData[key] = val;
 			}
 		}
 		const galleryRaw = formData.get("gallery_items");
