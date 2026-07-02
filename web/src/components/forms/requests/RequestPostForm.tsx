@@ -330,15 +330,31 @@ export function RequestPostForm({
 							</div>
 						</div>
 					) : (
-						<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
-							<div className="p-5">
+						<div className="bg-bg-dark border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
+							<div className="p-8">
+								{category && (
+									<span
+										className="inline-block font-body text-[7px] tracking-[1.5px] uppercase bg-primary/10 text-primary border border-primary/20 px-2.5 py-1.5 mb-4"
+										style={{
+											clipPath:
+												"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+										}}
+									>
+										{category}
+									</span>
+								)}
 								{titleSr && (
-									<h1 className="font-heading text-lg text-text-light mb-3">
+									<h1 className="font-heading text-[clamp(1.6rem,4vw,2.4rem)] text-primary uppercase tracking-[1px] leading-tight mb-5">
 										{titleSr}
 									</h1>
 								)}
 								<div
-									className="prose-sm text-[#aaa] leading-relaxed [&_h2]:font-heading [&_h2]:text-primary/80 [&_h2]:text-sm [&_h2]:tracking-wide [&_h2]:mt-4 [&_h2]:mb-2 [&_h3]:font-heading [&_h3]:text-[#ccc] [&_h3]:text-xs [&_h3]:mt-3 [&_h3]:mb-1 [&_blockquote]:border-l-2 [&_blockquote]:border-primary/40 [&_blockquote]:pl-3 [&_blockquote]:text-[#666] [&_ul]:list-disc [&_ul]:pl-4 [&_ul]:space-y-0.5 [&_figure]:my-3 [&_img]:max-w-full [&_figcaption]:text-[9px] [&_figcaption]:text-[#555] [&_figcaption]:text-center [&_figcaption]:mt-1"
+									className="prose prose-invert prose-yellow max-w-none text-text-light leading-relaxed
+										[&_h2]:font-heading [&_h2]:text-white [&_h2]:uppercase [&_h2]:tracking-[2px] [&_h2]:flex [&_h2]:items-center [&_h2]:gap-2.5 [&_h2]:before:content-[''] [&_h2]:before:w-[3px] [&_h2]:before:h-5 [&_h2]:before:bg-primary [&_h2]:before:flex-shrink-0
+										[&_h3]:font-heading [&_h3]:text-primary
+										[&_blockquote]:border-l-[3px] [&_blockquote]:border-primary [&_blockquote]:bg-primary/[0.04] [&_blockquote]:rounded-none [&_blockquote]:px-5 [&_blockquote]:py-4
+										[&_img]:rounded-none [&_img]:border [&_img]:border-[#1e1e1e]
+										[&_a]:text-primary [&_a]:no-underline [&_a]:border-b [&_a]:border-primary/30 [&_a]:hover:border-primary"
 									// biome-ignore lint/security/noDangerouslySetInnerHtml: rendering user-authored post preview
 									dangerouslySetInnerHTML={{
 										__html:
