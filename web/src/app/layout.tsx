@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Michroma, Poppins, Rajdhani } from "next/font/google";
 import { getLocale } from "next-intl/server";
@@ -43,6 +44,7 @@ export default async function RootLayout({
 		>
 			<body className="min-h-full flex flex-col bg-bg-dark text-text-light">
 				{children}
+				<Analytics />
 				<Toaster
 					position="bottom-right"
 					toastOptions={{
