@@ -93,13 +93,13 @@ export async function HeroSection() {
 				{/* CTA */}
 				<div className="flex gap-6 justify-center flex-wrap">
 					<Link
-						href="/about"
+						href="/apply"
 						className="inline-flex items-center gap-2 px-10 py-4 bg-primary text-black font-heading font-bold tracking-widest hover:bg-yellow-400 transition-colors duration-300"
 						style={{
 							clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
 						}}
 					>
-						{t("discoverMore")}
+						{t("applyNow")}
 						<ChevronRightIcon className="w-4 h-4" />
 					</Link>
 					<Link

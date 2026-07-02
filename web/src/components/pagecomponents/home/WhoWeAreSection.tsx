@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 export async function WhoWeAreSection() {
@@ -65,6 +66,19 @@ export async function WhoWeAreSection() {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 				<p className="font-body text-text-gray leading-[1.8]">{t("p1")}</p>
 				<p className="font-body text-text-gray leading-[1.8]">{t("p2")}</p>
+			</div>
+
+			<div className="text-center mt-10">
+				<Link
+					href="/about"
+					className="inline-flex items-center gap-2 px-8 py-3 font-heading font-bold tracking-widest text-primary hover:bg-primary hover:text-black transition-colors duration-300"
+					style={{
+						clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%)",
+						border: "2px solid #ffd700",
+					}}
+				>
+					{t("aboutUs")}
+				</Link>
 			</div>
 		</section>
 	);

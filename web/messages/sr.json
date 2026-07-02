@@ -27,14 +27,15 @@
 	"home": {
 		"hero": {
 			"subtitle": "Formula Student · Novi Sad",
-			"discoverMore": "Saznaj više",
+			"applyNow": "Pridruži se",
 			"blog": "Blog"
 		},
 		"whoWeAre": {
 			"heading": "Ko smo mi",
 			"quote": "Mi ne gradimo samo automobile – mi gradimo budućnost trkanja.",
 			"p1": "Black Hornets Racing je strastven tim studenata inženjeringa posvećen pomeranju granica automobilske inovacije. Kombinujemo najsavremeniju tehnologiju sa održivim praksama kako bismo stvorili trkačka vozila visokih performansi koja predstavljaju budućnost auto-moto sporta.",
-			"p2": "Naš tim okuplja raznolike talente iz oblasti mašinstva, elektroinženjeringa, aerodinamike i analize podataka. Verujemo u učenje kroz praktično iskustvo, takmičenje na međunarodnim nadmetanjima i razvoj rešenja koja odgovaraju na realne izazove automobilske industrije."
+			"p2": "Naš tim okuplja raznolike talente iz oblasti mašinstva, elektroinženjeringa, aerodinamike i analize podataka. Verujemo u učenje kroz praktično iskustvo, takmičenje na međunarodnim nadmetanjima i razvoj rešenja koja odgovaraju na realne izazove automobilske industrije.",
+			"aboutUs": "O nama"
 		},
 		"latestNews": {
 			"heading": "Najnovije vesti",

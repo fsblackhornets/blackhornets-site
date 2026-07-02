@@ -27,14 +27,15 @@
 	"home": {
 		"hero": {
 			"subtitle": "Formula Student · Novi Sad",
-			"discoverMore": "Discover More",
+			"applyNow": "Apply Now",
 			"blog": "Blog"
 		},
 		"whoWeAre": {
 			"heading": "Who We Are",
 			"quote": "We don't just build cars – we build the future of racing.",
 			"p1": "Black Hornets Racing is a passionate team of engineering students dedicated to pushing the boundaries of automotive innovation. We combine cutting-edge technology with sustainable practices to create high-performance racing vehicles that represent the future of motorsport.",
-			"p2": "Our team brings together diverse talents from mechanical engineering, electrical engineering, aerodynamics, and data analysis. We believe in learning through hands-on experience, competing in international competitions, and developing solutions that address real-world challenges in the automotive industry."
+			"p2": "Our team brings together diverse talents from mechanical engineering, electrical engineering, aerodynamics, and data analysis. We believe in learning through hands-on experience, competing in international competitions, and developing solutions that address real-world challenges in the automotive industry.",
+			"aboutUs": "About Us"
 		},
 		"latestNews": {
 			"heading": "Latest News",

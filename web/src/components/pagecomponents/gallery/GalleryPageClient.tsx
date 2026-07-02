@@ -28,7 +28,7 @@ export function GalleryPageClient({ grouped }: GalleryPageClientProps) {
 		<>
 			{/* Section nav tab bar */}
 			<nav
-				className="sticky top-0 z-30 flex border-b border-[#1a1a1a] bg-[#0a0a0a] px-14 overflow-x-auto"
+				className="sticky top-0 z-30 flex justify-center gap-3 border-b border-[#1a1a1a] bg-[#0a0a0a] px-14 py-4 overflow-x-auto"
 				aria-label="Gallery sections"
 			>
 				{GALLERY_SECTIONS.map(({ category }) => {
@@ -40,7 +40,7 @@ export function GalleryPageClient({ grouped }: GalleryPageClientProps) {
 							key={category}
 							type="button"
 							onClick={() => scrollTo(category)}
-							className="font-heading text-[8px] tracking-[3px] uppercase px-5 py-4 border-b-2 border-transparent text-[#444] hover:text-primary transition-colors duration-200 shrink-0"
+							className="font-heading text-sm font-semibold tracking-[3px] uppercase px-5 py-2.5 rounded-full border border-[#333] text-[#999] hover:text-primary hover:border-primary transition-colors duration-200 shrink-0"
 						>
 							{sectionT}
 						</button>
@@ -97,17 +97,14 @@ export function GalleryPageClient({ grouped }: GalleryPageClientProps) {
 										</p>
 									)}
 								</div>
-								<span
-									className="font-heading text-[9px] tracking-[2px] uppercase shrink-0 mt-1"
-									style={{ color: "#3a3a3a" }}
-								>
+								<span className="font-heading text-xs tracking-[2px] uppercase shrink-0 mt-1 text-[#999]">
 									{images.length} photo{images.length !== 1 ? "s" : ""}
 								</span>
 							</div>
 
 							{/* Grid or empty state */}
 							{images.length === 0 ? (
-								<div className="h-32 flex flex-col items-center justify-center gap-3 border border-[#1e1e1e] rounded-sm bg-bg-dark">
+								<div className="h-32 flex flex-col items-center justify-center gap-3 border border-primary/40 rounded-sm bg-bg-dark">
 									<ImageIcon
 										size={28}
 										strokeWidth={1.5}
