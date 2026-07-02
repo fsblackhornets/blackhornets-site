@@ -4,7 +4,7 @@ import { Link2 } from "lucide-react";
 import { useState } from "react";
 import { FacebookIcon } from "@/components/icons/FacebookIcon";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
-import { INSTAGRAM_URL } from "@/constants/layout";
+import { INSTAGRAM_URL } from "@/constants/links";
 
 function CopyLinkButton({
 	url,

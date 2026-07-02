@@ -20,8 +20,8 @@ export default function HomePage() {
 		<>
 			<HeroSection />
 			<div className="px-4">
-				<LatestNewsSection />
 				<WhoWeAreSection />
+				<LatestNewsSection />
 			</div>
 		</>
 	);

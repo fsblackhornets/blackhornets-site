@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { EmailIcon } from "@/components/icons/EmailIcon";
 import { LocationIcon } from "@/components/icons/LocationIcon";
 import { PhoneIcon } from "@/components/icons/PhoneIcon";
-import { QUICK_LINKS, SOCIAL_LINKS } from "@/constants/layout";
+import { QUICK_LINKS, SOCIAL_LINKS } from "@/constants/links";
 
 const QUICK_LINK_KEYS: Record<string, string> = {
 	"/about": "about",

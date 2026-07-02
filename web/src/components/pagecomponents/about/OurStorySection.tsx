@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { ChevronRightIcon } from "@/components/icons/ChevronRightIcon";
+import { Button } from "@/components/ui/components/Button";
 import { STAT_ITEMS } from "@/constants/about";
 import { fetchMemberCount } from "@/lib/api/team";
 
@@ -76,6 +78,11 @@ export async function OurStorySection() {
 							</div>
 						))}
 					</div>
+
+					<Button href="/team" size="lg" className="self-start">
+						{t("meetTheTeam")}
+						<ChevronRightIcon className="w-4 h-4" />
+					</Button>
 				</div>
 
 				{/* Right column — image with gold corner accents */}

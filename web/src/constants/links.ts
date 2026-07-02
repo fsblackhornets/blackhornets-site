@@ -11,8 +11,8 @@ import { TeamIcon } from "@/components/icons/TeamIcon";
 import { YouTubeIcon } from "@/components/icons/YouTubeIcon";
 
 export const NAV_LINKS = [
-	{ href: "/team", label: "Team", Icon: TeamIcon },
 	{ href: "/about", label: "About", Icon: AboutIcon },
+	{ href: "/team", label: "Team", Icon: TeamIcon },
 	{ href: "/projects", label: "Projects", Icon: ProjectsIcon },
 	{ href: "/blog", label: "Blog", Icon: BlogIcon },
 	{ href: "/gallery", label: "Gallery", Icon: GalleryIcon },

@@ -26,8 +26,8 @@ export function MemberCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className={`flex flex-col items-center gap-3 bg-bg-panel rounded-sm border border-[#222] border-t-2 border-t-primary/40 p-5 hover:border-primary transition-colors cursor-pointer ${
-				isLg ? "w-52 border-l-2 border-l-primary" : "w-44"
+			className={`flex flex-col items-center gap-3 bg-bg-panel rounded-sm border p-5 hover:border-primary transition-colors cursor-pointer ${
+				isLg ? "w-52 border-primary" : "w-44 border-[#222] border-t-2 border-t-primary/40"
 			}`}
 			aria-label={`View ${member.full_name}'s profile`}
 		>
@@ -63,7 +63,7 @@ export function MemberCard({
 					{member.full_name}
 				</p>
 				{label && (
-					<p className="font-heading text-[6.5px] tracking-[2px] uppercase text-primary/50 mt-1 capitalize">
+					<p className="font-heading text-[10px] tracking-[2px] uppercase text-primary/50 mt-1 capitalize">
 						{label}
 					</p>
 				)}

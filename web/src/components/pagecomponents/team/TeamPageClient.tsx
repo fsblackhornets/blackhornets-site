@@ -27,7 +27,7 @@ function LeaderHeroCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className="w-full bg-bg-dark border border-gray-dark border-l-[3px] border-l-primary rounded-sm p-6 flex flex-col sm:flex-row gap-6 items-center hover:border-primary/70 transition-colors duration-300 text-left relative overflow-hidden"
+			className="w-full bg-bg-dark border border-primary rounded-sm p-8 flex flex-col gap-6 items-center justify-center hover:border-primary/70 transition-colors duration-300 text-left relative overflow-hidden"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
 			{/* "01" watermark */}
@@ -41,7 +41,7 @@ function LeaderHeroCard({
 
 			{/* Photo */}
 			<div className="relative shrink-0">
-				<div className="w-24 h-24 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
+				<div className="w-36 h-36 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
 					{imageUrl && !imgError ? (
 						// biome-ignore lint/performance/noImgElement: onError handler required
 						<img
@@ -51,24 +51,24 @@ function LeaderHeroCard({
 							onError={() => setImgError(true)}
 						/>
 					) : (
-						<span className="text-primary font-heading text-3xl font-bold">
+						<span className="text-primary font-heading text-5xl font-bold">
 							{member.full_name.charAt(0)}
 						</span>
 					)}
 				</div>
 				{/* Gold checkmark badge */}
-				<div className="absolute bottom-0 right-0 w-[18px] h-[18px] rounded-full bg-primary flex items-center justify-center">
+				<div className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
 					<i
 						className="fas fa-check text-black"
-						style={{ fontSize: "7px" }}
+						style={{ fontSize: "10px" }}
 						aria-hidden="true"
 					/>
 				</div>
 			</div>
 
 			{/* Info */}
-			<div className="flex flex-col gap-1 relative z-10">
-				<p className="font-heading text-[7px] tracking-[4px] uppercase text-primary/50">
+			<div className="flex flex-col items-center gap-1 relative z-10 text-center">
+				<p className="font-heading text-xs tracking-[4px] uppercase text-primary/50">
 					{labels.projectLeader}
 				</p>
 				<h3 className="font-heading text-xl text-primary tracking-wide">
@@ -104,29 +104,39 @@ function MiniLeaderCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className="w-full bg-bg-dark border border-[#1e1e1e] rounded-sm p-3 flex flex-col items-center gap-2 hover:border-primary/30 transition-colors"
+			className="w-full max-w-[260px] mx-auto bg-bg-dark border border-primary rounded-sm p-6 flex flex-col items-center gap-4 hover:border-primary/70 transition-colors duration-300"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
-			<div className="w-12 h-12 rounded-full border border-primary/30 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
-				{imageUrl && !imgError ? (
-					// biome-ignore lint/performance/noImgElement: onError handler required
-					<img
-						src={imageUrl}
-						alt={member.full_name}
-						className="w-full h-full object-cover"
-						onError={() => setImgError(true)}
+			<div className="relative shrink-0">
+				<div className="w-28 h-28 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
+					{imageUrl && !imgError ? (
+						// biome-ignore lint/performance/noImgElement: onError handler required
+						<img
+							src={imageUrl}
+							alt={member.full_name}
+							className="w-full h-full object-cover"
+							onError={() => setImgError(true)}
+						/>
+					) : (
+						<span className="text-primary font-heading text-4xl font-bold">
+							{member.full_name.charAt(0)}
+						</span>
+					)}
+				</div>
+				{/* Gold checkmark badge */}
+				<div className="absolute bottom-0.5 right-0.5 w-[18px] h-[18px] rounded-full bg-primary flex items-center justify-center">
+					<i
+						className="fas fa-check text-black"
+						style={{ fontSize: "8px" }}
+						aria-hidden="true"
 					/>
-				) : (
-					<span className="text-primary font-heading text-xl font-bold">
-						{member.full_name.charAt(0)}
-					</span>
-				)}
+				</div>
 			</div>
-			<div className="text-center">
-				<p className="font-body text-text-light text-xs font-semibold leading-tight">
+			<div className="flex flex-col items-center gap-1 text-center w-full">
+				<h3 className="font-heading text-base text-primary tracking-wide truncate w-full">
 					{member.full_name}
-				</p>
-				<p className="font-heading text-[6px] tracking-[2px] uppercase text-primary/50 mt-0.5">
+				</h3>
+				<p className="font-heading text-[10px] tracking-[3px] uppercase text-primary/50">
 					{deptLeader}
 				</p>
 			</div>
@@ -148,10 +158,10 @@ function CompactMemberCard({
 		<button
 			type="button"
 			onClick={() => onClick(member)}
-			className="w-[calc(20%-0.6rem)] bg-[#0f0f0f] border border-[#1c1c1c] rounded-sm p-4 flex flex-col items-center gap-3 hover:border-primary/30 transition-colors aspect-square justify-center"
+			className="w-[156px] bg-[#0f0f0f] border border-[#1c1c1c] rounded-sm p-4 flex flex-col items-center gap-3 hover:border-primary/30 transition-colors justify-center"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
-			<div className="w-16 h-16 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
+			<div className="w-24 h-24 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
 				{imageUrl && !imgError ? (
 					// biome-ignore lint/performance/noImgElement: onError handler required
 					<img
@@ -161,12 +171,12 @@ function CompactMemberCard({
 						onError={() => setImgError(true)}
 					/>
 				) : (
-					<span className="text-primary font-heading text-xl font-bold">
+					<span className="text-primary font-heading text-3xl font-bold">
 						{member.full_name.charAt(0)}
 					</span>
 				)}
 			</div>
-			<p className="font-body text-text-light text-[9px] text-center leading-tight">
+			<p className="font-body text-text-light text-xs text-center leading-tight">
 				{member.full_name}
 			</p>
 		</button>
@@ -204,7 +214,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 				<div className="max-w-screen-2xl mx-auto">
 					{/* Project Leader */}
 					{data.team_leader && (
-						<div className="mb-10 max-w-3xl mx-auto">
+						<div className="mb-10 max-w-xs mx-auto">
 							<LeaderHeroCard
 								member={data.team_leader}
 								onClick={openMember}
@@ -237,7 +247,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 													: "2px solid rgba(255,215,0,0.5)",
 										}}
 									>
-										<h3 className="font-heading text-[9px] tracking-[2px] uppercase text-primary text-center">
+										<h3 className="font-heading text-lg font-black tracking-[2px] uppercase text-primary text-center">
 											{info.name}
 										</h3>
 
@@ -255,11 +265,11 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 													key={`${key}-${dept}`}
 													type="button"
 													onClick={() => selectTeam(key, dept)}
-													className="w-full font-heading text-[7.5px] tracking-[1px] py-1 px-2.5 text-[#888] hover:text-primary transition-colors"
+													className="w-full font-heading text-xs font-semibold tracking-[1.5px] py-2.5 px-3 text-[#aaa] hover:text-primary hover:border-primary/60 transition-colors"
 													style={{
 														clipPath:
 															"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
-														border: "1px solid #2a2a2a",
+														border: "1px solid #3a3a3a",
 													}}
 												>
 													{dept}
@@ -357,7 +367,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 										<button
 											type="button"
 											onClick={() => selectTeam(selectedTeam)}
-											className="font-heading text-[7.5px] tracking-[2px] uppercase px-3 py-1.5 transition-colors duration-200"
+											className="font-heading text-xs font-semibold tracking-[2px] uppercase px-4 py-2 transition-colors duration-200"
 											style={{
 												clipPath:
 													"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
@@ -367,7 +377,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 												background: !selectedDepartment
 													? "rgba(255,215,0,0.1)"
 													: "transparent",
-												color: !selectedDepartment ? "#ffd700" : "#555",
+												color: !selectedDepartment ? "#ffd700" : "#999",
 											}}
 										>
 											{t("all")}
@@ -377,7 +387,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 												key={dept}
 												type="button"
 												onClick={() => selectTeam(selectedTeam, dept)}
-												className="font-heading text-[7.5px] tracking-[2px] uppercase px-3 py-1.5 transition-colors duration-200"
+												className="font-heading text-xs font-semibold tracking-[2px] uppercase px-4 py-2 transition-colors duration-200"
 												style={{
 													clipPath:
 														"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
@@ -390,7 +400,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 															? "rgba(255,215,0,0.1)"
 															: "transparent",
 													color:
-														selectedDepartment === dept ? "#ffd700" : "#555",
+														selectedDepartment === dept ? "#ffd700" : "#999",
 												}}
 											>
 												{dept}
@@ -410,7 +420,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 											: data.business_project_leader;
 								return pl ? (
 									<div className="mb-10">
-										<p className="font-heading text-[8px] tracking-[3px] uppercase text-primary/60 text-center mb-4">
+										<p className="font-heading text-sm tracking-[3px] uppercase text-primary/60 text-center mb-4">
 											{t("departmentLeader")}
 										</p>
 										<div className="flex justify-center">
@@ -444,7 +454,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 												<div className="mb-8">
 													<div className="flex items-center gap-4 mb-6">
 														<div className="flex-1 h-px bg-primary/40" />
-														<span className="font-heading text-[8px] tracking-[4px] text-primary/40 uppercase">
+														<span className="font-heading text-sm tracking-[4px] text-primary/40 uppercase">
 															{t("teamLeaders")}
 														</span>
 														<div className="flex-1 h-px bg-primary/40" />
@@ -466,20 +476,11 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 											{members.length > 0 && (
 												<>
 													<div className="flex items-center gap-4 my-6">
-														<div
-															className="flex-1 h-px"
-															style={{ background: "#222" }}
-														/>
-														<span
-															className="font-heading text-[8px] tracking-[4px] uppercase"
-															style={{ color: "#333" }}
-														>
+														<div className="flex-1 h-px bg-primary/40" />
+														<span className="font-heading text-sm tracking-[4px] uppercase text-primary/40">
 															{t("members")}
 														</span>
-														<div
-															className="flex-1 h-px"
-															style={{ background: "#222" }}
-														/>
+														<div className="flex-1 h-px bg-primary/40" />
 													</div>
 													<div className="flex flex-wrap justify-center gap-3">
 														{members.map((member) => (

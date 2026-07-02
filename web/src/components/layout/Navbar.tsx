@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { setLocale } from "@/app/actions/setLocale";
-import { NAV_LINKS } from "@/constants/layout";
+import { NAV_LINKS } from "@/constants/links";
 import { useScrolled } from "@/hooks/useScrolled";
 import type { Locale } from "@/i18n/routing";
 

@@ -8,7 +8,7 @@ export async function HeroSection() {
 
 	return (
 		<section
-			className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center"
+			className="relative min-h-[calc(100vh-67px)] overflow-hidden flex flex-col items-center justify-center"
 			style={{ background: "#080808" }}
 		>
 			{/* Racing stripes */}
@@ -37,7 +37,7 @@ export async function HeroSection() {
 			</div>
 
 			{/* Content */}
-			<div className="relative z-[3] text-center px-8 pt-32 w-full max-w-5xl mx-auto flex flex-col items-center">
+			<div className="relative z-[3] text-center px-8 w-full max-w-5xl mx-auto flex flex-col items-center">
 				{/* Subtitle */}
 				<p
 					className="font-heading text-text-gray text-xs uppercase mb-10"
