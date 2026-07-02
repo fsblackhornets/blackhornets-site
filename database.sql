@@ -44,13 +44,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `full_name` varchar(100) NOT NULL,
-  `role` enum('admin','manager','team_member','sub_leader','team_leader','project_leader') DEFAULT 'team_member',
-  `team` varchar(50) DEFAULT NULL,
-  `department` varchar(50) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `study_field` varchar(100) DEFAULT NULL,
-  `position` varchar(100) DEFAULT NULL,
-  `profile_picture` varchar(255) DEFAULT 'default.jpg',
+  `role` enum('admin','manager') DEFAULT 'manager',
   `status` enum('active','inactive') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
@@ -62,12 +56,16 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `full_name`, `role`,
 (1, 'admin', '$2b$10$TMl2pw3XsiYe6YkwJ.gquOAp8HtK0fbZX5/8hZJbUiaSYXyyEBbZ6', 'admin@blackhornets.local', 'Administrator', 'admin', 'active');
 
 -- --------------------------------------------------------
--- Table: team_members
+-- Table: team_members  (roster people — no login credentials)
 -- --------------------------------------------------------
 
 CREATE TABLE `team_members` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `role` enum('team_leader','project_leader','sub_leader','team_member') DEFAULT 'team_member',
+  `status` enum('active','inactive') DEFAULT 'active',
   `position` varchar(100) DEFAULT NULL,
   `position_en` varchar(255) DEFAULT NULL,
   `academic_year` varchar(20) DEFAULT NULL,
@@ -84,9 +82,7 @@ CREATE TABLE `team_members` (
   `projects` text DEFAULT NULL,
   `achievements` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `team_members_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
@@ -11,7 +10,6 @@ import {
 	projects,
 	sponsors,
 	teamMembers,
-	users,
 } from "@/lib/db/schema";
 
 type ReviewBody = {
@@ -97,40 +95,19 @@ async function insertContent(
 			});
 		}
 	} else if (type === "member") {
-		const email =
-			(data.email as string) || `member_${Date.now()}@blackhornets.local`;
-		const username = `${email.split("@")[0]}_${Date.now()}`;
-		const password = await bcrypt.hash(
-			Math.random().toString(36).slice(2, 10),
-			10,
-		);
-
 		let profile_picture: string | null = null;
 		const stagedFilename = data.profile_picture as string | undefined;
 		if (stagedFilename && stagedFilename !== "undefined") {
-			await moveUpload("profiles", stagedFilename, `members/${username}`);
-			profile_picture = `${username}/${stagedFilename}`;
+			await moveUpload("profiles", stagedFilename, "members");
+			profile_picture = stagedFilename;
 		}
 
-		const [{ id: userId }] = await tx
-			.insert(users)
-			.values({
-				username,
-				password,
-				email,
-				full_name: String(data.full_name ?? ""),
-				role: (data.role as "team_member") ?? "team_member",
-				team: (data.team as string) ?? null,
-				department: (data.department as string) ?? null,
-				phone: (data.phone as string) ?? null,
-				status: "active",
-				study_field: (data.study_field as string) ?? null,
-				position: (data.position as string) ?? null,
-				profile_picture,
-			})
-			.$returningId();
 		await tx.insert(teamMembers).values({
-			user_id: userId,
+			full_name: String(data.full_name ?? ""),
+			email: (data.email as string) ?? null,
+			phone: (data.phone as string) ?? null,
+			role: (data.role as "team_member") ?? "team_member",
+			status: "active",
 			team: (data.team as string) ?? null,
 			department: (data.department as string) ?? null,
 			study_field: (data.study_field as string) ?? null,

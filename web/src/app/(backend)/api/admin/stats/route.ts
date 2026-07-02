@@ -7,7 +7,6 @@ import {
 	contactMessages,
 	contentRequests,
 	teamMembers,
-	users,
 } from "@/lib/db/schema";
 
 export async function GET() {
@@ -37,18 +36,16 @@ export async function GET() {
 			db
 				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
 				.from(teamMembers)
-				.innerJoin(users, eq(teamMembers.user_id, users.id))
-				.where(sql`${users.status} = 'active'`)
+				.where(eq(teamMembers.status, "active"))
 				.groupBy(teamMembers.team),
 			// One person can hold multiple roles/teams (e.g. a project leader for
 			// two departments) as separate rows — count distinct people, not rows.
 			db
 				.select({
-					unique_total: sql<number>`COUNT(DISTINCT ${users.full_name})`,
+					unique_total: sql<number>`COUNT(DISTINCT ${teamMembers.full_name})`,
 				})
 				.from(teamMembers)
-				.innerJoin(users, eq(teamMembers.user_id, users.id))
-				.where(sql`${users.status} = 'active'`),
+				.where(eq(teamMembers.status, "active")),
 		]);
 
 		const by_team = {

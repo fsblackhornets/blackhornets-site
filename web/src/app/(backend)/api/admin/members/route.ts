@@ -1,10 +1,9 @@
-import bcrypt from "bcryptjs";
-import { asc, eq } from "drizzle-orm";
+import { asc } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { saveUpload } from "@/lib/api/upload";
 import { db } from "@/lib/db";
-import { teamMembers, users } from "@/lib/db/schema";
+import { teamMembers } from "@/lib/db/schema";
 
 export async function GET() {
 	try {
@@ -13,23 +12,9 @@ export async function GET() {
 			return NextResponse.json({}, { status: 403 });
 
 		const data = await db
-			.select({
-				id: teamMembers.id,
-				user_id: teamMembers.user_id,
-				full_name: users.full_name,
-				email: users.email,
-				phone: users.phone,
-				role: users.role,
-				status: users.status,
-				position: teamMembers.position,
-				department: teamMembers.department,
-				team: teamMembers.team,
-				profile_picture: teamMembers.profile_picture,
-				created_at: teamMembers.created_at,
-			})
+			.select()
 			.from(teamMembers)
-			.innerJoin(users, eq(teamMembers.user_id, users.id))
-			.orderBy(asc(users.full_name));
+			.orderBy(asc(teamMembers.full_name));
 
 		return NextResponse.json({ data });
 	} catch {
@@ -51,42 +36,20 @@ export async function POST(req: NextRequest) {
 				{ status: 400 },
 			);
 
-		const email =
-			(form.get("email") as string | null) ??
-			`member_${Date.now()}@blackhornets.local`;
-		const username = `${email.split("@")[0]}_${Date.now()}`;
-		const password = await bcrypt.hash(
-			Math.random().toString(36).slice(2, 10),
-			10,
-		);
-
-		const [{ id: userId }] = await db
-			.insert(users)
-			.values({
-				username,
-				password,
-				email,
-				full_name,
-				role: ((form.get("role") as string | null) ??
-					"team_member") as typeof users.$inferInsert.role,
-				team: (form.get("team") as string | null) || null,
-				department: (form.get("department") as string | null) || null,
-				phone: (form.get("phone") as string | null) || null,
-				status: "active",
-				study_field: (form.get("study_field") as string | null) || null,
-				position: (form.get("position") as string | null) || null,
-			})
-			.$returningId();
-
 		let profile_picture: string | null = null;
 		const imageFile = form.get("profile_picture") as File | null;
 		if (imageFile?.size)
-			profile_picture = `${username}/${await saveUpload(imageFile, `members/${username}`)}`;
+			profile_picture = await saveUpload(imageFile, "members");
 
 		const [result] = await db
 			.insert(teamMembers)
 			.values({
-				user_id: userId,
+				full_name,
+				email: (form.get("email") as string | null) || null,
+				phone: (form.get("phone") as string | null) || null,
+				role: ((form.get("role") as string | null) ??
+					"team_member") as typeof teamMembers.$inferInsert.role,
+				status: "active",
 				team: (form.get("team") as string | null) || null,
 				department: (form.get("department") as string | null) || null,
 				study_field: (form.get("study_field") as string | null) || null,

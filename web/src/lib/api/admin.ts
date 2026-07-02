@@ -9,7 +9,6 @@ import {
 	siteSettings,
 	sponsors,
 	teamMembers,
-	users,
 } from "@/lib/db/schema";
 import type { Application } from "@/types/application";
 import type { GalleryImage } from "@/types/gallery";
@@ -56,6 +55,7 @@ export async function fetchDashboardStats(): Promise<DashboardStats | null> {
 			[{ total_messages }],
 			[{ pending_requests }],
 			teamRows,
+			[{ unique_total }],
 		] = await Promise.all([
 			db
 				.select({ pending_applications: sql<number>`COUNT(*)` })
@@ -71,9 +71,16 @@ export async function fetchDashboardStats(): Promise<DashboardStats | null> {
 			db
 				.select({ team: teamMembers.team, count: sql<number>`COUNT(*)` })
 				.from(teamMembers)
-				.innerJoin(users, eq(teamMembers.user_id, users.id))
-				.where(sql`${users.status} = 'active'`)
+				.where(eq(teamMembers.status, "active"))
 				.groupBy(teamMembers.team),
+			// One person can hold multiple roles/teams (e.g. a project leader for
+			// two departments) as separate rows — count distinct people, not rows.
+			db
+				.select({
+					unique_total: sql<number>`COUNT(DISTINCT ${teamMembers.full_name})`,
+				})
+				.from(teamMembers)
+				.where(eq(teamMembers.status, "active")),
 		]);
 
 		const by_team: Record<string, number> = {
@@ -81,11 +88,10 @@ export async function fetchDashboardStats(): Promise<DashboardStats | null> {
 			electrical: 0,
 			operating_business: 0,
 		};
-		let total = 0;
 		for (const r of teamRows) {
 			if (r.team) by_team[r.team] = Number(r.count);
-			total += Number(r.count);
 		}
+		const total = Number(unique_total);
 
 		return {
 			pending_applications: Number(pending_applications),
@@ -160,39 +166,12 @@ export async function fetchAdminGallery(): Promise<GalleryImage[]> {
 	}
 }
 
-const memberSelect = {
-	id: teamMembers.id,
-	user_id: teamMembers.user_id,
-	full_name: users.full_name,
-	email: users.email,
-	phone: users.phone,
-	role: users.role,
-	status: users.status,
-	position: teamMembers.position,
-	position_en: teamMembers.position_en,
-	academic_year: teamMembers.academic_year,
-	study_field: teamMembers.study_field,
-	faculty: teamMembers.faculty,
-	department: teamMembers.department,
-	team: teamMembers.team,
-	age: teamMembers.age,
-	date_of_birth: teamMembers.date_of_birth,
-	profile_picture: teamMembers.profile_picture,
-	image_position: teamMembers.image_position,
-	motivation: teamMembers.motivation,
-	skills: teamMembers.skills,
-	projects: teamMembers.projects,
-	achievements: teamMembers.achievements,
-	created_at: teamMembers.created_at,
-} as const;
-
 export async function fetchAdminMembers(): Promise<AdminMember[]> {
 	try {
 		const data = await db
-			.select(memberSelect)
+			.select()
 			.from(teamMembers)
-			.innerJoin(users, eq(teamMembers.user_id, users.id))
-			.orderBy(asc(users.full_name));
+			.orderBy(asc(teamMembers.full_name));
 		return data as unknown as AdminMember[];
 	} catch {
 		return [];
@@ -204,9 +183,8 @@ export async function fetchAdminMember(
 ): Promise<AdminMember | null> {
 	try {
 		const [row] = await db
-			.select(memberSelect)
+			.select()
 			.from(teamMembers)
-			.innerJoin(users, eq(teamMembers.user_id, users.id))
 			.where(eq(teamMembers.id, id))
 			.limit(1);
 		return (row as unknown as AdminMember) ?? null;

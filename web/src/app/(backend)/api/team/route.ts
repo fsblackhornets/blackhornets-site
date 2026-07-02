@@ -1,7 +1,7 @@
-import { asc, eq, sql } from "drizzle-orm";
+import { asc, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { teamMembers, users } from "@/lib/db/schema";
+import { teamMembers } from "@/lib/db/schema";
 
 const DEPARTMENT_NAMES: Record<string, string> = {
 	chassis_aero: "Chassis and Aerodynamics",
@@ -28,44 +28,22 @@ const ROLE_DISPLAY: Record<string, string> = {
 export async function GET() {
 	try {
 		const rows = await db
-			.select({
-				id: teamMembers.id,
-				user_id: teamMembers.user_id,
-				full_name: users.full_name,
-				email: users.email,
-				phone: users.phone,
-				role: users.role,
-				status: users.status,
-				position: teamMembers.position,
-				position_en: teamMembers.position_en,
-				academic_year: teamMembers.academic_year,
-				study_field: teamMembers.study_field,
-				faculty: teamMembers.faculty,
-				department: teamMembers.department,
-				team: teamMembers.team,
-				age: teamMembers.age,
-				date_of_birth: teamMembers.date_of_birth,
-				profile_picture: teamMembers.profile_picture,
-				image_position: teamMembers.image_position,
-				motivation: teamMembers.motivation,
-				skills: teamMembers.skills,
-				projects: teamMembers.projects,
-				achievements: teamMembers.achievements,
-				created_at: teamMembers.created_at,
-			})
+			.select()
 			.from(teamMembers)
-			.innerJoin(users, eq(teamMembers.user_id, users.id))
-			.where(sql`${users.status} = 'active'`)
+			.where(sql`${teamMembers.status} = 'active'`)
 			.orderBy(
-				sql`FIELD(${users.role},'team_leader','project_leader','sub_leader','team_member')`,
+				sql`FIELD(${teamMembers.role},'team_leader','project_leader','sub_leader','team_member')`,
 				asc(teamMembers.team),
 				asc(teamMembers.department),
-				asc(users.full_name),
+				asc(teamMembers.full_name),
 			);
 
 		const members = rows.map((r) => ({
 			...r,
-			profile_picture: (r.profile_picture && r.profile_picture !== "undefined") ? r.profile_picture : "default.jpg",
+			profile_picture:
+				r.profile_picture && r.profile_picture !== "undefined"
+					? r.profile_picture
+					: "default.jpg",
 			position: ROLE_DISPLAY[r.role ?? ""] ?? r.position,
 			department_name: r.department
 				? (DEPARTMENT_NAMES[r.department] ?? r.department)
