@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-	buildProjectImageUrl,
-	getProjectStatusVariant,
-} from "@/lib/utils/utils";
+import { buildProjectImageUrl } from "@/lib/utils/utils";
 import type { Project } from "@/types/project";
 
 interface PreviewState {
@@ -67,6 +64,5 @@ export function useProjectFormPreview(project?: Project) {
 		setProgress,
 		preview,
 		syncPreview,
-		previewStatusVariant: getProjectStatusVariant(preview.status),
 	};
 }

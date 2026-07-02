@@ -23,6 +23,8 @@ export function useRequestProjectPreview() {
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
 	const [status, setStatus] = useState<ProjectStatus>("Active");
+	const [dueDate, setDueDate] = useState("");
+	const [duration, setDuration] = useState("");
 	const [progress, setProgress] = useState(0);
 	const [imageFile, setImageFile] = useState<string | null>(null);
 	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -51,6 +53,10 @@ export function useRequestProjectPreview() {
 		setDescription,
 		status,
 		setStatus,
+		dueDate,
+		setDueDate,
+		duration,
+		setDuration,
 		progress,
 		setProgress,
 		imageFile,
@@ -65,6 +71,25 @@ export function useRequestSponsorPreview() {
 	const [website, setWebsite] = useState("");
 	const [descSr, setDescSr] = useState("");
 	const [logoFile, setLogoFile] = useState<string | null>(null);
+	const [logoPreviewUrl, setLogoPreviewUrl] = useState<string | null>(null);
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		setLogoFile(file?.name ?? null);
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setLogoPreviewUrl(url);
+	};
+
 	return {
 		name,
 		setName,
@@ -75,7 +100,8 @@ export function useRequestSponsorPreview() {
 		descSr,
 		setDescSr,
 		logoFile,
-		setLogoFile,
+		logoPreviewUrl,
+		handleLogoChange,
 	};
 }
 
@@ -83,7 +109,27 @@ export function useRequestMemberPreview() {
 	const [fullName, setFullName] = useState("");
 	const [position, setPosition] = useState("");
 	const [team, setTeam] = useState("");
+	const [role, setRole] = useState("team_member");
 	const [imageFile, setImageFile] = useState<string | null>(null);
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		setImageFile(file?.name ?? null);
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setImagePreviewUrl(url);
+	};
+
 	return {
 		fullName,
 		setFullName,
@@ -91,7 +137,10 @@ export function useRequestMemberPreview() {
 		setPosition,
 		team,
 		setTeam,
+		role,
+		setRole,
 		imageFile,
-		setImageFile,
+		imagePreviewUrl,
+		handleImageChange,
 	};
 }

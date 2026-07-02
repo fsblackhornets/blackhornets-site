@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { SponsorPreview } from "@/components/forms/sponsors/SponsorPreview";
 import { ArrowLeftIcon, HeartIcon, SendIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { Textarea } from "@/components/ui/components/Textarea";
 import type { SponsorTier } from "@/constants/sponsors";
-import { SPONSOR_TIERS, TIER_COLORS } from "@/constants/sponsors";
+import { SPONSOR_TIERS } from "@/constants/sponsors";
 import { useRequestSponsorPreview } from "@/hooks/useRequestPreview";
 
 const TIER_OPTIONS = SPONSOR_TIERS.map((t) => ({ value: t, label: t }));
@@ -32,7 +33,8 @@ export function RequestSponsorForm({ action }: Props) {
 		descSr,
 		setDescSr,
 		logoFile,
-		setLogoFile,
+		logoPreviewUrl,
+		handleLogoChange,
 	} = useRequestSponsorPreview();
 
 	return (
@@ -149,7 +151,7 @@ export function RequestSponsorForm({ action }: Props) {
 								name="logo"
 								accept="image/*"
 								className="sr-only"
-								onChange={(e) => setLogoFile(e.target.files?.[0]?.name ?? null)}
+								onChange={handleLogoChange}
 							/>
 						</Field>
 
@@ -182,36 +184,13 @@ export function RequestSponsorForm({ action }: Props) {
 
 				{/* Live preview */}
 				<div className="sticky top-[80px]">
-					<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333] mb-3">
-						Live Preview
-					</p>
-					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm p-5">
-						<div className="flex items-start gap-4 mb-3">
-							<div className="w-14 h-14 rounded-sm bg-primary/5 border border-[#1e1e1e] flex items-center justify-center shrink-0">
-								<HeartIcon
-									size={22}
-									strokeWidth={1.5}
-									className="text-primary/20"
-								/>
-							</div>
-							<div className="min-w-0">
-								<h3 className="font-heading text-base text-text-light leading-snug">
-									{name || (
-										<span className="text-[#444] italic">Sponsor name…</span>
-									)}
-								</h3>
-								<span
-									className={`inline-block font-heading text-[7px] tracking-[2px] uppercase border px-2.5 py-1 mt-1.5 ${TIER_COLORS[tier]}`}
-									style={{
-										clipPath:
-											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-									}}
-								>
-									{tier}
-								</span>
-							</div>
-						</div>
-						<p className="font-body text-[10px] text-[#666] leading-relaxed line-clamp-3 mb-3">
+					<SponsorPreview
+						name={name}
+						tier={tier}
+						logoPreviewUrl={logoPreviewUrl}
+					/>
+					<div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-4 mt-3">
+						<p className="font-body text-[10px] text-[#666] leading-relaxed line-clamp-3 mb-2">
 							{descSr || (
 								<span className="italic">Description will appear here…</span>
 							)}

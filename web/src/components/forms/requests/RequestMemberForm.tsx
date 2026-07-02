@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { MemberPreview } from "@/components/forms/members/MemberPreview";
 import { ArrowLeftIcon, SendIcon, UsersIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
@@ -25,8 +26,11 @@ export function RequestMemberForm({ action }: Props) {
 		setPosition,
 		team,
 		setTeam,
+		role,
+		setRole,
 		imageFile,
-		setImageFile,
+		imagePreviewUrl,
+		handleImageChange,
 	} = useRequestMemberPreview();
 
 	return (
@@ -109,7 +113,8 @@ export function RequestMemberForm({ action }: Props) {
 									id="role"
 									name="role"
 									options={MEMBER_ROLE_OPTIONS}
-									defaultValue="team_member"
+									value={role}
+									onChange={(e) => setRole(e.target.value)}
 								/>
 							</Field>
 							<Field label="Team" htmlFor="team">
@@ -170,9 +175,7 @@ export function RequestMemberForm({ action }: Props) {
 								name="profile_picture"
 								accept="image/*"
 								className="sr-only"
-								onChange={(e) =>
-									setImageFile(e.target.files?.[0]?.name ?? null)
-								}
+								onChange={handleImageChange}
 							/>
 						</Field>
 
@@ -205,37 +208,12 @@ export function RequestMemberForm({ action }: Props) {
 
 				{/* Live preview */}
 				<div className="sticky top-[80px]">
-					<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333] mb-3">
-						Live Preview
-					</p>
-					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm p-5 flex items-center gap-4">
-						<div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 text-2xl font-heading font-bold text-primary">
-							{fullName ? fullName.charAt(0).toUpperCase() : "?"}
-						</div>
-						<div className="min-w-0">
-							<h3 className="font-heading text-base text-text-light leading-snug">
-								{fullName || (
-									<span className="text-[#444] italic">Full name…</span>
-								)}
-							</h3>
-							{position && (
-								<p className="font-body text-[10px] text-[#666] mt-0.5">
-									{position}
-								</p>
-							)}
-							{team && (
-								<span
-									className="inline-block font-heading text-[7px] tracking-[2px] uppercase text-primary bg-primary/10 px-2 py-1 mt-1.5"
-									style={{
-										clipPath:
-											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-									}}
-								>
-									{team.replace(/_/g, " ")}
-								</span>
-							)}
-						</div>
-					</div>
+					<MemberPreview
+						fullName={fullName}
+						role={role}
+						position={position}
+						imagePreviewUrl={imagePreviewUrl}
+					/>
 				</div>
 			</div>
 		</div>

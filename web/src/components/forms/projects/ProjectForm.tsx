@@ -1,7 +1,7 @@
 "use client";
 
-import { Calendar, Clock } from "lucide-react";
 import { useActionState } from "react";
+import { ProjectPreview } from "@/components/forms/projects/ProjectPreview";
 import { AlertCircleIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/components/Textarea";
 import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
 import { PROJECT_STATUS_OPTIONS } from "@/constants/projects";
 import { useProjectFormPreview } from "@/hooks/projects/useProjectFormPreview";
-import { formatDate } from "@/lib/utils/utils";
 import type { Project } from "@/types/project";
 
 interface ProjectFormProps {
@@ -37,7 +36,6 @@ export function ProjectForm({
 		setProgress,
 		preview,
 		syncPreview,
-		previewStatusVariant,
 	} = useProjectFormPreview(project);
 
 	const defaultLabel = project ? "Save Changes" : "Create Project";
@@ -205,78 +203,15 @@ export function ProjectForm({
 
 			{/* Live preview — mirrors the public ProjectCard */}
 			<div className="w-full lg:w-[320px] shrink-0 lg:sticky lg:top-6">
-				<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#444] mb-3">
-					Live Preview
-				</p>
-				<div className="bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden flex flex-col">
-					<div className="relative h-40 bg-bg-dark overflow-hidden">
-						{previewUrl ? (
-							// biome-ignore lint/performance/noImgElement: blob preview URL, next/image can't handle it
-							<img
-								src={previewUrl}
-								alt={preview.name || "Preview"}
-								className="w-full h-full object-contain"
-							/>
-						) : (
-							<div className="w-full h-full flex items-center justify-center text-primary/30 font-heading text-5xl font-bold">
-								{preview.name.charAt(0) || "?"}
-							</div>
-						)}
-					</div>
-					<div className="p-5 flex flex-col gap-3">
-						<h3 className="font-heading text-primary text-lg tracking-wide truncate">
-							{preview.name || "Project Name"}
-						</h3>
-						<span
-							className="self-start font-heading text-[7px] tracking-[2px] uppercase px-2.5 py-1"
-							style={{
-								clipPath:
-									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
-								...(previewStatusVariant === "success"
-									? { background: "rgba(34,197,94,0.12)", color: "#4ade80" }
-									: previewStatusVariant === "gold"
-										? { background: "rgba(255,215,0,0.10)", color: "#ffd700" }
-										: {
-												background: "rgba(96,165,250,0.12)",
-												color: "#60a5fa",
-											}),
-							}}
-						>
-							{preview.status}
-						</span>
-						{preview.description && (
-							<p className="text-text-gray text-sm leading-relaxed line-clamp-2 font-body">
-								{preview.description}
-							</p>
-						)}
-						<div className="flex gap-4 text-xs text-text-gray flex-wrap font-body">
-							{preview.due_date && (
-								<span className="flex items-center gap-1.5">
-									<Calendar className="w-3 h-3 text-primary" />
-									{formatDate(preview.due_date)}
-								</span>
-							)}
-							{preview.duration && (
-								<span className="flex items-center gap-1.5">
-									<Clock className="w-3 h-3 text-primary" />
-									{preview.duration}
-								</span>
-							)}
-						</div>
-						<span className="font-heading text-[9px] text-primary">
-							{progress}%
-						</span>
-					</div>
-					<div className="h-[3px] w-full bg-bg-dark">
-						<div
-							className="h-full transition-all duration-300"
-							style={{
-								width: `${progress}%`,
-								backgroundColor: "#ffd700",
-							}}
-						/>
-					</div>
-				</div>
+				<ProjectPreview
+					name={preview.name}
+					status={preview.status}
+					description={preview.description}
+					dueDate={preview.due_date}
+					duration={preview.duration}
+					progress={progress}
+					previewUrl={previewUrl}
+				/>
 			</div>
 		</div>
 	);

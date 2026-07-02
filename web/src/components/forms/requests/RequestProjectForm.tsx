@@ -2,16 +2,14 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { ProjectPreview } from "@/components/forms/projects/ProjectPreview";
 import { ArrowLeftIcon, GearIcon, SendIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { Textarea } from "@/components/ui/components/Textarea";
 import type { ProjectStatus } from "@/constants/projects";
-import {
-	PROJECT_STATUS_COLORS,
-	PROJECT_STATUS_OPTIONS,
-} from "@/constants/projects";
+import { PROJECT_STATUS_OPTIONS } from "@/constants/projects";
 import { useRequestProjectPreview } from "@/hooks/useRequestPreview";
 
 interface Props {
@@ -30,6 +28,10 @@ export function RequestProjectForm({ action }: Props) {
 		setDescription,
 		status,
 		setStatus,
+		dueDate,
+		setDueDate,
+		duration,
+		setDuration,
 		progress,
 		setProgress,
 		imageFile,
@@ -114,7 +116,14 @@ export function RequestProjectForm({ action }: Props) {
 								/>
 							</Field>
 							<Field label="Due Date *" htmlFor="due_date">
-								<Input id="due_date" name="due_date" type="date" required />
+								<Input
+									id="due_date"
+									name="due_date"
+									type="date"
+									required
+									value={dueDate}
+									onChange={(e) => setDueDate(e.target.value)}
+								/>
 							</Field>
 						</div>
 
@@ -125,6 +134,8 @@ export function RequestProjectForm({ action }: Props) {
 									name="duration"
 									placeholder="e.g. 6 months"
 									required
+									value={duration}
+									onChange={(e) => setDuration(e.target.value)}
 								/>
 							</Field>
 							<Field label={`Progress: ${progress}%`} htmlFor="progress">
@@ -201,56 +212,15 @@ export function RequestProjectForm({ action }: Props) {
 
 				{/* Live preview */}
 				<div className="sticky top-[80px]">
-					<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333] mb-3">
-						Live Preview
-					</p>
-					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
-						{imagePreviewUrl ? (
-							<div className="h-40 bg-bg-dark border-b border-[#1e1e1e] overflow-hidden">
-								{/* biome-ignore lint/performance/noImgElement: blob preview URL, next/image can't handle it */}
-								<img
-									src={imagePreviewUrl}
-									alt={imageFile ?? "Preview"}
-									className="w-full h-full object-contain"
-								/>
-							</div>
-						) : null}
-						<div className="p-5">
-							<div className="flex items-center justify-between gap-2 mb-3">
-								<h3 className="font-heading text-base text-text-light leading-snug">
-									{name || (
-										<span className="text-[#444] italic">Project name…</span>
-									)}
-								</h3>
-								<span
-									className={`font-heading text-[7px] tracking-[2px] uppercase border px-2.5 py-1 shrink-0 ${PROJECT_STATUS_COLORS[status]}`}
-									style={{
-										clipPath:
-											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-									}}
-								>
-									{status}
-								</span>
-							</div>
-							<p className="font-body text-[10px] text-[#666] leading-relaxed mb-4 line-clamp-3">
-								{description || (
-									<span className="italic">Project description…</span>
-								)}
-							</p>
-							<div>
-								<div className="flex justify-between font-heading text-[7px] tracking-[2px] uppercase text-[#555] mb-1.5">
-									<span>Progress</span>
-									<span className="text-primary">{progress}%</span>
-								</div>
-								<div className="h-[5px] bg-[#1e1e1e] rounded-none overflow-hidden">
-									<div
-										className="h-full bg-primary transition-all"
-										style={{ width: `${progress}%` }}
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
+					<ProjectPreview
+						name={name}
+						status={status}
+						description={description}
+						dueDate={dueDate}
+						duration={duration}
+						progress={progress}
+						previewUrl={imagePreviewUrl}
+					/>
 				</div>
 			</div>
 		</div>
