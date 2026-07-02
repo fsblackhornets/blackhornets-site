@@ -21,6 +21,7 @@ export async function GET() {
 			[{ total_messages }],
 			[{ pending_requests }],
 			teamRows,
+			[{ unique_total }],
 		] = await Promise.all([
 			db
 				.select({ pending_applications: sql<number>`COUNT(*)` })
@@ -39,6 +40,15 @@ export async function GET() {
 				.innerJoin(users, eq(teamMembers.user_id, users.id))
 				.where(sql`${users.status} = 'active'`)
 				.groupBy(teamMembers.team),
+			// One person can hold multiple roles/teams (e.g. a project leader for
+			// two departments) as separate rows — count distinct people, not rows.
+			db
+				.select({
+					unique_total: sql<number>`COUNT(DISTINCT ${users.full_name})`,
+				})
+				.from(teamMembers)
+				.innerJoin(users, eq(teamMembers.user_id, users.id))
+				.where(sql`${users.status} = 'active'`),
 		]);
 
 		const by_team = {
@@ -46,11 +56,10 @@ export async function GET() {
 			electrical: 0,
 			operating_business: 0,
 		} as Record<string, number>;
-		let total = 0;
 		for (const r of teamRows) {
 			if (r.team) by_team[r.team] = Number(r.count);
-			total += Number(r.count);
 		}
+		const total = Number(unique_total);
 
 		return NextResponse.json({
 			pending_applications: Number(pending_applications),
