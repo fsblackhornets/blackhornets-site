@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import {
 	extractGalleryItems,
 	RichTextEditor,
 } from "@/components/editor/RichTextEditor";
+import { BlogPostPreview } from "@/components/forms/posts/BlogPostPreview";
 import {
 	ArrowLeftIcon,
 	ImageIcon,
@@ -46,9 +47,26 @@ export function RequestPostForm({
 	const [contentEn, setContentEn] = useState(defaultValues?.content_en ?? "");
 	const [category, setCategory] = useState(defaultValues?.category ?? "");
 	const [imageFile, setImageFile] = useState<string | null>(null);
-	const [previewTab, setPreviewTab] = useState<"card" | "full">("card");
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
 	const galleryItemsRef = useRef<string>("[]");
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const file = e.target.files?.[0];
+		setImageFile(file?.name ?? null);
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setImagePreviewUrl(url);
+	}
 
 	function handleSrChange(html: string) {
 		setContentSr(html);
@@ -216,9 +234,7 @@ export function RequestPostForm({
 								name="image"
 								accept="image/*"
 								className="sr-only"
-								onChange={(e) =>
-									setImageFile(e.target.files?.[0]?.name ?? null)
-								}
+								onChange={handleImageChange}
 							/>
 						</Field>
 
@@ -265,119 +281,13 @@ export function RequestPostForm({
 
 				{/* Live preview */}
 				<div className="sticky top-[80px]">
-					<div className="flex items-center justify-between mb-3">
-						<p className="font-heading text-[7px] tracking-[4px] uppercase text-[#333]">
-							Live Preview
-						</p>
-						<div className="flex gap-1">
-							{(["card", "full"] as const).map((t) => (
-								<button
-									key={t}
-									type="button"
-									onClick={() => setPreviewTab(t)}
-									className="font-heading text-[6.5px] tracking-[2px] uppercase px-2 py-1 transition-colors"
-									style={{
-										border:
-											previewTab === t ? "1px solid #ffd700" : "1px solid #222",
-										background:
-											previewTab === t ? "rgba(255,215,0,0.08)" : "transparent",
-										color: previewTab === t ? "#ffd700" : "#444",
-										clipPath:
-											"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-									}}
-								>
-									{t === "card" ? "Blog Card" : "Full Post"}
-								</button>
-							))}
-						</div>
-					</div>
-
-					{previewTab === "card" ? (
-						<div className="bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden">
-							{imageFile && (
-								<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-									<ImageIcon
-										size={28}
-										strokeWidth={1.5}
-										className="text-primary/20"
-									/>
-								</div>
-							)}
-							<div className="p-5">
-								{category && (
-									<span
-										className="inline-block font-heading text-[7px] tracking-[2px] uppercase text-primary bg-primary/10 px-2.5 py-1 mb-3"
-										style={{
-											clipPath:
-												"polygon(0 0, calc(100% - 4px) 0, 100% 100%, 4px 100%)",
-										}}
-									>
-										{category}
-									</span>
-								)}
-								<h3 className="font-heading text-base text-text-light leading-snug mb-2">
-									{titleSr || (
-										<span className="text-[#444] italic">Post title…</span>
-									)}
-								</h3>
-								<p className="font-body text-[10px] text-[#666] leading-relaxed line-clamp-4">
-									{contentSr.replace(/<[^>]+>/g, " ").trim() || (
-										<span className="italic">
-											Post content will appear here…
-										</span>
-									)}
-								</p>
-							</div>
-						</div>
-					) : (
-						<div className="bg-bg-dark border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
-							<div className="p-8">
-								{category && (
-									<span
-										className="inline-block font-body text-[7px] tracking-[1.5px] uppercase bg-primary/10 text-primary border border-primary/20 px-2.5 py-1.5 mb-4"
-										style={{
-											clipPath:
-												"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
-										}}
-									>
-										{category}
-									</span>
-								)}
-								{titleSr && (
-									<h1 className="font-heading text-[clamp(1.6rem,4vw,2.4rem)] text-primary uppercase tracking-[1px] leading-tight mb-5">
-										{titleSr}
-									</h1>
-								)}
-								<div
-									className="prose prose-invert prose-yellow max-w-none text-text-light leading-relaxed
-										[&_h2]:font-heading [&_h2]:text-white [&_h2]:uppercase [&_h2]:tracking-[2px] [&_h2]:flex [&_h2]:items-center [&_h2]:gap-2.5 [&_h2]:before:content-[''] [&_h2]:before:w-[3px] [&_h2]:before:h-5 [&_h2]:before:bg-primary [&_h2]:before:flex-shrink-0
-										[&_h3]:font-heading [&_h3]:text-primary
-										[&_blockquote]:border-l-[3px] [&_blockquote]:border-primary [&_blockquote]:bg-primary/[0.04] [&_blockquote]:rounded-none [&_blockquote]:px-5 [&_blockquote]:py-4
-										[&_img]:rounded-none [&_img]:border [&_img]:border-[#1e1e1e]
-										[&_a]:text-primary [&_a]:no-underline [&_a]:border-b [&_a]:border-primary/30 [&_a]:hover:border-primary"
-									// biome-ignore lint/security/noDangerouslySetInnerHtml: rendering user-authored post preview
-									dangerouslySetInnerHTML={{
-										__html:
-											contentSr ||
-											"<p class='text-[#333] italic'>Post content will appear here…</p>",
-									}}
-								/>
-							</div>
-							{galleryCount > 0 && (
-								<div className="border-t border-[#1e1e1e] px-5 py-3 flex items-center gap-2">
-									<ImageIcon
-										size={10}
-										strokeWidth={1.5}
-										className="text-primary/40"
-									/>
-									<span className="font-body text-[8px] text-[#333]">
-										Gallery: {galleryCount} image{galleryCount !== 1 ? "s" : ""}{" "}
-										queued
-									</span>
-								</div>
-							)}
-						</div>
-					)}
+					<BlogPostPreview
+						titleSr={titleSr}
+						category={category}
+						contentSr={contentSr}
+						imagePreviewUrl={imagePreviewUrl}
+						galleryCount={galleryCount}
+					/>
 				</div>
 			</div>
 		</div>

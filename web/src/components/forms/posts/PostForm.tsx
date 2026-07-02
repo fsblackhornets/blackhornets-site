@@ -1,10 +1,11 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import {
 	extractGalleryItems,
 	RichTextEditor,
 } from "@/components/editor/RichTextEditor";
+import { BlogPostPreview } from "@/components/forms/posts/BlogPostPreview";
 import { AlertCircleIcon, ImageIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
@@ -30,15 +31,44 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 	const [titleEn, setTitleEn] = useState(post?.title_en ?? "");
 	const [contentSr, setContentSr] = useState(post?.content_sr ?? "");
 	const [contentEn, setContentEn] = useState(post?.content_en ?? "");
+	const [category, setCategory] = useState(post?.category ?? "");
 	const [fileName, setFileName] = useState("No file chosen");
 
 	const existingImage = buildImageUrl(post?.image ?? null);
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(
+		existingImage,
+	);
 	const galleryItemsRef = useRef<string>("[]");
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const file = e.target.files?.[0];
+		setFileName(file?.name ?? "No file chosen");
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setImagePreviewUrl(url);
+	}
 
 	function handleSrChange(html: string) {
 		setContentSr(html);
 		galleryItemsRef.current = JSON.stringify(extractGalleryItems(html));
 	}
+
+	const galleryCount = (() => {
+		try {
+			return (JSON.parse(galleryItemsRef.current) as unknown[]).length;
+		} catch {
+			return 0;
+		}
+	})();
 
 	const defaultLabel = post ? "Save Changes" : "Publish Post";
 	const defaultPendingLabel = post ? "Saving…" : "Publishing…";
@@ -177,9 +207,7 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 								name="image"
 								accept="image/*"
 								className="sr-only"
-								onChange={(e) =>
-									setFileName(e.target.files?.[0]?.name ?? "No file chosen")
-								}
+								onChange={handleImageChange}
 							/>
 						</div>
 					</div>
@@ -195,7 +223,8 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 									id="category"
 									name="category"
 									placeholder="e.g. News"
-									defaultValue={post?.category ?? ""}
+									value={category}
+									onChange={(e) => setCategory(e.target.value)}
 								/>
 							</Field>
 							<Field label="Author" htmlFor="author">
@@ -263,28 +292,15 @@ export function PostForm({ action, post, submitLabel }: PostFormProps) {
 			</form>
 
 			{/* Preview panel */}
-			<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary rounded-sm p-5 sticky top-6">
-				<h2 className={SECTION_HEAD}>Preview</h2>
-				{titleSr || contentSr ? (
-					<div>
-						{titleSr && (
-							<h3 className="font-heading text-[13px] tracking-wider uppercase text-white mb-3">
-								{titleSr}
-							</h3>
-						)}
-						{contentSr && (
-							<div
-								className="font-body text-[11px] text-[#888] leading-relaxed"
-								// biome-ignore lint/security/noDangerouslySetInnerHtml: rendering trusted editor HTML
-								dangerouslySetInnerHTML={{ __html: contentSr }}
-							/>
-						)}
-					</div>
-				) : (
-					<p className="font-body text-[9px] text-[#2a2a2a] tracking-[2px] uppercase text-center py-8">
-						Start typing to see preview…
-					</p>
-				)}
+			<div className="sticky top-6">
+				<BlogPostPreview
+					titleSr={titleSr}
+					category={category}
+					contentSr={contentSr}
+					imagePreviewUrl={imagePreviewUrl}
+					author={post?.author ?? undefined}
+					galleryCount={galleryCount}
+				/>
 			</div>
 		</div>
 	);
