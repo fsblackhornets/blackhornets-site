@@ -40,7 +40,7 @@ export function ProjectCard({ project }: { project: Project }) {
 						src={imageUrl}
 						alt={project.name}
 						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-105"
+						className="object-contain transition-transform duration-300 group-hover:scale-105"
 					/>
 				) : (
 					<div className="w-full h-full flex items-center justify-center text-primary/30 font-heading text-5xl font-bold">

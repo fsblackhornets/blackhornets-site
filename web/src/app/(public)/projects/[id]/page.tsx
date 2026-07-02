@@ -80,12 +80,12 @@ export default async function ProjectDetailPage({ params }: Props) {
 
 			{/* Hero image */}
 			{imageUrl && (
-				<div className="relative h-80 rounded-none overflow-hidden mb-8 border border-[#222]">
+				<div className="relative h-80 rounded-none overflow-hidden mb-8 border border-[#222] bg-bg-dark">
 					<Image
 						src={imageUrl}
 						alt={project.name}
 						fill
-						className="object-cover"
+						className="object-contain"
 						priority
 					/>
 					<div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-primary to-primary/10" />

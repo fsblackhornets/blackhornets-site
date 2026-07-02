@@ -34,7 +34,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
 						src={imageUrl}
 						alt={project.name}
 						fill
-						className="object-cover transition-transform duration-500 group-hover:scale-105"
+						className="object-contain transition-transform duration-500 group-hover:scale-105"
 						priority
 					/>
 				) : (
