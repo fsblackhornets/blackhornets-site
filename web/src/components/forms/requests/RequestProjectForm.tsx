@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import {
-	ArrowLeftIcon,
-	GearIcon,
-	ImageIcon,
-	SendIcon,
-} from "@/components/icons";
+import { ArrowLeftIcon, GearIcon, SendIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
 import { NativeSelect } from "@/components/ui/components/NativeSelect";
@@ -38,7 +33,8 @@ export function RequestProjectForm({ action }: Props) {
 		progress,
 		setProgress,
 		imageFile,
-		setImageFile,
+		imagePreviewUrl,
+		handleImageChange,
 	} = useRequestProjectPreview();
 
 	return (
@@ -172,9 +168,7 @@ export function RequestProjectForm({ action }: Props) {
 								name="image"
 								accept="image/*"
 								className="sr-only"
-								onChange={(e) =>
-									setImageFile(e.target.files?.[0]?.name ?? null)
-								}
+								onChange={handleImageChange}
 							/>
 						</Field>
 
@@ -211,12 +205,13 @@ export function RequestProjectForm({ action }: Props) {
 						Live Preview
 					</p>
 					<div className="bg-[#111] border border-[#1e1e1e] border-t-2 border-t-primary/40 rounded-sm overflow-hidden">
-						{imageFile ? (
-							<div className="h-40 bg-primary/5 flex items-center justify-center border-b border-[#1e1e1e]">
-								<ImageIcon
-									size={28}
-									strokeWidth={1.5}
-									className="text-primary/20"
+						{imagePreviewUrl ? (
+							<div className="h-40 bg-bg-dark border-b border-[#1e1e1e] overflow-hidden">
+								{/* biome-ignore lint/performance/noImgElement: blob preview URL, next/image can't handle it */}
+								<img
+									src={imagePreviewUrl}
+									alt={imageFile ?? "Preview"}
+									className="w-full h-full object-contain"
 								/>
 							</div>
 						) : null}

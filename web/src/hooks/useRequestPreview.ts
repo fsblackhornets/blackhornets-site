@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ProjectStatus } from "@/constants/projects";
 import type { SponsorTier } from "@/constants/sponsors";
 
@@ -25,6 +25,25 @@ export function useRequestProjectPreview() {
 	const [status, setStatus] = useState<ProjectStatus>("Active");
 	const [progress, setProgress] = useState(0);
 	const [imageFile, setImageFile] = useState<string | null>(null);
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		setImageFile(file?.name ?? null);
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setImagePreviewUrl(url);
+	};
+
 	return {
 		name,
 		setName,
@@ -35,7 +54,8 @@ export function useRequestProjectPreview() {
 		progress,
 		setProgress,
 		imageFile,
-		setImageFile,
+		imagePreviewUrl,
+		handleImageChange,
 	};
 }
 
