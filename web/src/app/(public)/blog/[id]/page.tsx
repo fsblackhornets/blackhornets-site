@@ -8,7 +8,7 @@ import { ShareButtons } from "@/components/pagecomponents/blog/components/ShareB
 import { SITE_NAME, SITE_URL } from "@/constants/site";
 import { fetchAllPosts, fetchPost } from "@/lib/api/posts";
 import {
-	buildImageUrl,
+	buildPostCoverUrl,
 	formatDate,
 	resolvePostContent,
 	resolvePostTitle,
@@ -26,9 +26,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	]);
 	if (!post) return { title: `Post — ${SITE_NAME}` };
 
+	const title = `${resolvePostTitle(post, locale)} — ${SITE_NAME}`;
+	const description =
+		resolvePostContent(post, locale).slice(0, 160) || undefined;
+	const coverPath = buildPostCoverUrl(post.image);
+	const ogImage = coverPath.startsWith("http")
+		? coverPath
+		: `${SITE_URL}${coverPath}`;
+
 	return {
-		title: `${resolvePostTitle(post, locale)} — ${SITE_NAME}`,
-		description: resolvePostContent(post, locale).slice(0, 160) || undefined,
+		title,
+		description,
+		openGraph: {
+			title,
+			description,
+			type: "article",
+			images: [{ url: ogImage, width: 1200, height: 630 }],
+		},
 	};
 }
 
@@ -45,7 +59,7 @@ export default async function BlogPostPage({ params }: Props) {
 	const postUrl = `${SITE_URL}/blog/${post.id}`;
 	const title = resolvePostTitle(post, locale);
 	const content = resolvePostContent(post, locale);
-	const imageUrl = buildImageUrl(post.image);
+	const imageUrl = buildPostCoverUrl(post.image, "wide");
 	const readTime = Math.ceil(content.split(" ").length / 200);
 	const related = allPosts.filter((p) => p.id !== post.id).slice(0, 2);
 
@@ -153,26 +167,24 @@ export default async function BlogPostPage({ params }: Props) {
 					</div>
 
 					{/* Hero image */}
-					{imageUrl && (
-						<div className="relative mb-10 border border-[#222]">
-							<div className="relative h-72 overflow-hidden">
-								<Image
-									src={imageUrl}
-									alt={title}
-									fill
-									className="object-cover"
-									priority
-								/>
-							</div>
-							<div
-								className="absolute bottom-0 inset-x-0 h-[2px]"
-								style={{
-									background:
-										"linear-gradient(90deg, #ffd700, rgba(255,215,0,0.1))",
-								}}
+					<div className="relative mb-10 border border-[#222]">
+						<div className="relative h-72 overflow-hidden">
+							<Image
+								src={imageUrl}
+								alt={title}
+								fill
+								className="object-cover"
+								priority
 							/>
 						</div>
-					)}
+						<div
+							className="absolute bottom-0 inset-x-0 h-[2px]"
+							style={{
+								background:
+									"linear-gradient(90deg, #ffd700, rgba(255,215,0,0.1))",
+							}}
+						/>
+					</div>
 
 					{/* Prose */}
 					<div
@@ -237,23 +249,21 @@ export default async function BlogPostPage({ params }: Props) {
 							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 								{related.map((rel) => {
 									const relTitle = resolvePostTitle(rel, locale);
-									const relImage = buildImageUrl(rel.image);
+									const relImage = buildPostCoverUrl(rel.image);
 									return (
 										<Link
 											key={rel.id}
 											href={`/blog/${rel.id}`}
 											className="group bg-bg-dark border border-[#1e1e1e] border-t-2 border-t-primary/35 rounded-sm overflow-hidden hover:border-primary/40 transition-colors"
 										>
-											{relImage && (
-												<div className="relative h-16 overflow-hidden">
-													<Image
-														src={relImage}
-														alt={relTitle}
-														fill
-														className="object-cover transition-transform duration-300 group-hover:scale-105"
-													/>
-												</div>
-											)}
+											<div className="relative h-16 overflow-hidden">
+												<Image
+													src={relImage}
+													alt={relTitle}
+													fill
+													className="object-cover transition-transform duration-300 group-hover:scale-105"
+												/>
+											</div>
 											<div className="p-3">
 												<p className="font-body text-[9px] text-text-gray mb-1">
 													{formatDate(

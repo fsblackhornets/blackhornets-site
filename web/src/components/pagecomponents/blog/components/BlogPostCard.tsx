@@ -6,7 +6,7 @@ import { useLocale } from "next-intl";
 import { CalendarIcon } from "@/components/icons/CalendarIcon";
 import { UserIcon } from "@/components/icons/UserIcon";
 import {
-	buildImageUrl,
+	buildPostCoverUrl,
 	excerpt,
 	formatDate,
 	resolvePostContent,
@@ -18,7 +18,7 @@ export function BlogPostCard({ post }: { post: Post }) {
 	const locale = useLocale();
 	const title = resolvePostTitle(post, locale);
 	const body = resolvePostContent(post, locale);
-	const imageUrl = buildImageUrl(post.image);
+	const imageUrl = buildPostCoverUrl(post.image);
 	const date = formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US");
 
 	return (
@@ -27,44 +27,42 @@ export function BlogPostCard({ post }: { post: Post }) {
 			className="group bg-bg-panel rounded-sm border border-[#1e1e1e] border-t-2 border-t-primary/40 overflow-hidden flex flex-col hover:border-primary/60 transition-colors duration-200"
 		>
 			{/* Image */}
-			{imageUrl && (
-				<div className="relative h-48 overflow-hidden shrink-0">
-					<Image
-						src={imageUrl}
-						alt={title}
-						fill
-						className="object-cover transition-transform duration-300 group-hover:scale-105"
-					/>
-					{/* Featured badge */}
-					{post.featured === 1 && (
-						<div className="absolute top-2 left-2">
-							<span
-								className="font-heading text-[6px] tracking-[2px] uppercase bg-primary text-black px-2 py-0.5"
-								style={{
-									clipPath:
-										"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
-								}}
-							>
-								Featured
-							</span>
-						</div>
-					)}
-					{/* Category badge */}
-					{post.category && (
-						<div className="absolute bottom-2 left-2">
-							<span
-								className="font-body font-medium text-[6px] tracking-[1.5px] uppercase text-primary bg-primary/10 px-2 py-0.5"
-								style={{
-									clipPath:
-										"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
-								}}
-							>
-								{post.category}
-							</span>
-						</div>
-					)}
-				</div>
-			)}
+			<div className="relative h-48 overflow-hidden shrink-0">
+				<Image
+					src={imageUrl}
+					alt={title}
+					fill
+					className="object-cover transition-transform duration-300 group-hover:scale-105"
+				/>
+				{/* Featured badge */}
+				{post.featured === 1 && (
+					<div className="absolute top-2 left-2">
+						<span
+							className="font-heading text-[6px] tracking-[2px] uppercase bg-primary text-black px-2 py-0.5"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
+						>
+							Featured
+						</span>
+					</div>
+				)}
+				{/* Category badge */}
+				{post.category && (
+					<div className="absolute bottom-2 left-2">
+						<span
+							className="font-body font-medium text-[6px] tracking-[1.5px] uppercase text-primary bg-primary/10 px-2 py-0.5"
+							style={{
+								clipPath:
+									"polygon(0 0, calc(100% - 5px) 0, 100% 100%, 5px 100%)",
+							}}
+						>
+							{post.category}
+						</span>
+					</div>
+				)}
+			</div>
 
 			<div className="p-5 flex flex-col flex-1 gap-2.5">
 				<h2 className="font-heading text-[#e0e0e0] text-[10px] tracking-wide leading-snug">

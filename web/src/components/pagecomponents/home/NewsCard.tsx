@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/components/Badge";
 import {
-	buildImageUrl,
+	buildPostCoverUrl,
 	excerpt,
 	formatDate,
 	resolvePostContent,
@@ -21,7 +21,10 @@ export function NewsCard({
 }) {
 	const title = resolvePostTitle(post, locale);
 	const body = resolvePostContent(post, locale);
-	const imageUrl = buildImageUrl(post.image);
+	const imageUrl = buildPostCoverUrl(
+		post.image,
+		variant === "featured" ? "wide" : "default",
+	);
 	const date = formatDate(post.created_at, locale === "sr" ? "sr-RS" : "en-US");
 
 	if (variant === "featured") {
@@ -35,18 +38,16 @@ export function NewsCard({
 				}}
 			>
 				{/* Background image with gradient overlay */}
-				{imageUrl && (
-					<div className="absolute inset-0" style={{ right: "48px" }}>
-						<Image src={imageUrl} alt={title} fill className="object-cover" />
-						<div
-							className="absolute inset-0"
-							style={{
-								background:
-									"linear-gradient(90deg, rgba(8,8,8,0.95) 35%, rgba(8,8,8,0.3) 100%)",
-							}}
-						/>
-					</div>
-				)}
+				<div className="absolute inset-0" style={{ right: "48px" }}>
+					<Image src={imageUrl} alt={title} fill className="object-cover" />
+					<div
+						className="absolute inset-0"
+						style={{
+							background:
+								"linear-gradient(90deg, rgba(8,8,8,0.95) 35%, rgba(8,8,8,0.3) 100%)",
+						}}
+					/>
+				</div>
 
 				{/* FEATURED vertical sidebar */}
 				<div
@@ -101,11 +102,9 @@ export function NewsCard({
 				background: "#1a1a1a",
 			}}
 		>
-			{imageUrl && (
-				<div className="relative overflow-hidden" style={{ height: "200px" }}>
-					<Image src={imageUrl} alt={title} fill className="object-cover" />
-				</div>
-			)}
+			<div className="relative overflow-hidden" style={{ height: "200px" }}>
+				<Image src={imageUrl} alt={title} fill className="object-cover" />
+			</div>
 			<div className="p-5 flex flex-col flex-1 gap-3">
 				<div className="flex gap-2 flex-wrap">
 					{post.category && <Badge variant="info">{post.category}</Badge>}

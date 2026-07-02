@@ -58,8 +58,23 @@ function r2Url(subdir: string, name: string): string {
 }
 
 export function buildImageUrl(image: string | null): string | null {
-	if (!image) return null;
+	if (!image || image === "undefined") return null;
 	return r2Url("posts", image);
+}
+
+/** Same as buildImageUrl, but falls back to a branded placeholder cover
+ * instead of null - for public post displays, not the admin form (which
+ * needs to know honestly whether a cover was actually chosen). */
+export function buildPostCoverUrl(
+	image: string | null,
+	variant: "default" | "wide" = "default",
+): string {
+	return (
+		buildImageUrl(image) ??
+		(variant === "wide"
+			? "/images/blog-default-wide.png"
+			: "/images/blog-default.png")
+	);
 }
 
 export function buildGalleryImageUrl(imagePath: string): string {
