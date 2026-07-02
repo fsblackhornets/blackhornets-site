@@ -123,6 +123,14 @@
 			"heading": "Sponzorski",
 			"headingGold": "Paketi"
 		},
+		"preview": {
+			"label": "Materijali",
+			"heading": "Sponzorska",
+			"headingGold": "Brošura",
+			"loading": "Učitavanje…",
+			"fallback": "Pregled nije uspeo da se učita.",
+			"fallbackLink": "Otvori brošuru"
+		},
 		"current": {
 			"label": "Partneri",
 			"heading": "Naši",

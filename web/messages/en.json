@@ -123,6 +123,14 @@
 			"heading": "Sponsorship",
 			"headingGold": "Packages"
 		},
+		"preview": {
+			"label": "Resources",
+			"heading": "Sponsorship",
+			"headingGold": "Brochure",
+			"loading": "Loading…",
+			"fallback": "Couldn't load the preview.",
+			"fallbackLink": "Open the brochure"
+		},
 		"current": {
 			"label": "Partners",
 			"heading": "Our",

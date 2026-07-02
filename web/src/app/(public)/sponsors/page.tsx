@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BecomeSponsorSection } from "@/components/pagecomponents/sponsors/BecomeSponsorSection";
+import { BrochurePreviewSection } from "@/components/pagecomponents/sponsors/BrochurePreviewSection";
 import { CurrentSponsorsSection } from "@/components/pagecomponents/sponsors/CurrentSponsorsSection";
 import { SponsorshipPackagesSection } from "@/components/pagecomponents/sponsors/SponsorshipPackagesSection";
 import { SponsorsHero } from "@/components/pagecomponents/sponsors/SponsorsHero";
@@ -24,6 +25,7 @@ export default function SponsorsPage() {
 			<SponsorsHero />
 			<SponsorshipPackagesSection />
 			<CurrentSponsorsSection />
+			<BrochurePreviewSection />
 			<BecomeSponsorSection />
 		</>
 	);
