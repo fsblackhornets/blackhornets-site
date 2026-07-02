@@ -3,11 +3,15 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+const r2Hostname = process.env.NEXT_PUBLIC_R2_PUBLIC_URL
+	? new URL(process.env.NEXT_PUBLIC_R2_PUBLIC_URL).hostname
+	: "*.r2.dev";
+
 const nextConfig: NextConfig = {
 	images: {
 		remotePatterns: [
 			{ protocol: "http", hostname: "localhost" },
-			{ protocol: "https", hostname: "**" },
+			{ protocol: "https", hostname: r2Hostname },
 		],
 	},
 	async redirects() {
