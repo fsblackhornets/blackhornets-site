@@ -116,14 +116,6 @@ export async function HeroSection() {
 				</div>
 			</div>
 
-			{/* Scroll indicator */}
-			<div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center text-text-gray font-heading z-[3]">
-				<div className="w-[30px] h-[50px] border-2 border-text-gray rounded-[25px] mx-auto mb-2 flex justify-center pt-2">
-					<div className="w-1.5 h-1.5 bg-primary rounded-full animate-scroll-mouse" />
-				</div>
-				<span className="text-xs tracking-widest">{t("scrollDown")}</span>
-			</div>
-
 			{/* Gold bottom border */}
 			<div
 				className="absolute bottom-0 left-0 right-0 z-10"
