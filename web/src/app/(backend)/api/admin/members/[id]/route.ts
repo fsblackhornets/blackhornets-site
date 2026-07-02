@@ -138,6 +138,8 @@ export async function POST(
 			team: (form.get("team") as string | null) || null,
 			department: (form.get("department") as string | null) || null,
 			study_field: (form.get("study_field") as string | null) || null,
+			faculty: (form.get("faculty") as string | null) || null,
+			academic_year: (form.get("academic_year") as string | null) || null,
 			position: (form.get("position") as string | null) || null,
 		};
 

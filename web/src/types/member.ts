@@ -33,6 +33,8 @@ export interface AdminMember {
 	team: string | null;
 	department: string | null;
 	study_field: string | null;
+	faculty: string | null;
+	academic_year: string | null;
 	position: string | null;
 	profile_picture: string | null;
 	status: "active" | "inactive";

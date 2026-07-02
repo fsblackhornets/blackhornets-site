@@ -71,6 +71,21 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 							defaultValue={member?.study_field ?? ""}
 						/>
 					</Field>
+					<Field label="Faculty" htmlFor="faculty">
+						<Input
+							id="faculty"
+							name="faculty"
+							defaultValue={member?.faculty ?? ""}
+						/>
+					</Field>
+					<Field label="Academic Year" htmlFor="academic_year">
+						<Input
+							id="academic_year"
+							name="academic_year"
+							placeholder="e.g. 3rd year"
+							defaultValue={member?.academic_year ?? ""}
+						/>
+					</Field>
 					<Field label="Position" htmlFor="position">
 						<Input
 							id="position"
