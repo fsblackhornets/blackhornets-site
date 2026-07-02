@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
 			{ protocol: "https", hostname: r2Hostname },
 		],
 	},
+	experimental: {
+		serverActions: {
+			bodySizeLimit: "10mb",
+		},
+	},
 	async redirects() {
 		return [
 			// Legacy PHP frontend pages

@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { AlertCircleIcon, SaveIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
 import { Input } from "@/components/ui/components/Input";
@@ -8,6 +8,7 @@ import { NativeSelect } from "@/components/ui/components/NativeSelect";
 import { Textarea } from "@/components/ui/components/Textarea";
 import { SECTION_CARD, SECTION_HEAD } from "@/constants/forms";
 import { PROJECT_STATUS_OPTIONS } from "@/constants/projects";
+import { buildProjectImageUrl } from "@/lib/utils/utils";
 import type { Project } from "@/types/project";
 
 interface ProjectFormProps {
@@ -27,6 +28,26 @@ export function ProjectForm({
 	const [state, formAction, pending] = useActionState(action, {});
 	const [fileName, setFileName] = useState("No file chosen");
 	const [progress, setProgress] = useState(project?.progress ?? 0);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(
+		project?.image ? buildProjectImageUrl(project.image) : null,
+	);
+	const objectUrlRef = useRef<string | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		};
+	}, []);
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		setFileName(file?.name ?? "No file chosen");
+		if (!file) return;
+		if (objectUrlRef.current) URL.revokeObjectURL(objectUrlRef.current);
+		const url = URL.createObjectURL(file);
+		objectUrlRef.current = url;
+		setPreviewUrl(url);
+	};
 
 	const defaultLabel = project ? "Save Changes" : "Create Project";
 	const defaultPendingLabel = project ? "Saving…" : "Creating…";
@@ -85,10 +106,16 @@ export function ProjectForm({
 							name="image"
 							accept="image/*"
 							className="sr-only"
-							onChange={(e) =>
-								setFileName(e.target.files?.[0]?.name ?? "No file chosen")
-							}
+							onChange={handleFileChange}
 						/>
+						{previewUrl && (
+							// biome-ignore lint/performance/noImgElement: blob preview URL, next/image can't handle it
+							<img
+								src={previewUrl}
+								alt="Preview"
+								className="mt-3 w-full max-w-[280px] h-40 object-cover rounded-sm border border-[#222]"
+							/>
+						)}
 					</Field>
 				</div>
 			</div>
