@@ -38,6 +38,14 @@ export async function saveUpload(file: File, subdir: string): Promise<string> {
 	return name;
 }
 
+/** Recovers the bare filename from a stored value that may be a full URL
+ * (e.g. rich-text editor image src) or already a bare filename. */
+export function extractUploadKey(value: string, subdir: string): string {
+	const marker = `/${subdir}/`;
+	const idx = value.lastIndexOf(marker);
+	return idx === -1 ? value : value.slice(idx + marker.length);
+}
+
 export async function moveUpload(
 	fromSubdir: string,
 	name: string,

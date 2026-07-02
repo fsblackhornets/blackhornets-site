@@ -86,6 +86,7 @@ export const posts = mysqlTable("posts", {
 	featured: tinyint("featured").default(0),
 	views: int("views").default(0),
 	status: mysqlEnum("status", ["published", "draft"]).default("published"),
+	source_request_id: int("source_request_id"),
 	created_at: timestamp("created_at").notNull().defaultNow(),
 	updated_at: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -114,6 +115,7 @@ export const galleryImages = mysqlTable("gallery_images", {
 	sort_order: int("sort_order").default(0),
 	is_active: tinyint("is_active").default(1),
 	created_by: int("created_by"),
+	post_id: int("post_id"),
 	created_at: timestamp("created_at").notNull().defaultNow(),
 });
 

@@ -23,6 +23,7 @@ async function insertContent(
 	tx: typeof db,
 	type: string,
 	data: Record<string, unknown>,
+	requestId: number,
 ) {
 	if (type === "project") {
 		await tx.insert(projects).values({
@@ -36,19 +37,23 @@ async function insertContent(
 			image_position: String(data.image_position ?? "50% 50%"),
 		});
 	} else if (type === "post") {
-		await tx.insert(posts).values({
-			title: String(data.title_sr ?? ""),
-			title_sr: String(data.title_sr ?? ""),
-			title_en: (data.title_en as string) ?? null,
-			content: String(data.content_sr ?? ""),
-			content_sr: String(data.content_sr ?? ""),
-			content_en: (data.content_en as string) ?? null,
-			author: String(data.author ?? "Manager"),
-			category: (data.category as string) ?? null,
-			image: (data.image as string) ?? null,
-			image_position: String(data.image_position ?? "50% 50%"),
-			status: "published",
-		});
+		const [{ id: postId }] = await tx
+			.insert(posts)
+			.values({
+				title: String(data.title_sr ?? ""),
+				title_sr: String(data.title_sr ?? ""),
+				title_en: (data.title_en as string) ?? null,
+				content: String(data.content_sr ?? ""),
+				content_sr: String(data.content_sr ?? ""),
+				content_en: (data.content_en as string) ?? null,
+				author: String(data.author ?? "Manager"),
+				category: (data.category as string) ?? null,
+				image: (data.image as string) ?? null,
+				image_position: String(data.image_position ?? "50% 50%"),
+				status: "published",
+				source_request_id: requestId,
+			})
+			.$returningId();
 		if (Array.isArray(data.gallery_items)) {
 			for (const item of data.gallery_items as Array<{
 				src: string;
@@ -63,6 +68,7 @@ async function insertContent(
 						alt_text: item.alt ?? null,
 						title: item.caption ?? null,
 						is_active: 1,
+						post_id: postId,
 					});
 				}
 			}
@@ -164,6 +170,7 @@ export async function POST(
 					tx as unknown as typeof db,
 					request.type,
 					dataToInsert,
+					numId,
 				);
 				await tx
 					.update(contentRequests)

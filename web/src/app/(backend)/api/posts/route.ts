@@ -35,7 +35,7 @@ function parseGalleryItems(raw: FormDataEntryValue | null): GalleryItem[] {
 	}
 }
 
-async function mirrorGalleryItems(items: GalleryItem[]) {
+async function mirrorGalleryItems(items: GalleryItem[], postId: number) {
 	for (const item of items) {
 		if (item.src && item.galleryCategory && item.galleryCategory !== "none") {
 			await db.insert(galleryImages).values({
@@ -44,6 +44,7 @@ async function mirrorGalleryItems(items: GalleryItem[]) {
 				alt_text: item.alt || null,
 				title: item.caption || null,
 				is_active: 1,
+				post_id: postId,
 			});
 		}
 	}
@@ -83,7 +84,10 @@ export async function POST(req: NextRequest) {
 			})
 			.$returningId();
 
-		await mirrorGalleryItems(parseGalleryItems(form.get("gallery_items")));
+		await mirrorGalleryItems(
+			parseGalleryItems(form.get("gallery_items")),
+			result.id,
+		);
 
 		return NextResponse.json(
 			{ status: "success", id: result.id },

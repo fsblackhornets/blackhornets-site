@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { saveUpload } from "@/lib/api/upload";
+import { deleteUpload, extractUploadKey, saveUpload } from "@/lib/api/upload";
 import { db } from "@/lib/db";
-import { galleryImages, posts } from "@/lib/db/schema";
+import { contentRequests, galleryImages, posts } from "@/lib/db/schema";
 
 interface GalleryItem {
 	src: string;
@@ -22,7 +22,7 @@ function parseGalleryItems(raw: FormDataEntryValue | null): GalleryItem[] {
 	}
 }
 
-async function mirrorGalleryItems(items: GalleryItem[]) {
+async function mirrorGalleryItems(items: GalleryItem[], postId: number) {
 	for (const item of items) {
 		if (item.src && item.galleryCategory && item.galleryCategory !== "none") {
 			await db.insert(galleryImages).values({
@@ -31,6 +31,7 @@ async function mirrorGalleryItems(items: GalleryItem[]) {
 				alt_text: item.alt || null,
 				title: item.caption || null,
 				is_active: 1,
+				post_id: postId,
 			});
 		}
 	}
@@ -92,7 +93,10 @@ export async function POST(
 			.set(updateData)
 			.where(eq(posts.id, Number(id)));
 
-		await mirrorGalleryItems(parseGalleryItems(form.get("gallery_items")));
+		await mirrorGalleryItems(
+			parseGalleryItems(form.get("gallery_items")),
+			Number(id),
+		);
 
 		return NextResponse.json({ status: "success", message: "Post updated" });
 	} catch {
@@ -109,9 +113,31 @@ export async function DELETE(
 		if (!session?.user) return NextResponse.json({}, { status: 401 });
 
 		const { id } = await params;
-		const result = await db.delete(posts).where(eq(posts.id, Number(id)));
-		if (!result[0].affectedRows)
+		const postId = Number(id);
+
+		const [post] = await db.select().from(posts).where(eq(posts.id, postId));
+		if (!post)
 			return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+		const linkedGalleryImages = await db
+			.select()
+			.from(galleryImages)
+			.where(eq(galleryImages.post_id, postId));
+
+		// Cascades linked gallery_images rows via FK (post_id ON DELETE CASCADE)
+		await db.delete(posts).where(eq(posts.id, postId));
+
+		if (post.source_request_id) {
+			await db
+				.delete(contentRequests)
+				.where(eq(contentRequests.id, post.source_request_id));
+		}
+
+		if (post.image) await deleteUpload("posts", post.image);
+		for (const g of linkedGalleryImages) {
+			await deleteUpload("posts", extractUploadKey(g.image_path, "posts"));
+		}
+
 		return NextResponse.json({ status: "success", message: "Post deleted" });
 	} catch {
 		return NextResponse.json({ status: "error" }, { status: 500 });
