@@ -46,3 +46,4 @@ npm-debug.log*
 # Misc
 .vercel
 .claude/settings.local.json
+.env*
