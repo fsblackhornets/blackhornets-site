@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { MemberCard } from "@/components/members/MemberCard";
@@ -41,13 +42,14 @@ function LeaderHeroCard({
 
 			{/* Photo */}
 			<div className="relative shrink-0">
-				<div className="w-36 h-36 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
+				<div className="relative w-36 h-36 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
 					{imageUrl && !imgError ? (
-						// biome-ignore lint/performance/noImgElement: onError handler required
-						<img
+						<Image
 							src={imageUrl}
 							alt={member.full_name}
-							className="w-full h-full object-cover"
+							fill
+							sizes="144px"
+							className="object-cover"
 							onError={() => setImgError(true)}
 						/>
 					) : (
@@ -108,13 +110,14 @@ function MiniLeaderCard({
 			aria-label={`View ${member.full_name}'s profile`}
 		>
 			<div className="relative shrink-0">
-				<div className="w-28 h-28 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
+				<div className="relative w-28 h-28 rounded-full border border-primary/60 overflow-hidden bg-primary/20 flex items-center justify-center">
 					{imageUrl && !imgError ? (
-						// biome-ignore lint/performance/noImgElement: onError handler required
-						<img
+						<Image
 							src={imageUrl}
 							alt={member.full_name}
-							className="w-full h-full object-cover"
+							fill
+							sizes="112px"
+							className="object-cover"
 							onError={() => setImgError(true)}
 						/>
 					) : (
@@ -161,13 +164,14 @@ function CompactMemberCard({
 			className="w-[156px] bg-[#0f0f0f] border border-[#1c1c1c] rounded-sm p-4 flex flex-col items-center gap-3 hover:border-primary/30 transition-colors justify-center"
 			aria-label={`View ${member.full_name}'s profile`}
 		>
-			<div className="w-24 h-24 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
+			<div className="relative w-24 h-24 rounded-full border border-primary/20 bg-primary/20 flex items-center justify-center overflow-hidden shrink-0">
 				{imageUrl && !imgError ? (
-					// biome-ignore lint/performance/noImgElement: onError handler required
-					<img
+					<Image
 						src={imageUrl}
 						alt={member.full_name}
-						className="w-full h-full object-cover"
+						fill
+						sizes="96px"
+						className="object-cover"
 						onError={() => setImgError(true)}
 					/>
 				) : (

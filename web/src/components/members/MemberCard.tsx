@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamMember } from "@/types/team";
@@ -27,21 +28,24 @@ export function MemberCard({
 			type="button"
 			onClick={() => onClick(member)}
 			className={`flex flex-col items-center gap-3 bg-bg-panel rounded-sm border p-5 hover:border-primary transition-colors cursor-pointer ${
-				isLg ? "w-52 border-primary" : "w-44 border-[#222] border-t-2 border-t-primary/40"
+				isLg
+					? "w-52 border-primary"
+					: "w-44 border-[#222] border-t-2 border-t-primary/40"
 			}`}
 			aria-label={`View ${member.full_name}'s profile`}
 		>
 			<div
-				className={`rounded-full overflow-hidden border border-primary/30 shrink-0 bg-primary/20 flex items-center justify-center ${
+				className={`relative rounded-full overflow-hidden border border-primary/30 shrink-0 bg-primary/20 flex items-center justify-center ${
 					isLg ? "w-32 h-32" : "w-24 h-24"
 				}`}
 			>
 				{imageUrl && !imgError ? (
-					// biome-ignore lint/performance/noImgElement: onError handler required
-					<img
+					<Image
 						src={imageUrl}
 						alt={member.full_name}
-						className="w-full h-full object-cover"
+						fill
+						sizes={isLg ? "128px" : "96px"}
+						className="object-cover"
 						onError={() => setImgError(true)}
 					/>
 				) : (

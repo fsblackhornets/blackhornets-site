@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamMember } from "@/types/team";
@@ -54,13 +55,14 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 
 				{/* Photo + name */}
 				<div className="flex gap-5 items-center">
-					<div className="w-20 h-20 rounded-full overflow-hidden border border-primary/50 shrink-0 bg-primary/20 flex items-center justify-center">
+					<div className="relative w-20 h-20 rounded-full overflow-hidden border border-primary/50 shrink-0 bg-primary/20 flex items-center justify-center">
 						{imageUrl && !imgError ? (
-							// biome-ignore lint/performance/noImgElement: onError handler required
-							<img
+							<Image
 								src={imageUrl}
 								alt={member.full_name}
-								className="w-full h-full object-cover"
+								fill
+								sizes="80px"
+								className="object-cover"
 								onError={() => setImgError(true)}
 							/>
 						) : (
