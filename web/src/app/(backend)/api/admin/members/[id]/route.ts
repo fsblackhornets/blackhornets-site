@@ -52,6 +52,7 @@ export async function PUT(
 				department: body.department ?? null,
 				study_field: body.study_field ?? null,
 				position: body.position ?? null,
+				image_position: body.image_position ?? "50% 50%",
 				...(body.profile_picture
 					? { profile_picture: body.profile_picture as string }
 					: {}),
@@ -89,6 +90,8 @@ export async function POST(
 			faculty: (form.get("faculty") as string | null) || null,
 			academic_year: (form.get("academic_year") as string | null) || null,
 			position: (form.get("position") as string | null) || null,
+			image_position:
+				(form.get("image_position") as string | null) || "50% 50%",
 		};
 
 		const imageFile = form.get("profile_picture") as File | null;

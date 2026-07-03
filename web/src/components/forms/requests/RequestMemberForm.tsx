@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { ImagePositionPicker } from "@/components/forms/members/ImagePositionPicker";
 import { MemberPreview } from "@/components/forms/members/MemberPreview";
 import { ArrowLeftIcon, SendIcon, UsersIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
@@ -31,6 +32,8 @@ export function RequestMemberForm({ action }: Props) {
 		imageFile,
 		imagePreviewUrl,
 		handleImageChange,
+		imagePosition,
+		setImagePosition,
 	} = useRequestMemberPreview();
 
 	return (
@@ -179,6 +182,21 @@ export function RequestMemberForm({ action }: Props) {
 							/>
 						</Field>
 
+						{imagePreviewUrl && (
+							<Field label="Adjust Crop Position" htmlFor="image_position">
+								<ImagePositionPicker
+									imageUrl={imagePreviewUrl}
+									value={imagePosition}
+									onChange={setImagePosition}
+								/>
+								<input
+									type="hidden"
+									name="image_position"
+									value={imagePosition}
+								/>
+							</Field>
+						)}
+
 						<button
 							type="submit"
 							disabled={pending}
@@ -213,6 +231,7 @@ export function RequestMemberForm({ action }: Props) {
 						role={role}
 						position={position}
 						imagePreviewUrl={imagePreviewUrl}
+						imagePosition={imagePosition}
 					/>
 				</div>
 			</div>

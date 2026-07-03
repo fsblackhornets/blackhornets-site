@@ -50,6 +50,7 @@ function LeaderHeroCard({
 							fill
 							sizes="144px"
 							className="object-cover"
+							style={{ objectPosition: member.image_position || "50% 50%" }}
 							onError={() => setImgError(true)}
 						/>
 					) : (
@@ -118,6 +119,7 @@ function MiniLeaderCard({
 							fill
 							sizes="112px"
 							className="object-cover"
+							style={{ objectPosition: member.image_position || "50% 50%" }}
 							onError={() => setImgError(true)}
 						/>
 					) : (
@@ -172,6 +174,7 @@ function CompactMemberCard({
 						fill
 						sizes="96px"
 						className="object-cover"
+						style={{ objectPosition: member.image_position || "50% 50%" }}
 						onError={() => setImgError(true)}
 					/>
 				) : (

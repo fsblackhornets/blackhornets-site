@@ -37,6 +37,7 @@ export interface AdminMember {
 	academic_year: string | null;
 	position: string | null;
 	profile_picture: string | null;
+	image_position: string | null;
 	status: "active" | "inactive";
 	created_at: string;
 }

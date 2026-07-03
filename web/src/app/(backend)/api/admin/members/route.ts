@@ -57,6 +57,8 @@ export async function POST(req: NextRequest) {
 				academic_year: (form.get("academic_year") as string | null) || null,
 				position: (form.get("position") as string | null) || null,
 				profile_picture,
+				image_position:
+					(form.get("image_position") as string | null) || "50% 50%",
 			})
 			.$returningId();
 

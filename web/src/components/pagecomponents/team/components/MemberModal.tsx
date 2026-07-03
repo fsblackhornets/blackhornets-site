@@ -63,6 +63,7 @@ export function MemberModal({ member, onClose }: MemberModalProps) {
 								fill
 								sizes="80px"
 								className="object-cover"
+								style={{ objectPosition: member.image_position || "50% 50%" }}
 								onError={() => setImgError(true)}
 							/>
 						) : (

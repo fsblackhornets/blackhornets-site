@@ -14,6 +14,7 @@ export interface TeamMember {
 	study_field: string | null;
 	phone: string | null;
 	profile_picture: string | null;
+	image_position?: string | null;
 	faculty?: string | null;
 	academic_year?: number | null;
 }

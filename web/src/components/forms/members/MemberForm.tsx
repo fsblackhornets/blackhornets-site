@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
+import { ImagePositionPicker } from "@/components/forms/members/ImagePositionPicker";
 import { MemberPreview } from "@/components/forms/members/MemberPreview";
 import { AlertCircleIcon, SaveIcon, UserIcon } from "@/components/icons";
 import { Field } from "@/components/ui/components/Field";
@@ -26,6 +27,9 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 	const [fullName, setFullName] = useState(member?.full_name ?? "");
 	const [role, setRole] = useState<MemberRole>(member?.role ?? "team_member");
 	const [position, setPosition] = useState(member?.position ?? "");
+	const [imagePosition, setImagePosition] = useState(
+		member?.image_position ?? "50% 50%",
+	);
 
 	const existingAvatar = buildProfileImageUrl(member?.profile_picture ?? null);
 	const [avatarPreviewUrl, setAvatarPreviewUrl] = useState<string | null>(
@@ -205,6 +209,23 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 							/>
 						</div>
 					</div>
+					{avatarPreviewUrl && (
+						<div className="mt-5 pt-5 border-t border-[#1e1e1e]">
+							<p className="font-heading text-[7px] tracking-[3px] uppercase text-[#444] mb-3">
+								Adjust Crop Position
+							</p>
+							<ImagePositionPicker
+								imageUrl={avatarPreviewUrl}
+								value={imagePosition}
+								onChange={setImagePosition}
+							/>
+							<input
+								type="hidden"
+								name="image_position"
+								value={imagePosition}
+							/>
+						</div>
+					)}
 				</div>
 
 				{/* Submit */}
@@ -239,6 +260,7 @@ export function MemberForm({ action, member, submitLabel }: MemberFormProps) {
 					role={role}
 					position={position}
 					imagePreviewUrl={avatarPreviewUrl}
+					imagePosition={imagePosition}
 				/>
 			</div>
 		</div>

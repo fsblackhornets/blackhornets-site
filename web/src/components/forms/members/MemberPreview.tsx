@@ -5,6 +5,7 @@ interface MemberPreviewProps {
 	role: string;
 	position: string;
 	imagePreviewUrl: string | null;
+	imagePosition?: string;
 }
 
 /** Mirrors the two ways a member actually renders on /team: sub_leader uses
@@ -14,6 +15,7 @@ export function MemberPreview({
 	role,
 	position,
 	imagePreviewUrl,
+	imagePosition = "50% 50%",
 }: MemberPreviewProps) {
 	const isSubLeader = role === "sub_leader";
 	const initial = fullName.charAt(0).toUpperCase() || "?";
@@ -32,6 +34,7 @@ export function MemberPreview({
 								src={imagePreviewUrl}
 								alt={fullName || "Preview"}
 								className="w-full h-full object-cover"
+								style={{ objectPosition: imagePosition }}
 							/>
 						) : (
 							<span className="text-primary font-heading font-bold text-4xl">
@@ -57,6 +60,7 @@ export function MemberPreview({
 								src={imagePreviewUrl}
 								alt={fullName || "Preview"}
 								className="w-full h-full object-cover"
+								style={{ objectPosition: imagePosition }}
 							/>
 						) : (
 							<span className="text-primary font-heading text-3xl font-bold">

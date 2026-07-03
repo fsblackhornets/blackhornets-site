@@ -112,6 +112,7 @@ export function useRequestMemberPreview() {
 	const [role, setRole] = useState("team_member");
 	const [imageFile, setImageFile] = useState<string | null>(null);
 	const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+	const [imagePosition, setImagePosition] = useState("50% 50%");
 	const objectUrlRef = useRef<string | null>(null);
 
 	useEffect(() => {
@@ -128,6 +129,7 @@ export function useRequestMemberPreview() {
 		const url = URL.createObjectURL(file);
 		objectUrlRef.current = url;
 		setImagePreviewUrl(url);
+		setImagePosition("50% 50%");
 	};
 
 	return {
@@ -142,5 +144,7 @@ export function useRequestMemberPreview() {
 		imageFile,
 		imagePreviewUrl,
 		handleImageChange,
+		imagePosition,
+		setImagePosition,
 	};
 }

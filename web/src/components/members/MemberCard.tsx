@@ -46,6 +46,7 @@ export function MemberCard({
 						fill
 						sizes={isLg ? "128px" : "96px"}
 						className="object-cover"
+						style={{ objectPosition: member.image_position || "50% 50%" }}
 						onError={() => setImgError(true)}
 					/>
 				) : (
