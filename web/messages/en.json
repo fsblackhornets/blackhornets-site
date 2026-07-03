@@ -164,7 +164,9 @@
 		"all": "All",
 		"teamLeaders": "Sub Leaders",
 		"members": "Team Members",
-		"noMembersFound": "No members found."
+		"noMembersFound": "No members found.",
+		"subLeader": "Sub Leader",
+		"subLeaderOf": "Sub Leader of"
 	},
 	"blog": {
 		"hero": {

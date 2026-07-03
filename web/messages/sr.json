@@ -164,7 +164,9 @@
 		"all": "Svi",
 		"teamLeaders": "Podlideri",
 		"members": "Članovi tima",
-		"noMembersFound": "Nema pronađenih članova."
+		"noMembersFound": "Nema pronađenih članova.",
+		"subLeader": "Podlider",
+		"subLeaderOf": "Podlider tima za"
 	},
 	"blog": {
 		"hero": {

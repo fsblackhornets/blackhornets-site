@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { MemberCard } from "@/components/members/MemberCard";
-import { TEAM_STRUCTURE, type TeamKey } from "@/constants/team";
+import {
+	DEPARTMENT_PHRASE_SR,
+	TEAM_STRUCTURE,
+	type TeamKey,
+} from "@/constants/team";
 import { useTeamState } from "@/hooks/team/useTeamState";
 import { buildProfileImageUrl } from "@/lib/utils/utils";
 import type { TeamData, TeamMember } from "@/types/team";
@@ -192,8 +196,21 @@ function CompactMemberCard({
 
 // ── main ────────────────────────────────────────────────────
 
+function subLeaderLabel(
+	member: TeamMember,
+	locale: string,
+	t: (key: string) => string,
+): string {
+	const dept = member.department_name ?? member.department;
+	if (!dept) return t("subLeader");
+	const deptPhrase =
+		locale === "sr" ? (DEPARTMENT_PHRASE_SR[dept] ?? dept) : dept;
+	return `${t("subLeaderOf")} ${deptPhrase}`;
+}
+
 export function TeamPageClient({ data }: { data: TeamData }) {
 	const t = useTranslations("team");
+	const locale = useLocale();
 	const {
 		selectedTeam,
 		selectedDepartment,
@@ -453,7 +470,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 										(m) => m.role === "sub_leader",
 									);
 									const members = filteredMembers.filter(
-										(m) => m.role !== "sub_leader",
+										(m) => m.role === "team_member",
 									);
 									return (
 										<>
@@ -471,7 +488,7 @@ export function TeamPageClient({ data }: { data: TeamData }) {
 															<MemberCard
 																key={member.id}
 																member={member}
-																position={t("teamLeaders")}
+																position={subLeaderLabel(member, locale, t)}
 																onClick={openMember}
 																size="lg"
 															/>

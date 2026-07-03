@@ -21,3 +21,17 @@ export const TEAM_STRUCTURE = {
 } as const;
 
 export type TeamKey = keyof typeof TEAM_STRUCTURE;
+
+/** Serbian doesn't just swap the English department noun into "Podlider
+ * tima za {X}" - it needs the accusative case, which isn't a mechanical
+ * transformation, so each department gets its own translated phrase. */
+export const DEPARTMENT_PHRASE_SR: Record<string, string> = {
+	"Chassis and Aerodynamics": "šasiju i aerodinamiku",
+	"Suspension and Steering": "oslanjanje i upravljanje",
+	"Transmission and Braking": "prenos i kočenje",
+	"High Voltage": "visoki napon",
+	"Low Voltage": "niski napon",
+	Marketing: "marketing",
+	Sponsorships: "sponzorstva",
+	Management: "menadžment",
+};
