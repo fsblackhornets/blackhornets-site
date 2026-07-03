@@ -153,17 +153,17 @@
 			"line2": "Team",
 			"subtitle": "Meet the innovators behind Black Hornets Racing"
 		},
-		"projectLeader": "Project Leader",
-		"deptLeader": "Dept. Leader",
+		"projectLeader": "Team Leader",
+		"deptLeader": "Project Leader",
 		"viewProfile": "View Profile ›",
 		"seeTeamMembers": "See Team Members",
 		"backToTeams": "Back to Teams",
 		"ourTeam": "Our Team",
 		"sector": "Sector",
-		"departmentLeader": "Department Leader",
+		"departmentLeader": "Project Leader",
 		"all": "All",
-		"teamLeaders": "Team Leaders",
-		"members": "Members",
+		"teamLeaders": "Sub Leaders",
+		"members": "Team Members",
 		"noMembersFound": "No members found."
 	},
 	"blog": {

@@ -72,9 +72,9 @@ export default async function BlogPage() {
 
 				{/* Content */}
 				<div className="relative z-10 text-center px-8 flex flex-col items-center">
-					<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05]">
-						<span className="block text-white">News &amp;</span>
-						<span className="block bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
+					<h1 className="font-heading text-[44px] font-black tracking-[3px] uppercase leading-[1.05] flex flex-wrap items-baseline justify-center gap-x-3">
+						<span className="text-white">News &amp;</span>
+						<span className="bg-gradient-to-r from-primary to-yellow-300 bg-clip-text text-transparent">
 							Updates
 						</span>
 					</h1>

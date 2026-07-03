@@ -19,7 +19,7 @@
 		"applyToTeam": "Pridruži se timu",
 		"becomeSponsor": "Postanite sponzor",
 		"gallery": "Galerija",
-		"applyNow": "Prijavi se",
+		"applyNow": "Pridruži nam se",
 		"contactUs": "Kontaktirajte nas",
 		"location": "Univerzitet u Novom Sadu, Srbija",
 		"privacyPolicy": "Politika privatnosti · Powered by CodeHive"
@@ -27,7 +27,7 @@
 	"home": {
 		"hero": {
 			"subtitle": "Formula Student · Novi Sad",
-			"applyNow": "Pridruži se",
+			"applyNow": "Pridruži nam se",
 			"blog": "Blog"
 		},
 		"whoWeAre": {
@@ -153,17 +153,17 @@
 			"line2": "Tim",
 			"subtitle": "Upoznajte inovatore iza Black Hornets Racing"
 		},
-		"projectLeader": "Vođa projekta",
-		"deptLeader": "Vođa sektora",
+		"projectLeader": "Vođa tima",
+		"deptLeader": "Vođa projekta",
 		"viewProfile": "Pogledaj profil ›",
 		"seeTeamMembers": "Vidi članove",
 		"backToTeams": "Nazad na timove",
 		"ourTeam": "Naš tim",
 		"sector": "Sektor",
-		"departmentLeader": "Vođa odeljenja",
+		"departmentLeader": "Vođa projekta",
 		"all": "Svi",
-		"teamLeaders": "Vođe timova",
-		"members": "Članovi",
+		"teamLeaders": "Podlideri",
+		"members": "Članovi tima",
 		"noMembersFound": "Nema pronađenih članova."
 	},
 	"blog": {

@@ -50,14 +50,13 @@ export async function AboutHero() {
 
 			{/* Content */}
 			<div className="relative z-10 text-center px-8 flex flex-col items-center">
-				{/* Stacked title */}
+				{/* Title */}
 				<h1
-					className="font-heading font-black leading-[1.05]"
+					className="font-heading font-black leading-[1.05] flex flex-wrap items-baseline justify-center gap-x-4"
 					style={{ fontSize: "clamp(2.5rem, 8vw, 5.5rem)" }}
 				>
-					<span className="block text-white">{t("line1")}</span>
+					<span className="text-white">{t("line1")}</span>
 					<span
-						className="block"
 						style={{
 							background: "linear-gradient(90deg, #ffd700, #ffc107)",
 							WebkitBackgroundClip: "text",
